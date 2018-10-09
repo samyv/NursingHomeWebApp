@@ -4,7 +4,7 @@
     grid-template-columns: 100px 100px auto 200px;
     grid-template-areas:    "logo   logo    nav     nav"
                             "main   main    main    side"
-                            "footer footer  footer  button";
+                            "footer footer  footer  footer";
     font-family: Arial;
     background-color: lightcoral;
 }
@@ -27,7 +27,7 @@ body{
     align-items: center;
 }
 #container *{
-    background-color: chocolate;
+    background-color: thistle;
     margin: 5px;
     border-radius: 5px;
     padding: 10px;
@@ -48,7 +48,3 @@ main{grid-area: main;}
 aside{grid-area: side;}
 
 footer{grid-area: footer;}
-
-button{
-    grid-area: button;
-}
