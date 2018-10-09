@@ -6,7 +6,6 @@
                             "main   main    main    side"
                             "footer footer  footer  footer";
     font-family: Arial;
-    grid-template-rows: 100px auto auto ;
     background-color: lightcoral;
 }
 
@@ -37,14 +36,11 @@ body{
 #logo{
     grid-area: logo;
     background-color: transparent;
-}
-
-#logopng{
     height: 100%;
     width: 100%;
-    padding: unset;
+    margin:unset;
+    padding:unset;
     border-radius: unset;
-    margin: unset;
 }
 
 nav{
