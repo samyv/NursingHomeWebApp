@@ -13,14 +13,17 @@ class Potluckcontroller extends CI_Controller
         parent::__construct();
         $this->load->library('parser');
         $this->load->helper('url');
-        //$this->load->model('Menu_model');
+        $this->load->model('Menu_model');
     }
     public function home(){
         $data['page_title']='UWE TITEL';
-        $data['content']='blablabla';
+        $data['content']='<form>
+                               <label id="email">Email</label> <input type="email"> <br/>
+                               <label id="password">Password</label> <input type="password">
+                           </form>';
         $data['content_title_1']='tit1';
         $data['content_title_2']='tit2';
-       //$data['menu_items'] = $this->Menu_model->get_menuItems('home');
+        $data['menu_items'] = $this->Menu_model->get_menuItems('home');
         $this->parser->parse('potlucktemplate',$data);
     }
 
@@ -34,7 +37,7 @@ class Potluckcontroller extends CI_Controller
         $data['content']=$this->parser->parse('people',$people,true);
         $data['content_title_1']='tit1';
         $data['content_title_2']='tit2';
-       // $data['menu_items'] = $this->Menu_model->get_menuItems('about');
+        $data['menu_items'] = $this->Menu_model->get_menuItems('about');
         $this->parser->parse('potlucktemplate',$data);
     }
 
@@ -45,7 +48,7 @@ class Potluckcontroller extends CI_Controller
             $data['page_title'] = 'UXWD event\'s page';
             $data2['events'] = $events;
             $data['content'] = $this->parser->parse('events', $data2, true);
-       //     $data['menu_items'] = $this->Menu_model->get_menuItems('events');
+            $data['menu_items'] = $this->Menu_model->get_menuItems('events');
             $this->parser->parse('potlucktemplate', $data);
         }
         elseif($format =="html") {
