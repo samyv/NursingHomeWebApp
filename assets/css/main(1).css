@@ -1,0 +1,165 @@
+* {
+    /* depending on your browser (Chrome,IE,..) user-agent styling can be different*/
+    /* so remove margins and padding on all elements */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    justify-items: center;
+    background: #0ec6c6;
+    font-family: Verdana;
+    /* font name as defined in the html link to google-fonts */
+    font-size: 15px;
+    color: #545454;
+    display: grid;
+    align-items: center;
+    grid-template-columns: auto;
+    grid-template-rows: auto auto 30px;
+    grid-template-areas: "title title navbar"
+                        "main main main"
+                        "foot foot foot";
+}
+
+header,
+main,
+footer {
+    width: 1000px;
+    box-sizing: border-box;
+    box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    margin-top: 30px;
+    padding: 50px;
+    background: #2b328d;
+    text-transform: uppercase;
+}
+
+#logo{
+    grid-area: title;
+}
+main {
+    padding: 50px;
+    background: white;
+    grid-area: main;
+}
+
+footer {
+    /* top+bottom left+right*/
+    background: white;
+    border-top: 2px solid #000000;
+    text-align: center;
+    grid-area: foot;
+}
+
+h1,
+h2,
+h3 {
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+ul {
+    list-style: none;
+}
+
+p {
+    line-height: 180%;
+    margin-bottom: 1em;
+}
+
+a,
+strong {
+    color: #2C2C2C;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+#logo {
+    color: #ffffff;
+}
+
+#logo h1 {
+    font-size: 3em;
+    font-weight: 300;
+    text-transform: none;
+}
+
+#logo h2 {
+    margin-top: -10px;
+    margin-left: 50px;
+    letter-spacing: 1px;
+    font-size: 1.2em;
+    font-weight: 300;
+}
+
+nav {
+    justify-content: space-between;
+    grid-area: navbar;
+}
+
+nav a {
+    letter-spacing: 1px;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 300;
+    color: #FFFFFF;
+    padding: 10px;
+}
+
+nav a:hover, nav a.active {
+    color: #000000 !important;
+}
+
+
+section {
+    height: 500px;
+    align-items: center;
+}
+
+section form {
+    align-items: center;
+}
+
+section h2 {
+    font-size: 2em;
+}
+
+
+@media (max-width: 900px) {
+
+    section {
+        border-bottom: 1px solid #000000;
+    }
+}
+
+@media (max-width: 750px) {
+    #logo {
+        display: none;
+    }
+
+    header {
+        height: 1.5em;
+    }
+}
+
+#KULEUVENLOGO{
+    height: 30px;
+}
+
+#login_form{
+    display: grid;
+    width: 300px;
+    grid-template-columns: auto auto;
+    grid-template-rows: auto;
+    justify-items: center;
+    justify-self: center;
+    margin: 300px 0 0 0;
+}
+
+#login{
+    width: 100px;
+}
