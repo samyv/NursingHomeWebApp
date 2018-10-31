@@ -6,51 +6,50 @@
 }
 
 body {
-    justify-items: center;
     background: #0ec6c6;
-    font-family: Verdana;
+    font-family: 'Dosis', sans-serif;
     /* font name as defined in the html link to google-fonts */
     font-size: 15px;
     color: #545454;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+
     align-items: center;
-    grid-template-columns: auto;
-    grid-template-rows: auto auto 30px;
-    grid-template-areas: "title title navbar"
-                        "main main main"
-                        "foot foot foot";
 }
 
 header,
 main,
 footer {
-    width: 1000px;
+    width: 1400px;
     box-sizing: border-box;
     box-shadow: 10px 10px 10px 5px rgba(0, 0, 0, 0.2);
 }
 
 header {
     margin-top: 30px;
+    height: 150px;
     padding: 50px;
     background: #2b328d;
     text-transform: uppercase;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
-#logo{
-    grid-area: title;
-}
 main {
     padding: 50px;
     background: white;
-    grid-area: main;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 footer {
+    padding: 15px 0px;
     /* top+bottom left+right*/
     background: white;
     border-top: 2px solid #000000;
     text-align: center;
-    grid-area: foot;
 }
 
 h1,
@@ -79,6 +78,7 @@ a:hover {
 }
 
 #logo {
+    flex-grow: 2;
     color: #ffffff;
 }
 
@@ -97,8 +97,10 @@ a:hover {
 }
 
 nav {
+    width: 400px;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    grid-area: navbar;
 }
 
 nav a {
@@ -116,6 +118,7 @@ nav a:hover, nav a.active {
 
 
 section {
+    flex-grow: 2;
     height: 500px;
     align-items: center;
 }
@@ -128,11 +131,42 @@ section h2 {
     font-size: 2em;
 }
 
+aside {
+    padding-left: 40px;
+    width: 400px;
+    line-height: 2em;
+    display: flex;
+    flex-direction: column;
+}
+
+aside article {
+    margin-bottom: 20px;
+}
+
+aside h3 {
+    margin-left: -1em;
+}
+
+aside p {
+    line-height: normal;
+}
 
 @media (max-width: 900px) {
+    header,
+    main,
+    footer,
+    aside {
+        width: 100%;
+        margin-top: 0px;
+        padding: 20px;
+    }
 
     section {
         border-bottom: 1px solid #000000;
+    }
+
+    main {
+        flex-direction: column;
     }
 }
 
@@ -148,18 +182,4 @@ section h2 {
 
 #KULEUVENLOGO{
     height: 30px;
-}
-
-#login_form{
-    display: grid;
-    width: 300px;
-    grid-template-columns: auto auto;
-    grid-template-rows: auto;
-    justify-items: center;
-    justify-self: center;
-    margin: 300px 0 0 0;
-}
-
-#login{
-    width: 100px;
 }
