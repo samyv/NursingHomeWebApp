@@ -1,5 +1,5 @@
 <?php
-$servername = " mysql.studev.groept.be";
+$servername = "mysql.studev.groept.be";
 $username = "a18ux02";
 $password = "p64nbw02qr";
 $dbname = "a18ux02";
