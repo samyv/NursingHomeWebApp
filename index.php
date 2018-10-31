@@ -57,7 +57,7 @@
 
 /*
  *---------------------------------------------------------------
- * ERROR REPORTINGhzhgeqle
+ * ERROR REPORTING
  *---------------------------------------------------------------
  *
  * Different environments will require different levels of error reporting.
