@@ -5426,10 +5426,12 @@ button.close {
 
 .modal-backdrop.fade {
   opacity: 0;
+  transition: opacity .2s;
 }
 
 .modal-backdrop.show {
   opacity: 0.5;
+  transition: opacity .2s;
 }
 
 .modal-header {

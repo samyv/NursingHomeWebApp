@@ -36,6 +36,7 @@
 			<input type="password" autocomplete="current-password" placeholder="Re-enter Password..." name="psw2" required>
 			<br>
 				<button type="button" onclick="location.href='register'">Register</button>
+            <button type="button" onclick="location.href='index.php'">Go back</button>
 		</div>
 </div>
 

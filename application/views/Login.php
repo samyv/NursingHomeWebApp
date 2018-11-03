@@ -17,20 +17,19 @@
         <div class="container">
             <label for="uname"><b>Email</b></label>
             <br>
-            <input id="emailField" type="text" placeholder="Enter email" name="email" required>
+            <input id="emailField" type="text" placeholder="Enter email" name="email">
             <br>
             <label for="psw"><b>Password</b></label>
             <br>
-            <input type="password" placeholder="Enter Password" name="psw" required>
+            <input type="password" placeholder="Enter Password" name="psw">
             <br>
             <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
             <div class="container">
-                <button type="submit">Login</button>
-				<span class="psw"><a href="register">Register</a></span>
+                <button type="submit" value="Submit">Login</button>
+				<button type="register" value="Register" formaction="register">Register</button>
             </div>
         </div>
     </form>
-
 </div>
 
 <!--modal-->
