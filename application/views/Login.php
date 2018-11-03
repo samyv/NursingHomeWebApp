@@ -3,7 +3,6 @@
 <head>
     <title>{page_title}</title>
     <link href="<?=base_url()?>assets/css/login.css" rel="stylesheet" type="text/css">
-    <link href="<?=base_url()?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
 </head>
 <body>
@@ -28,9 +27,6 @@
             <button type="submit">Login</button>
             <button type="button">Register a new caregiver</button>
             </div>
-            <label>
-                <input type="checkbox" checked="checked" name="remember"> Remember me
-            </label>
         </div>
     </form>
 </div>
