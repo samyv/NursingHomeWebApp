@@ -23,9 +23,10 @@
             <br>
             <input type="password" placeholder="Enter Password" name="psw" required>
             <br>
+            <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
             <div class="container">
-            <button type="submit">Login</button>
-            <button type="button">Register a new caregiver</button>
+                <button type="submit">Login</button>
+                <button type="button">Register a new caregiver</button>
             </div>
         </div>
     </form>
