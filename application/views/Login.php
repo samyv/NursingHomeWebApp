@@ -26,7 +26,7 @@
             <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
             <div class="container">
                 <button type="submit">Login</button>
-                <button type="button">Register a new caregiver</button>
+				<span class="psw"><a href="register">Register</a></span>
             </div>
         </div>
     </form>
@@ -70,8 +70,8 @@
 </div>
 
 <footer>
-    <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-    </p>
+	<p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
+	</p>
 </footer>
 </body>
 </html>

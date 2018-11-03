@@ -25,4 +25,9 @@ class GraceAge extends CI_Controller
         $this->parser->parse('ForgotPW',$data);
     }
 
+    public function register(){
+    	$data['page_title'] = 'Register | GraceAge';
+    	$this->parser->parse('Register',$data);
+	}
+
 }
