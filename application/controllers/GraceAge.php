@@ -13,7 +13,6 @@ class GraceAge extends CI_Controller
         parent::__construct();
         $this->load->library('parser');
         $this->load->helper('url');
-        $this->load->model('Menu_model');
     }
     public function index(){
         $data['page_title']='Login | GraceAge';
