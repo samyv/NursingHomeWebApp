@@ -20,4 +20,9 @@ class GraceAge extends CI_Controller
         $this->parser->parse('Login',$data);
     }
 
+    public function pw_forgotten(){
+        $data['page_title']='Forgot password | GraceAge';
+        $this->parser->parse('ForgotPW',$data);
+    }
+
 }

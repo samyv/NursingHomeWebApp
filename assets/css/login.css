@@ -65,6 +65,34 @@ footer{
     font-size: 10px;
 }
 
+.modal{
+    display: none;
+    z-index: 1;
+    padding-top: 150px;
+    width: 100%;
+    height: 100%;
+
+}
+
+.modal-header {
+    display: block !important;
+    align-items: center !important;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 500px) {
     button{
