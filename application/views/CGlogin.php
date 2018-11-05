@@ -13,7 +13,7 @@
 </div>
 
 <div class="form">
-    <form action="logindb.php" method="POST">
+    <form action="logindbCaregiver.php" method="POST">
         <div class="container">
             <label for="uname"><b>Email</b></label>
             <br>
