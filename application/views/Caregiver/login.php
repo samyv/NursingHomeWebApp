@@ -13,15 +13,19 @@
 </div>
 
 <div class="form">
-    <form action="logindbCaregiver.php" method="POST">
+    <form action="" method="POST">
         <div class="container">
             <label for="uname"><b>Email</b></label>
             <br>
-            <input id="emailField" type="text" placeholder="Enter email" name="email">
+            <div class="form_group">
+                <input id="emailField" type="text" placeholder="Enter email" name="email">
+            </div>
             <br>
             <label for="psw"><b>Password</b></label>
             <br>
+            <div class="form_group">
             <input type="password" placeholder="Enter Password" name="psw">
+            </div>
             <br>
             <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
             <div class="container">
