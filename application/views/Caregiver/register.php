@@ -13,7 +13,7 @@
 </div>
 
 <div class="form">
-	<form action="registerdb.php" method="POST">
+	<form action="registerdbCaregiver.php" method="POST">
 		<div class="container">
 			<label for="surname"><b>Surname:</b></label>
 			<br>

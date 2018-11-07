@@ -96,10 +96,10 @@ $db['default'] = array(
 );*/
 
 $db['default'] = array(
-	'dsn'	=> 'mysql:host=mysql.studev.groept.be;dbname=a18uxwd',
+	'dsn'	=> 'mysql:host=mysql.studev.groept.be;dbname=a18ux02',
 	'hostname' => '',
-	'username' => 'a18uxwd',
-	'password' => 'a18uxwd',
+	'username' => 'a18ux02',
+	'password' => 'p64nbw02qr',
 	'database' => '',
 	'dbdriver' => 'pdo',
 	'dbprefix' => '',
