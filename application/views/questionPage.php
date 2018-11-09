@@ -18,7 +18,7 @@
     <button type="submit">Log out</button>
 </div>
 
-<p id="questionType">Question Type(1/5)</p>
+<p id="questionType">Question Type(2/5)</p>
 
 <div class="progress" id="progressbar">
     <div class="progress-bar progress-bar-striped active" role="progressbar"
