@@ -24,7 +24,7 @@ class Caregiver extends CI_Controller
     public function account(){
         $data = array();
         if($this->session->userdata('isUserLoggedIn')){
-            $data['caregiver'] = $this->caregiver->getRows(array('id'=>$this->session->userdata('idCaregiver')));
+            $data['caregiver'] = $this->caregivers->getRows(array('id'=>$this->session->userdata('idCaregiver')));
             //load the view
             $this->load->view('Caregiver/account', $data);
         }else{
@@ -56,7 +56,7 @@ class Caregiver extends CI_Controller
                     'password' => md5($this->input->post('password')),
                     'status' => '1'
                 );
-                $checkLogin = $this->caregiver->getRows($con);
+                $checkLogin = $this->caregivers->getRows($con);
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('userId',$checkLogin['id']);
@@ -90,7 +90,7 @@ class Caregiver extends CI_Controller
             );
 
             if($this->form_validation->run() == true){
-                $insert = $this->caregiver->insert($userData);
+                $insert = $this->caregivers->insert($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
                     redirect('Caregiver/login');
@@ -120,7 +120,7 @@ class Caregiver extends CI_Controller
     public function email_check($str){
         $con['returnType'] = 'count';
         $con['conditions'] = array('email'=>$str);
-        $checkEmail = $this->caregiver->getRows($con);
+        $checkEmail = $this->caregivers->getRows($con);
         if($checkEmail > 0){
             $this->form_validation->set_message('email_check', 'The given email already exists.');
             return FALSE;
