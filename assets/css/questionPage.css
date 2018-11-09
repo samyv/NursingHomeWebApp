@@ -1,0 +1,120 @@
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+#firstRow{
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto;
+    grid-template-areas: "dummy logo logout";
+    align-items: center;
+}
+
+#firstRow #logo{
+    grid-area: logo;
+    font-size: 64px;
+}
+
+#firstRow #dummy{
+    grid-area: dummy;
+    font-size: 64px;
+    color: white;
+}
+
+
+#firstRow button{
+    grid-area: logout;
+    justify-self: right;
+    width: 200px;
+    height: 50px;
+    color: white;
+    background-color: red;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-size: 30px;
+}
+
+#firstRow button:hover{
+    background-color: darkred;
+    cursor: pointer;
+}
+
+#answers,footer,header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+body {
+    font-family: Verdana;
+}
+
+#answers {
+    padding: 40px;
+    overflow: hidden;
+    margin-bottom: 6px;
+}
+
+#answers input {
+    position: absolute !important;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+    margin: 30px;
+}
+
+#answers label {
+    float: left;
+}
+
+#answers label {
+    display: inline-block;
+    margin: 30px;
+    width: 200px;
+    background-color: #e4e4e4;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 30px;
+    font-weight: normal;
+    text-align: center;
+    text-shadow: none;
+    padding: 6px 14px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition:    all 0.1s ease-in-out;
+    -ms-transition:     all 0.1s ease-in-out;
+    -o-transition:      all 0.1s ease-in-out;
+    transition:         all 0.1s ease-in-out;
+}
+
+#answers label:hover {
+    cursor: pointer;
+}
+
+#answers input:checked + label {
+    background-color: #A5DC86;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+#answers label{
+    border-radius: 4px;
+}
+
+#previous{
+    float: left;
+    width: 200px;
+    height: 50px;
+    color: black;
+    background-color: yellowgreen;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    font-size: 30px;
+}
+
+#previous:hover{
+    background-color: green;
+    cursor: pointer;
+}
