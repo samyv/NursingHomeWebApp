@@ -17,11 +17,11 @@
 		<div class="container">
 			<label for="surname"><b>Surname:</b></label>
 			<br>
-			<input type="text" autocomplete="username" placeholder="Enter surname..." name="surname" required>
+			<input type="text" autocomplete="username" placeholder="Enter surname..." name="firstname" required>
 			<br>
 			<label for="name"><b>Name:</b></label>
 			<br>
-			<input type="text" autocomplete="username" placeholder="Enter Name..." name="name" required>
+			<input type="text" autocomplete="username" placeholder="Enter Name..." name="lastname" required>
 			<br>
 			<label for="email"><b>Email:</b></label>
 			<br>
