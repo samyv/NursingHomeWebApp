@@ -17,7 +17,7 @@
         <div class="container">
             <label for="uname"><b>Room number</b></label>
             <br>
-            <input id="roomField" type="text" placeholder="Enter room number" name="room_number">
+            <input id="roomField" type="number" min="0" placeholder="Enter room number" name="room_number">
             <br>
             <button id = "loginResident" type="submit" value="Submit">Login</button>
         </div>
