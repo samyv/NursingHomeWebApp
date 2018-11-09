@@ -22,7 +22,7 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
 	die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT * FROM Caregiver WHERE email = '$email'";
+$sql = "SELECT * FROM Caregivers WHERE email = '$email'";
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
 	$message = "email already in use";
@@ -32,7 +32,7 @@ if ($result->num_rows > 0) {
 	$message = "passwords don't match!";
 	echo "<script type='text/javascript'>alert('$message'); </script>";
 } else {
-	$insert_row = "INSERT INTO Caregiver (idCaregiver, surname, name, email,password) VALUES (NULL,'$surname','$name','$email','$psw')";
+	$insert_row = "INSERT INTO Caregivers (idCaregiver, surname, name, email,password) VALUES (NULL,'$surname','$name','$email','$psw')";
 	$result = $conn->query($insert_row);
 }
 $conn->close();

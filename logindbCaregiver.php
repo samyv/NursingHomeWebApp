@@ -18,7 +18,7 @@ $pass = md5($_POST['psw']);
 echo $email;
 echo $pass;
 
-$sql = "SELECT * FROM Caregiver WHERE email = '$email' AND password = '$pass'";
+$sql = "SELECT * FROM Caregivers WHERE email = '$email' AND password = '$pass'";
 $result = $conn->query($sql);
 if (($result->num_rows > 0)) {
 	echo "succes";

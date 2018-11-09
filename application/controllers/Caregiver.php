@@ -14,7 +14,8 @@ class Caregiver extends CI_Controller
         $this->load->library('parser');
         $this->load->helper('url');
         $this->load->library('form_validation');
-        $this->load->model('user');
+        $this->load->model('Caregivers');
+        $this->load->library('session');
     }
 
     /*
@@ -23,11 +24,11 @@ class Caregiver extends CI_Controller
     public function account(){
         $data = array();
         if($this->session->userdata('isUserLoggedIn')){
-            $data['user'] = $this->user->getRows(array('id'=>$this->session->userdata('userId')));
+            $data['caregiver'] = $this->caregiver->getRows(array('id'=>$this->session->userdata('idCaregiver')));
             //load the view
-            $this->load->view('users/account', $data);
+            $this->load->view('Caregiver/account', $data);
         }else{
-            redirect('Caregiver/index');
+            redirect('Caregiver/login');
         }
     }
 
@@ -55,18 +56,18 @@ class Caregiver extends CI_Controller
                     'password' => md5($this->input->post('password')),
                     'status' => '1'
                 );
-                $checkLogin = $this->user->getRows($con);
+                $checkLogin = $this->caregiver->getRows($con);
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('userId',$checkLogin['id']);
-                    redirect('users/account/');
+                    redirect('Caregiver/account/');
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
             }
         }
         //load the view
-        $this->load->view('Caregiver/login', $data);
+        $this->parser->parse('Caregiver/login', $data);
     }
 
     /*
@@ -86,23 +87,21 @@ class Caregiver extends CI_Controller
                 'name' => strip_tags($this->input->post('name')),
                 'email' => strip_tags($this->input->post('email')),
                 'password' => md5($this->input->post('password')),
-                'gender' => $this->input->post('gender'),
-                'phone' => strip_tags($this->input->post('phone'))
             );
 
             if($this->form_validation->run() == true){
                 $insert = $this->user->insert($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
-                    redirect('users/login');
+                    redirect('Caregiver/login');
                 }else{
                     $data['error_msg'] = 'Some problems occured, please try again.';
                 }
             }
         }
-        $data['user'] = $userData;
+        $data['caregiver'] = $userData;
         //load the view
-        $this->load->view('Caregiver/register', $data);
+        $this->parser->parse('Caregiver/register', $data);
     }
 
     /*
@@ -110,7 +109,7 @@ class Caregiver extends CI_Controller
      */
     public function logout(){
         $this->session->unset_userdata('isUserLoggedIn');
-        $this->session->unset_userdata('userId');
+        $this->session->unset_userdata('idCaregiver');
         $this->session->sess_destroy();
         redirect('Caregiver/login/');
     }
@@ -121,7 +120,7 @@ class Caregiver extends CI_Controller
     public function email_check($str){
         $con['returnType'] = 'count';
         $con['conditions'] = array('email'=>$str);
-        $checkEmail = $this->user->getRows($con);
+        $checkEmail = $this->caregiver->getRows($con);
         if($checkEmail > 0){
             $this->form_validation->set_message('email_check', 'The given email already exists.');
             return FALSE;
@@ -129,6 +128,4 @@ class Caregiver extends CI_Controller
             return TRUE;
         }
     }
-
-
 }

@@ -12,29 +12,37 @@
     <h2>Providing better care</h2>
 </div>
 
-<div class="form">
+<div class="container">
+    <?php
+    if(!empty($success_msg)){
+        echo '<p class="statusMsg">'.$success_msg.'</p>';
+    }elseif(!empty($error_msg)){
+        echo '<p class="statusMsg">'.$error_msg.'</p>';
+    }
+    ?>
     <form action="" method="POST">
-        <div class="container">
-            <label for="uname"><b>Email</b></label>
+            <label for="email"><b>Email</b></label>
             <br>
-            <div class="form_group">
-                <input id="emailField" type="text" placeholder="Enter email" name="email">
+            <div class="form-group has-feedback">
+                <input id="emailField" class="form-control" type="email" placeholder="Enter email" name="email" required="" value="">
+                <?php echo form_error('email','<span class="help-block">','</span>'); ?>
             </div>
             <br>
             <label for="psw"><b>Password</b></label>
             <br>
-            <div class="form_group">
-            <input type="password" placeholder="Enter Password" name="psw">
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Enter Password" name="password" required="">
+                <?php echo form_error('password','<span class="help-block">','</span>'); ?>
             </div>
             <br>
             <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
-            <div class="container">
-                <button type="submit" value="Submit">Login</button>
-				<button type="register" value="Register" formaction="register">Register</button>
+            <div class="form-group">
+                <input type="submit" name="loginSubmit" class="btn-primary" value="Submit"/>
             </div>
-        </div>
     </form>
+    <input type="submit" name="regisSubmit" class="btn-primary" value="Register" onclick="location.href='register'"/>
 </div>
+
 
 <!--modal-->
 <div id="pwdModal" class="modal">

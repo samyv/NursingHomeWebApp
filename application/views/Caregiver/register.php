@@ -13,31 +13,46 @@
 </div>
 
 <div class="form">
-	<form action="registerdb.php" method="POST">
-		<div class="container">
+	<form action="" method="POST">
 			<label for="surname"><b>Surname:</b></label>
 			<br>
-			<input type="text" autocomplete="username" placeholder="Enter surname..." name="surname" required>
+            <div class="form-group">
+			    <input type="text" class="form-control" placeholder="Enter first name" name="firstname" required="" value="<?php echo !empty($user['firstname'])?$user['firstname']:''; ?>">
+                <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
+            </div>
 			<br>
 			<label for="name"><b>Name:</b></label>
 			<br>
-			<input type="text" autocomplete="username" placeholder="Enter Name..." name="name" required>
+            <div class="form-group">
+			    <input type="text" class="form-control" placeholder="Enter last name" name="lastname" required="" value="<?php echo !empty($user['lastname'])?$user['lastname']:''; ?>">
+                <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
+            </div>
 			<br>
 			<label for="email"><b>Email:</b></label>
 			<br>
-			<input type="text" autocomplete="username" placeholder="Enter email..." name="email" required>
-			<br>
+            <div class="form-group">
+			    <input type="email" class="form-control" autocomplete="username" placeholder="Enter email" name="email" required="" value="<?php echo !empty($user['email'])?$user['email']:''; ?>">
+                <?php echo form_error('email','<span class="help-block">','</span>'); ?>
+            </div>
+                <br>
 			<label for="psw"><b>Password</b></label>
 			<br>
-			<input type="password" autocomplete="current-password" placeholder="Enter Password..." name="psw" required>
+            <div class="form-group">
+			    <input type="password" class="form-control" placeholder="Enter password" name="password" required="">
+                <?php echo form_error('password','<span class="help-block">','</span>'); ?>
+            </div>
 			<br>
 			<label for="psw"><b>Re-enter Password</b></label>
 			<br>
-			<input type="password" autocomplete="current-password" placeholder="Re-enter Password..." name="psw2" required>
+            <div class="form-group">
+			    <input type="password" class="form-control" autocomplete="current-password" placeholder="Confirm password" name="conf_password" required="">
+                <?php echo form_error('confirm_password','<span class="help-block">','</span>'); ?>
+            </div>
 			<br>
+            <div class="form-group">
+                <input type="submit" name="regisSubmit" class="btn-primary"/>
+            </div>
             <button type="button" onclick="location.href='index.php'">Go back</button>
-			<button type="submit">Register</button>
-		</div>
 	</form>
 </div>
 
