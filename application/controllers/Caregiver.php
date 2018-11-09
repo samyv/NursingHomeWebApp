@@ -14,7 +14,7 @@ class Caregiver extends CI_Controller
         $this->load->library('parser');
         $this->load->helper('url');
         $this->load->library('form_validation');
-        $this->load->model('Caregivers');
+        $this->load->model('caregivers');
         $this->load->library('session');
     }
 
@@ -90,7 +90,7 @@ class Caregiver extends CI_Controller
             );
 
             if($this->form_validation->run() == true){
-                $insert = $this->user->insert($userData);
+                $insert = $this->caregiver->insert($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
                     redirect('Caregiver/login');

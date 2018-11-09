@@ -13,7 +13,7 @@ Class Caregivers extends CI_Model{
         $this->CGtable = 'Caregiver';
     }
 
-    function getRows(){
+    function getRows($params= array()){
         $this->db->select('*');
         $this->db->from($this->CGtable);
 
