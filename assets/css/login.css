@@ -11,7 +11,7 @@ body {
     display: flex;
     margin: 0;
     flex-direction: column;
-    width: 500px;
+    width: 100%;
     align-items: center;
 
 }
@@ -20,13 +20,16 @@ body {
     align-self: center;
     justify-self: center;
     text-align: center;
+    background-color: #003b46;
+    color: white;
+    width: 100%;
 }
 
 .form {
     height: 100%;
 }
 
-input[type=text], input[type=password] {
+input[type=email], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
     display: inline-block;
@@ -35,12 +38,14 @@ input[type=text], input[type=password] {
     width: 100%;
 }
 
-button {
-    background-color: #4CAF50;
+input[type=submit] {
+    background-color: #66a5ad;
     color: white;
     padding: 14px 50px;
     border: none;
     cursor: pointer;
+    margin-top: 10px;
+
 
 }
 
@@ -55,8 +60,25 @@ button:hover {
 
 
 .container {
-    padding: 16px;
-    align-content: center;
+    display: grid;
+    grid-template-areas: "image login-form";
+    grid-template-columns: 50% 50%;
+}
+
+.image{
+    grid-area: image;
+    margin: 20% 0 5% 5%;
+}
+
+#remyImg{
+
+    width: 100%;
+
+}
+
+.login-form{
+    grid-area: login-form;
+    margin: 20% 5% 0 20%;
 }
 
 span.psw {
@@ -64,9 +86,10 @@ span.psw {
     font-size: 12px;
 }
 footer{
-    margin-bottom:0;
+    bottom:0;
     text-align: center;
     font-size: 10px;
+    position: fixed;
 }
 
 .modal{
