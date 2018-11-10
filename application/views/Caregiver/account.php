@@ -49,7 +49,7 @@
                 </div>
                 <div class="form-group">
                     <b>Old password:</b>
-                    <input type="password" name="old_password" placeholder="Enter old password">
+                    <input type="password" name="old_password" placeholder="Enter old password" required="">
                     <?php echo form_error('old_password','<span class="help-block">','</span>'); ?>
                 </div>
                 <div class="form-group">

@@ -18,19 +18,19 @@
         <form action="" method="POST">
             <label for="surname"><b>Surname:</b></label>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter first name" name="firstname" required="" value="<?php echo !empty($user['firstname'])?$user['firstname']:''; ?>">
+                <input type="text" class="form-control" placeholder="Enter first name" name="firstname" required="" value="<?php echo !empty($caregiver['firstname'])?$caregiver['firstname']:''; ?>">
                 <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
             </div>
             <label for="name"><b>Name:</b></label>
             <br>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter last name" name="lastname" required="" value="<?php echo !empty($user['lastname'])?$user['lastname']:''; ?>">
+                <input type="text" class="form-control" placeholder="Enter last name" name="lastname" required="" value="<?php echo !empty($caregiver['lastname'])?$caregiver['lastname']:''; ?>">
                 <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
             </div>
             <label for="email"><b>Email:</b></label>
             <br>
             <div class="form-group">
-                <input type="email" class="form-control" autocomplete="username" placeholder="Enter email" name="email" required="" value="<?php echo !empty($user['email'])?$user['email']:''; ?>">
+                <input type="email" class="form-control" autocomplete="username" placeholder="Enter email" name="email" required="" value="<?php echo !empty($caregiver['email'])?$caregiver['email']:''; ?>">
                 <?php echo form_error('email','<span class="help-block">','</span>'); ?>
             </div>
             <label for="psw"><b>Password:</b></label>

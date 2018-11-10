@@ -43,6 +43,23 @@ Class Caregivers extends CI_Model{
         }
     }
 
+    function lookUpPassword($params= array()){
+        //fetch data by conditions
+        if(array_key_exists("conditions",$params)){
+            $password = $params['conditions']["password"];
+
+            $id = $params['conditions']["id"];
+            $sql = "SELECT password FROM a18ux02.Caregiver WHERE idCaregiver = '$id'";
+            $result = $this->db->query($sql)->result();
+            if($password != $result['0']->password){
+                return true;
+            } else {
+                return false;
+            }
+
+        }
+    }
+
     /*
      * Insert user information
      */
@@ -85,7 +102,6 @@ Class Caregivers extends CI_Model{
             $insert = $this->db->query($sql);
         }
         //Update user data to users table
-
 
         //return the status
         if($insert){

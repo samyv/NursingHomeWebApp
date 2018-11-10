@@ -17,7 +17,6 @@ class Caregiver extends CI_Controller
         $this->load->model('caregivers');
         $this->load->library('session');
         $this->load->database('default');
-        $userData = array();
     }
 
     /*
@@ -50,13 +49,14 @@ class Caregiver extends CI_Controller
 
 
         if($this->input->post('saveSettings')){
-            $this->form_validation->set_rules('firstname', 'Name', 'required');
-            $this->form_validation->set_rules('lastname', 'Name', 'required');
+            $idCaregiver = strip_tags($this->input->post('idCaregiver'));
+            $this->form_validation->set_rules('firstname', 'First name', 'required');
+            $this->form_validation->set_rules('lastname', 'Last name', 'required');
             $this->form_validation->set_rules('floor', 'Floor number', 'required|is_natural_no_zero');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-            $this->form_validation->set_rules('old_password', 'old password', 'required');
-            if(!empty($_POST['password'])) {
-                $this->form_validation->set_rules('new_password', 'password', 'required');
+            $this->form_validation->set_rules('old_password', 'old password', 'required|callback_password_check['.$idCaregiver.']');
+            if(isset($_POST['new_password'])) {
+                $this->form_validation->set_rules('new_password', 'new password', 'required');
                 $this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[new_password]');
             }
 
@@ -70,18 +70,14 @@ class Caregiver extends CI_Controller
                 }
                 $userData['floor'] = strip_tags($this->input->post('floor'));
                 $userData['idCaregiver'] = strip_tags($this->input->post('idCaregiver'));
-
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', 'Your new settings have been saved');
-                    redirect('account');
+                    //redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
-                    redirect('account');
+                    //redirect('account');
                 }
-            } else {
-                $this->session->set_userdata('error_msg', 'nothing changed');
-                redirect('account');
             }
         }
         $data['caregiver'] = $userData;
@@ -108,17 +104,15 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('password', 'password', 'required');
             if ($this->form_validation->run() == true) {
-                $con['returnType'] = 'single';
                 $con['conditions'] = array(
                     'email'=>$this->input->post('email'),
-                    'password' => md5($this->input->post('password')),
-                    'status' => '1'
+                    'password' => md5($this->input->post('password'))
                 );
                 $checkLogin = $this->caregivers->lookUp($con);
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('idCaregiver',$checkLogin['0']->idCaregiver);
-                    redirect('account/');
+                    redirect('account');
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
@@ -177,11 +171,22 @@ class Caregiver extends CI_Controller
      * Existing email check during validation
      */
     public function email_check($str){
-        $con['returnType'] = 'count';
         $con['conditions'] = array('email'=>$str);
         $checkEmail = $this->caregivers->lookUpEmail($con);
         if($checkEmail > 0){
             $this->form_validation->set_message('email_check', 'The given email already exists.');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    public function password_check($str, $id){
+
+        $con['conditions'] = array('password'=>md5($str),
+                                    'id'=>$id);
+        $checkPassword = $this->caregivers->lookUpPassword($con);
+        if($checkPassword){
+            $this->form_validation->set_message('password_check', 'password is incorrect');
             return FALSE;
         } else {
             return TRUE;
