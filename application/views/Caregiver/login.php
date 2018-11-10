@@ -3,9 +3,10 @@
 <head>
     <title>{page_title}</title>
     <link href="<?=base_url()?>assets/css/login.css" rel="stylesheet" type="text/css">
-    <!--<link href="<?=base_url()?>assets/css/bootstrap.css" rel="stylesheet" type="text/css"> -->
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
     <div class="logo">
         <h1>GraceAge</h1>
@@ -42,13 +43,12 @@
                     </div>
                     <br>
                     <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
-                    <div class="form-group">
+                    <div class="form-group" id="submitButtons">
                         <input type="submit" name="loginSubmit" class="btn-primary" value="Login"/>
-                        <input type="submit" class="btn-primary" value="Register" onclick="location.href='register'"/>
+                        <input type="submit" class="btn-primary" value="Register a new caregiver" onclick="location.href='register'"/>
                     </div>
             </form>
         </div>
-
     </div>
 <!--modal-->
 <div id="pwdModal" class="modal">
@@ -90,6 +90,7 @@
 	<p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
 	</p>
 </footer>
+
 </body>
 </html>
 <script>

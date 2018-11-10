@@ -6,10 +6,10 @@
 <body>
 <div class="container">
     <h2>User Account</h2>
-    <h3>Welcome <?php echo $user['name']; ?>!</h3>
+    <h3>Welcome <?php echo $caregiver['name']; ?>!</h3>
     <div class="account-info">
-        <p><b>Name: </b><?php echo $user['name']; ?></p>
-        <p><b>Email: </b><?php echo $user['email']; ?></p>
+        <p><b>Name: </b><?php echo $caregiver['name']; ?></p>
+        <p><b>Email: </b><?php echo $caregiver['email']; ?></p>
     </div>
 </div>
 </body>

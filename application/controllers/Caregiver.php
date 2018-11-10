@@ -16,6 +16,7 @@ class Caregiver extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('caregivers');
         $this->load->library('session');
+        $this->load->database('default');
     }
 
     /*
@@ -24,11 +25,12 @@ class Caregiver extends CI_Controller
     public function account(){
         $data = array();
         if($this->session->userdata('isUserLoggedIn')){
+            print_r($data['caregiver']);
             $data['caregiver'] = $this->caregivers->getRows(array('id'=>$this->session->userdata('idCaregiver')));
             //load the view
             $this->load->view('Caregiver/account', $data);
         }else{
-            redirect('Caregiver/login');
+            redirect('Caregiver/index');
         }
     }
 
@@ -75,7 +77,7 @@ class Caregiver extends CI_Controller
      */
     public function register(){
         $data = array();
-        $data['page_title']='Register new caregiver| GraceAge';
+        $data['page_title']='Register new caregiver | GraceAge';
         $userData = array();
         if($this->input->post('regisSubmit')){
             $this->form_validation->set_rules('name', 'Name', 'required');
@@ -84,7 +86,8 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[password]');
 
             $userData = array(
-                'name' => strip_tags($this->input->post('name')),
+                'firstname' => strip_tags($this->input->post('firstname')),
+                'lastname' => strip_tags($this->input->post('lastname')),
                 'email' => strip_tags($this->input->post('email')),
                 'password' => md5($this->input->post('password')),
             );
@@ -93,7 +96,7 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->insert($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
-                    redirect('Caregiver/login');
+                    //redirect('Caregiver/login');
                 }else{
                     $data['error_msg'] = 'Some problems occured, please try again.';
                 }
