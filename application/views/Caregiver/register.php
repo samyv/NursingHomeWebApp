@@ -1,50 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{page_title}</title>
-	<link href="<?= base_url() ?>assets/css/login.css" rel="stylesheet" type="text/css">
-	<link href="<?= base_url() ?>assets/css/bootstrap.css" rel="stylesheet" type="text/css">
-	<link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/images/logo.png">
+    <title>{page_title}</title>
+    <link href="<?= base_url() ?>assets/css/login.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/images/logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 <div class="logo">
-	<h1>GraceAge</h1>
-	<h2>Providing better care</h2>
+    <h1>GraceAge</h1>
+    <h2>Providing better care</h2>
 </div>
 
-<div class="form">
-	<form action="registerdbCaregiver.php" method="POST">
-		<div class="container">
-			<label for="surname"><b>Surname:</b></label>
-			<br>
-			<input type="text" autocomplete="username" placeholder="Enter surname..." name="firstname" required>
-			<br>
-			<label for="name"><b>Name:</b></label>
-			<br>
-			<input type="text" autocomplete="username" placeholder="Enter Name..." name="lastname" required>
-			<br>
-			<label for="email"><b>Email:</b></label>
-			<br>
-			<input type="text" autocomplete="username" placeholder="Enter email..." name="email" required>
-			<br>
-			<label for="psw"><b>Password</b></label>
-			<br>
-			<input type="password" autocomplete="current-password" placeholder="Enter Password..." name="psw" required>
-			<br>
-			<label for="psw"><b>Re-enter Password</b></label>
-			<br>
-			<input type="password" autocomplete="current-password" placeholder="Re-enter Password..." name="psw2" required>
-			<br>
-            <button type="button" onclick="location.href='index.php'">Go back</button>
-			<button type="submit">Register</button>
-		</div>
-	</form>
-</div>
+<main>
+    <div class="form">
+        <h1>Register a new caregiver</h1>
+        <form action="" method="POST">
+            <label for="surname"><b>Surname:</b></label>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter first name" name="firstname" required="" value="<?php echo !empty($user['firstname'])?$user['firstname']:''; ?>">
+                <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
+            </div>
+            <label for="name"><b>Name:</b></label>
+            <br>
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter last name" name="lastname" required="" value="<?php echo !empty($user['lastname'])?$user['lastname']:''; ?>">
+                <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
+            </div>
+            <label for="email"><b>Email:</b></label>
+            <br>
+            <div class="form-group">
+                <input type="email" class="form-control" autocomplete="username" placeholder="Enter email" name="email" required="" value="<?php echo !empty($user['email'])?$user['email']:''; ?>">
+                <?php echo form_error('email','<span class="help-block">','</span>'); ?>
+            </div>
+            <label for="psw"><b>Password:</b></label>
+            <br>
+            <div class="form-group">
+                <input type="password" class="form-control" placeholder="Enter password" name="password" required="">
+                <?php echo form_error('password','<span class="help-block">','</span>'); ?>
+            </div>
+            <label for="psw"><b>Confirm Password:</b></label>
+            <br>
+            <div class="form-group">
+                <input type="password" class="form-control" autocomplete="current-password" placeholder="Confirm password" name="conf_password" required="">
+                <?php echo form_error('confirm_password','<span class="help-block">','</span>'); ?>
+            </div>
+            <div class="form-group" id="submitButtons">
+                <input type="submit" name="regisSubmit" class="btn-primary" value="Register"/>
+                <input type="submit" onclick="location.href='index.php'" value="Go back">
+            </div>
+        </form>
+    </div>
+</main>
 
 <footer>
-	<p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-	</p>
+    <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
+    </p>
 </footer>
+
 </body>
 </html>
-

@@ -26,8 +26,8 @@ $result = $dbh->query($sql);
 
 if ($result->rowCount() > 0) {
 	$message = "email already in use";
-	print $result;
 	echo "<script type='text/javascript'>alert('$message'); </script>";
+
 } else if (strcmp($psw, $psw2)) {
 	$message = "passwords don't match!";
 	echo "<script type='text/javascript'>alert('$message'); </script>";
