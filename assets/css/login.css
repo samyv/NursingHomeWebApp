@@ -42,7 +42,7 @@ input[type=email],input[type=text], input[type=password] {
     width: 100%;
 }
 
-input[type=submit] {
+input[type=submit]{
     background-color: #66a5ad;
     color: white;
     padding: 14px 50px;
@@ -50,13 +50,25 @@ input[type=submit] {
     cursor: pointer;
     margin-top: 10px;
 }
+input[type=button]{
+    background-color: #66a5ad;
+    color: white;
+    padding: 14px 50px;
+    border: none ;
+    cursor: pointer ;
+    margin-top: 10px ;
+}
 
 #loginResident{
     width: 100%;
     padding: 14px 0;
 }
 
-input[type=submit]:hover {
+input[type=submit]:hover,input[type=button]:hover{
+    opacity: 0.8;
+}
+
+input[type=button]:hover{
     opacity: 0.8;
 }
 

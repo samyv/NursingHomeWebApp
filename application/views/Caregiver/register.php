@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{page_title}</title>
-    <link href="<?= base_url() ?>assets/css/login.css" rel="stylesheet" type="text/css">
+    <link href="<?= base_url();?>assets/css/login.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
@@ -47,7 +47,7 @@
             </div>
             <div class="form-group" id="submitButtons">
                 <input type="submit" name="regisSubmit" class="btn-primary" value="Register"/>
-                <input type="submit" onclick="location.href='index.php'" value="Go back">
+                <input type="button" onclick="location.href='index.php'" value="Go back">
             </div>
         </form>
     </div>

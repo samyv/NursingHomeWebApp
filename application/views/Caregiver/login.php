@@ -45,7 +45,7 @@
                     <span class="psw"><a href="#" id="pwdForgot">Forgot password?</a></span>
                     <div class="form-group" id="submitButtons">
                         <input type="submit" name="loginSubmit" class="btn-primary" value="Login"/>
-                        <input type="submit" class="btn-primary" value="Register a new caregiver" onclick="location.href='register'"/>
+                        <input type="button" value="Register a new caregiver" onclick="location.href='register'"/>
                     </div>
             </form>
         </div>

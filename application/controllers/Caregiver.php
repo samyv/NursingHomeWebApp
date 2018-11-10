@@ -31,7 +31,7 @@ class Caregiver extends CI_Controller
             //load the view
             $this->load->view('Caregiver/account', $data);
         }else{
-            redirect('index');
+            redirect('index.php');
         }
     }
 
@@ -99,7 +99,7 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->insert($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
-                    redirect('index');
+                    redirect('index.php');
                 }else{
                     $data['error_msg'] = 'Some problems occured, please try again.';
                 }
@@ -118,7 +118,7 @@ class Caregiver extends CI_Controller
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('idCaregiver');
         $this->session->sess_destroy();
-        redirect('index');
+        redirect('index.php');
     }
 
     /*
