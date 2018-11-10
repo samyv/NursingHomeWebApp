@@ -52,6 +52,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 $route['default_controller'] = 'Caregiver';
 $route['register'] = 'Caregiver/register';
+$route['index']= 'Caregiver/index';
+$route['account'] = 'Caregiver/account';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
