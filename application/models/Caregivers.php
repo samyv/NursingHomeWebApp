@@ -47,13 +47,12 @@ Class Caregivers extends CI_Model{
      * Insert user information
      */
     public function insert($data = array()) {
-        //add created and modified data if not included
         $firstname = $data['firstname'];
         $lastname = $data['lastname'];
         $email = $data['email'];
         $password = $data['password'];
         //insert user data to users table
-        $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, created, modified, status) VALUES (NULL,'$firstname','$lastname','$email','101','$password',CURRENT_TIME ,CURRENT_TIME,'0')";
+        $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, created, modified, activated) VALUES (NULL,'$firstname','$lastname','$email','1','$password',CURRENT_TIME ,CURRENT_TIME,'0')";
         $insert = $this->db->query($sql);
         print_r($insert);
 
@@ -65,4 +64,34 @@ Class Caregivers extends CI_Model{
         }
     }
 
+    public function modify($data = array()) {
+        $idCaregiver = $data['idCaregiver'];
+        $firstname = $data['firstname'];
+        $floor= $data['floor'];
+        $lastname = $data['lastname'];
+        $email = $data['email'];
+        $oldPassword = $data['old_password'];
+
+        if(!empty($data['new_password'])) {
+            $newPassword = $data['new_password'];
+            $sql = "UPDATE a18ux02.Caregiver 
+                SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', password ='$newPassword', modified = CURRENT_TIME
+                WHERE idCaregiver = '$idCaregiver'";
+            $insert = $this->db->query($sql);
+        } else {
+            $sql = "UPDATE a18ux02.Caregiver 
+                SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', modified = CURRENT_TIME
+                WHERE idCaregiver = '$idCaregiver'  AND password = '$oldPassword'";
+            $insert = $this->db->query($sql);
+        }
+        //Update user data to users table
+
+
+        //return the status
+        if($insert){
+            return $insert;
+        }else{
+            return false;
+        }
+    }
 }

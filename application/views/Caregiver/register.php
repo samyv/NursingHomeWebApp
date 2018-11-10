@@ -43,7 +43,7 @@
             <br>
             <div class="form-group">
                 <input type="password" class="form-control" autocomplete="current-password" placeholder="Confirm password" name="conf_password" required="">
-                <?php echo form_error('confirm_password','<span class="help-block">','</span>'); ?>
+                <?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
             </div>
             <div class="form-group" id="submitButtons">
                 <input type="submit" name="regisSubmit" class="btn-primary" value="Register"/>

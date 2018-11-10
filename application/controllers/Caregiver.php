@@ -25,14 +25,66 @@ class Caregiver extends CI_Controller
      */
     public function account(){
         $data = array();
+        $userData = array();
+        $data['page_title']='Account overview | GraceAge';
+
+        if($this->session->userdata('success_msg')){
+            $data['success_msg'] = $this->session->userdata('success_msg');
+            $this->session->unset_userdata('success_msg');
+        }
+        if($this->session->userdata('error_msg')){
+            $data['error_msg'] = $this->session->userdata('error_msg');
+            $this->session->unset_userdata('error_msg');
+        }
+
+
         if($this->session->userdata('isUserLoggedIn')){
             $result = $this->caregivers->getInfo(array('id'=>$this->session->userdata('idCaregiver')));
             $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
             //load the view
-            $this->load->view('Caregiver/account', $data);
+            $this->parser->parse('Caregiver/account', $data);
         }else{
             redirect('index.php');
         }
+
+
+
+        if($this->input->post('saveSettings')){
+            $this->form_validation->set_rules('firstname', 'Name', 'required');
+            $this->form_validation->set_rules('lastname', 'Name', 'required');
+            $this->form_validation->set_rules('floor', 'Floor number', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('old_password', 'old password', 'required');
+            if(!empty($_POST['password'])) {
+                $this->form_validation->set_rules('new_password', 'password', 'required');
+                $this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[new_password]');
+            }
+
+            if($this->form_validation->run() == true) {
+                $userData['firstname'] = strip_tags($this->input->post('firstname'));
+                $userData['lastname'] = strip_tags($this->input->post('lastname'));
+                $userData['email'] = strip_tags($this->input->post('email'));
+                $userData['old_password'] = md5($this->input->post('old_password'));
+                if (!empty($_POST['new_password'])) {
+                    $userData['new_password'] = md5($this->input->post('new_password'));
+                }
+                $userData['floor'] = strip_tags($this->input->post('floor'));
+                $userData['idCaregiver'] = strip_tags($this->input->post('idCaregiver'));
+
+                $insert = $this->caregivers->modify($userData);
+                if ($insert) {
+                    $this->session->set_userdata('success_msg', 'Your new settings have been saved');
+                    redirect('account');
+                } else {
+                    $this->session->set_userdata('error_msg', 'Something went wrong...');
+                    redirect('account');
+                }
+            } else {
+                $this->session->set_userdata('error_msg', 'nothing changed');
+                redirect('account');
+            }
+        }
+        $data['caregiver'] = $userData;
     }
 
     /*
@@ -135,4 +187,6 @@ class Caregiver extends CI_Controller
             return TRUE;
         }
     }
+
+
 }

@@ -1,0 +1,54 @@
+html,body {
+    width: 100%
+}
+body {
+    font-family: Verdana;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.25fr 1fr 0.1fr;
+    grid-template-areas: "Header Header Header Header Header Header Header Header Header Header Header Header"
+                        ". . . settings settings settings settings buttons buttons . . ."
+                        "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+
+.Header {
+    grid-area: Header;
+    background-color: #003b46;
+    color: white;
+    width: 100%;
+}
+
+.settings {
+    grid-area: settings;
+}
+
+.buttons {
+    grid-area: buttons;
+}
+
+.footer {
+    grid-area: footer;
+}
+
+a[type=button]{
+    background-color: #66a5ad;
+    color: white;
+    padding: 14px 50px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+a[type=button]:hover{
+    opacity: 0.8;
+}
+
+.form {
+    height: 100%;
+}
