@@ -1,0 +1,78 @@
+html,body {
+    width: 100%
+}
+body {
+    font-family: Merriweather;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.25fr 3fr 1fr;
+    grid-template-areas:    "Header Header Header Header Header Header Header Header Header Header Header Header"
+                                                ". . title title title title title title title title . ."
+                                                ". . quote quote quote quote quote quote quote quote . ."
+                                        ". . button1 button1 . button2 button2 . button3 button3 . ."
+                            "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+
+
+.Header {
+    grid-area: Header;
+    background-color: #003b46;
+    color: white;
+    width: 100%;
+}
+
+.title{
+    text-align: center;
+    grid-area: title;
+}
+
+.quote {
+    grid-area: quote;
+    text-align: center;
+    background-color: #66a5ad;
+
+}
+
+.button1 {
+    text-align: center;
+    grid-area: button1;
+}
+
+.button2 {
+    text-align: center;
+    grid-area: button2;
+}
+
+.button3 {
+    text-align: center;
+    grid-area: button3;
+ }
+
+.footer {
+    align-self: end;
+    grid-area: footer;
+    text-align: center;
+}
+
+a[type=button]{
+    background-color: #66a5ad;
+    color: white;
+    padding: 14px 50px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+a[type=button]:hover{
+    opacity: 0.8;
+}
+
+.form {
+    height: 100%;
+}
