@@ -49,5 +49,18 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/login', $data);
 
 
+        if($this->input->post('selectResident')){
+            $_SESSION['Resident']= array(
+                'idResident' => $this->input->post('id'),
+                'firstname' => $this->input->post('firstname'),
+                'lastname' =>$this->input->post('lastname'),
+                'room' => $this->input->post('room'),
+                'floor' => $this->input->post('floor'));
+            redirect('Resident/tutorial');
+        }
+    }
+
+    public function tutorial(){
+        $this->load->view('Resident/tutorialPage');
     }
 }

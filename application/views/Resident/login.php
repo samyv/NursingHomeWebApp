@@ -27,12 +27,18 @@
     </form>
 </div>
 
-<div class="container">
+<form method="post">
     {residentNames}
-        <button class="ResidentButton" style="display:block">{surname} {name}
-        </button>
+    <div class="form-group" style="display: none">
+        <input type="text" name="id" value="{id}">
+        <input type="text" name="firstname" value="{firstname}">
+        <input type="text" name="lastname" value="{lastname}">
+        <input type="text" name="room" value="{room}">
+        <input type="text" name="floor" value="{floor}">
+    </div>
+        <input type="submit" name="selectResident" class="ResidentButton" value="{firstname} {lastname}">
     {/residentNames}
-</div>
+</form>
 
 <footer>
     <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
@@ -40,5 +46,3 @@
 </footer>
 </body>
 </html>
-
-
