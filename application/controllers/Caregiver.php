@@ -73,11 +73,13 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', 'Your new settings have been saved');
-                    //redirect('account');
+                    redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
-                    //redirect('account');
+                    redirect('account');
                 }
+            } else {
+                echo "val false";
             }
         }
         $data['caregiver'] = $userData;
@@ -112,6 +114,10 @@ class Caregiver extends CI_Controller
                 if($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('idCaregiver',$checkLogin['0']->idCaregiver);
+                    $this->session->set_userdata('firstname',$checkLogin['0']->firstname);
+                    $this->session->set_userdata('lastname',$checkLogin['0']->lastname);
+                    $this->session->set_userdata('floor',$checkLogin['0']->floor);
+                    $this->session->set_userdata('email',$checkLogin['0']->email);
                     redirect('account');
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';

@@ -24,7 +24,7 @@
                     echo '<p class="statusMsg">'.$error_msg.'</p>';
                 }
                 ?>
-                <div class="form-group" id="idCaregiver">
+                <div class="form-group" id="idCaregiver" style="display:none")>
                     <input type="number" value="<?php echo $caregiver['idCaregiver'];?>" name="idCaregiver" readonly>
                 </div>
                 <div class="form-group">
