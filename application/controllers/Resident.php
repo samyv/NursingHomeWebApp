@@ -22,10 +22,10 @@ class Resident extends CI_Controller
     public function index(){
         $data['page_title'] = 'Login resident | GraceAge';
         $data['residentNames'] = array();
-        if($this->session->userdata('isUserLoggedIn')){
-            redirect('account');
-        }
 
+
+
+        //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
             $this->form_validation->set_rules('room_number', 'Room number', 'required');
             if ($this->form_validation->run() == true) {
@@ -36,6 +36,7 @@ class Resident extends CI_Controller
                 if($residentsInRoom){
                     foreach ($residentsInRoom as $key => $value){
                         $residentArray[$key] = (array) $value;
+                        $_SESSION['Resident'.$key]=(array)$value;
                     }
                     $data['residentNames'] = $residentArray;
                 }else{
@@ -46,21 +47,41 @@ class Resident extends CI_Controller
                 echo "validation false";
             }
         }
-        $this->parser->parse('Resident/login', $data);
-
-
-        if($this->input->post('selectResident')){
-            $_SESSION['Resident']= array(
-                'idResident' => $this->input->post('id'),
-                'firstname' => $this->input->post('firstname'),
-                'lastname' =>$this->input->post('lastname'),
-                'room' => $this->input->post('room'),
-                'floor' => $this->input->post('floor'));
+        //checks which user you pick from the 2, delete the other session variable
+        if ($this->input->post('selectResident1')) {
+            unset($_SESSION['Resident1']);
+            $_SESSION['isUserLoggedIn'] = true;
             redirect('Resident/tutorial');
         }
+
+        if ($this->input->post('selectResident2')) {
+            unset($_SESSION['Resident0']);
+            $_SESSION['isUserLoggedIn'] = true;
+            redirect('Resident/tutorial');
+        }
+
+        $this->parser->parse('Resident/login', $data);
     }
 
     public function tutorial(){
+        //checks if a resident is logged in, else go to the login page
+        if(!isset($_SESSION['isUserLoggedIn'])){
+            redirect('resident/index');
+        }
+        //load the view
         $this->load->view('Resident/tutorialPage');
+    }
+
+
+    public function logout(){
+        $this->session->unset_userdata('isUserLoggedIn');
+        if(isset($_SESSION['Resident0'])){
+            unset($_SESSION['Resident0']);
+        }
+        if(isset($_SESSION['Resident1'])){
+            unset($_SESSION['Resident1']);
+        }
+        $this->session->sess_destroy();
+        redirect('Resident/index');
     }
 }

@@ -69,7 +69,7 @@
         <input type="button" value="Cancel" onclick="location.href='account'"/>
     </div>
     </form>
-    <a type="button", href="<?php echo base_url();?>Caregiver/logout" value="log out">log out</a>
+    <a type="button" href="<?php echo base_url();?>Caregiver/logout">log out</a>
     <div class="footer">
         <p>hello</p>
     </div>

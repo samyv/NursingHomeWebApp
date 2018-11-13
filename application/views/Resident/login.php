@@ -14,6 +14,7 @@
     <h2>Providing better care</h2>
 </div>
 
+<!-- form to submit the room number -->
 <div class="form">
     <form action="" method="POST">
         <div class="form-group">
@@ -27,18 +28,12 @@
     </form>
 </div>
 
+<!--create buttons for each resident in the room, the form is so you can parse the right data to the session-->
+{residentNames}
 <form method="post">
-    {residentNames}
-    <div class="form-group" style="display: none">
-        <input type="text" name="id" value="{id}">
-        <input type="text" name="firstname" value="{firstname}">
-        <input type="text" name="lastname" value="{lastname}">
-        <input type="text" name="room" value="{room}">
-        <input type="text" name="floor" value="{floor}">
-    </div>
-        <input type="submit" name="selectResident" class="ResidentButton" value="{firstname} {lastname}">
-    {/residentNames}
+    <input type="submit" name="selectResident{residentID}" class="ResidentButton" value="{firstname} {lastname}">
 </form>
+{/residentNames}
 
 <footer>
     <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
