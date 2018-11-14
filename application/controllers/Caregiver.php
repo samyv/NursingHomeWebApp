@@ -73,13 +73,11 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', 'Your new settings have been saved');
-                    redirect('account');
+                    //redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
-                    redirect('account');
+                    //redirect('account');
                 }
-            } else {
-                echo "val false";
             }
         }
         $data['caregiver'] = $userData;
