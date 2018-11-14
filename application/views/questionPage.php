@@ -27,7 +27,7 @@
     </div>
 </div>
 
-<p id="question">You can write you question here.</p>
+<p id="question">{question}</p>
 
 
 <div id="answers">
