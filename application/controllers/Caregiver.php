@@ -118,7 +118,7 @@ class Caregiver extends CI_Controller
                     $this->session->set_userdata('lastname',$checkLogin['0']->lastname);
                     $this->session->set_userdata('floor',$checkLogin['0']->floor);
                     $this->session->set_userdata('email',$checkLogin['0']->email);
-                    redirect('account');
+                    redirect('landingPage');
                 }else{
                     $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
@@ -199,5 +199,9 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function landingPage(){
+        $data = array();
+        $this->load->view('Caregiver/landingPage');
+    }
 
 }
