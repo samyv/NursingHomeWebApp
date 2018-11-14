@@ -18,6 +18,6 @@ class Question extends CI_Controller {
     {
         $data['question'] = $this->QuestionModel->getQuestion();
 
-        $this->parser->parse('questionPage',$data);
+        $this->parser->parse('Resident/questionPage',$data);
     }
 }
