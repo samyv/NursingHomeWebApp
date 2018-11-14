@@ -71,6 +71,7 @@ Class Caregivers extends CI_Model{
         //insert user data to users table
         $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, created, modified, activated) VALUES (NULL,'$firstname','$lastname','$email','1','$password',CURRENT_TIME ,CURRENT_TIME,'0')";
         $insert = $this->db->query($sql);
+        print_r($insert);
 
         //return the status
         if($insert){
