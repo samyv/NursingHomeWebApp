@@ -15,7 +15,7 @@ class Caregiver extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('caregivers');
-        $this->load->library('session');
+		$this->load->library('session');
         $this->load->database('default');
     }
 

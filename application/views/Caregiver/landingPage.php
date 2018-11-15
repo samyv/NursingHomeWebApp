@@ -13,7 +13,23 @@
     </div>
 
     <div class = "quote">
-        <h3>This is the quote of the day</h3>
+        <h3 id="quote">
+			<script>
+					if (this.readyState == 4 && this.status == 200) {
+						document.getElementById("txtHint").innerHTML = this.responseText;
+					} else {
+						var xmlhttp = new XMLHttpRequest();
+						xmlhttp.onreadystatechange = function() {
+							if (this.readyState == 4 && this.status == 200) {
+								document.getElementById("txtHint").innerHTML = this.responseText;
+							}
+						};
+						var i = Math.floor(Math.random()*1000)+1;
+						xmlhttp.open("GET", "getQuote.php?q=" + i, true);
+						xmlhttp.send();
+					}
+			</script>
+		</h3>
     </div>
 
     <div class = "button1">
