@@ -206,8 +206,6 @@ class Caregiver extends CI_Controller
 
     public function searchForResident(){
 
-
-
         $data = array();
         $sql = array();
 		$this->load->database('default');
@@ -217,14 +215,12 @@ class Caregiver extends CI_Controller
         $data['page_title']='Login caregiver | GraceAge';
 
         $result = $this->caregivers->getResidents();
-
-		$array = json_decode(json_encode($result['0']), True);
-		print_r($array);
+        $data['listCar'] = $result;
 
 
 
         // parse
-//        $this->parser->parse('searchForResident', arr);
+        $this->parser->parse('searchForResident', $data);
     }
 
 }

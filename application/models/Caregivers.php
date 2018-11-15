@@ -8,6 +8,7 @@
 
 Class Caregivers extends CI_Model{
 
+
     function __construct()
     {
         $this->load->database('default');
