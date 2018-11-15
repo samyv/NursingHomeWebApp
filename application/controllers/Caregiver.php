@@ -123,7 +123,9 @@ class Caregiver extends CI_Controller
             }
         }
         //load the view
-        $this->parser->parse('Caregiver/login', $data);
+        //$this->parser->parse('searchForResident.php', $data);
+		$this->parser->parse('Caregiver/login', $data);
+//        $this->searchForResident();
     }
 
     /*
@@ -200,6 +202,25 @@ class Caregiver extends CI_Controller
     public function landingPage(){
         $data = array();
         $this->load->view('Caregiver/landingPage');
+    }
+
+    public function searchForResident(){
+
+        $data = array();
+        $sql = array();
+		$this->load->database('default');
+
+        // get names out of database
+        $data['name'] = 'Jef';
+        $data['page_title']='Login caregiver | GraceAge';
+
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
+
+
+
+        // parse
+        $this->parser->parse('searchForResident', $data);
     }
 
 }

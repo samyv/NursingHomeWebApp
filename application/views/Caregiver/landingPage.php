@@ -17,7 +17,7 @@
     </div>
 
     <div class = "button1">
-        <input type="button" value="Go to residents list view" onclick="location.href='residentListView'"/>
+        <input type="button" value="Go to residents list view" onclick="location.href='searchRes'"/>
     </div>
     <div class = "button2">
         <input type="button" value="Go to floor comparison" onclick="location.href='floorComparison'"/>
