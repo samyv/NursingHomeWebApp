@@ -124,7 +124,8 @@ class Caregiver extends CI_Controller
         }
         //load the view
         //$this->parser->parse('searchForResident.php', $data);
-        $this->searchForResident();
+		$this->parser->parse('Caregiver/login', $data);
+//        $this->searchForResident();
     }
 
     /*
@@ -205,32 +206,25 @@ class Caregiver extends CI_Controller
 
     public function searchForResident(){
 
-        $dsn = 'mysql:host=mysql.studev.groept.be;dbname=a18ux02';
-        $username = 'a18ux02';
-        $password = 'p64nbw02qr';
 
-
-        //setting the timeZone
-        date_default_timezone_set('Europe/Brussels');
-        // Create connection
-        try {
-            $dbh = new PDO($dsn, $username, $password);
-        } catch (PDOException $e) {
-            echo 'Connection failed: ' . $e->getMessage();
-        }
 
         $data = array();
         $sql = array();
+		$this->load->database('default');
 
         // get names out of database
         $data['name'] = 'Jef';
         $data['page_title']='Login caregiver | GraceAge';
 
-        $sql = "SELECT * FROM Caregiver";
-        $result = $dbh->query($sql);
+        $result = $this->caregivers->getResidents();
+
+		$array = json_decode(json_encode($result['0']), True);
+		print_r($array);
+
+
 
         // parse
-        $this->parser->parse('searchForResident', $result);
+//        $this->parser->parse('searchForResident', arr);
     }
 
 }

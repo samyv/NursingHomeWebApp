@@ -14,7 +14,10 @@
 <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
 
 <ul id="myUL">
-    <?php foreach( $result as $a ): ?>
+
+    <?php
+
+	foreach( $array as $a ): ?>
         <li><a href="#"> <?= $a ?> </a></li>
     <?php endforeach; ?>
 </ul>

@@ -55,6 +55,7 @@ $route['register'] = 'Caregiver/register';
 $route['index.php']= 'Caregiver/index.php';
 $route['account'] = 'Caregiver/account';
 $route['landingPage'] = 'Caregiver/landingPage';
+$route['searchRes'] = 'Caregiver/searchForResident';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
