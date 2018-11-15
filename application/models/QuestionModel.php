@@ -30,4 +30,10 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
+
+    function insertAnswer($answer){
+        $this->db->query(
+            'INSERT INTO a18ux02.Questionarries (Question1) VALUES (?)', $answer
+        );
+    }
 }

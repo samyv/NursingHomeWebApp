@@ -30,22 +30,48 @@
 <p id="question">{question}</p>
 
 
+
 <div id="answers">
-    <input type="radio" id="answer1" name="answer" value="1"/>
+    <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
     <label for="answer1">Answer1</label>
 
-    <input type="radio" id="answer2" name="answer" value="2"/>
+    <input type="radio" id="answer2" name="answer" value="2" class = 'question_radio'/>
     <label for="answer2">Answer2</label>
 
-    <input type="radio" id="answer3" name="answer" value="3"/>
+    <input type="radio" id="answer3" name="answer" value="3" class = 'question_radio'/>
     <label for="answer3">Answer3</label>
 
-    <input type="radio" id="answer4" name="answer" value="4"/>
+    <input type="radio" id="answer4" name="answer" value="4" class = 'question_radio'/>
     <label for="answer4">Answer4</label>
 
-    <input type="radio" id="answer5" name="answer" value="5"/>
+    <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
     <label for="answer5">Answer5</label>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        // When document was loadet succesfull
+
+        $(".question_radio").click(function () {
+
+            $radios = document.getElementsByName('answer');
+
+            for ($i = 0, $length = $radios.length; $i < $length; $i++)
+            {
+                if ($radios[$i].checked)
+                {
+                    // do whatever you want with the checked radio
+                    alert($radios[$i].value);
+
+                    // only one radio can be logically checked, don't check the rest
+                    break;
+                }
+            }
+
+            });
+        });
+</script>
+
 
 <button id="previous">Change Last Answer</button>
 

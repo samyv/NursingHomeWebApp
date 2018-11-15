@@ -20,4 +20,8 @@ class Question extends CI_Controller {
 
         $this->parser->parse('Resident/questionPage',$data);
     }
+
+    function insert($answer = '1'){
+        $this->QuestionModel->insertAnswer($answer);
+    }
 }
