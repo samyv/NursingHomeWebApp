@@ -123,7 +123,8 @@ class Caregiver extends CI_Controller
             }
         }
         //load the view
-        $this->parser->parse('Caregiver/login', $data);
+        //$this->parser->parse('searchForResident.php', $data);
+        $this->searchForResident();
     }
 
     /*
@@ -200,6 +201,36 @@ class Caregiver extends CI_Controller
     public function landingPage(){
         $data = array();
         $this->load->view('Caregiver/landingPage');
+    }
+
+    public function searchForResident(){
+
+        $dsn = 'mysql:host=mysql.studev.groept.be;dbname=a18ux02';
+        $username = 'a18ux02';
+        $password = 'p64nbw02qr';
+
+
+        //setting the timeZone
+        date_default_timezone_set('Europe/Brussels');
+        // Create connection
+        try {
+            $dbh = new PDO($dsn, $username, $password);
+        } catch (PDOException $e) {
+            echo 'Connection failed: ' . $e->getMessage();
+        }
+
+        $data = array();
+        $sql = array();
+
+        // get names out of database
+        $data['name'] = 'Jef';
+        $data['page_title']='Login caregiver | GraceAge';
+
+        $sql = "SELECT * FROM Caregiver";
+        $result = $dbh->query($sql);
+
+        // parse
+        $this->parser->parse('searchForResident', $result);
     }
 
 }
