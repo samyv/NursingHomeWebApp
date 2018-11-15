@@ -13,10 +13,27 @@ class Resident extends CI_Controller
         parent::__construct();
         $this->load->library('parser');
         $this->load->helper('url');
+        $this->load->model('QuestionModel');
     }
 
     public function index(){
         $data['page_title'] = 'Login resident | GraceAge';
         $this->parser->parse('Rlogin', $data);
+    }
+
+    public function page()
+    {
+        $data['question'] = $this->QuestionModel->getQuestion();
+
+        if( $this->input->post('answer') ){
+            $answer = $_POST['answer'];
+            $this->QuestionModel->insertAnswer($answer);
+        }
+
+        $this->parser->parse('Resident/questionPage',$data);
+    }
+
+    function insert($answer = '1'){
+        $this->QuestionModel->insertAnswer($answer);
     }
 }

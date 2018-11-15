@@ -31,7 +31,7 @@
 
 
 
-<div id="answers">
+<form id="answers" action="" method="post">
     <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
     <label for="answer1">Answer1</label>
 
@@ -46,31 +46,9 @@
 
     <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
     <label for="answer5">Answer5</label>
-</div>
+</form>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        // When document was loadet succesfull
 
-        $(".question_radio").click(function () {
-
-            $radios = document.getElementsByName('answer');
-
-            for ($i = 0, $length = $radios.length; $i < $length; $i++)
-            {
-                if ($radios[$i].checked)
-                {
-                    // do whatever you want with the checked radio
-                    alert($radios[$i].value);
-
-                    // only one radio can be logically checked, don't check the rest
-                    break;
-                }
-            }
-
-            });
-        });
-</script>
 
 
 <button id="previous">Change Last Answer</button>
