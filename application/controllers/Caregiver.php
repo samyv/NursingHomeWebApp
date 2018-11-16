@@ -220,7 +220,7 @@ class Caregiver extends CI_Controller
 
 
         // parse
-        $this->parser->parse('searchForResident', $data);
+        $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
 }
