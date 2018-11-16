@@ -27,62 +27,28 @@
     </div>
 </div>
 
-<p id="question">{question}</p>
-
+<p id="question">You can write you question here.</p>
 
 
 <div id="answers">
-    <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
+    <input type="radio" id="answer1" name="answer" value="1"/>
     <label for="answer1">Answer1</label>
 
-    <input type="radio" id="answer2" name="answer" value="2" class = 'question_radio'/>
+    <input type="radio" id="answer2" name="answer" value="2"/>
     <label for="answer2">Answer2</label>
 
-    <input type="radio" id="answer3" name="answer" value="3" class = 'question_radio'/>
+    <input type="radio" id="answer3" name="answer" value="3"/>
     <label for="answer3">Answer3</label>
 
-    <input type="radio" id="answer4" name="answer" value="4" class = 'question_radio'/>
+    <input type="radio" id="answer4" name="answer" value="4"/>
     <label for="answer4">Answer4</label>
 
-    <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
+    <input type="radio" id="answer5" name="answer" value="5"/>
     <label for="answer5">Answer5</label>
 </div>
 
-
 <button id="previous">Change Last Answer</button>
 
-
-<script>
-    var index =1;
-    $(document).ready(function(){
-        var index = 1;
-
-        $('#answer1').click( function(){
-            index++;
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                        answer:1},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
-        });
-        //
-        // $('#answer2').on('click', '.answer1', function(){
-        //     var post_id = $(this).attr("id");
-        //     fetch_post_data(post_id);
-        // });
-        //
-        // $('#answer3').on('click', '.answer2', function(){
-        //     var post_id = $(this).attr("id");
-        //     fetch_post_data(post_id);
-        // });
-
-    });
-</script>
 <footer>
     <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
     </p>
