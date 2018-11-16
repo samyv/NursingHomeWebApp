@@ -27,27 +27,25 @@
     </div>
 </div>
 
-<p id="question">{question}</p>
-
+<p id="question">You can write you question here.</p>
 
 
 <div id="answers">
-    <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
+    <input type="radio" id="answer1" name="answer" value="1"/>
     <label for="answer1">Answer1</label>
 
-    <input type="radio" id="answer2" name="answer" value="2" class = 'question_radio'/>
+    <input type="radio" id="answer2" name="answer" value="2"/>
     <label for="answer2">Answer2</label>
 
-    <input type="radio" id="answer3" name="answer" value="3" class = 'question_radio'/>
+    <input type="radio" id="answer3" name="answer" value="3"/>
     <label for="answer3">Answer3</label>
 
-    <input type="radio" id="answer4" name="answer" value="4" class = 'question_radio'/>
+    <input type="radio" id="answer4" name="answer" value="4"/>
     <label for="answer4">Answer4</label>
 
-    <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
+    <input type="radio" id="answer5" name="answer" value="5"/>
     <label for="answer5">Answer5</label>
 </div>
-
 
 <button id="previous">Change Last Answer</button>
 

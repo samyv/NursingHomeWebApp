@@ -48,6 +48,9 @@
                         <input type="button" value="Register a new caregiver" onclick="location.href='register'"/>
                     </div>
             </form>
+			<form method="get">
+
+			</form>
         </div>
     </div>
 <!--modal-->
