@@ -145,6 +145,9 @@
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
+                data: {
+                    index: index
+                },
                 success:function(question)
                 {
                     $('#question').html(question);
