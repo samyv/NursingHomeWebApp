@@ -25,11 +25,6 @@ class Resident extends CI_Controller
     {
         $data['question'] = $this->QuestionModel->getQuestion();
 
-        if( $this->input->post('answer') ){
-            $answer = $_POST['answer'];
-            $this->QuestionModel->insertAnswer($answer);
-        }
-
         $this->parser->parse('Resident/questionPage',$data);
     }
 
