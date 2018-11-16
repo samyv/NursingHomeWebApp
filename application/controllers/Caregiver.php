@@ -218,7 +218,7 @@ class Caregiver extends CI_Controller
         $data['listCar'] = $result;
 
 
-
+        $this->load->view('templates/header');
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
