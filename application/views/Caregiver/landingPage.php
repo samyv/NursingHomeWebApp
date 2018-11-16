@@ -13,7 +13,13 @@
     </div>
 
     <div class = "quote">
-        <h3>This is the quote of the day</h3>
+        <h3 id="quote">
+			<?php
+			$number = rand(1,1000);
+			$this->load->model('caregivers');
+			echo $this->caregivers->getQuote($number);
+			?>
+		</h3>
     </div>
 
     <div class = "button1">
