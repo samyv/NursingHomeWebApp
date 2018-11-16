@@ -15,6 +15,7 @@ class Resident extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('residents');
+		$this->load->model('QuestionModel');
         $this->load->library('session');
         $this->load->database('default');
     }
@@ -22,7 +23,9 @@ class Resident extends CI_Controller
     public function index(){
         $data['page_title'] = 'Login resident | GraceAge';
         $data['residentNames'] = array();
-
+        if($this->session->userdata('isUserLoggedIn')){
+            redirect('account');
+        }
 
 
         //get the data from the residents from a certain room, put it in 2 session variables.
@@ -66,7 +69,27 @@ class Resident extends CI_Controller
 
         $this->parser->parse('Resident/login', $data);
     }
+    public function page($index=1)
+    {
+        $data['question'] = $this->QuestionModel->getQuestion($index);
 
+        $this->parser->parse('Resident/questionPage',$data);
+        //        $data['question'] = $this->QuestionModel->get_all_questions(); // get results array from model
+        //        $this->load->view('Resident/questionPage', $data); // pass array to view
+    }
+
+    public function update(){
+        $index = $this ->input->post('index');
+        $answer = $this->input->post('answer');
+        $this->insert($answer);
+        $data = $this->QuestionModel->getQuestion($index);
+        echo $data;
+    }
+
+    function insert($answer = '1')
+	{
+		$this->QuestionModel->insertAnswer($answer);
+	}
     public function tutorial(){
         //checks if a resident is logged in, else go to the login page
         if(!isset($_SESSION['isResidentLoggedIn'])){
