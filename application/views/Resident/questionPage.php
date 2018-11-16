@@ -62,10 +62,7 @@
                 {
                     // do whatever you want with the checked radio
                     //alert($radios[$i].value);
-                    //window.location.href = "<?php echo base_url();?>Resident/insert/" + $radios[$i].value;
-                    <?php$this->db->query(
-                    'INSERT INTO a18ux02.Questionarries (Question1) VALUES (?)', $answer
-                );?>
+                    window.location.href = "<?php echo base_url();?>Resident/insert/" + $radios[$i].value;
                     // only one radio can be logically checked, don't check the rest
                     break;
                 }
