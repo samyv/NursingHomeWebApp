@@ -24,7 +24,7 @@
         <video>here comes a video</video>
     </div>
     <div class="startbtn">
-        <input type="button" value="Start" onclick="location.href=<?php echo base_url();?>Resident/page">
+        <input type="button" value="Start" onclick="location.href='page'">
     </div>
 
 </div>
