@@ -113,7 +113,7 @@ Class Caregivers extends CI_Model{
     }
 
     public function getResidents(){
-		$sql = "SELECT * FROM a18ux02.Caregiver";
+		$sql = "SELECT * FROM a18ux02.Resident";
 		$result = $this->db->query($sql)->result();
 		return $result;
 	}
