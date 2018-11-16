@@ -32,9 +32,9 @@ class QuestionModel extends CI_Model
     }
 
 
-    function insertAnswer($answer){
+    function insertAnswer($index,$answer){
         $this->db->query(
-            'INSERT INTO a18ux02.Questionarries (Question1) VALUES (?)', $answer
+            "UPDATE a18ux02.Questionarries SET Question".$index." = ".$answer." WHERE Resident_residentID = 1"
         );
     }
 }

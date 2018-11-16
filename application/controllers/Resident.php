@@ -81,7 +81,7 @@ class Resident extends CI_Controller
     public function update(){
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
-        $this->insert($answer);
+        $this->insert($index-1, $answer);
         $data = $this->QuestionModel->getQuestion($index);
         echo $data;
     }
