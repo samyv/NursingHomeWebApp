@@ -48,32 +48,6 @@
     <label for="answer5">Answer5</label>
 </div>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        // When document was loadet succesfull
-
-        $(".question_radio").click(function () {
-
-            $radios = document.getElementsByName('answer');
-
-            for ($i = 0, $length = $radios.length; $i < $length; $i++)
-            {
-                if ($radios[$i].checked)
-                {
-                    // do whatever you want with the checked radio
-                    //alert($radios[$i].value);
-                    window.location.href = "<?php echo base_url();?>Resident/insert/" + $radios[$i].value;
-                    // only one radio can be logically checked, don't check the rest
-                    break;
-                }
-            }
-
-        });
-    });
-</script>
-
-
-
 
 <button id="previous">Change Last Answer</button>
 
@@ -86,9 +60,10 @@
         $('#answer1').click( function(){
             index++;
             $.ajax({
-                url:'<?php echo site_url('index.php/question/update');?>',
+                url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
-                data:{index:index},
+                data:{index:index,
+                        answer:1},
                 success:function(question)
                 {
                     $('#question').html(question);
