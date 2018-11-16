@@ -14,11 +14,19 @@ class Question extends CI_Controller {
         $this->load->model('QuestionModel');
     }
 
-    public function page()
+    public function page($index=1)
     {
-        $data['question'] = $this->QuestionModel->getQuestion();
+        $data['question'] = $this->QuestionModel->getQuestion($index);
 
         $this->parser->parse('Resident/questionPage',$data);
+//        $data['question'] = $this->QuestionModel->get_all_questions(); // get results array from model
+//        $this->load->view('Resident/questionPage', $data); // pass array to view
+    }
+
+    public function update(){
+        $index =$this ->input->post('index');
+        $data = $this->QuestionModel->getQuestion($index);
+        echo $data;
     }
 
     function insert($answer = '1'){

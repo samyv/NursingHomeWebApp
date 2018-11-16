@@ -17,8 +17,8 @@ class QuestionModel extends CI_Model
     }
 
 
-    function getQuestion(){
-        $query = $this->db->query("SELECT * FROM a18ux02.Question where idQuestion = 1");
+    function getQuestion($index ){
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$index));
 
         $row = $query->row_array();
 
@@ -30,6 +30,7 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
+
 
     function insertAnswer($answer){
         $this->db->query(

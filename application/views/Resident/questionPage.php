@@ -80,6 +80,37 @@
 
 <button id="previous">Change Last Answer</button>
 
+
+<script>
+    var index =1;
+    $(document).ready(function(){
+        var index = 1;
+
+        $('#answer1').click( function(){
+            index++;
+            $.ajax({
+                url:'<?php echo site_url('index.php/question/update');?>',
+                method:"POST",
+                data:{index:index},
+                success:function(question)
+                {
+                    $('#question').html(question);
+                }
+            });
+        });
+        //
+        // $('#answer2').on('click', '.answer1', function(){
+        //     var post_id = $(this).attr("id");
+        //     fetch_post_data(post_id);
+        // });
+        //
+        // $('#answer3').on('click', '.answer2', function(){
+        //     var post_id = $(this).attr("id");
+        //     fetch_post_data(post_id);
+        // });
+
+    });
+</script>
 <footer>
     <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
     </p>
