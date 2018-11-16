@@ -15,12 +15,8 @@
 
 
         <h1>Welcome <?php
-            if(isset($_SESSION['Resident0'])){
-                echo $_SESSION['Resident0']['firstname'];
-            }
-            if(isset($_SESSION['Resident1'])){
-                echo $_SESSION['Resident1']['firstname'];
-            }?>
+                echo $_SESSION['Resident']['firstname'];
+                ?>
         </h1>
     <div class="container">
         <p>Take a look at the tutorial video. This will show you how to use this application</p>

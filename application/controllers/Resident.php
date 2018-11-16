@@ -49,14 +49,18 @@ class Resident extends CI_Controller
         }
         //checks which user you pick from the 2, delete the other session variable
         if ($this->input->post('selectResident1')) {
+            $_SESSION['Resident']=$_SESSION['Resident0'];
             unset($_SESSION['Resident1']);
-            $_SESSION['isUserLoggedIn'] = true;
+            unset($_SESSION['Resident0']);
+            $_SESSION['isResidentLoggedIn'] = true;
             redirect('Resident/tutorial');
         }
 
         if ($this->input->post('selectResident2')) {
+            $_SESSION['Resident']=$_SESSION['Resident1'];
             unset($_SESSION['Resident0']);
-            $_SESSION['isUserLoggedIn'] = true;
+            unset($_SESSION['Resident1']);
+            $_SESSION['isResidentLoggedIn'] = true;
             redirect('Resident/tutorial');
         }
 
@@ -65,7 +69,7 @@ class Resident extends CI_Controller
 
     public function tutorial(){
         //checks if a resident is logged in, else go to the login page
-        if(!isset($_SESSION['isUserLoggedIn'])){
+        if(!isset($_SESSION['isResidentLoggedIn'])){
             redirect('resident/index');
         }
         //load the view
@@ -74,13 +78,8 @@ class Resident extends CI_Controller
 
 
     public function logout(){
-        $this->session->unset_userdata('isUserLoggedIn');
-        if(isset($_SESSION['Resident0'])){
-            unset($_SESSION['Resident0']);
-        }
-        if(isset($_SESSION['Resident1'])){
-            unset($_SESSION['Resident1']);
-        }
+        $this->session->unset_userdata('isResidentLoggedIn');
+        unset($_SESSION['Resident']);
         $this->session->sess_destroy();
         redirect('Resident/index');
     }
