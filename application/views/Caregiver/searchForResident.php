@@ -5,7 +5,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 <!--    <script src="javascript/search.js"></script>-->
 
-    <link rel="stylesheet" href="../../../assets/css/searchForResident.css">
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/searchForResident.css">
 </head>
 <body>
 
