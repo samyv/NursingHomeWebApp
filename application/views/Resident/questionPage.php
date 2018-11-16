@@ -30,7 +30,6 @@
 <p id="question">{question}</p>
 
 
-
 <div id="answers">
     <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
     <label for="answer1">Answer1</label>
@@ -47,7 +46,6 @@
     <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
     <label for="answer5">Answer5</label>
 </div>
-
 
 <button id="previous">Change Last Answer</button>
 

@@ -17,8 +17,8 @@ class QuestionModel extends CI_Model
     }
 
 
-    function getQuestion(){
-        $query = $this->db->query("SELECT * FROM a18ux02.Question where idQuestion = 1");
+    function getQuestion($index ){
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$index));
 
         $row = $query->row_array();
 
@@ -29,5 +29,12 @@ class QuestionModel extends CI_Model
             $text = $row['questionText'];
         }
         return $text;
+    }
+
+
+    function insertAnswer($index,$answer){
+        $this->db->query(
+            "UPDATE a18ux02.Questionarries SET Question".$index." = ".$answer." WHERE Resident_residentID = 1"
+        );
     }
 }
