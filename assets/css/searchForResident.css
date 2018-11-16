@@ -13,7 +13,7 @@
     margin-bottom: 12px;
 }
 
-#myUL {
+#myTable {
     list-style-type: none;
     padding: 0;
     margin: 0;
@@ -22,7 +22,7 @@
     overflow-y: scroll;
 }
 
-#myUL li a {
+#myTable tr a {
     border: 1px solid #ddd;
     margin-top: -1px; /* Prevent double borders */
     background-color: #f6f6f6;
@@ -34,6 +34,29 @@
     display: block
 }
 
-#myUL li a:hover:not(.header) {
+#myUL tr a:hover:not(.header) {
     background-color: #eee;
+}
+
+#myTable {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#myTable td, #myTable th {
+	border: 1px solid #ddd;
+	padding: 8px;
+}
+
+#myTable tr:nth-child(even){background-color: #f2f2f2;}
+
+#myTable tr:hover {background-color: #ddd;}
+
+#myTable th {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	text-align: left;
+	background-color: #4CAF50;
+	color: white;
 }
