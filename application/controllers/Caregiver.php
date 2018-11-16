@@ -201,13 +201,15 @@ class Caregiver extends CI_Controller
 
     public function landingPage(){
         $data = array();
-        $this->load->view('Caregiver/landingPage');
+		$data['page_title'] = "Search page";
+		$this->parser->parse('Caregiver/landingPage', $data);
+//        $this->load->view('Caregiver/landingPage',$data);
     }
 
     public function searchForResident(){
 
         $data = array();
-        $sql = array();
+        $data['page_title'] = "Search page";
 		$this->load->database('default');
 
         // get names out of database
