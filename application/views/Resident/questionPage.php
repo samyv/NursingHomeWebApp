@@ -59,100 +59,57 @@
     $(document).ready(function(){
         var index = 1;
 
-        $('#answer1').click(async function(){
-            index++;
-            await sleep(300);
+        function trans($index, $answer){
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
-                data:{index:index,
-                        answer:1},
+                data:{index:$index,
+                    answer:$answer},
                 success:function(question)
                 {
                     $('#question').html(question);
                 }
             });
+        }
+
+        $('#answer1').click(async function(){
+            index++;
+            await sleep(300);
+            trans(index,1);
             $(this).prop('checked', false);
         });
 
         $('#answer2').click(async function(){
             index++;
             await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                    answer:2},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            trans(index,2);
             $(this).prop('checked', false);
         });
 
         $('#answer3').click(async function(){
             index++;
             await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                    answer:3},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            trans(index,3);
             $(this).prop('checked', false);
         });
 
         $('#answer4').click(async function(){
             index++;
             await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                    answer:4},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            trans(index,4);
             $(this).prop('checked', false);
         });
 
         $('#answer5').click(async function() {
             index++;
             await sleep(300);
-            $.ajax({
-                url: '<?php echo site_url('index.php/Resident/update');?>',
-                method: "POST",
-                data: {
-                    index: index,
-                    answer: 5
-                },
-                success: function (question) {
-                    $('#question').html(question);
-                }
-            });
+            trans(index,4);
             $(this).prop('checked', false);
         });
         $('#previous').click(async function(){
             index--;
             await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data: {
-                    index: index
-                },
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            trans(index,null);
             $(this).prop('checked', false);
         });
     });
