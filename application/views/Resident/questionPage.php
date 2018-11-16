@@ -63,7 +63,7 @@
 
         $('#answer1').click(async function(){
             index++;
-            await sleep(300)
+            await sleep(300);
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
@@ -71,6 +71,71 @@
                         answer:1},
                 success:function(question)
                 {
+                    $('#question').html(question);
+                }
+            });
+            $(this).prop('checked', false);
+        });
+
+        $('#answer2').click(async function(){
+            index++;
+            await sleep(300);
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/update');?>',
+                method:"POST",
+                data:{index:index,
+                    answer:2},
+                success:function(question)
+                {
+                    $('#question').html(question);
+                }
+            });
+            $(this).prop('checked', false);
+        });
+
+        $('#answer3').click(async function(){
+            index++;
+            await sleep(300);
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/update');?>',
+                method:"POST",
+                data:{index:index,
+                    answer:3},
+                success:function(question)
+                {
+                    $('#question').html(question);
+                }
+            });
+            $(this).prop('checked', false);
+        });
+
+        $('#answer4').click(async function(){
+            index++;
+            await sleep(300);
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/update');?>',
+                method:"POST",
+                data:{index:index,
+                    answer:4},
+                success:function(question)
+                {
+                    $('#question').html(question);
+                }
+            });
+            $(this).prop('checked', false);
+        });
+
+        $('#answer5').click(async function() {
+            index++;
+            await sleep(300);
+            $.ajax({
+                url: '<?php echo site_url('index.php/Resident/update');?>',
+                method: "POST",
+                data: {
+                    index: index,
+                    answer: 5
+                },
+                success: function (question) {
                     $('#question').html(question);
                 }
             });
@@ -86,7 +151,6 @@
         //     var post_id = $(this).attr("id");
         //     fetch_post_data(post_id);
         // });
-
     });
 </script>
 <footer>
