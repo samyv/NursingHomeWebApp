@@ -8,11 +8,10 @@
 </head>
 
 <body>
-    <div class="logo">
-        <h1>GraceAge</h1>
-        <h2>Providing better care</h2>
-    </div>
-
+<div class="logo">
+    <h1>GraceAge</h1>
+    <h2>Providing better care</h2>
+</div>
     <div class="container">
         <div class="image">
             <img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.png" >
