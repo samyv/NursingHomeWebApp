@@ -121,6 +121,7 @@ Class Caregivers extends CI_Model{
 	public function getQuote($number){
 		$sql = "SELECT * FROM a18ux02.Quotes WHERE Quote_ID = ".$number;
 		$result = $this->db->query($sql)->result();
-		return $result['Quote'];
+		$array = json_decode(json_encode($result), true);
+		return $array[0]['Quote'];
 	}
 }

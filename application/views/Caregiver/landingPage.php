@@ -14,21 +14,11 @@
 
     <div class = "quote">
         <h3 id="quote">
-			<script>
-					if (this.readyState == 4 && this.status == 200) {
-						document.getElementById("txtHint").innerHTML = this.responseText;
-					} else {
-						var xmlhttp = new XMLHttpRequest();
-						xmlhttp.onreadystatechange = function() {
-							if (this.readyState == 4 && this.status == 200) {
-								document.getElementById("txtHint").innerHTML = this.responseText;
-							}
-						};
-						var i = Math.floor(Math.random()*1000)+1;
-						xmlhttp.open("GET", "getQuote.php?q=" + i, true);
-						xmlhttp.send();
-					}
-			</script>
+			<?php
+			$number = rand(1,1000);
+			$this->load->model('caregivers');
+			echo $this->caregivers->getQuote($number);
+			?>
 		</h3>
     </div>
 
