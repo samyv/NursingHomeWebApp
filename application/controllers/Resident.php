@@ -86,9 +86,9 @@ class Resident extends CI_Controller
         echo $data;
     }
 
-    function insert($answer = '1')
+    function insert($index,$answer = '1')
 	{
-		$this->QuestionModel->insertAnswer($answer);
+		$this->QuestionModel->insertAnswer($index,$answer);
 	}
     public function tutorial(){
         //checks if a resident is logged in, else go to the login page
