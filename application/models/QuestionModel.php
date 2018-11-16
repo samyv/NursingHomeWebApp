@@ -34,7 +34,7 @@ class QuestionModel extends CI_Model
 
     function insertAnswer($index,$answer){
         $this->db->query(
-            "UPDATE a18ux02.Questionarries SET Question".$index." = ".$answer
+            "UPDATE a18ux02.Questionarries SET Question".$index." = ".$answer." WHERE Resident_residentID = 1"
         );
     }
 }

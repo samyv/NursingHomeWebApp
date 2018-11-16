@@ -53,12 +53,17 @@
 
 
 <script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
     var index =1;
     $(document).ready(function(){
         var index = 1;
 
-        $('#answer1').click( function(){
+        $('#answer1').click(async function(){
             index++;
+            await sleep(300)
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
@@ -69,6 +74,7 @@
                     $('#question').html(question);
                 }
             });
+            $(this).prop('checked', false);
         });
         //
         // $('#answer2').on('click', '.answer1', function(){
