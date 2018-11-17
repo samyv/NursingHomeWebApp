@@ -234,4 +234,25 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
+    public function floorSelect(){
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/buildingView', $data);
+    }
+
+    public function roomSelect(){
+
+    }
+
+    public function residentSelect(){
+
+    }
+
+    public function floorCompare(){
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/floorCompareView', $data);
+    }
 }

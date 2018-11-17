@@ -59,6 +59,8 @@ $route['account'] = 'Caregiver/account';
 $route['landingPage'] = 'Caregiver/landingPage';
 $route['landingpage'] = 'Caregiver/landingpage';
 $route['residents'] = 'Caregiver/searchForResident';
+$route['floorSelect'] = 'Caregiver/floorSelect';
+$route['floorCompare'] = 'Caregiver/floorCompare';
 $route['logout'] = 'Caregiver/logout';
 
 
