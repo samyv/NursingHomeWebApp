@@ -1,8 +1,10 @@
+*{
+    font-family: Roboto, Merriweather ;
+}
 html,body {
     width: 100%
 }
 body {
-    font-family: Merriweather;
     height: 100%;
     margin: 0;
     width: 100%;
@@ -11,68 +13,50 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 0.25fr 3fr 1fr;
-    grid-template-areas:    "Header Header Header Header Header Header Header Header Header Header Header Header"
-                                                ". . title title title title title title title title . ."
+    grid-template-rows: 8em 12em 10em 1fr;
+    grid-template-areas:                    ". . title title title title title title title title . ."
                                                 ". . quote quote quote quote quote quote quote quote . ."
-                                        ". . button1 button1 . button2 button2 . button3 button3 . ."
+                                        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
                             "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
-
-.Header {
-    grid-area: Header;
-    background-color: #003b46;
-    color: white;
-    width: 100%;
-}
-
 .title{
-    text-align: center;
+    padding-top: 3em;
     grid-area: title;
 }
 
 .quote {
     grid-area: quote;
-    text-align: center;
-    background-color: #66a5ad;
-
+    font-style: italic;
 }
 
-.button1 {
-    text-align: center;
-    grid-area: button1;
+.quote h5{
+    color: #66a5ad;
+    opacity: 0.7;
 }
 
-.button2 {
-    text-align: center;
-    grid-area: button2;
+.btn-group-vertical{
+    grid-area: btngrp;
 }
 
-.button3 {
-    text-align: center;
-    grid-area: button3;
- }
+.btn-group-vertical .btn-group{
+    margin: 1em 0 0 0 !important;
+    height: 100%;
+}
+.btn-group-vertical .btn-group .btn{
+    background-color: #003B46;
+    color: white;
+    border-radius: 0;
+    margin: 0 1em 0 0;
+}
+
+.btn-group-vertical .btn-group .btn{
+    border-radius: 10px !important;
+}
+
 
 .footer {
     align-self: end;
     grid-area: footer;
     text-align: center;
-}
-
-a[type=button]{
-    background-color: #66a5ad;
-    color: white;
-    padding: 14px 50px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
-
-a[type=button]:hover{
-    opacity: 0.8;
-}
-
-.form {
-    height: 100%;
 }
