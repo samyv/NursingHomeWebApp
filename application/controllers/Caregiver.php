@@ -15,7 +15,7 @@ class Caregiver extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('caregivers');
-		$this->load->library('session');
+        $this->load->library('session');
         $this->load->database('default');
     }
 
@@ -73,10 +73,10 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', 'Your new settings have been saved');
-                    //redirect('account');
+                    redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
-                    //redirect('account');
+                    redirect('account');
                 }
             }
         }
@@ -220,7 +220,7 @@ class Caregiver extends CI_Controller
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
         // parse
-        $this->parser->parse('searchForResident', $data);
+        $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
     public function resDash(){

@@ -50,6 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
 */
 
+
+//routes for Caregiver
 $route['default_controller'] = 'Caregiver';
 $route['register'] = 'Caregiver/register';
 $route['index.php']= 'Caregiver/index.php';
@@ -57,6 +59,12 @@ $route['account'] = 'Caregiver/account';
 $route['landingPage'] = 'Caregiver/landingPage';
 $route['searchRes'] = 'Caregiver/searchForResident';
 $route['resDash'] = 'Caregiver/resDash';
+
+
+//routes for Resident
+$route['tutorial'] = 'Resident/tutorial';
+
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
