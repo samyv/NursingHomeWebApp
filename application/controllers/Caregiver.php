@@ -208,7 +208,9 @@ class Caregiver extends CI_Controller
             redirect('index.php');
         }
         $data = array();
-        $this->load->view('Caregiver/landingPage');
+		$data['page_title'] = "Search page";
+		$this->parser->parse('Caregiver/landingPage', $data);
+//        $this->load->view('Caregiver/landingPage',$data);
     }
 
     public function searchForResident(){
@@ -217,22 +219,26 @@ class Caregiver extends CI_Controller
         }
 
         $data = array();
-        $sql = array();
+        $data['page_title'] = "Search page";
 		$this->load->database('default');
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
 
         // get names out of database
         $data['name'] = 'Jef';
         $data['page_title']='Login caregiver | GraceAge';
-
+        $conditions = array();
+        $conditions['return_type'] = 'all';
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
-
-
-        $this->parser->parse('templates/header',$data);
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
+
+    public function resDash(){
+    	$data = array();
+		$this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
+
+	}
 
     public function floorSelect(){
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');

@@ -62,6 +62,8 @@ $route['residents'] = 'Caregiver/searchForResident';
 $route['floorSelect'] = 'Caregiver/floorSelect';
 $route['floorCompare'] = 'Caregiver/floorCompare';
 $route['logout'] = 'Caregiver/logout';
+$route['searchRes'] = 'Caregiver/searchForResident';
+$route['resDash'] = 'Caregiver/resDash';
 
 
 //routes for Resident
@@ -70,4 +72,5 @@ $route['tutorial'] = 'Resident/tutorial';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
 

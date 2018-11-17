@@ -63,14 +63,16 @@
                     <input type="password" name="conf_password" placeholder="Confirm new password">
                     <?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
                 </div>
+			</form>
+			<div class="form-group buttons">
+				<input type="submit" value="Save changes" name="saveSettings"/>
+				<input type="button" value="Cancel" onclick="location.href='account'"/>
+			</div>
         </div>
     </div>
-    <div class="form-group buttons">
-        <input type="submit" value="Save changes" name="saveSettings"/>
-        <input type="button" value="Cancel" onclick="location.href='account'"/>
-    </div>
-    </form>
-    <a type="button" href="<?php echo base_url();?>Caregiver/logout">log out</a>
+
+
+    <a type="button", href="<?php echo base_url();?>Caregiver/logout" value="log out">log out</a>
     <div class="footer">
         <p>hello</p>
     </div>
