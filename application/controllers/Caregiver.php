@@ -215,14 +215,18 @@ class Caregiver extends CI_Controller
         // get names out of database
         $data['name'] = 'Jef';
         $data['page_title']='Login caregiver | GraceAge';
-
+        $conditions = array();
+        $conditions['return_type'] = 'all';
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
-
-
-
         // parse
         $this->parser->parse('searchForResident', $data);
     }
+
+    public function resDash(){
+    	$data = array();
+		$this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
+
+	}
 
 }
