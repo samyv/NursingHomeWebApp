@@ -15,6 +15,7 @@ class Caregiver extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('caregivers');
+        $this->load->model('dropdownmodel');
 		$this->load->library('session');
         $this->load->database('default');
     }
@@ -167,6 +168,9 @@ class Caregiver extends CI_Controller
      * User logout
      */
     public function logout(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('idCaregiver');
         $this->session->sess_destroy();
@@ -200,15 +204,22 @@ class Caregiver extends CI_Controller
     }
 
     public function landingPage(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
         $data = array();
         $this->load->view('Caregiver/landingPage');
     }
 
     public function searchForResident(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
 
         $data = array();
         $sql = array();
 		$this->load->database('default');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('searchRes');
 
         // get names out of database
         $data['name'] = 'Jef';
@@ -218,7 +229,7 @@ class Caregiver extends CI_Controller
         $data['listCar'] = $result;
 
 
-        $this->load->view('templates/header');
+        $this->parser->parse('templates/header',$data);
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
