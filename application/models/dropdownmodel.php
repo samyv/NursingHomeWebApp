@@ -15,7 +15,7 @@ class dropdownmodel extends CI_Model
         parent::__construct();
         // <a href="link" title="title" class="className">name</a>
         $this->dropdown_menu_items = array (
-            array('name'=>'Resident overview', 'link'=>'searchRes', 'className'=>'dropdown-item active'),
+            array('name'=>'Resident overview', 'link'=>'residents', 'className'=>'dropdown-item active'),
             array('name'=>'Floor selection', 'link'=>'floorSelect', 'className'=>'dropdown-item inactive'),
             array('name'=>'Floor comparison', 'link'=>'floorCompare', 'className'=>'dropdown-item inactive'),
         );

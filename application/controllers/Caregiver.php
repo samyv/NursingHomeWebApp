@@ -219,7 +219,7 @@ class Caregiver extends CI_Controller
         $data = array();
         $sql = array();
 		$this->load->database('default');
-        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('searchRes');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
 
         // get names out of database
         $data['name'] = 'Jef';
