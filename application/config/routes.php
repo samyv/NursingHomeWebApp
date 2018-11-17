@@ -57,7 +57,9 @@ $route['register'] = 'Caregiver/register';
 $route['index.php']= 'Caregiver/index.php';
 $route['account'] = 'Caregiver/account';
 $route['landingPage'] = 'Caregiver/landingPage';
+$route['landingpage'] = 'Caregiver/landingpage';
 $route['searchRes'] = 'Caregiver/searchForResident';
+$route['logout'] = 'Caregiver/logout';
 
 
 //routes for Resident
