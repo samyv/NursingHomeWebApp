@@ -27,7 +27,6 @@ class Resident extends CI_Controller
             redirect('account');
         }
 
-
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
             $this->form_validation->set_rules('room_number', 'Room number', 'required');
@@ -74,8 +73,6 @@ class Resident extends CI_Controller
         $data['question'] = $this->QuestionModel->getQuestion($index);
 
         $this->parser->parse('Resident/questionPage',$data);
-        //        $data['question'] = $this->QuestionModel->get_all_questions(); // get results array from model
-        //        $this->load->view('Resident/questionPage', $data); // pass array to view
     }
 
     public function update(){
