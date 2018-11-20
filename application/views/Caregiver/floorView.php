@@ -1,13 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <link href="<?php echo base_url(); ?>assets/css/main.css" rel='stylesheet' type='text/css' />
-    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
-    <title>{page_title}</title>
+    <title>Database Searching</title>
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
-<div>
 
-</div>
+<h1>Please select the desired floor</h1>
+
+<body>
+<ul id="myUL">
+    <!-- TODO: Add the correct links            -->
+    <!-- TODO: Get the floors from the database -->
+    <li><a href='roomView'>Floor 1</a></li>
+    <li><a href="roomView">Floor 2</a></li>
+    <li><a href="roomView">Floor 3</a></li>
+    <li><a href="roomView">Floor 4</a></li>
+    <li><a href="roomView">Floor 5</a></li>
+</ul>
 </body>
 </html>

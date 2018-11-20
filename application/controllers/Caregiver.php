@@ -211,16 +211,29 @@ class Caregiver extends CI_Controller
 		$this->load->database('default');
 
         // get names out of database
-        $data['name'] = 'Jef';
-        $data['page_title']='Login caregiver | GraceAge';
-
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
 
-
-
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
+    }
+
+    public function floorView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/floorView', $data);
+    }
+
+    public function roomView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/roomView', $data);
+    }
+
+    public function singleRoomView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/singleRoomView', $data);
     }
 
 }

@@ -124,4 +124,6 @@ Class Caregivers extends CI_Model{
 		$array = json_decode(json_encode($result), true);
 		return $array[0]['Quote'];
 	}
+
+
 }

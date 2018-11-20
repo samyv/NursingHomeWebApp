@@ -26,7 +26,7 @@
         <input type="button" value="Go to residents list view" onclick="location.href='searchRes'"/>
     </div>
     <div class = "button2">
-        <input type="button" value="Go to floor comparison" onclick="location.href='floorComparison'"/>
+        <input type="button" value="Floor comparison" onclick="location.href='floorComparison'"/>
     </div>
 
     <div class = "button3">
