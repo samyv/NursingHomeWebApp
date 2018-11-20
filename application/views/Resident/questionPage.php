@@ -55,16 +55,19 @@
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
-    var index =1;
     $(document).ready(function(){
         var index = 1;
+        var awaitTime = 200;
+        var maxQuestionNr = 50;
 
-        function trans($index, $answer){
+
+        function transQuestionTextAndAns($index, $answer){
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
                 data:{index:$index,
-                    answer:$answer},
+                    answer:$answer,
+                    },
                 success:function(question)
                 {
                     $('#question').html(question);
@@ -72,45 +75,63 @@
             });
         }
 
+        function transOldAnswer($index){
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+                method:"POST",
+                data:{index:$index},
+                success:function(answer)
+                {
+                    $('#answer'+answer).prop('checked',true);
+                }
+            });
+        }
+
+        transOldAnswer(index);
+
         $('#answer1').click(async function(){
-            index++;
-            await sleep(300);
-            trans(index,1);
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,1);
+            transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer2').click(async function(){
-            index++;
-            await sleep(300);
-            trans(index,2);
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,2);
+            transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer3').click(async function(){
-            index++;
-            await sleep(300);
-            trans(index,3);
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,3);
+            transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer4').click(async function(){
-            index++;
-            await sleep(300);
-            trans(index,4);
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,4);
+            transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer5').click(async function() {
-            index++;
-            await sleep(300);
-            trans(index,4);
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,5);
+            transOldAnswer(index);
             $(this).prop('checked', false);
         });
         $('#previous').click(async function(){
-            index--;
-            await sleep(300);
-            trans(index,null);
-            $(this).prop('checked', false);
+            if(index > 1) index--;
+            transQuestionTextAndAns(index,null);
+            transOldAnswer(index);
         });
     });
 </script>
