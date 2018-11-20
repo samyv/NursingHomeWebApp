@@ -27,7 +27,6 @@ class Resident extends CI_Controller
             redirect('account');
         }
 
-
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
             $this->form_validation->set_rules('room_number', 'Room number', 'required');
@@ -74,24 +73,31 @@ class Resident extends CI_Controller
         $data['question'] = $this->QuestionModel->getQuestion($index);
 
         $this->parser->parse('Resident/questionPage',$data);
-        //        $data['question'] = $this->QuestionModel->get_all_questions(); // get results array from model
-        //        $this->load->view('Resident/questionPage', $data); // pass array to view
     }
 
     public function update(){
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
-        if($answer !=null ) {
-            $this->insert($index - 1, $answer);
+
+        //$data['question'] = $timestamp;
+
+        //$this->parser->parse('Resident/questionPage',$data);
+
+        if($answer != null) {
+            $this->QuestionModel->insertAnswer($index - 1, $answer);
+            $this->QuestionModel->insertTimestamp();
         }
         $data = $this->QuestionModel->getQuestion($index);
         echo $data;
     }
 
-    function insert($index,$answer = '1')
-	{
-		$this->QuestionModel->insertAnswer($index,$answer);
-	}
+    public function getOldAnswer(){
+        $index = $this ->input->post('index');
+        $residentID = 1;
+        $data = $this->QuestionModel->getAnswer($residentID, $index);
+        echo $data;
+    }
+
     public function tutorial(){
         //checks if a resident is logged in, else go to the login page
         if(!isset($_SESSION['isResidentLoggedIn'])){
