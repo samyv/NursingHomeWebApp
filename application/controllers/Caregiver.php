@@ -255,4 +255,8 @@ class Caregiver extends CI_Controller
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floorCompareView', $data);
     }
+
+    public function addQuestion() {
+
+    }
 }

@@ -1,0 +1,47 @@
+*{
+    font-family: Roboto;
+}
+
+.title{
+    grid-area: title;
+}
+
+html,body {
+    width: 100%
+}
+
+body {
+    background-color: #E6F2EA;
+    height: 100%;
+    margin: 0;
+    width: 100%;
+}
+
+.myTitle {
+    font-family: Merriweather;
+    margin-top: 0 !important;
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    color: #343333;
+    background-color: #94B7A0;
+}
+
+mySubtitle {
+    font-style: italic;
+    color: #66a5ad;
+    opacity: 0.7;
+}
+
+.myButtons {
+    grid-area: buttons;
+    background-color: #d48478;
+    margin: 1em 0 0 0 !important;
+}
+
+footer {
+    align-self: end;
+    grid-area: footer;
+    text-align: center;
+    font-size: 10px;
+}

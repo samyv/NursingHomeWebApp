@@ -2,16 +2,19 @@
 <html>
 <head>
     <title>{page_title}</title>
-    <link href="<?=base_url()?>assets/css/login.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url()?>assets/css/caregiver.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
-<div class="logo">
+
+<div class="myTitle">
     <h1>GraceAge</h1>
     <h2>Providing better care</h2>
 </div>
+
     <div class="container">
         <div class="image">
             <img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.png" >
