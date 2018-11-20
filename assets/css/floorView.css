@@ -1,29 +1,32 @@
-*{
+* {
+    box-sizing: border-box;
     font-family: Roboto;
 }
 
-
-#myUL {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width : auto;
-    height : 300px;
-    overflow: hidden;
+/* Create two equal columns that floats next to each other */
+.column {
+    background: #003b46;
+    color: white;
+    float: left;
+    padding: 10px;
+    width : 10%;
 }
 
-#myUL li a {
-    border: 1px solid #ddd;
-    margin-top: -1px; /* Prevent double borders */
-    background-color: #f6f6f6;
-    width : 90%;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 18px;
-    color: black;
-    display: block
+.column:hover{
+    background: #009cad;
+    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
-#myUL li a:hover:not(.header) {
-    background-color: #eee;
+/* Clear floats after the columns */
+.row:after {
+
+    content: "";
+    display: table;
+    clear: both;
+    width : 100%
+}
+
+
+.image:hover{
+    cursor: pointer;
 }

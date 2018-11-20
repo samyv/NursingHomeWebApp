@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Database Searching</title>
-    <link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/buildingView.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
