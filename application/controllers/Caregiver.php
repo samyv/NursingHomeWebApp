@@ -218,6 +218,12 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
+    public function buildingView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/buildingView', $data);
+    }
+
     public function floorView(){
         $data = array();
         // parse

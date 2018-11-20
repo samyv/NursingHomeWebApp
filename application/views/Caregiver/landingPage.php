@@ -30,7 +30,7 @@
     </div>
 
     <div class = "button3">
-        <input type="button" value="Go to floor selection" onclick="location.href='floorView'"/>
+        <input type="button" value="Go to floor selection" onclick="location.href='buildingView'"/>
     </div>
 
 

@@ -125,7 +125,7 @@
 <script>
     function onClick()
     {
-        window.location.href = 'singleRoomView';
+        window.location.href = 'roomView';
 
     }
 </script>
