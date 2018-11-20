@@ -52,7 +52,7 @@
 		<div id="chart"></div>
 	</div>
 	<div class="hint">
-		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!</text>
+		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!!</text>
 	</div>
 	<div class="print">
 		<input type="submit"></input>
