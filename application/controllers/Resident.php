@@ -27,7 +27,6 @@ class Resident extends CI_Controller
             redirect('account');
         }
 
-
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
             $this->form_validation->set_rules('room_number', 'Room number', 'required');
