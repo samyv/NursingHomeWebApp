@@ -225,6 +225,12 @@ class Caregiver extends CI_Controller
 
     public function resDash(){
     	$data = array();
+    	$cond = array();
+    	$cond['where'] = array('residentID' => $_GET['id']);
+//    	$cond['return_type'] = 'single';
+    	$row = $this->caregivers->getRows($cond);
+    	$result = json_decode(json_encode($row), true);
+    	$data['resident'] = $result['result_object'][0];
 		$this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
 	}

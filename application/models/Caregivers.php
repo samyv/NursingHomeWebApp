@@ -144,10 +144,9 @@ Class Caregivers extends CI_Model{
 			}
 		}
 
+
 		$result = $this->db->query($sql);
-
-
-//		echo $result->num_rows;
+		
 		$data = array();
 		if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
 			switch($conditions['return_type']){
@@ -155,7 +154,8 @@ Class Caregivers extends CI_Model{
 					$data = $result->num_rows;
 					break;
 				case 'single':
-					$data = $result->fetch_assoc();
+					var_dump($result);
+					$data = $result->fetch(PDO::FETCH_ASSOC);
 					break;
 				default:
 					$data = '';
