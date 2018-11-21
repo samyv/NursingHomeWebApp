@@ -75,13 +75,15 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/questionPage',$data);
     }
 
+    public function tutorialpage(){
+        $data['resident'] = 'Jack';
+        $this->parser->parse("Resident/tutorialPage",$data);
+    }
+
     public function update(){
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
 
-        //$data['question'] = $timestamp;
-
-        //$this->parser->parse('Resident/questionPage',$data);
 
         if($answer != null) {
             $this->QuestionModel->insertAnswer($index - 1, $answer);
