@@ -208,9 +208,24 @@ class Caregiver extends CI_Controller
             redirect('index.php');
         }
         $data = array();
-		$data['page_title'] = "Search page";
-		$this->parser->parse('Caregiver/landingPage', $data);
-//        $this->load->view('Caregiver/landingPage',$data);
+        $data['notes']=$this->caregivers->getNotes($_SESSION['idCaregiver']);
+
+
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
+
+/*
+        if($this->input->post('submitNotes')){
+            $notes=array(
+                'note' => $_POST['note'],
+                'idnote' => $_POST['id'],
+                'idCaregiver' => $_SESSION['idCaregiver']
+            );
+            $insert=$this->caregivers->insertNote($notes);
+
+        }*/
+        $this->parser->parse('templates/header', $data);
+        $this->parser->parse('Caregiver/landingPage',$data);
+
     }
 
     public function searchForResident(){
@@ -232,6 +247,9 @@ class Caregiver extends CI_Controller
         $conditions['return_type'] = 'all';
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
+
+
+        $this->parser->parse('templates/header',$data);
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
@@ -249,6 +267,9 @@ class Caregiver extends CI_Controller
 	}
 
     public function floorSelect(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
 
         $this->parser->parse('templates/header',$data);
@@ -256,10 +277,16 @@ class Caregiver extends CI_Controller
     }
 
     public function roomSelect(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
 
     }
 
     public function residentSelect(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
 
     }
 
@@ -268,5 +295,16 @@ class Caregiver extends CI_Controller
 
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floorCompareView', $data);
+    }
+
+    public function saveNote(){
+
+        $note = array(
+            'note' => $_POST['note'],
+            'idinput' => $_POST['idinput'],
+            'idCaregiver' => $_SESSION['idCaregiver']
+        );
+        $this->caregivers->insertNote($note);
+        return $note;
     }
 }

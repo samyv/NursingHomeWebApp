@@ -9,6 +9,8 @@
 Class Caregivers extends CI_Model{
 
 
+    private $notes;
+
     function __construct()
     {
         $this->load->database('default');
@@ -172,7 +174,25 @@ Class Caregivers extends CI_Model{
 	public function getQuote($number){
 		$sql = "SELECT * FROM a18ux02.Quotes WHERE Quote_ID = ".$number;
 		$result = $this->db->query($sql)->result();
-		$array = json_decode(json_encode($result), true);
+        $array = json_decode(json_encode($result), true);
 		return $array[0]['Quote'];
 	}
+
+	public function getNotes($id){
+        $sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= ".$id;
+        $result = $this->db->query($sql)->result();
+        $array = json_decode(json_encode($result), true);
+        foreach ($array as $key => $value){
+                $this->notes['note'.$key] = array('Note'=>$value['Note'],'noteid'=>$value['idNotes']);
+        }
+        return $this->notes;
+    }
+
+    public function insertNote($notes){
+        $cg = $notes['idCaregiver'];
+        $n = $notes['note'];
+        $sql = "INSERT INTO a18ux02.Notes (idCaregiver, Note) values ('$cg', '$n')";
+        $this->db->query($sql);
+        return;
+    }
 }
