@@ -13,16 +13,16 @@
 </div>
 
 
-<h1 id="title">Let's Start!</h1>
+<h1 id="title">Let's Start! or Good Job!</h1>
 
 
-<p id="description">I would like you to answer these questions<br>
-    about the food and meals here.
+<p id="description">{sectionDescription}
 </p>
 
 
 <img id="logoImg" src="http://localhost/a18ux02//assets/images/knife-and-fork.png" >
 
 
-<button id="continue">Continue</button>
+<button id="continue" onclick="location.pathname='a18ux02/resident/page/'+{index}">Continue</button>
+
 </body>

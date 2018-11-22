@@ -31,6 +31,20 @@ class QuestionModel extends CI_Model
         return $text;
     }
 
+    function getQuestionType($questionID){
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$questionID));
+
+        $row = $query->row_array();
+
+        $text = '';
+
+        if (isset($row))
+        {
+            $text = $row['questionType'];
+        }
+        return $text;
+    }
+
     function getAnswer($residentID,$questionNr){
         $query = $this->db->get_where('a18ux02.Questionarries', array('Resident_residentID'=>$residentID));
 
@@ -58,4 +72,38 @@ class QuestionModel extends CI_Model
             "UPDATE a18ux02.Questionarries SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = 1"
         );
     }
+
+    function getSectionDescription($id){
+        $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
+
+        $row = $query->row_array();
+
+        $text = '';
+
+        if (isset($row))
+        {
+            $text = $row['sectionText'];
+        }
+        return $text;
+    }
+    function getIndex($residentID){
+        $query = $this->db->get_where('a18ux02.Questionarries', array('Resident_residentID'=>$residentID));
+
+        $row = $query->row_array();
+
+        $text = '';
+
+        if (isset($row))
+        {
+            $text = $row['numOfCurrentQuestion'];
+        }
+        return $text;
+    }
+
+    function insertIndex($index){
+        $this->db->query(
+            "UPDATE a18ux02.Questionarries SET numOfCurrentQuestion = ".$index." WHERE Resident_residentID = 1"
+        );
+    }
+
 }

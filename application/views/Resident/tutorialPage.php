@@ -22,7 +22,7 @@
 
 
     <div id="btn">
-        <button>Skip tutorial</button>
+        <button onclick="location.href='section'">Skip tutorial</button>
     </div>
 </div>
 
