@@ -27,6 +27,8 @@ class Caregiver extends CI_Controller
         $data = array();
         $userData = array();
         $data['page_title']='Account overview | GraceAge';
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
+        $this->parser->parse('templates/header', $data);
 
         if($this->session->userdata('success_msg')){
             $data['success_msg'] = $this->session->userdata('success_msg');
@@ -36,7 +38,6 @@ class Caregiver extends CI_Controller
             $data['error_msg'] = $this->session->userdata('error_msg');
             $this->session->unset_userdata('error_msg');
         }
-
 
         if($this->session->userdata('isUserLoggedIn')){
             $result = $this->caregivers->getInfo(array('id'=>$this->session->userdata('idCaregiver')));
