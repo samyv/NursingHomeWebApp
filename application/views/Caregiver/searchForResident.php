@@ -1,21 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
 	<title>Database Searching</title>
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/searchForResident.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<!--    <script src="javascript/search.js"></script>-->
 
 </head>
 
 <body>
 
-<h1>Database searching</h1>
+<div class="grid-container">
+<div class = "myTitle">
+    <h1>Database searching</h1>
+</div>
 
-<body>
-<input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
-<div class="carlist">
+<div class = "search">
+    <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+</div>
+
+<div class="myTable">
 	<table id="myTable"></table>
 </div>
 
@@ -126,5 +132,6 @@
 		})
 	}
 </script>
+</div>
 </body>
 </html>

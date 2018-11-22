@@ -1,25 +1,42 @@
 *{
-    font-family: Roboto;
+    font-family: Roboto, Merriweather;
 }
 
-#myInput {
-    background-image: url("/assets/images/edouard-remy.png");
-    background-position: 10px 12px;
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 8em 22em 1fr;
+    grid-template-areas:
+            ". . title title title title title title title title . ."
+            ". . search search table table table table table table . ."
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+
+.myTitle {
+    padding-top: 3em;
+    grid-area: title;
+    font-family: Merriweather;
+    font-size: 20px;
+}
+
+.search {
     background-repeat: no-repeat;
     width: 90%;
+    height: 10%;
     font-size: 16px;
-    padding: 12px 20px 12px 40px;
-    border: 1px solid #ddd;
+    padding: 10px;
     margin-bottom: 12px;
+    grid-area: search;
 }
 
-#myTable {
+.myTable {
     list-style-type: none;
     padding: 0;
     margin: 0;
     width : auto;
     height : auto;
     overflow-y: scroll;
+    grid-area: table;
 }
 
 #myTable tr a {
@@ -57,6 +74,13 @@
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: left;
-	background-color: #4CAF50;
+	background-color: #66a5ad;
 	color: white;
+}
+
+footer {
+    grid-area: footer;
+    align-self: end;
+    text-align: center;
+    font-size: 10px;
 }

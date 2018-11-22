@@ -222,6 +222,8 @@ class Caregiver extends CI_Controller
         $data['page_title'] = "Search page";
 		$this->load->database('default');
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
+        $this->parser->parse('templates/header', $data);
+
 
         // get names out of database
         $data['name'] = 'Jef';
