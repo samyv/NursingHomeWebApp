@@ -5,7 +5,7 @@
  * Date: 5-11-2018
  * Time: 18:39
  */
-
+//line 91
 class Resident extends CI_Controller
 {
     public function __construct()
@@ -69,6 +69,7 @@ class Resident extends CI_Controller
 
         $this->parser->parse('Resident/login', $data);
     }
+
     public function page($index=1)
     {
         $data['question'] = $this->QuestionModel->getQuestion($index);
@@ -85,9 +86,9 @@ class Resident extends CI_Controller
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
 
-
+        $this->QuestionModel->insertIndex($index);
         if($answer != null) {
-            $this->QuestionModel->insertAnswer($index - 1, $answer);
+//            $this->QuestionModel->insertAnswer($index - 1, $answer);
             $this->QuestionModel->insertTimestamp();
         }
         $data = $this->QuestionModel->getQuestion($index);
@@ -100,6 +101,19 @@ class Resident extends CI_Controller
         $data = $this->QuestionModel->getAnswer($residentID, $index);
         echo $data;
     }
+    public function getNextQuestionType(){
+        $index = $this ->input->post('index');
+        $residentID = 1;
+        $data = $this->QuestionModel->getQuestionType($index+1);
+        echo $data;
+    }
+    public function getCurrentQuestionType(){
+        $index = $this ->input->post('index');
+        $residentID = 1;
+        $data = $this->QuestionModel->getQuestionType($index);
+        echo $data;
+    }
+
 
     public function tutorial(){
         //checks if a resident is logged in, else go to the login page
@@ -118,9 +132,31 @@ class Resident extends CI_Controller
         redirect('Resident/index');
     }
 
-    public function section()
+    public function section($id =1)
     {
-        $this->load->view('Resident/sectionPage');
+        $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
+        $data['index'] = $this->getFirstQuestionIndex($id);
+        $this->parser->parse('Resident/sectionPage',$data);
+    }
+
+    public function getFirstQuestionIndex($id =1)
+    {
+        for($i =1; $i<50;$i++)
+        {
+            if($this->QuestionModel->getQuestionType($i) == $id)
+            {
+                return $i;
+            }
+
+        }
+        return -1;
+    }
+
+    public function getIndex($id =1)
+    {
+        $residentID = 1;
+        $data = $this->QuestionModel->getIndex($residentID);
+        echo $data;
     }
 
 }
