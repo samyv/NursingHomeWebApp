@@ -295,10 +295,17 @@
      text-align: center;
  }
 
+
+
+.room1, .room2, .room3, .room4, .room5, .room6, .room7, .room8, .room9, .room10 ,
+.room11, .room12, .room13, .room14, .room15, .room16, .room17, .room18, .room19, .room20{
+    transition: all .2s ease-in-out;
+}
+
 .room1:hover, .room2:hover, .room3:hover, .room4:hover, .room5:hover, .room6:hover, .room7:hover, .room8:hover, .room9:hover, .room10:hover ,
 .room11:hover, .room12:hover, .room13:hover, .room14:hover, .room15:hover, .room16:hover, .room17:hover, .room18:hover, .room19:hover, .room20:hover{
     background: #009cad;
-    transform: scale(2);
+    transform: scale(1.5);
 }
 
 .roomNr{
