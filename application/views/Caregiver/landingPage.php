@@ -44,16 +44,20 @@
             <input id="4" value="Action center" type="button" class = "btn" onclick="location.href='actionCenter'">
         </div>
 
+    <h2 class="noteheader">Notes</h2>
+
+    <h2 class="clndrheader">Calendar</h2>
+
     <div class="notes">
             {notes}
             <form name="submitNotes" class="existing form" action="">
                 <input type="number" name="id" class="idinput form-group" style="display:none;" value="{noteid}">
-                <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes" name="note" onfocus="SaveCancel({noteid})" >{Note}</textarea>
+                <textarea id="notearea"  class="note form-group" wrap="hard" maxlength="1000" form="submitNotes" name="note" onfocus="SaveCancel({noteid})" >{Note}</textarea>
                 <input id="savebtn" class="btn form-group" type="button" value="Save" style="display:none">
             </form>
             {/notes}
         <div class="newNote" id="newNote">
-            <button id="newNotebtn" type="button" class="btn">New</button>
+            <button id="newNotebtn" type="button" class="btn">New note</button>
         </div>
     </div>
 
@@ -72,14 +76,16 @@
                 event.preventDefault();
                 var notes = document.getElementsByClassName('note');
                 var idinputs = document.getElementsByClassName('idinput');
-
-                console.log(0);
+                let i = 0
                 $.ajax({
                     url:'<?=base_url()?>Caregiver/saveNote',
                     method: 'post',
                     data: {
-                        note: note,
-                        idinput: idinput
+                        for(i ; i<notes.length;i++)
+                        {
+                            note: notes[i].value,
+                            idinput:idinputs[i].value
+                        }
                     },
                     dataType: 'json',
                     success: function(data){
