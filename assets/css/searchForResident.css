@@ -7,14 +7,14 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 8em 22em 1fr;
     grid-template-areas:
-            ". . title title title title title title title title . ."
+            ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
 .h1 {
     padding-top: 20px;
-    grid-area: title;
+    grid-area: Header;
 }
 
 .search {
@@ -34,7 +34,9 @@
 
 .table tr:nth-child(even){background-color: #f2f2f2;}
 
-.table tr:hover {background-color: #ddd;}
+.table tr:hover {
+    background-color: #ddd;
+}
 
 .table th {
 	background-color: #66a5ad;

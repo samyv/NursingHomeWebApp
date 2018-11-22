@@ -64,8 +64,8 @@
 			</form>
             <div class="button">
 				<input type="submit" value="Save changes" name="saveSettings"/>
-            </div>
                 <input type="button" value="Cancel" onclick="location.href='account'"/>
+            </div>
         </div>
     </div>
 

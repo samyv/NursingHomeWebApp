@@ -7,7 +7,7 @@
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 8em 30em 1fr;
     grid-template-areas: ". . Header Header Header Header Header Header Header Header . ."
-                        ". . settings settings settings btn btn btn btn btn  . ."
+                        ". . setting setting setting setting setting button button button  . ."
                         "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
@@ -17,11 +17,9 @@
 }
 
 .h6 {
-    grid-area: settings;
+    grid-area: setting;
 }
-.button {
-    grid-area: btn;
-}
+
 input[type=submit],input[type=button]{
     float: left;
     background-color: #66a5ad;
