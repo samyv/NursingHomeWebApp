@@ -6,14 +6,31 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas:     ". . . . . . . . . . . ."
+    grid-template-rows: 0.5fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:     "bar bar bar bar bar bar bar bar bar bar bar bar"
+                            ". . title title title title title title title title . ."
                             ". .  room1 room1 room2 room2 room3 room3 room4 room4 . ."
                              ". .  room5 room5 room6 room6 room7 room7 room8 room8 . ."
                             ". .  room9 room9 room10 room10 room11 room11 room12 room12 . ."
                              ". .  room13 room13 room14 room14 room15 room15 room16 room16 . ."
                             ". .  room17 room17 room18 room18 room19 room19 room20 room20 . .";
 
+}
+
+.bar{
+    display  :grid;
+    background  :#003b46;
+    grid-area: bar;
+    color:white;
+    text-align: center;
+}
+
+.title{
+    display  :grid;
+    grid-area: title;
+    color: #003b46;
+    padding: 10px;
+    font-size: 32px;
 }
 
 .room1{

@@ -1,7 +1,17 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
+<body>
 <div class = "grid-container">
+
+    <div class = "bar">
+        <p>Navigation bar goes here</p>
+    </div>
+
+    <div class = "title">
+        <p>Please select the desired room</p>
+    </div>
+
     <div class = "room1">
         <div class = roomNr>
             <h2>Room 1</h2>
@@ -279,6 +289,6 @@
     </div>
 
 </div>
-
+</body>
 
 
