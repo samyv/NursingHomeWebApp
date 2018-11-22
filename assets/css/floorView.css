@@ -3,30 +3,317 @@
     font-family: Roboto;
 }
 
-/* Create two equal columns that floats next to each other */
-.column {
-    background: #003b46;
-    color: white;
-    float: left;
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:     ". . . . . . . . . . . ."
+                            ". .  room1 room1 room2 room2 room3 room3 room4 room4 . ."
+                             ". .  room5 room5 room6 room6 room7 room7 room8 room8 . ."
+                            ". .  room9 room9 room10 room10 room11 room11 room12 room12 . ."
+                             ". .  room13 room13 room14 room14 room15 room15 room16 room16 . ."
+                            ". .  room17 room17 room18 room18 room19 room19 room20 room20 . .";
+
+}
+
+.room1{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room1;
+    background-color: #003b46;
     padding: 10px;
-    width : 10%;
+    font-size: 10px;
+    text-align: center;
 }
+.room2{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room2;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room3{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room3;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room4{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room4;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room5{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room5;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}.room6{
+     display: grid;
+     grid-template-columns: 1fr 0.1fr 1fr;
+     grid-template-rows: 1fr 1fr 1fr;
+     grid-template-areas:
+             "roomNr roomNr roomNr"
+             "image1 . image2"
+             "image1 . image2";
+     grid-area: room6;
+     background-color: #003b46;
+     padding: 10px;
+     font-size: 10px;
+     text-align: center;
+ }
+.room7{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room7;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room8{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room8;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room9{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room9;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room10{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room10;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room11{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room11;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room12{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room12;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room13{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room13;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room14{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room14;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room15{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room15;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room16{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room16;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room17{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room17;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room18{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room18;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}
+.room19{
+    display: grid;
+    grid-template-columns: 1fr 0.1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas:
+            "roomNr roomNr roomNr"
+            "image1 . image2"
+            "image1 . image2";
+    grid-area: room19;
+    background-color: #003b46;
+    padding: 10px;
+    font-size: 10px;
+    text-align: center;
+}.room20{
+     display: grid;
+     grid-template-columns: 1fr 0.1fr 1fr;
+     grid-template-rows: 1fr 1fr 1fr;
+     grid-template-areas:
+             "roomNr roomNr roomNr"
+             "image1 . image2"
+             "image1 . image2";
+     grid-area: room20;
+     background-color: #003b46;
+     padding: 10px;
+     font-size: 10px;
+     text-align: center;
+ }
 
-.column:hover{
+.room1:hover, .room2:hover, .room3:hover, .room4:hover, .room5:hover, .room6:hover, .room7:hover, .room8:hover, .room9:hover, .room10:hover ,
+.room11:hover, .room12:hover, .room13:hover, .room14:hover, .room15:hover, .room16:hover, .room17:hover, .room18:hover, .room19:hover, .room20:hover{
     background: #009cad;
-    transform: scale(2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+    transform: scale(2);
 }
 
-/* Clear floats after the columns */
-.row:after {
-
-    content: "";
-    display: table;
-    clear: both;
-    width : 100%
+.roomNr{
+    grid-area: roomNr;
 }
 
+.image1{
+    grid-area: image1;
+    align-items: center;
+}
+.image2{
+    grid-area: image2;
+    align-items: center;
+}
 
-.image:hover{
+.image1:hover, .image2:hover{
     cursor: pointer;
 }
