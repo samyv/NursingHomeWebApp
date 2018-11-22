@@ -152,7 +152,7 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->insert($userData);
                 if($insert){
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
-                    redirect('index.php');
+                    //redirect('index.php');
                 }else{
                     $data['error_msg'] = 'Some problems occured, please try again.';
                 }
@@ -208,8 +208,23 @@ class Caregiver extends CI_Controller
             redirect('index.php');
         }
 
+
         $data = array();
+        $data['notes']=$this->caregivers->getNotes($_SESSION['idCaregiver']);
+
+
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
+
+/*
+        if($this->input->post('submitNotes')){
+            $notes=array(
+                'note' => $_POST['note'],
+                'idnote' => $_POST['id'],
+                'idCaregiver' => $_SESSION['idCaregiver']
+            );
+            $insert=$this->caregivers->insertNote($notes);
+
+        }*/
 
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/landingPage',$data);
@@ -267,5 +282,16 @@ class Caregiver extends CI_Controller
 
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floorCompareView', $data);
+    }
+
+    public function saveNote(){
+
+        $note = array(
+            'note' => $_POST['note'],
+            'idinput' => $_POST['idinput'],
+            'idCaregiver' => $_SESSION['idCaregiver']
+        );
+        $this->caregivers->insertNote($note);
+        return $note;
     }
 }

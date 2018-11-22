@@ -2,10 +2,11 @@
     font-family: Roboto, Merriweather ;
 }
 html,body {
+
+    height: 100vh;
     width: 100%
 }
 body {
-    height: 100%;
     margin: 0;
     width: 100%;
 }
@@ -13,11 +14,43 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 12em 10em 1fr;
+    grid-template-rows: 8em 8em 4em 3fr 1fr;
     grid-template-areas:                    ". . title title title title title title title title . ."
                                                 ". . quote quote quote quote quote quote quote quote . ."
                                         ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
+                                        ". . . . notes notes notes notes notes notes clndr clndr"
                             "footer footer footer footer footer footer footer footer footer footer footer footer";
+    grid-gap: 1em;
+}
+
+.notes{
+    grid-area: notes;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    height: 80%;
+    width: 100%;
+}
+.existing{
+    position:relative;
+    height: 100%;
+    margin: 0 0.5em 0.5em 0;
+}
+.existing input{
+    position:absolute;
+    bottom: 3px;
+    left:3px;
+    width: 60px;
+}
+
+.note{
+    border: none;
+    background-color: #66a5ad;
+    height: 100%;
+}
+
+.googleCalendar{
+    grid-area: clndr;
 }
 
 .title{
@@ -35,24 +68,40 @@ body {
     opacity: 0.7;
 }
 
-.btn-group-vertical{
+.btn-group{
     grid-area: btngrp;
-}
-
-.btn-group-vertical .btn-group{
-    margin: 1em 0 0 0 !important;
+    display: grid;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: "1 2 3 4";
+    grid-gap: 1em;
     height: 100%;
+    width: 100%;
 }
-.btn-group-vertical .btn-group .btn{
+.btn-group .btn{
+    width: 100%;
     background-color: #003B46;
     color: white;
     border-radius: 0;
     margin: 0 1em 0 0;
 }
 
-.btn-group-vertical .btn-group .btn{
-    border-radius: 10px !important;
+.btn-group #1{
+    grid-area: 1;
 }
+
+.btn-group #2{
+    grid-area: 2;
+}
+
+.btn-group #3{
+    grid-area: 3;
+}
+
+.btn-group #4{
+    grid-area: 4;
+}
+
 
 
 .footer {
