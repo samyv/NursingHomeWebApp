@@ -20,12 +20,13 @@ class Resident extends CI_Controller
         $this->load->database('default');
     }
 
-    public function index(){
-        $data['page_title'] = 'Login resident | GraceAge';
-        $data['residentNames'] = array();
-        if($this->session->userdata('isUserLoggedIn')){
-            redirect('account');
-        }
+
+        public function index(){
+            $data['page_title'] = 'Login resident | GraceAge';
+            $data['residentNames'] = array();
+            if($this->session->userdata('isUserLoggedIn')){
+                redirect('account');
+            }
 
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
@@ -116,4 +117,10 @@ class Resident extends CI_Controller
         $this->session->sess_destroy();
         redirect('Resident/index');
     }
+
+    public function section()
+    {
+        $this->load->view('Resident/sectionPage');
+    }
+
 }
