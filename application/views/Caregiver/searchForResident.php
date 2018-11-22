@@ -62,7 +62,7 @@
 		var row = document.createElement('tr');
 		var id = document.createElement('th');
 		// id.style.display = "block";
-		id.innerHTML = "ID"
+		id.innerHTML = "ID";
 		row.appendChild(id);
 
 		var col1 = document.createElement('th');
