@@ -1,5 +1,5 @@
 *{
-    font-family: Roboto, Merriweather ;
+    font-family: Verdana ;
 }
 html,body {
 
@@ -44,8 +44,8 @@ body {
 .existing{
     position:relative;
     height: 100%;
-    margin: 0 1em 0.5em 0;
-    width: 40%;
+    margin: 0 1em 1em 0;
+    width: 47%;
 }
 .existing input{
     position:absolute;

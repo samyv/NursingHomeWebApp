@@ -8,12 +8,6 @@
 <body>
 <div class="grid-container">
 
-
-    <div class="Header">
-        <h2>User Account</h2>
-        <h3>Welcome <?php echo $caregiver['firstname'], " ", $caregiver['lastname'] ; ?>!</h3>
-
-    </div>
     <div class="settings">
         <div class= "form">
             <form action="" method="POST">

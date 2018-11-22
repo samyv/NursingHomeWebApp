@@ -42,6 +42,7 @@ class Caregiver extends CI_Controller
             $result = $this->caregivers->getInfo(array('id'=>$this->session->userdata('idCaregiver')));
             $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
             //load the view
+            $this->parser->parse('templates/header',$data);
             $this->parser->parse('Caregiver/account', $data);
         }else{
             redirect('index.php');
@@ -248,8 +249,6 @@ class Caregiver extends CI_Controller
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
 
-
-        $this->parser->parse('templates/header',$data);
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
