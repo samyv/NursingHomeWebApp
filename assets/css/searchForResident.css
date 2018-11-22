@@ -12,68 +12,32 @@
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
-.myTitle {
-    padding-top: 3em;
-    grid-area: title;
+.h1 {
+    padding-top: 20px;
     font-family: Merriweather;
-    font-size: 20px;
+    grid-area: title;
 }
 
 .search {
-    background-repeat: no-repeat;
-    width: 90%;
     height: 10%;
-    font-size: 16px;
-    padding: 10px;
-    margin-bottom: 12px;
+    padding-right: 10px;
     grid-area: search;
 }
 
-.myTable {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    width : auto;
-    height : auto;
+.table {
     overflow-y: scroll;
     grid-area: table;
 }
 
-#myTable tr a {
-    border: 1px solid #ddd;
-    margin-top: -1px; /* Prevent double borders */
-    background-color: #f6f6f6;
-    width : 90%;
-    padding: 12px;
-    text-decoration: none;
-    font-size: 18px;
-    color: black;
-    display: block
-}
-
-#myUL tr a:hover:not(.header) {
-    background-color: #eee;
-}
-
 #myTable {
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	border-collapse: collapse;
 	width: 100%;
 }
 
-#myTable td, #myTable th {
-	border: 1px solid #ddd;
-	padding: 8px;
-}
+.table tr:nth-child(even){background-color: #f2f2f2;}
 
-#myTable tr:nth-child(even){background-color: #f2f2f2;}
+.table tr:hover {background-color: #ddd;}
 
-#myTable tr:hover {background-color: #ddd;}
-
-#myTable th {
-	padding-top: 12px;
-	padding-bottom: 12px;
-	text-align: left;
+.table th {
 	background-color: #66a5ad;
 	color: white;
 }
@@ -82,5 +46,4 @@ footer {
     grid-area: footer;
     align-self: end;
     text-align: center;
-    font-size: 10px;
 }

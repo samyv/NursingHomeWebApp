@@ -13,7 +13,7 @@
 <body>
 
 <div class="grid-container">
-<div class = "myTitle">
+<div class = "h1">
     <h1>Database searching</h1>
 </div>
 
@@ -21,7 +21,7 @@
     <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
 </div>
 
-<div class="myTable">
+<div class="table">
 	<table id="myTable"></table>
 </div>
 
