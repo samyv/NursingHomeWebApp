@@ -169,4 +169,18 @@ body {
         width: 50%;
         margin: 0 0.2em 0.2em 0;
     }
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 8em 4em 2em 15em 15em 1fr;
+        grid-template-areas:                    ". . title title title title title title title title . ."
+        ". . quote quote quote quote quote quote quote quote . ."
+        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
+        ". . . . clndrhdr clndrhdr clndrhdr clndrhdr . . . ."
+        ". . . . clndr clndr clndr clndr . . . ."
+        ". . . . noteheader noteheader noteheader noteheader . . . ."
+        ". . . . notes notes notes notes . . . ."
+        "footer footer footer footer footer footer footer footer footer footer footer footer";
+        grid-gap: 1em;
+    }
 }
