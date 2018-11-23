@@ -18,57 +18,67 @@
 	}
 	?>
 	<div class="grid-container">
-		<div class="h1">
+		<div class="header">
 			<h3>Change Account Settings</h3>
 		</div>
-		<div class="form-left">
+		<div class="firstname">
 			<b>First name: </b>
-			<br>
-			<b>Last name: </b>
-			<br>
-			<b>Floor: </b>
 		</div>
-		<div class="form-left-input">
+		<div class="firstname_input">
 			<input type="text" value="<?php echo $caregiver['firstname']; ?>" name="firstname" required="">
 			<?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
 			<br>
-
+		</div>
+		<div class="lastname">
+			<b>Last name: </b>
+		</div>
+		<div class="lastname_input">
 			<input type="text" value="<?php echo $caregiver['lastname']; ?>" name="lastname" required="">
 			<?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
 			<br>
-
+		</div>
+		<div class="floor">
+			<b>Floor: </b>
+		</div>
+		<div class="floor_input">
 			<input type="number" min="0" value="<?php echo $caregiver['floor']; ?>" name="floor" required="">
 			<?php echo form_error('floor','<span class="help-block">','</span>'); ?>
 		</div>
-		<div class="form-right">
+		<div class="email">
 			<b>Email: </b>
-			<br>
-			<b>Old password:</b>
-			<br>
-			<b>New password:</b>
-			<br>
-			<b>Confirm password:</b>
 		</div>
-		<div class="form-right-input">
+		<div class="email_input">
 			<input type="email" value="<?php echo $caregiver['email']; ?>" name="email" required="">
 			<?php echo form_error('email','<span class="help-block">','</span>'); ?>
 			<br>
-
+		</div>
+		<div class="old_pass">
+			<b>Old password: </b>
+		</div>
+		<div class="old_pass_input">
 			<input type="password" name="old_password" placeholder="Enter old password" required="">
 			<?php echo form_error('old_password','<span class="help-block">','</span>'); ?>
 			<br>
-
+		</div>
+		<div class="new_pass">
+			<b>New password: </b>
+		</div>
+		<div class="new_pass_input">
 			<input type="password" name="new_password" placeholder="Enter new password">
 			<?php echo form_error('new_password','<span class="help-block">','</span>'); ?>
 			<br>
-
+		</div>
+		<div class="conf_pass">
+			<b>Confirm password: </b>
+		</div>
+		<div class="conf_pass_input">
 			<input type="password" name="conf_password" placeholder="Confirm new password">
 			<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 		</div>
-		<div class="buttons">
-			<input type="submit" value="Save changes" name="saveSettings"/>
-			<input type="button" value="Cancel" onclick="location.href='account'"/>
-		</div>
+	</div>
+	<div class="buttons">
+		<input type="submit" value="Save changes" name="saveSettings"/>
+		<input type="button" value="Cancel" onclick="location.href='account'"/>
 	</div>
 </form>
 </body>
