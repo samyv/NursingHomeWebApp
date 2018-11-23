@@ -1,18 +1,28 @@
 html,body {
+    background-color: #F5FAFA;
     height: 100%;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+}
+
+body {
+    font-family: Roboto;
+    margin: 0;
     display: flex;
     flex-direction: column;
 }
 
-body {
-    font-family: Verdana;
-    height: 100%;
-    display: flex;
-    margin: 0;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 30em 1fr;
+    grid-template-areas:
+            ". image image image image image . log log log log ."
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
 
@@ -20,7 +30,8 @@ body {
     margin-top: 0 !important;
 }
 
-.logo {
+.h1 {
+    font-family: Merriweather !important;
     align-self: center;
     justify-self: center;
     text-align: center;
@@ -29,8 +40,18 @@ body {
     width: 100%;
 }
 
-.form {
-    height: 100%;
+.image {
+    grid-area: image;
+    margin-top: 20%;
+}
+
+#remyImg{
+    width: 100%;
+}
+
+.login-form {
+    grid-area: log;
+    margin-top: 25%;
 }
 
 input[type=email],input[type=text], input[type=password] {
@@ -51,47 +72,13 @@ input[type=submit],input[type=button]{
     margin-top: 10px;
 }
 
-#loginResident{
-    width: 100%;
-    padding: 14px 0;
-}
-
 input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
-}
-
-
-
-.container {
-    display: grid;
-    grid-template-areas: "image login-form";
-    grid-template-columns: 50% 50%;
-}
-
-.image{
-    grid-area: image;
-    margin: 20% 5% 5% 5%;
-}
-
-#remyImg{
-    width: 100%;
-
-}
-
-.login-form{
-    grid-area: login-form;
-    margin: 20% 5% 0 5%;
 }
 
 span.psw {
     padding-top: 16px;
     font-size: 12px;
-}
-footer{
-    bottom:0;
-    text-align: center;
-    font-size: 10px;
-    position: fixed;
 }
 
 .modal{
