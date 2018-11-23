@@ -10,6 +10,7 @@
 </head>
 <body>
 
+<div class="grid-container">
 
 
 <div id="firstRow">
@@ -50,7 +51,7 @@
 </div>
 
 <button id="previous">Change Last Answer</button>
-
+</div>
 
 <script>
     // var nextType = document.getElementById("nextType");
