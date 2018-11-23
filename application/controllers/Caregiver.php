@@ -333,4 +333,14 @@ class Caregiver extends CI_Controller
         $this->caregivers->insertNote($note);
         return $note;
     }
+
+    public function newResident(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/newResident', $data);
+    }
 }
