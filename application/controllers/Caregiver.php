@@ -251,7 +251,9 @@ class Caregiver extends CI_Controller
 
     public function buildingView(){
         $data = array();
-        // parse
+        $this->load->database('default');
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
@@ -259,6 +261,9 @@ class Caregiver extends CI_Controller
         $data = array();
         // parse
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+        $this->load->database('default');
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
 
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floorView', $data);
