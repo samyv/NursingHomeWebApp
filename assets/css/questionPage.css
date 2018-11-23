@@ -1,6 +1,4 @@
 body{
-    display: flex;
-    flex-direction: column;
     font-family: Verdana;
 }
 
@@ -32,7 +30,7 @@ body{
 #firstRow #logo{
     background-color: #94b7a0;
     grid-area: logo;
-    font-size: 6em;
+    font-size: 54px;
     text-align: center;
     justify-self: center;
 }
@@ -88,7 +86,7 @@ body{
     grid-area: answers;
     padding: 40em;
     overflow: hidden;
-    margin-bottom: auto;
+    margin-bottom: 6em;
 }
 
 #answers input {
@@ -107,9 +105,8 @@ body{
 
 #answers label {
     display: inline-block;
-    margin: 0.5em;
-    width: 4.5em;
-    height: 1.5em;
+    margin: 3em;
+    width: 40em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
     font-size: 3em;
@@ -141,8 +138,8 @@ body{
 #previous{
     grid-area: previous;
     display: inline-block;
-    margin: 0.5em;
-    width: 4.5em;
+    margin: 3em;
+    width: 40em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
     font-size: 20em;
