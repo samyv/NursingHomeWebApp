@@ -16,11 +16,11 @@
     </div>
 
     <div class = "list">
-        <a class = "listRow1" href='floorView'>Floor 1</a>
-        <a class = "listRow2" href='floorView'>Floor 2</a>
+        <a class = "listRow1" href='floorView'>Floor 5</a>
+        <a class = "listRow2" href='floorView'>Floor 4</a>
         <a class = "listRow3" href='floorView'>Floor 3</a>
-        <a class = "listRow4" href='floorView'>Floor 4</a>
-        <a class = "listRow5" href='floorView'>Floor 5</a>
+        <a class = "listRow4" href='floorView'>Floor 2</a>
+        <a class = "listRow5" href='floorView'>Floor 1</a>
     </div>
 
     <div class = "footer">
