@@ -1,26 +1,32 @@
 *{
-    font-family: Roboto, Merriweather;
+    font-family: Roboto;
 }
 
+html, body {
+    background-color: #F5FAFA;
+}
 .grid-container {
+    background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 8em 22em 1fr;
     grid-template-areas:
-            ". . title title title title title title title title . ."
+            ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
 .h1 {
+    font-family: Merriweather !important;
     padding-top: 20px;
-    font-family: Merriweather;
-    grid-area: title;
+    grid-area: Header;
+
 }
 
 .search {
     height: 10%;
-    padding-right: 10px;
+    margin-right: 10px;
+    border: none;
     grid-area: search;
 }
 
@@ -30,16 +36,20 @@
 }
 
 #myTable {
+    border-collapse: collapse;
 	width: 100%;
 }
 
 .table tr:nth-child(even){background-color: #f2f2f2;}
 
-.table tr:hover {background-color: #ddd;}
+.table tr:hover {
+    background-color: #ddd;
+}
 
 .table th {
-	background-color: #66a5ad;
-	color: white;
+    background-color: #66a5ad;
+    color: white;
+    pointer-events: none;
 }
 
 footer {

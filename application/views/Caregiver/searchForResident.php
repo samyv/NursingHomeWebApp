@@ -18,7 +18,7 @@
 </div>
 
 <div class = "search">
-    <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+    <input type="text" id="myInput" onkeyup="search()" placeholder="Search.." title="Type in a name">
 </div>
 
 <div class="table">
@@ -62,7 +62,7 @@
 		var row = document.createElement('tr');
 		var id = document.createElement('th');
 		// id.style.display = "block";
-		id.innerHTML = "ID"
+		id.innerHTML = "ID";
 		row.appendChild(id);
 
 		var col1 = document.createElement('th');

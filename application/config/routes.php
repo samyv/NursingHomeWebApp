@@ -64,6 +64,9 @@ $route['floorCompare'] = 'Caregiver/floorCompare';
 $route['logout'] = 'Caregiver/logout';
 $route['searchRes'] = 'Caregiver/searchForResident';
 $route['resDash'] = 'Caregiver/resDash';
+$route['buildingView'] = 'Caregiver/buildingView';
+$route['floorView'] = 'Caregiver/floorView';
+$route['roomView'] = 'Caregiver/roomView';
 
 
 //routes for Resident
