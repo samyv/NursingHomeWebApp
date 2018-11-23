@@ -15,6 +15,7 @@ class Caregiver extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('caregivers');
+        $this->load->model('residents');
         $this->load->library('session');
         $this->load->model('dropdownmodel');
         $this->load->database('default');
@@ -249,6 +250,37 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
+    public function newResident()
+    {
+        $data = array();
+        $dataResident = array();
+        $data['page_title']='Register resident';
+        $this->parser->parse('templates/header',$data);
+
+        if($this->input->post('saveSettings')){
+            $this->form_validation->set_rules('firstname', 'Name', 'required');
+            $this->form_validation->set_rules('lastname', 'Name', 'required');
+
+            if($this->form_validation->run() == true){
+                $dataResident = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'birthdate' => strip_tags($this->input->post('birthdate')),
+                    'floor' => strip_tags($this->input->post('floor')),
+                    'room' => strip_tags($this->input->post('room')),
+                    'gender' => strip_tags($this->input->post('gender')),
+                );
+
+                $this->residents->insert($dataResident);
+            }
+
+        }
+        $data['resident'] = $dataResident;
+
+        //load the view
+        $this->parser->parse('Caregiver/newResident', $data);
+    }
+
     public function buildingView(){
         $data = array();
         // parse
@@ -313,7 +345,6 @@ class Caregiver extends CI_Controller
         if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
         }
-
     }
 
     public function floorCompare(){
@@ -334,13 +365,4 @@ class Caregiver extends CI_Controller
         return $note;
     }
 
-    public function newResident(){
-        if(!$this->session->userdata('isUserLoggedIn')){
-            redirect('index.php');
-        }
-        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
-
-        $this->parser->parse('templates/header',$data);
-        $this->parser->parse('Caregiver/newResident', $data);
-    }
 }
