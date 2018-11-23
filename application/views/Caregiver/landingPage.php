@@ -64,9 +64,9 @@
                     amp;src=24tn4fht2sssdssfdiqqlsedk%40group.calendar.google.com&
                     amp;color=%238C500B&amp;ctz=Asia%2FCalcutta"
 
-                    style="border-width: 0" width="950"
+                    style="border-width: 0" width="100%"
 
-                    height="520" frameborder="0" scrolling="no">
+                    height="300px" frameborder="0" scrolling="no">
             </iframe>
         </div>
     </div>
