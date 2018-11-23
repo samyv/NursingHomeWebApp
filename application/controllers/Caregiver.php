@@ -293,12 +293,28 @@ class Caregiver extends CI_Controller
                 'idCaregiver' => $_SESSION['idCaregiver']
             );
             $this->caregivers->updateNote($note);
+
         }elseif (empty($_POST['idinput'])){
             $note = array(
                 'note' => $_POST['note'],
                 'idCaregiver' => $_SESSION['idCaregiver']
             );
             $this->caregivers->insertNote($note);
+
+        }elseif (strcmp($_POST['note'],"")){
+            $note = array(
+                'idinput' => $_POST['idinput'],
+                'idCaregiver' => $_SESSION['idCaregiver']
+            );
+            $this->caregivers->deleteNote($note);
         }
+    }
+
+    public function deleteNote(){
+        $note = array(
+            'idinput' => $_POST['idNote'],
+            'idCaregiver' => $_SESSION['idCaregiver']
+        );
+        $this->caregivers->deleteNote($note);
     }
 }

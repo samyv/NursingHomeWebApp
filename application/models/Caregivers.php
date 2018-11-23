@@ -146,10 +146,17 @@ Class Caregivers extends CI_Model{
             WHERE idCaregiver ='$cg' AND idNotes = '$idn'";
         $this->db->query($sql);
     }
+
     public function insertNote($notes){
         $cg = $notes['idCaregiver'];
         $n = $notes['note'];
         $sql = "INSERT into a18ux02.Notes (Note, idCaregiver) values ('$n','$cg')";
+        $this->db->query($sql);
+    }
+    public function deleteNote($notes){
+        $cg = $notes['idCaregiver'];
+        $id = $notes['idinput'];
+        $sql = "DELETE FROM a18ux02.Notes WHERE idCaregiver = '$cg' AND idNotes = '$id'";
         $this->db->query($sql);
     }
 }
