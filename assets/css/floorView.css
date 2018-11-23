@@ -309,6 +309,7 @@ html,body{
 
 .room1, .room2, .room3, .room4, .room5, .room6, .room7, .room8, .room9, .room10 ,
 .room11, .room12, .room13, .room14, .room15, .room16, .room17, .room18, .room19, .room20{
+    border-style: solid;
     transition: all .2s ease-in-out;
     color:white;
     background-color: #66a5ad;

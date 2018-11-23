@@ -1,5 +1,6 @@
 *{
     font-family: Roboto;
+
 }
 
 html,body{
@@ -46,11 +47,11 @@ html,body{
     vertical-align:top;
     line-height:100px;
     background-color: #66a5ad;
-    color: white !important;
+    color: white!important;
     padding: 10px;
     font-size: 32px;
     text-align: left;
-    text-decoration: none !important;
+    text-decoration: none!important;
     transition: all .2s ease-in-out;
 }
 

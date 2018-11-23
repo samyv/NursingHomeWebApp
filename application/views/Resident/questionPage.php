@@ -49,7 +49,7 @@
     <label for="answer5">Answer5</label>
 </div>
 
-<button id="previous">Change Last Answer</button>
+<button id="previous">Previous</button>
 
 
 <script>
