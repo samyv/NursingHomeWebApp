@@ -1,8 +1,12 @@
 *{
-    font-family: Roboto, Merriweather;
+    font-family: Roboto;
 }
 
+html, body {
+    background-color: #F5FAFA;
+}
 .grid-container {
+    background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 8em 22em 1fr;
@@ -13,13 +17,15 @@
 }
 
 .h1 {
+    font-family: Merriweather !important;
     padding-top: 20px;
     grid-area: Header;
+
 }
 
 .search {
     height: 10%;
-    padding-right: 10px;
+    margin-right: 10px;
     border: none;
     grid-area: search;
 }

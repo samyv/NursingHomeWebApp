@@ -1,39 +1,66 @@
 *{
     font-family: Roboto, Merriweather;
 }
-
 .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 30em 1fr;
-    grid-template-areas: ". . Header Header Header Header Header Header Header Header . ."
-                        ". . setting setting setting setting setting button button button  . ."
-                        "footer footer footer footer footer footer footer footer footer footer footer footer";
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr [firstn] 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 3fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr;
+	grid-template-areas:
+			"headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+			". firstname firstname_input . . . email email email_input . . ."
+			". lastname lastname_input . . . old_pass old_pass old_pass_input . . ."
+			". floor floor_input . . . new_pass new_pass new_pass_input . . ."
+			". . . . . . conf_pass conf_pass conf_pass_input . . ."
 }
 
-.h1 {
-    padding-top: 20px;
-    grid-area: Header;
+.firstname { grid-area: firstname; }
+
+.lastname { grid-area: lastname; }
+
+.floor { grid-area: floor; }
+
+.email { grid-area: email; }
+
+.old_pass { grid-area: old_pass; }
+
+.new_pass { grid-area: new_pass; }
+
+.conf_pass { grid-area: conf_pass; }
+
+
+.header { grid-area: headerr; }
+
+
+.firstname_input { grid-area: firstname_input; }
+
+.lastname_input { grid-area: lastname_input; }
+
+.floor_input { grid-area: floor_input; }
+
+.email_input { grid-area: email_input; }
+
+.old_pass_input { grid-area: old_pass_input; }
+
+.new_pass_input { grid-area: new_pass_input; }
+
+.conf_pass_input { grid-area: conf_pass_input; }
+
+.buttons {
+	grid-area: buttons;
+	margin-left: 111px;
 }
 
-.h6 {
-    grid-area: setting;
-}
+.header { grid-area: headerr; }
 
 input[type=submit],input[type=button]{
-    float: left;
-    background-color: #66a5ad;
-    color: white;
-    padding: 14px 50px;
-    border: none;
-    cursor: pointer;
-    margin: 4px 2px;
+	float: left;
+	background-color: #66a5ad;
+	color: white;
+	padding: 8px 20px;
+	border: none;
+	cursor: pointer;
+	margin: 4px 2px;
 }
-
 input[type=submit]:hover,input[type=button]:hover{
-    opacity: 0.8;
-}
-
-.footer {
-    grid-area: footer;
+	opacity: 0.8;
 }
