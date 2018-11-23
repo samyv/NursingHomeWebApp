@@ -9,6 +9,8 @@
 Class Caregivers extends CI_Model{
 
 
+    private $notes;
+
     function __construct()
     {
         $this->load->database('default');
@@ -113,17 +115,86 @@ Class Caregivers extends CI_Model{
     }
 
     public function getResidents(){
-		$sql = "SELECT * FROM a18ux02.Resident";
-		$result = $this->db->query($sql)->result();
+		$sql1 = "SELECT * FROM a18ux02.Resident";
+		$result = $this->db->query($sql1)->result();
 		return $result;
+	}
+
+	/*
+    * Returns rows from the database based on the conditions
+	 * conditons:
+	   		- select: which columns you want (string)
+			- where: keys and values
+			- return_type: 'all','count',single
+    * @param string name of the table
+    * @param array select, where, order_by, limit and return_type conditions
+    */
+
+	public function getRows($conditions = array()){
+//		echo "init";
+		$userTbl = "a18ux02.Resident";
+		$sql = 'SELECT ';
+		$sql .= array_key_exists("select",$conditions)?$conditions['select']:'*';
+		$sql .= ' FROM '.$userTbl;
+		if(array_key_exists("where",$conditions)){
+			$sql .= ' WHERE ';
+			$i = 0;
+			foreach($conditions['where'] as $key => $value){
+				$pre = ($i > 0)?' AND ':'';
+				$sql .= $pre.$key." = '".$value."'";
+				$i++;
+			}
+		}
+
+
+		$result = $this->db->query($sql);
+
+		$data = array();
+		if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
+			switch($conditions['return_type']){
+				case 'count':
+					$data = $result->num_rows;
+					break;
+				case 'single':
+					var_dump($result);
+					$data = $result->fetch(PDO::FETCH_ASSOC);
+					break;
+				default:
+					$data = '';
+			}
+		}else{
+			if(count($result->result()) > 0){
+				$data = $result;
+			}
+		}
+
+		return !empty($data)?$data:false;
 	}
 
 	public function getQuote($number){
 		$sql = "SELECT * FROM a18ux02.Quotes WHERE Quote_ID = ".$number;
 		$result = $this->db->query($sql)->result();
-		$array = json_decode(json_encode($result), true);
+        $array = json_decode(json_encode($result), true);
 		return $array[0]['Quote'];
 	}
+
+	public function getNotes($id){
+        $sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= ".$id;
+        $result = $this->db->query($sql)->result();
+        $array = json_decode(json_encode($result), true);
+        foreach ($array as $key => $value){
+                $this->notes['note'.$key] = array('Note'=>$value['Note'],'noteid'=>$value['idNotes']);
+        }
+        return $this->notes;
+    }
+
+    public function insertNote($notes){
+        $cg = $notes['idCaregiver'];
+        $n = $notes['note'];
+        $sql = "INSERT INTO a18ux02.Notes (idCaregiver, Note) values ('$cg', '$n')";
+        $this->db->query($sql);
+        return;
+    }
 
 
 }

@@ -2,19 +2,17 @@
 <html lang="en">
 <head>
     <link href="<?php echo base_url(); ?>assets/css/account.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <title>{page_title}</title>
 </head>
 <body>
 <div class="grid-container">
-
-
-    <div class="Header">
-        <h2>User Account</h2>
+    <div class="h1">
         <h3>Welcome <?php echo $caregiver['firstname'], " ", $caregiver['lastname'] ; ?>!</h3>
-
     </div>
-    <div class="settings">
+
+    <div class="h6">
         <div class= "form">
             <form action="" method="POST">
                 <?php
@@ -63,20 +61,16 @@
                     <input type="password" name="conf_password" placeholder="Confirm new password">
                     <?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
                 </div>
+			</form>
+            <div class="button">
+				<input type="submit" value="Save changes" name="saveSettings"/>
+                <input type="button" value="Cancel" onclick="location.href='account'"/>
+            </div>
         </div>
     </div>
-    <div class="form-group buttons">
-        <input type="submit" value="Save changes" name="saveSettings"/>
-        <input type="button" value="Cancel" onclick="location.href='account'"/>
-    </div>
-    </form>
-    <a type="button" href="<?php echo base_url();?>Caregiver/logout">log out</a>
+
     <div class="footer">
-        <p>hello</p>
     </div>
-
-
-
 
 </div>
 </body>

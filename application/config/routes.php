@@ -57,7 +57,13 @@ $route['register'] = 'Caregiver/register';
 $route['index.php']= 'Caregiver/index.php';
 $route['account'] = 'Caregiver/account';
 $route['landingPage'] = 'Caregiver/landingPage';
+$route['landingpage'] = 'Caregiver/landingpage';
+$route['residents'] = 'Caregiver/searchForResident';
+$route['floorSelect'] = 'Caregiver/floorSelect';
+$route['floorCompare'] = 'Caregiver/floorCompare';
+$route['logout'] = 'Caregiver/logout';
 $route['searchRes'] = 'Caregiver/searchForResident';
+$route['resDash'] = 'Caregiver/resDash';
 $route['buildingView'] = 'Caregiver/buildingView';
 $route['floorView'] = 'Caregiver/floorView';
 $route['roomView'] = 'Caregiver/roomView';
@@ -69,4 +75,5 @@ $route['tutorial'] = 'Resident/tutorial';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
 

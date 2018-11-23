@@ -28,8 +28,10 @@
 </div>
 
 <p id="question">{question}</p>
-
-
+<div id = hidden>
+<p id="nextType">{nextType}</p>
+<p id="currentType">{currentType}</p>
+</div>
 <div id="answers">
     <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
     <label for="answer1">Answer1</label>
@@ -51,109 +53,136 @@
 
 
 <script>
+    // var nextType = document.getElementById("nextType");
+    // var currentType = document.getElementById("currentType");
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
-    var index =1;
     $(document).ready(function(){
         var index = 1;
+        var awaitTime = 200;
+        var maxQuestionNr = 50;
+        var nextType;
+        var currentType;
 
-        $('#answer1').click(async function(){
-            index++;
-            await sleep(300);
+        $.ajax({
+            url:'<?php echo site_url('index.php/Resident/getIndex');?>',
+            method:"POST",
+            success:function(i)
+            {
+                if( i == null)
+                {index = 1;}else{
+                    index = i;
+                }
+            }
+        });
+
+        function transQuestionTextAndAns($index, $answer){
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
                 method:"POST",
-                data:{index:index,
-                        answer:1},
+                data:{index:$index,
+                    answer:$answer,
+                    },
                 success:function(question)
                 {
                     $('#question').html(question);
                 }
             });
-            $(this).prop('checked', false);
+        }
+
+        function transOldAnswer($index){
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+                method:"POST",
+                data:{index:$index},
+                success:function(answer)
+                {
+                    $('#answer'+answer).prop('checked',true);
+                }
+            });
+        }
+
+        function checkIfLastQuestion($index){
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/getNextQuestionType');?>',
+                method:"POST",
+                data:{index:$index},
+                success:function(i)
+                {
+                    $('#nextType').html(i);
+                    nextType = i;
+                }
+            });
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/getCurrentQuestionType');?>',
+                method:"POST",
+                data:{index:$index},
+                success:function(i)
+                {
+                    $('#currentType').html(i);
+                    currentType = i;
+                }
+            });
+            // return currentType !== nextType;
+        }
+
+        // transOldAnswer(index);
+
+        $('#answer1').click(async function(){
+            if(index < maxQuestionNr) {
+                index++;
+                await sleep(awaitTime);
+                checkIfLastQuestion(index)
+                if(currentType !== nextType){
+                    console.log("current: "+currentType);
+                    console.log("next: "+nextType);
+                // if(true){
+                    window.location.pathname='a18ux02/resident/section/'+nextType
+                } else {
+                    transQuestionTextAndAns(index, 1);
+                }
+                // transOldAnswer(index);
+                $(this).prop('checked', false);
+            }
         });
 
         $('#answer2').click(async function(){
-            index++;
-            await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                    answer:2},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,2);
+            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer3').click(async function(){
-            index++;
-            await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                    answer:3},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,3);
+            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer4').click(async function(){
-            index++;
-            await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data:{index:index,
-                    answer:4},
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,4);
+            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
         $('#answer5').click(async function() {
-            index++;
-            await sleep(300);
-            $.ajax({
-                url: '<?php echo site_url('index.php/Resident/update');?>',
-                method: "POST",
-                data: {
-                    index: index,
-                    answer: 5
-                },
-                success: function (question) {
-                    $('#question').html(question);
-                }
-            });
+            if(index < maxQuestionNr) index++;
+            await sleep(awaitTime);
+            transQuestionTextAndAns(index,5);
+            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
         $('#previous').click(async function(){
-            index--;
-            await sleep(300);
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
-                method:"POST",
-                data: {
-                    index: index
-                },
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
-            });
-            $(this).prop('checked', false);
+            if(index > 1) index--;
+            transQuestionTextAndAns(index,null);
+            // transOldAnswer(index);
         });
     });
 </script>

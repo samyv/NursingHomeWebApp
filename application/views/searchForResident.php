@@ -1,27 +1,21 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/html">
+<html>
 <head>
-	<title>Database Searching</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/searchForResident.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<!--    <script src="javascript/search.js"></script>-->
+    <title>Database Searching</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/searchForResident.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<!--    <script src="javascript/search.js"></script>-->
 
 </head>
 
 <body>
 
-<div class="grid-container">
-<div class = "h1">
-    <h1>Database searching</h1>
-</div>
+<h1>Database searching</h1>
 
-<div class = "search">
-    <input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
-</div>
-
-<div class="table">
+<body>
+<input type="text" id="myInput" onkeyup="search()" placeholder="Search for names.." title="Type in a name">
+<div class="carlist">
 	<table id="myTable"></table>
 </div>
 
@@ -62,7 +56,7 @@
 		var row = document.createElement('tr');
 		var id = document.createElement('th');
 		// id.style.display = "block";
-		id.innerHTML = "ID";
+			id.innerHTML = "ID"
 		row.appendChild(id);
 
 		var col1 = document.createElement('th');
@@ -132,6 +126,5 @@
 		})
 	}
 </script>
-</div>
 </body>
 </html>

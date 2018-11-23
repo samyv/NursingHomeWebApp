@@ -1,0 +1,29 @@
+nav {
+    background-color: #003B46;
+}
+
+#logoutButton{
+    background-color: #66a5ad;
+    border-radius: 10px;
+    border: thin;
+    color: black !important;
+}
+
+.nav-link{
+    color: white !important;
+}
+
+.p1[data-count]:after{
+    position:absolute;
+    right:10%;
+    top:8%;
+    content: attr(data-count);
+    font-size:40%;
+    border-radius:50%;
+    line-height:1em;
+    color: white;
+    background:rgba(255,0,0,.85);
+    text-align:center;
+    min-width: 1em;
+//font-weight:bold;
+}

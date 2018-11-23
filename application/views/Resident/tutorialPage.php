@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link href="<?php echo base_url(); ?>assets/css/tutorialpage.css" rel='stylesheet' type='text/css' />
-    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
-    <title>{page_title}</title>
+    <meta charset="UTF-8">
+    <title>Tutorial</title>
+    <link href="<?=base_url();?>assets/css/tutorialpage.css" type="text/css" rel="stylesheet">
 </head>
-
 <body>
+
 <div class="grid-container">
-    <div class="header">
-        <h1>GraceAge</h1>
-        <a type="button" href="<?php echo base_url();?>Resident/logout">log out</a>
+
+    <div id="names">
+        <div id="name">Grace Age</div><br>
+        <div id="subname">Providing better care</div>
+    </div>
+
+    <div id="note">Watch the tutorial video below to see how to log in</div>
+
+    <div id="img">
+        <img src="<?=base_url();?>assets/images/tutorial.jpg">
     </div>
 
 
-        <h1>Welcome <?php
-                echo $_SESSION['Resident']['firstname'];
-                ?>
-        </h1>
-    <div class="container">
-        <p>Take a look at the tutorial video. This will show you how to use this application</p>
-        <p>If you're ready or want to skip this video, press the start button to begin!</p>
-        <video>here comes a video</video>
+    <div id="btn">
+        <button onclick="location.href='section'">Skip tutorial</button>
     </div>
-    <div class="startbtn">
-        <input type="button" value="Start" onclick="location.href='page'">
-    </div>
-
 </div>
+
+
+
 </body>
 </html>
