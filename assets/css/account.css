@@ -2,13 +2,15 @@
     font-family: Roboto, Merriweather;
 }
 
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 30em 1fr;
-    grid-template-areas: ". . Header Header Header Header Header Header Header Header . ."
-                        ". . setting setting setting setting setting button button button  . ."
-                        "footer footer footer footer footer footer footer footer footer footer footer footer";
+    grid-template-rows: 5em 1fr 1fr;
+    grid-template-areas:
+			"Header Header Header Header Header Header Header Header Header Header Header Header "
+			". . settings_1 settings_1_edit settings_1_edit settings_1_edit settings_2 settings_2 settings_2_edit settings_2_edit . ."
+			". . buttons buttons buttons buttons buttons . . . . ."
 }
 
 .h1 {
@@ -16,10 +18,22 @@
     grid-area: Header;
 }
 
-.h6 {
-    grid-area: setting;
+
+.form-left {
+    grid-area: settings_1;
+}
+.form-right {
+	grid-area: settings_2;
+	allign-items: center;
 }
 
+.form-left-input {
+	grid-area: settings_1_edit;
+}
+.form-right-input {
+	grid-area: settings_2_edit;
+	allign-items: center;
+}
 input[type=submit],input[type=button]{
     float: left;
     background-color: #66a5ad;
@@ -30,10 +44,12 @@ input[type=submit],input[type=button]{
     margin: 4px 2px;
 }
 
+.buttons {
+	grid-area: buttons;
+	align-items: center;
+}
+
 input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
 }
 
-.footer {
-    grid-area: footer;
-}
