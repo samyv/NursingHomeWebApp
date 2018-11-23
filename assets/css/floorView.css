@@ -3,6 +3,10 @@
     font-family: Roboto;
 }
 
+html,body{
+    background-color: #F5FAFA;
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -317,6 +321,7 @@
 .room1, .room2, .room3, .room4, .room5, .room6, .room7, .room8, .room9, .room10 ,
 .room11, .room12, .room13, .room14, .room15, .room16, .room17, .room18, .room19, .room20{
     transition: all .2s ease-in-out;
+    color:white;
 }
 
 .room1:hover, .room2:hover, .room3:hover, .room4:hover, .room5:hover, .room6:hover, .room7:hover, .room8:hover, .room9:hover, .room10:hover ,

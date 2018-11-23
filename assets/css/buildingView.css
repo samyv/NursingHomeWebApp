@@ -1,8 +1,14 @@
 *{
     font-family: Roboto;
+
+}
+
+html,body{
+    background-color: #F5FAFA;
 }
 
 .grid-container {
+    background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 0.5fr 0.5fr 4fr 0.5fr 0.5fr;
@@ -36,6 +42,7 @@
     color: #003b46;
     padding: 10px;
     font-size: 32px;
+    background-color: #F5FAFA;
 }
 
 .listRow1:hover,.listRow2:hover,.listRow3:hover,.listRow4:hover,.listRow5:hover{
@@ -44,6 +51,8 @@
 }
 
 .listRow1,.listRow2,.listRow3,.listRow4,.listRow5{
+    vertical-align:top;
+    line-height:100px;
     background-color: #66a5ad;
     color: white;
     padding: 10px;
