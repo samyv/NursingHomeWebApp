@@ -41,16 +41,15 @@ html,body{
     transform: scale(1.05);
 }
 
-.listRow1,.listRow2,.listRow3,.listRow4,.listRow5{
-    border-style: solid;
+.list a{
     vertical-align:top;
     line-height:100px;
     background-color: #66a5ad;
-    color: white !important;
+    color: white;
     padding: 10px;
     font-size: 32px;
     text-align: left;
-    text-decoration: none !important;
+    text-decoration: none;
     transition: all .2s ease-in-out;
 }
 
