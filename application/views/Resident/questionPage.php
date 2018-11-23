@@ -50,8 +50,8 @@
     <label for="answer5">Answer5</label>
 </div>
 
-<button id="previous">Change Last Answer</button>
-</div>
+<button id="previous">Previous</button>
+
 
 <script>
     // var nextType = document.getElementById("nextType");

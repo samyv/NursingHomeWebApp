@@ -1,4 +1,6 @@
 body{
+    display: flex;
+    flex-direction: column;
     font-family: Verdana;
 }
 
@@ -43,13 +45,13 @@ body{
     /*width: 200px;*/
     height: 5em;
     color: white;
-    background-color: red;
+    background-color: #d48478;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     font-size: 3em;
 }
 
 #firstRow button:hover{
-    background-color: darkred;
+    background-color: indianred;
     cursor: pointer;
 }
 
@@ -86,7 +88,7 @@ body{
     grid-area: answers;
     padding: 40em;
     overflow: hidden;
-    margin-bottom: 6em;
+    margin-bottom: auto;
 }
 
 #answers input {
@@ -105,11 +107,12 @@ body{
 
 #answers label {
     display: inline-block;
-    margin: 3em;
-    width: 40em;
+    margin: 0.5em;
+    width: 4.5em;
+    height: 1.5em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
-    font-size: 3em;
+    font-size: 4em;
     font-weight: normal;
     text-align: center;
     text-shadow: none;
@@ -138,11 +141,11 @@ body{
 #previous{
     grid-area: previous;
     display: inline-block;
-    margin: 3em;
-    width: 40em;
+    margin: 0.5em;
+    width: 4.5em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
-    font-size: 20em;
+    font-size: 3em;
     font-weight: normal;
     text-align: center;
     text-shadow: none;
@@ -163,6 +166,3 @@ body{
     cursor: pointer;
 }
 
-#answers label, #previous, #firstRow button{
-    border-radius: 4em;
-}
