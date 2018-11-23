@@ -13,7 +13,7 @@ nav {
     color: white !important;
 }
 
-.dropdown-item.active {
+.dropdown-item.active, .dropdown-item:active{
     background-color: #66a5ad !important;
 }
 
