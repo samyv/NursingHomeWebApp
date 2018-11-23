@@ -148,7 +148,7 @@ Class Caregivers extends CI_Model{
 
 
 		$result = $this->db->query($sql);
-		
+
 		$data = array();
 		if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
 			switch($conditions['return_type']){
@@ -195,4 +195,6 @@ Class Caregivers extends CI_Model{
         $this->db->query($sql);
         return;
     }
+
+
 }

@@ -242,15 +242,38 @@ class Caregiver extends CI_Controller
 
 
         // get names out of database
-        $data['name'] = 'Jef';
-        $data['page_title']='Login caregiver | GraceAge';
-        $conditions = array();
-        $conditions['return_type'] = 'all';
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
 
         // parse
         $this->parser->parse('Caregiver/searchForResident', $data);
+    }
+
+    public function buildingView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/buildingView', $data);
+    }
+
+    public function floorView(){
+        $data = array();
+        // parse
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/floorView', $data);
+    }
+
+    public function roomView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/roomView', $data);
+    }
+
+    public function singleRoomView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/singleRoomView', $data);
     }
 
     public function resDash(){
@@ -276,9 +299,13 @@ class Caregiver extends CI_Controller
     }
 
     public function roomSelect(){
+
         if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
         }
+
+        $this->parser->parse('templates/floorView',$data);
+
 
     }
 

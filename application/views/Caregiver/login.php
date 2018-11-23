@@ -9,17 +9,16 @@
 </head>
 
 <body>
-<div class="logo">
+<div class="h1">
     <h1>GraceAge</h1>
     <h2>Providing better care</h2>
 </div>
-    <div class="container">
+    <div class="grid-container">
         <div class="image">
             <img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.png" >
         </div>
 
         <div class="login-form">
-            <h1>Login</h1>
             <?php
             if(!empty($success_msg)){
                 echo '<p class="statusMsg">'.$success_msg.'</p>';
@@ -89,10 +88,6 @@
     </div>
 </div>
 
-<footer>
-	<p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-	</p>
-</footer>
 
 </body>
 </html>
