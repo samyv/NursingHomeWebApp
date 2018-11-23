@@ -120,7 +120,7 @@ body {
     width: 100%;
 }
 .btn-group .btn{
-    width: 100%;
+    min-width: 100%;
     background-color: #003B46;
     color: white;
     border-radius: 0;
@@ -149,4 +149,24 @@ body {
     align-self: end;
     grid-area: footer;
     text-align: center;
+}
+
+@media screen and (max-width: 1085px){
+    .btn-group .btn{
+        padding: 0;
+        min-width: min-content;
+        min-width: -moz-min-content;
+    }
+}
+@media screen and (max-width: 950px){
+    .btn-group{
+        display: flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+    }
+
+    .btn-group .btn{
+        width: 50%;
+        margin: 0 0.2em 0.2em 0;
+    }
 }
