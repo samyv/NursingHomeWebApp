@@ -1,8 +1,8 @@
 *{
-    font-family: Roboto, Merriweather ;
+    font-family: Roboto;
 }
 html,body {
-
+    background-color: #f5fafa;
     height: 100vh;
     width: 100%
 }
@@ -14,7 +14,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 8em 4em 2em 10em 1fr;
+    grid-template-rows: 8em 8em 4em 2em 15em 1fr;
     grid-template-areas:                    ". . title title title title title title title title . ."
                                                 ". . quote quote quote quote quote quote quote quote . ."
                                         ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
@@ -44,23 +44,32 @@ body {
 .existing{
     position:relative;
     height: 100%;
-    margin: 0 1em 0.5em 0;
-    width: 40%;
+    margin: 0 0 0.5em 0;
+    width: 100%;
 }
-.existing input{
+
+.existing .btn{
     position:absolute;
-    bottom: 3px;
-    left:3px;
-    margin-bottom: 0;
-    width: min-content;
+    top: 3px;
+    right:3px;
+    width: 10px;
+    background-color: #66a5ad;
 }
+.newNote .btn{
+    width: 100%;
+    background-color: #003B46;
+    color: white;
+    border-radius: 0;
+    margin: 0.5em 1em 0 0;
+}
+
 
 .note{
     border: none;
     background-color: #66a5ad;
     height: 100%;
     width: 100%;
-    padding: 1em;
+    padding: 2em 2em 1em 1em;
     resize: none;
 }
 
@@ -90,6 +99,8 @@ body {
     color: #66a5ad;
     opacity: 0.7;
 }
+
+
 
 .btn-group{
     grid-area: btngrp;

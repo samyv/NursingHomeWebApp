@@ -137,11 +137,19 @@ Class Caregivers extends CI_Model{
         return $this->notes;
     }
 
+    public function updateNote($notes){
+        $cg = $notes['idCaregiver'];
+        $n = $notes['note'];
+        $idn = $notes['idinput'];
+        $sql = "UPDATE a18ux02.Notes 
+            SET  Note = '$n' 
+            WHERE idCaregiver ='$cg' AND idNotes = '$idn'";
+        $this->db->query($sql);
+    }
     public function insertNote($notes){
         $cg = $notes['idCaregiver'];
         $n = $notes['note'];
-        $sql = "INSERT INTO a18ux02.Notes (idCaregiver, Note) values ('$cg', '$n')";
+        $sql = "INSERT into a18ux02.Notes (Note, idCaregiver) values ('$n','$cg')";
         $this->db->query($sql);
-        return;
     }
 }

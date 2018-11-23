@@ -5,6 +5,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <title>Home | GraceAge</title>
     <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script>
         function SaveCancel(id) {
             document.getElementById('savebtn').style.display="block";
@@ -12,13 +13,7 @@
 
     </script>
     <script>
-        document.getElementById('newNotebtn').addEventListener("click", createNote)
 
-        function createNote() {
-            var x = document.getElementById('newNote');
-            console.log(1);
-            x.insertAdjacentElement("beforebegin", "<input id=\"4\" value=\"Action center\" type=\"button\" class = \"btn\" onclick=\"location.href='actionCenter'\">"
-        }
     </script>
 </head>
 <body>
@@ -51,13 +46,14 @@
     <div class="notes">
             {notes}
             <form name="submitNotes" class="existing form" action="">
-                <input type="number" name="id" class="idinput form-group" style="display:none;" value="{noteid}">
+                <input type="number" name="id" id="idinput"class="idinput form-group" style="display:none;" value="{noteid}">
+                <a class="btn deleteNote" name="close" id="close{noteid}"><i id="close{noteid}" class="fa fa-trash-alt"></i></a>
                 <textarea id="notearea"  class="note form-group" wrap="hard" maxlength="1000" form="submitNotes" name="note" onfocus="SaveCancel({noteid})" >{Note}</textarea>
-                <input id="savebtn" class="btn form-group" type="button" value="Save" style="display:none">
             </form>
             {/notes}
         <div class="newNote" id="newNote">
             <button id="newNotebtn" type="button" class="btn">New note</button>
+            <input id="savebtn" class="btn form-group" type="button" value="Save" style="display:none">
         </div>
     </div>
 
@@ -71,30 +67,48 @@
 </div>
 
     <script>
+        function deleteNote (event) {
+            $button = $(event.target);
+            $buttonid = $button.attr("id");
+            alert('you clicked on ' + $buttonid);
+
+        }
+
+        $(document).ready(function () {
+            $('.deleteNote').click(deleteNote);
+        })
         $(document).ready(function(){
             $('#savebtn').click(function(event){
-                event.preventDefault();
                 var notes = document.getElementsByClassName('note');
                 var idinputs = document.getElementsByClassName('idinput');
-                let i = 0
-                $.ajax({
-                    url:'<?=base_url()?>Caregiver/saveNote',
-                    method: 'post',
-                    data: {
-                        for(i ; i<notes.length;i++)
-                        {
-                            note: notes[i].value,
-                            idinput:idinputs[i].value
+                console.log(notes);
+                console.log(idinputs);
+                for(let i = 0;i<notes.length;i++) {
+                    $.ajax({
+                        url: '<?=base_url()?>Caregiver/saveNote',
+                        method: 'post',
+                        dataType: 'json',
+                        data: {
+                            'note': notes[i].value,
+                            'idinput': idinputs[i].value
+                        },
+                        function(data) {
+                            alert('data updated');
                         }
-                    },
-                    dataType: 'json',
-                    success: function(data){
-                        alert('data updated');
-                    }
-                });
+                    });
+                }
             });
         });
-
+        $(document).ready(function() {
+            $('#newNotebtn').click(function() {
+                console.log(1);
+                $('#newNote').before("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
+                    "                <input type=\"number\" name=\"id\" id=\"idinput\"class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
+                    "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\" onfocus=\"SaveCancel()\" ></textarea>\n" +
+                    "                <a class=\"btn\" name=\"close\" id=\"close\"><i class=\"fa fa-trash-alt\"></i></a>\n" +
+                    "            </form>");
+            });
+        });
 
     </script>
 
@@ -104,7 +118,7 @@
     <script type="text/javascript">
         // Client ID and API key from the Developer Console
         var CLIENT_ID = '717305927226-31gsidivt5it0a97ijqsdmm6fj9btdgq.apps.googleusercontent.com';
-        var API_KEY = 'xjjbdKvNzRTxhHD_N6IJsdtl';
+        var API_KEY = 'AIzaSyCCDk2C-VML0a2SYu2ekYSLqA_sBzVMv5o';
 
         // Array of API discovery doc URLs for APIs used by the quickstart
         var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
