@@ -117,14 +117,6 @@ span.psw {
         margin: 8px 0 0 0;
     }
 
-    .container{
-        display: grid;
-        grid-template-areas: "login-form";
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-        width: 50%;
-    }
-
     #submitButtons{
         width: 100%;
     }
@@ -143,6 +135,11 @@ span.psw {
         display: none;
     }
 
+    .login-form {
+        margin-top: 25%;
+        grid-column: 3 / 10;
+    }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -158,17 +155,13 @@ span.psw {
         padding: 12px 0 12px 0;
     }
 
-
-    .container{
-        display: grid;
-        grid-template-areas: "login-form";
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-        width: 60%;
-    }
-
     .image{
         display: none;
+    }
+
+    .login-form {
+        margin-top: 25%;
+        grid-column: 3 / 10;
     }
 
     input[type=submit],input[type=button] {
@@ -179,14 +172,11 @@ span.psw {
         margin-top: 10px;
         width: 100%;
     }
-
-
 }
-
 
 @media only screen and (max-width: 650px) {
 
-    main{
+    main {
         margin:0 2%;
         width:auto;
     }
@@ -197,17 +187,12 @@ span.psw {
         padding: 12px 0 12px 0;
     }
 
-
-    .container{
-        display: grid;
-        grid-template-areas: "login-form";
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-        width: 100%;
-    }
-
     .image{
         display: none;
+    }
+
+    .login-form {
+        grid-column: 3 / 10;
     }
 
     input[type=submit],input[type=button] {
@@ -217,13 +202,6 @@ span.psw {
         cursor: pointer;
         margin-top: 10px;
         width: 100%;
-    }
-
-    footer{
-        bottom: auto;
-        text-align: center;
-        font-size: 10px;
-        position: inherit;
     }
 
 
