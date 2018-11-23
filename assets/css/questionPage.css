@@ -142,7 +142,3 @@ body{
     background-color: #A5DC86;
     cursor: pointer;
 }
-
-#answers label, #previous, #firstRow button{
-    border-radius: 4px;
-}
