@@ -4,10 +4,6 @@
 <body>
 <div class = "grid-container">
 
-    <div class = "bar">
-        <p>Navigation bar goes here</p>
-    </div>
-
     <div class = "title">
         <p>Please select the desired room</p>
     </div>

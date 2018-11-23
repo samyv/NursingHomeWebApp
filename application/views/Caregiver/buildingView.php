@@ -11,10 +11,6 @@
 <!-- TODO: Add the correct links            -->
 <!-- TODO: Get the floors from the database -->
 
-    <div class = "bar">
-        <p>Navigation bar goes here</p>
-    </div>
-
     <div class = "title">
         <p>Please select the desired floor</p>
     </div>

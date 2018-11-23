@@ -258,6 +258,9 @@ class Caregiver extends CI_Controller
     public function floorView(){
         $data = array();
         // parse
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+
+        $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floorView', $data);
     }
 
@@ -296,9 +299,13 @@ class Caregiver extends CI_Controller
     }
 
     public function roomSelect(){
+
         if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
         }
+
+        $this->parser->parse('templates/floorView',$data);
+
 
     }
 

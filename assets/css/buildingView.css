@@ -11,9 +11,8 @@ html,body{
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.5fr 0.5fr 4fr 0.5fr 0.5fr;
+    grid-template-rows: 0.5fr 4fr 0.5fr 0.5fr;
     grid-template-areas:
-            "bar bar bar bar bar bar bar bar bar bar bar bar"
             ". .  title title title title title title title title . ."
             ". .  list list list list list list list list . ."
             ". . . . . . . . . . . . "
@@ -28,13 +27,6 @@ html,body{
     text-align: center;
 }
 
-.bar{
-    display  :grid;
-    background  :#003b46;
-    grid-area: bar;
-    color:white;
-    text-align: center;
-}
 
 .title{
     display  :grid;
