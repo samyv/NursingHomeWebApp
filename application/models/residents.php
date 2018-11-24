@@ -38,7 +38,6 @@ class residents extends CI_Model
         //insert user data in resident table
         $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender')";
         $insert = $this->db->query($sql);
-        print_r($insert);
 
         //return the status
         if($insert){

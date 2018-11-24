@@ -270,13 +270,11 @@ class Caregiver extends CI_Controller
                     'room' => strip_tags($this->input->post('room')),
                     'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f')
                 );
-
                 $this->residents->insert($dataResident);
             }
 
         }
         $data['resident'] = $dataResident;
-
         //load the view
         $this->parser->parse('Caregiver/newResident', $data);
     }
