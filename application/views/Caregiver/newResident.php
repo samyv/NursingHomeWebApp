@@ -48,7 +48,7 @@
             <br>
         </div>
         <div class="gender_input" name="gender" required="">
-            <select>
+            <select name="gender">
                 <option value="male">male</option>
                 <option value="female">female</option>
             </select>

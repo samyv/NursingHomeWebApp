@@ -268,7 +268,7 @@ class Caregiver extends CI_Controller
                     'birthdate' => strip_tags($this->input->post('birthdate')),
                     'floor' => strip_tags($this->input->post('floor')),
                     'room' => strip_tags($this->input->post('room')),
-                    'gender' => strip_tags($this->input->post('gender')),
+                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f')
                 );
 
                 $this->residents->insert($dataResident);
@@ -331,7 +331,7 @@ class Caregiver extends CI_Controller
     }
 
     public function roomSelect(){
-
+    	$data = array();
         if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
         }
