@@ -15,12 +15,7 @@
         <p>Please select the desired floor</p>
     </div>
 
-    <div class = "list">
-        <a class = "listRow1" href='floorView'>Floor 1</a>
-        <a class = "listRow2" href='floorView'>Floor 2</a>
-        <a class = "listRow3" href='floorView'>Floor 3</a>
-        <a class = "listRow4" href='floorView'>Floor 4</a>
-        <a class = "listRow5" href='floorView'>Floor 5</a>
+    <div class = "list" id="list">
     </div>
 
     <div class = "footer">
@@ -29,4 +24,20 @@
 
 </div>
 </body>
+<script>
+	var list = document.getElementById('list');
+	var floorAmount = 0+<?php echo $maxFloors;?>;
+	for(var i = floorAmount; i >= 1;i--){
+		let a = document.createElement('a');
+		a.className = "listRow"+i;
+		a.href='floorView'
+		a.innerText = "Floor "+i;
+		a.addEventListener("click",function(e) {
+			sessionStorage.setItem("floorSelected",this.innerText.slice(-1))
+		})
+		list.appendChild(a);
+	}
+
+
+</script>
 </html>
