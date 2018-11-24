@@ -1,0 +1,63 @@
+*{
+    font-family: Roboto;
+
+}
+
+html,body{
+    background-color: #F5FAFA;
+}
+
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 0.5fr 4fr 0.5fr 0.5fr;
+    grid-template-areas:
+            ". .  title title title title title title title title . ."
+            ". .  list list list list list list list list . ."
+            ". . . . . . . . . . . . "
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
+
+}
+
+.footer{
+    display  :grid;
+    grid-area: footer;
+    color:#003b46;
+    text-align: center;
+}
+
+
+.title{
+    display  :grid;
+    grid-area: title;
+    color: #003b46;
+    padding: 10px;
+    font-size: 32px;
+    background-color: #F5FAFA;
+}
+
+.listRow1:hover,.listRow2:hover,.listRow3:hover,.listRow4:hover,.listRow5:hover{
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+.listRow1,.listRow2,.listRow3,.listRow4,.listRow5{
+    border-style: solid;
+    vertical-align:top;
+    line-height:100px;
+    background-color: #66a5ad;
+    color: white!important;
+    padding: 10px;
+    font-size: 32px;
+    text-align: left;
+    text-decoration: none!important;
+    transition: all .2s ease-in-out;
+}
+
+.list{
+    vertical-align: middle;
+    display : grid;
+    grid-area: list;
+
+}

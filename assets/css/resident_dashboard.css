@@ -1,0 +1,72 @@
+body{
+	/*background-color: black;*/
+	margin: 0px;
+}
+
+.grid-container {
+	display: grid;
+	width: 100vw;
+	height: 100vh;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 0.5fr 3fr 2fr 0.2fr 0.5fr 0.5fr;
+	grid-template-areas: "toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar"
+	"picture picture picture visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
+	"info info info visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
+	"back_buttons back_buttons back_buttons visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
+	"back_buttons back_buttons back_buttons hint hint hint hint hint hint hint print print"
+	"back_buttons back_buttons back_buttons hint hint hint hint hint hint hint print print";
+}
+.picture {
+	grid-area: picture;
+	background-color: floralwhite;
+}
+
+.info {
+	grid-area: info;
+	background-color: skyblue;
+}
+
+.back_buttons {
+	grid-area: back_buttons;
+	background-color: cornflowerblue;
+}
+.toolbar {
+	grid-area: toolbar;
+	background-color: navajowhite;
+}
+
+.visualisation {
+	grid-area: visualisation;
+	color: limegreen;
+	text-align: center;
+	vertical-align: center;
+	line-height: 400px;
+	background-color: lavender;
+}
+
+.hint {
+	margin: 5px;
+	grid-area: hint;
+	background-color: lightseagreen;
+	border: 3px outset #000000;
+	border-radius: 5px;
+}
+
+.print {
+	margin: 10px;
+	grid-area: print;
+	background-color: blue;
+}
+
+.print_button{
+	/*margin: 10px;*/
+	position: relative;
+	/*display: bloc	k;*/
+	width: 100%;
+
+	height: 100%;
+	height: available;
+	border: none;
+	cursor: pointer;
+	text-align: center;
+}

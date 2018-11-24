@@ -4,22 +4,21 @@
     <title>{page_title}</title>
     <link href="<?=base_url()?>assets/css/login.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
-    <div class="logo">
-        <h1>GraceAge</h1>
-        <h2>Providing better care</h2>
-    </div>
-
-    <div class="container">
+<div class="h1">
+    <h1>GraceAge</h1>
+    <h2>Providing better care</h2>
+</div>
+    <div class="grid-container">
         <div class="image">
             <img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.png" >
         </div>
 
         <div class="login-form">
-            <h1>Login</h1>
             <?php
             if(!empty($success_msg)){
                 echo '<p class="statusMsg">'.$success_msg.'</p>';
@@ -48,6 +47,9 @@
                         <input type="button" value="Register a new caregiver" onclick="location.href='register'"/>
                     </div>
             </form>
+			<form method="get">
+
+			</form>
         </div>
     </div>
 <!--modal-->
@@ -86,10 +88,6 @@
     </div>
 </div>
 
-<footer>
-	<p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-	</p>
-</footer>
 
 </body>
 </html>

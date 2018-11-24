@@ -15,7 +15,9 @@ class Caregiver extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('caregivers');
+        $this->load->model('residents');
         $this->load->library('session');
+        $this->load->model('dropdownmodel');
         $this->load->database('default');
     }
 
@@ -26,6 +28,7 @@ class Caregiver extends CI_Controller
         $data = array();
         $userData = array();
         $data['page_title']='Account overview | GraceAge';
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
 
         if($this->session->userdata('success_msg')){
             $data['success_msg'] = $this->session->userdata('success_msg');
@@ -36,11 +39,11 @@ class Caregiver extends CI_Controller
             $this->session->unset_userdata('error_msg');
         }
 
-
         if($this->session->userdata('isUserLoggedIn')){
             $result = $this->caregivers->getInfo(array('id'=>$this->session->userdata('idCaregiver')));
             $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
             //load the view
+            $this->parser->parse('templates/header',$data);
             $this->parser->parse('Caregiver/account', $data);
         }else{
             redirect('index.php');
@@ -78,8 +81,6 @@ class Caregiver extends CI_Controller
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
                     redirect('account');
                 }
-            } else {
-                echo "val false";
             }
         }
         $data['caregiver'] = $userData;
@@ -125,7 +126,9 @@ class Caregiver extends CI_Controller
             }
         }
         //load the view
-        $this->parser->parse('Caregiver/login', $data);
+        //$this->parser->parse('searchForResident.php', $data);
+		$this->parser->parse('Caregiver/login', $data);
+//        $this->searchForResident();
     }
 
     /*
@@ -167,6 +170,9 @@ class Caregiver extends CI_Controller
      * User logout
      */
     public function logout(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
         $this->session->unset_userdata('isUserLoggedIn');
         $this->session->unset_userdata('idCaregiver');
         $this->session->sess_destroy();
@@ -200,8 +206,163 @@ class Caregiver extends CI_Controller
     }
 
     public function landingPage(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
         $data = array();
-        $this->load->view('Caregiver/landingPage');
+        $data['notes']=$this->caregivers->getNotes($_SESSION['idCaregiver']);
+
+
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
+
+/*
+        if($this->input->post('submitNotes')){
+            $notes=array(
+                'note' => $_POST['note'],
+                'idnote' => $_POST['id'],
+                'idCaregiver' => $_SESSION['idCaregiver']
+            );
+            $insert=$this->caregivers->insertNote($notes);
+
+        }*/
+        $this->parser->parse('templates/header', $data);
+        $this->parser->parse('Caregiver/landingPage',$data);
+
+    }
+
+    public function searchForResident(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Search page";
+		$this->load->database('default');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/searchForResident', $data);
+    }
+
+    public function newResident()
+    {
+        $data = array();
+        $dataResident = array();
+        $data['page_title']='Register resident';
+        $this->parser->parse('templates/header',$data);
+
+        if($this->input->post('saveSettings')){
+            $this->form_validation->set_rules('firstname', 'Name', 'required');
+            $this->form_validation->set_rules('lastname', 'Name', 'required');
+
+            if($this->form_validation->run() == true){
+                $dataResident = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'birthdate' => strip_tags($this->input->post('birthdate')),
+                    'floor' => strip_tags($this->input->post('floor')),
+                    'room' => strip_tags($this->input->post('room')),
+                    'gender' => strip_tags($this->input->post('gender')),
+                );
+
+                $this->residents->insert($dataResident);
+            }
+
+        }
+        $data['resident'] = $dataResident;
+
+        //load the view
+        $this->parser->parse('Caregiver/newResident', $data);
+    }
+
+    public function buildingView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/buildingView', $data);
+    }
+
+    public function floorView(){
+        $data = array();
+        // parse
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/floorView', $data);
+    }
+
+    public function roomView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/roomView', $data);
+    }
+
+    public function singleRoomView(){
+        $data = array();
+        // parse
+        $this->parser->parse('Caregiver/singleRoomView', $data);
+    }
+
+    public function resDash(){
+    	$data = array();
+    	$cond = array();
+    	$cond['where'] = array('residentID' => $_GET['id']);
+//    	$cond['return_type'] = 'single';
+    	$row = $this->caregivers->getRows($cond);
+    	$result = json_decode(json_encode($row), true);
+    	$data['resident'] = $result['result_object'][0];
+		$this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
+
+	}
+
+    public function floorSelect(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/buildingView', $data);
+    }
+
+    public function roomSelect(){
+
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
+
+        $this->parser->parse('templates/floorView',$data);
+
+
+    }
+
+    public function residentSelect(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
+    }
+
+    public function floorCompare(){
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/floorCompareView', $data);
+    }
+
+    public function saveNote(){
+
+        $note = array(
+            'note' => $_POST['note'],
+            'idinput' => $_POST['idinput'],
+            'idCaregiver' => $_SESSION['idCaregiver']
+        );
+        $this->caregivers->insertNote($note);
+        return $note;
     }
 
 }

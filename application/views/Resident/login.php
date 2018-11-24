@@ -14,6 +14,7 @@
     <h2>Providing better care</h2>
 </div>
 
+<!-- form to submit the room number -->
 <div class="form">
     <form action="" method="POST">
         <div class="form-group">
@@ -27,12 +28,12 @@
     </form>
 </div>
 
-<div class="container">
-    {residentNames}
-        <button class="ResidentButton" style="display:block">{surname} {name}
-        </button>
-    {/residentNames}
-</div>
+<!--create buttons for each resident in the room, the form is so you can parse the right data to the session-->
+{residentNames}
+<form method="post">
+    <input type="submit" name="selectResident{residentID}" class="ResidentButton" value="{firstname} {lastname}">
+</form>
+{/residentNames}
 
 <footer>
     <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
@@ -40,5 +41,3 @@
 </footer>
 </body>
 </html>
-
-
