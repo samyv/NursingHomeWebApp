@@ -11,9 +11,7 @@
 <body>
 <form action="" method="post">
     <div class="grid-container">
-        <div class="header">
-            <h3>Register a new resident</h3>
-        </div>
+
         <div class = "resident">
             <h3>Resident information</h3>
         </div>
@@ -22,7 +20,7 @@
             <b>First name: </b>
         </div>
         <div class="firstname_input">
-            <input type="text" class="form-control" placeholder="Enter first name" name="firstname" required=""
+            <input type="text" placeholder="Enter first name" name="firstname" required=""
                    value="<?php echo !empty($resident['firstname'])?$resident['firstname']:''; ?>">
             <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
         </div>
@@ -31,7 +29,7 @@
             <br>
         </div>
         <div class="lastname_input">
-            <input type="text" class="form-control" placeholder="Enter last name" name="lastname" required=""
+            <input type="text" placeholder="Enter last name" name="lastname" required=""
                    value="<?php echo !empty($resident['lastname'])?$resident['lastname']:''; ?>">
             <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
         </div>
@@ -40,7 +38,7 @@
             <br>
         </div>
         <div class="birthday_input">
-            <input type="date" class="form-control" placeholder="" name="birthdate" required="">
+            <input type="date" placeholder="" name="birthdate" required="">
             <?php echo form_error('birthdate','<span class="help-block">','</span>'); ?>
         </div>
         <div class="gender">
@@ -71,14 +69,15 @@
             <?php echo form_error('room','<span class="help-block">','</span>'); ?>
         </div>
 
-        <div class="extra">
+        <div class = "extra">
             <h3>Contact information</h3>
         </div>
+
         <div class="contact_name">
             <b>Name: </b>
         </div>
         <div class="contact_name_input">
-            <input type="text" name="full_name" placeholder="First Last" required="">
+            <input type="text" name="full_name" placeholder="Enter contact person" required="">
             <br>
         </div>
         <div class="email">

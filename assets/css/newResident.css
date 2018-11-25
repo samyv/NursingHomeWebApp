@@ -3,7 +3,7 @@
 }
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr [firstn] 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 3fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
@@ -14,7 +14,7 @@
             ". . gender gender_input . . . . . . . ."
             ". . floor floor_input  . . . . . . . ."
             ". . room room_input . . . . . . . ."
-            ". . buttons buttons buttons buttons buttons buttons buttons buttons . ."
+            ". . . . . buttons buttons buttons buttons buttons . ."
 
 }
 
@@ -63,11 +63,11 @@
 
 .buttons {
     grid-area: buttons;
-    margin-left: 111px;
-    justify-self: center;
 }
 
-.header { grid-area: headerr; }
+.dropdown-item.active {
+    background-color: #66a5ad !important;
+}
 
 input[type=submit],input[type=button]{
     float: left;
@@ -78,8 +78,11 @@ input[type=submit],input[type=button]{
     cursor: pointer;
     margin: 4px 2px;
 }
+
 input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
 }
+.gender_input select {
 
+}
 
