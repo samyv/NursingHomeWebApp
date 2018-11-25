@@ -261,6 +261,9 @@ class Caregiver extends CI_Controller
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'required');
             $this->form_validation->set_rules('lastname', 'Name', 'required');
+            $this->form_validation->set_rules('birthdate','Date','required|callback_date_valid');
+            $this->form_validation->set_rules('floor', 'Number', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('room', 'Number', 'required|is_natural_no_zero');
 
             if($this->form_validation->run() == true){
                 $dataResident = array(
@@ -280,7 +283,23 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/newResident', $data);
     }
 
-    public function buildingView(){
+    /*
+     * Validate dd/mm/yyyy
+     */
+    public function date_valid($date)
+    {
+        $parts = explode("/", $date);
+        if (count($parts) == 3) {
+            if (checkdate($parts[1], $parts[0], $parts[2]) == false) {
+                $this->form_validation->set_message('date_valid', 'The Date field must be mm/dd/yyyy');
+                return FALSE;
+            }
+        } else {
+        return TRUE;
+        }
+    }
+
+        public function buildingView(){
         $data = array();
         // parse
         $this->parser->parse('Caregiver/buildingView', $data);
