@@ -82,7 +82,16 @@ input[type=submit],input[type=button]{
 input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
 }
+
 .gender_input select {
 
 }
+select-link {
+    color: white !important;
+}
+
+.gender_input-link {
+    color: white !important;
+}
+
 
