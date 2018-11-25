@@ -92,16 +92,6 @@
         <div class="phone_input">
             <input type="tel" name="phone" class = "form-control" placeholder="phonenumber">
         </div>
-
-        <div class="info">
-            <b>Modification date: </b>
-        </div>
-
-        <div class="info_input">
-            <input type="date" onload="getDate()" class="form-control" id="date"
-                   name="date">
-        </div>
-
         <div class="buttons">
             <input type="submit" value="Add resident" name="saveSettings"/>
             <input type="button" value="Cancel" onclick="location.href='newResident'"/>
