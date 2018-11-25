@@ -120,7 +120,7 @@ body {
     width: 100%;
 }
 .btn-group .btn{
-    width: 100%;
+    min-width: 100%;
     background-color: #003B46;
     color: white;
     border-radius: 0;
@@ -149,4 +149,38 @@ body {
     align-self: end;
     grid-area: footer;
     text-align: center;
+}
+
+@media screen and (max-width: 1085px){
+    .btn-group .btn{
+        padding: 0;
+        min-width: min-content;
+        min-width: -moz-min-content;
+    }
+}
+@media screen and (max-width: 950px){
+    .btn-group{
+        display: flex;
+        flex-flow: column;
+        flex-wrap: wrap;
+    }
+
+    .btn-group .btn{
+        width: 50%;
+        margin: 0 0.2em 0.2em 0;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 8em 4em 2em 15em 15em 1fr;
+        grid-template-areas:                    ". . title title title title title title title title . ."
+        ". . quote quote quote quote quote quote quote quote . ."
+        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
+        ". . . . clndrhdr clndrhdr clndrhdr clndrhdr . . . ."
+        ". . . . clndr clndr clndr clndr . . . ."
+        ". . . . noteheader noteheader noteheader noteheader . . . ."
+        ". . . . notes notes notes notes . . . ."
+        "footer footer footer footer footer footer footer footer footer footer footer footer";
+        grid-gap: 1em;
+    }
 }

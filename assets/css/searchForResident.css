@@ -17,7 +17,6 @@ html, body {
 }
 
 .h1 {
-    font-family: Merriweather !important;
     padding-top: 20px;
     grid-area: Header;
 
