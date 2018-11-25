@@ -4,14 +4,14 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 3fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
+    grid-template-rows: 3fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
             ". . resident resident . . . . extra extra . . "
             ". . firstname firstname_input  . . . . contact contact_input . ."
             ". . lastname lastname_input  . . . . email email_input . ."
             ". . birthday birthday_input  . . . . phone phone_input . ."
-            ". . gender gender_input . . . . . . . ."
+            ". . gender gender_input . . . . input info_input . ."
             ". . floor floor_input  . . . . . . . ."
             ". . room room_input . . . . . . . ."
             ". . . . . buttons buttons buttons buttons buttons . ."
@@ -60,13 +60,12 @@
 
 .phone_input { grid-area: phone_input; }
 
+.info { grid-area: input;}
+
+.info_input{ grid-area: info_input}
 
 .buttons {
     grid-area: buttons;
-}
-
-.dropdown-item.active {
-    background-color: #66a5ad !important;
 }
 
 input[type=submit],input[type=button]{
@@ -83,15 +82,9 @@ input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
 }
 
-.gender_input select {
-
+select option:hover,
+select option:focus,
+select option:active {
+    outline: none;
 }
-select-link {
-    color: white !important;
-}
-
-.gender_input-link {
-    color: white !important;
-}
-
 
