@@ -56,7 +56,7 @@
             <br>
         </div>
         <div class="floor_input">
-            <input type="number" name="floor"  class = "form-control" placeholder="Enter floor number" required="">
+            <input type="number" name="floor" class = "form-control" placeholder="Enter floor number" min="0" required="">
             <?php echo form_error('floor','<span class="help-block">','</span>'); ?>
         </div>
         <div class="room">
@@ -64,7 +64,7 @@
             <br>
         </div>
         <div class="room_input">
-            <input type="number" name="room" class = "form-control" placeholder="Enter room number" required="">
+            <input type="number" name="room" class = "form-control" placeholder="Enter room number" min="1"required="">
             <?php echo form_error('room','<span class="help-block">','</span>'); ?>
         </div>
 

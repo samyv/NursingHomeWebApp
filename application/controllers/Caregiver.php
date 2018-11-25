@@ -262,7 +262,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('firstname', 'Name', 'required');
             $this->form_validation->set_rules('lastname', 'Name', 'required');
             $this->form_validation->set_rules('birthdate','Date','required|callback_date_valid');
-            $this->form_validation->set_rules('floor', 'Number', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('floor', 'Number', 'required|required|is_natural');
             $this->form_validation->set_rules('room', 'Number', 'required|is_natural_no_zero');
 
             if($this->form_validation->run() == true){
