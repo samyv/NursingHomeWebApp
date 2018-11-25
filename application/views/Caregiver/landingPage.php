@@ -41,9 +41,6 @@
             <input id="1" value="Search a resident" type="button" class = "btn" onclick="location.href='residents'">
             <input id="2" value="Floor comparison" type="button" class = "btn" onclick="location.href='floorCompare'">
             <input id="3" value="Floor Select" type="button" class = "btn" onclick="location.href='floorSelect'">
-            <input id="4" value="Add a question" type="button" class = "btn" onclick="location.href='newQuestion'">
-            <input id="5" value="Add a resident" type="button" class = "btn" onclick="location.href='newResident'">
-
         </div>
 
     <h2 class="noteheader">Notes</h2>

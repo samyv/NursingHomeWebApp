@@ -253,6 +253,7 @@ class Caregiver extends CI_Controller
     public function newResident()
     {
         $data = array();
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newResident');
         $dataResident = array();
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
