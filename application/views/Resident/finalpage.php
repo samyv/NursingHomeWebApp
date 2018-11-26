@@ -12,7 +12,7 @@
 
     <div id="name">Grace Age</div><br>
 
-    <div id="praise">Congratulations Jozef!<br>
+    <div id="praise">Congratulations {resident}!<br>
         You answered all the questions!<br>
         We thank you very much for your time so we can improve our care for you.</div>
 

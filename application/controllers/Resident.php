@@ -70,7 +70,7 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/login', $data);
     }
 
-    public function page($index=1)
+    public function questionpage($index=1)
     {
         $data['question'] = $this->QuestionModel->getQuestion($index);
 

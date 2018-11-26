@@ -4,69 +4,74 @@ body{
     font-family: Verdana;
 }
 
-#firstRow{
+.grid-container{
     display: grid;
-    width: 100%;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template-areas: "dummy logo logout";
-    align-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+            ". . . . logo logo logo logo . logout logout logout"
+            ". questiontype questiontype questiontype questiontype questiontype questiontype . . . . ."
+            ". progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar ."
+            ". question question question question question question question question question question ."
+            ". . . . answers answers answers answers . . . ."
+            ". . . . answers answers answers answers . . . ."
+            ". . . . answers answers answers answers . . . ."
+            ". . . . answers answers answers answers . . . ."
+            ". . . . answers answers answers answers . . . ."
+            ". previous previous . . . . . . . . .";
+    width: 100vw;
+    height: 100vh;
 }
 
-#firstRow #logo{
+#logo{
     grid-area: logo;
-    font-size: 54px;
+    font-size: 5em;
     text-align: center;
     justify-self: center;
 }
 
 
-#firstRow button{
-    margin-right: 10px;
+#logout{
     grid-area: logout;
-    justify-self: right;
-    width: 200px;
-    height: 50px;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    height: 2em;
     color: white;
     background-color: #d48478;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    font-size: 30px;
+    font-size: 3em;
 }
 
-#firstRow button:hover{
+#logout:hover{
     background-color: indianred;
     cursor: pointer;
 }
 
 #questionType{
-    margin-top: 20px;
-    margin-left: 50px;
-    font-size: 40px;
+    grid-area: questiontype;
+    font-size: 3.5em;
 }
 
 #progressbar{
-    margin-top: 20px;
-    margin-left: 50px;
-    margin-right: 50px;
+    grid-area: progress_bar;
 }
 
 #question{
-    margin-top: 30px;
-    font-size: 50px;
+    grid-area: question;
+    font-size: 4em;
     text-align: center;
 }
 
 #answers,footer{
-    display: flex;
-    flex-direction: column;
+    grid-area: answers;
     align-items: center;
     text-align: center;
 }
 
 
-#answers {
-    padding: 40px;
+
+#answers{
     overflow: hidden;
-    margin-bottom: auto;
 }
 
 #answers input {
@@ -76,25 +81,20 @@ body{
     width: 1px;
     border: 0;
     overflow: hidden;
-    margin: 30px;
 }
 
-#answers label {
-    float: left;
-}
 
 #answers label {
     display: inline-block;
-    margin: 0.5em;
+    margin-bottom: 1em;
     width: 4.5em;
     height: 1.5em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
-    font-size: 4em;
+    font-size: 4.2em;
     font-weight: normal;
     text-align: center;
     text-shadow: none;
-    padding: 6px 14px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
@@ -117,16 +117,17 @@ body{
 
 
 #previous{
+    grid-area: previous;
     display: inline-block;
-    margin: 0.5em;
+    margin-bottom: 0.5em;
     width: 4.5em;
+    height: 2em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
     font-size: 3em;
     font-weight: normal;
     text-align: center;
     text-shadow: none;
-    padding: 6px 14px;
     border: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);

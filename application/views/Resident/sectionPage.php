@@ -6,6 +6,7 @@
     <link href="<?=base_url()?>assets/css/sectionPage.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+
 <div id="firstRow">
     <h1 id="dummy"></h1>
     <h1 id="logo">GraceAge</h1>
@@ -23,6 +24,6 @@
 <img id="logoImg" src="http://localhost/a18ux02//assets/images/knife-and-fork.png" >
 
 
-<button id="continue" onclick="location.pathname='a18ux02/resident/page/'+{index}">Continue</button>
+<button id="continue" onclick="location.pathname='a18ux02/resident/questionpage/'+{index}">Continue</button>
 
 </body>
