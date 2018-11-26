@@ -94,7 +94,7 @@
         </div>
         <div class="buttons">
             <input type="submit" value="Add resident" name="saveSettings"/>
-            <input type="button" value="Cancel" onclick="location.href='newResident'"/>
+            <input type="button" value="Cancel" onclick="location.href='landingPage'"/>
         </div>
         </div>
 </form>
