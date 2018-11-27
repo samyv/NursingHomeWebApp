@@ -51,7 +51,7 @@ class Caregiver extends CI_Controller
 
 
         if($this->input->post('saveSettings')){
-            $idCaregiver = strip_tags($this->input->post('idCaregiver'));
+            $idCaregiver = $_SESSION['idCaregiver'];
             $this->form_validation->set_rules('firstname', 'First name', 'required');
             $this->form_validation->set_rules('lastname', 'Last name', 'required');
             $this->form_validation->set_rules('floor', 'Floor number', 'required|is_natural_no_zero');
@@ -163,6 +163,7 @@ class Caregiver extends CI_Controller
         $data['caregiver'] = $userData;
         //load the view
         $this->parser->parse('Caregiver/register', $data);
+
     }
 
     /*
