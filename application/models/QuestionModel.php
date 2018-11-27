@@ -70,6 +70,9 @@ class QuestionModel extends CI_Model
             $this->db->query(
                 "UPDATE a18ux02.Answers SET answer = $answer WHERE questionnaireId = $questionnaireId AND questionId = $index"
             );
+            $this->db->query(
+                "UPDATE a18ux02.Answers SET timestamp = CURRENT_TIMESTAMP WHERE questionnaireId = $questionnaireId AND questionId = $index"
+            );
         } else {
             $this->db->query("INSERT INTO a18ux02.Answers (questionnaireId, questionId, timestamp, answer) VALUES ($questionnaireId, $index, CURRENT_TIMESTAMP, $answer)");
         }
