@@ -86,9 +86,11 @@ class Resident extends CI_Controller
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
 
+        $questionnaireId = 0;
+
         $this->QuestionModel->insertIndex($index);
         if($answer != null) {
-            $this->QuestionModel->insertAnswer($index - 1, $answer);
+            $this->QuestionModel->insertAnswer($questionnaireId, $index - 1, $answer);
             $this->QuestionModel->insertTimestamp();
         }
         $data = $this->QuestionModel->getQuestion($index);

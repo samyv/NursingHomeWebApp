@@ -73,15 +73,18 @@
             }
         });
 
-        $.ajax({
-            url:'<?php echo site_url('index.php/Resident/getOldAnswer');?>',
-            method:"POST",
-            data:{index:index},
-            success:function(answer)
-            {
-                $('#answer'+answer).prop('checked',true);
-            }
-        });
+        function transOldAnswer() {
+            $.ajax({
+                url: '<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+                method: "POST",
+                data: {index: index},
+                success: function (answer) {
+                    $('#answer' + answer).prop('checked', true);
+                }
+            });
+        }
+
+        transOldAnswer();
 
         function transQuestionTextAndAns($index, $answer){
             $.ajax({
@@ -137,7 +140,6 @@
                 } else {
                     transQuestionTextAndAns(index, 1);
                 }
-                // transOldAnswer(index);
                 $(this).prop('checked', false);
             }
         });
@@ -146,7 +148,6 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,2);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
@@ -154,7 +155,6 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,3);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
@@ -162,7 +162,6 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,4);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
@@ -170,12 +169,12 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,5);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
         $('#previous').click(async function(){
             if(index > 1) index--;
             transQuestionTextAndAns(index,null);
+            transOldAnswer();
         });
     });
 </script>
