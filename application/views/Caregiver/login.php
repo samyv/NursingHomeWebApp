@@ -98,7 +98,7 @@
             $('#forgot-password-modal-content').fadeOut('fast');
         })
 
-        $('#submitemail').click(submitEmail())
+        //$('#submitemail').click(submitEmail())
 
     });
 
