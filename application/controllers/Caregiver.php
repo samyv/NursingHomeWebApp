@@ -24,6 +24,7 @@ class Caregiver extends CI_Controller
      * User account information
      */
     public function account(){
+        print_r($_SESSION);
         $data = array();
         $userData = array();
         $data['page_title']='Account overview | GraceAge';
@@ -66,20 +67,21 @@ class Caregiver extends CI_Controller
                 $userData['firstname'] = strip_tags($this->input->post('firstname'));
                 $userData['lastname'] = strip_tags($this->input->post('lastname'));
                 $userData['email'] = strip_tags($this->input->post('email'));
+                $userData['floor'] = strip_tags($this->input->post('floor'));
+                $userData['idCaregiver'] =$idCaregiver;
                 $userData['old_password'] = md5($this->input->post('old_password'));
                 if (!empty($_POST['new_password'])) {
                     $userData['new_password'] = md5($this->input->post('new_password'));
                 }
-                $userData['floor'] = strip_tags($this->input->post('floor'));
-                $userData['idCaregiver'] = strip_tags($this->input->post('idCaregiver'));
-                $insert = $this->caregivers->modify($userData);
+
+                $insert = $this->caregivers->modify($userData);/*
                 if ($insert) {
                     $this->session->set_userdata('success_msg', 'Your new settings have been saved');
                     redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
                     redirect('account');
-                }
+                }*/
             }
         }
         $data['caregiver'] = $userData;
@@ -94,14 +96,17 @@ class Caregiver extends CI_Controller
         if($this->session->userdata('isUserLoggedIn')){
             redirect('account');
         }
+
         if($this->session->userdata('success_msg')){
             $data['success_msg'] = $this->session->userdata('success_msg');
             $this->session->unset_userdata('success_msg');
         }
+
         if($this->session->userdata('error_msg')){
             $data['error_msg'] = $this->session->userdata('error_msg');
             $this->session->unset_userdata('error_msg');
         }
+
         if($this->input->post('loginSubmit')){
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
             $this->form_validation->set_rules('password', 'password', 'required');
@@ -124,10 +129,7 @@ class Caregiver extends CI_Controller
                 }
             }
         }
-        //load the view
-        //$this->parser->parse('searchForResident.php', $data);
 		$this->parser->parse('Caregiver/login', $data);
-//        $this->searchForResident();
     }
 
     /*
@@ -209,6 +211,8 @@ class Caregiver extends CI_Controller
         if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
         }
+
+
         $data = array();
         $data['notes']=$this->caregivers->getNotes($_SESSION['idCaregiver']);
 
