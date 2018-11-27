@@ -106,4 +106,10 @@ class QuestionModel extends CI_Model
         );
     }
 
+    function getNumofQuestionInThisSection($index){
+        $type = $this->getQuestionType($index);
+        $query = $this->db->query("SELECT * FROM a18ux02.Question where questionType = $type");
+        return $query->num_rows();
+    }
+
 }
