@@ -1,0 +1,59 @@
+html,body {
+    background-color: #F5FAFA;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+body {
+    font-family: Roboto;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 8em 22em 1fr;
+    grid-template-areas:
+            ". . head head head head head head head head . . "
+            ". . register register register register register register register register . ."
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
+}
+
+.h1 {
+    font-family: Merriweather !important;
+    align-self: center;
+    justify-self: center;
+    width: 100%;
+    grid-area: head;
+}
+
+.register {
+
+    grid-area: register;
+}
+
+input[type=email],input[type=text], input[type=password] {
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+input[type=submit],input[type=button]{
+    background-color: #66a5ad;
+    color: white;
+    padding: 14px 50px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+

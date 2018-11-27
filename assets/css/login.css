@@ -5,11 +5,11 @@ html,body {
     display: flex;
     flex-direction: column;
     width: 100%;
+    font-family: Roboto;
 
 }
 
 body {
-    font-family: Roboto;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -31,7 +31,6 @@ body {
 }
 
 .h1 {
-    font-family: Merriweather !important;
     align-self: center;
     justify-self: center;
     text-align: center;
