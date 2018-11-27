@@ -181,29 +181,26 @@ Class Caregivers extends CI_Model{
 	public function getNotes($id){
         $sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= ".$id;
         $result = $this->db->query($sql)->result();
-        $array = json_decode(json_encode($result), true);
-        foreach ($array as $key => $value){
-                $this->notes['note'.$key] = array('Note'=>$value['Note'],'noteid'=>$value['idNotes']);
+        if(!empty($result)) {
+            $array = json_decode(json_encode($result), true);
+            foreach ($array as $key => $value) {
+                $this->notes['note' . $key] = array('Note' => $value['Note'], 'noteid' => $value['idNotes']);
+            }
+            return $this->notes;
+        } else{
+            return false ;
         }
-        return $this->notes;
     }
 
     public function updateNote($notes){
         $cg = $notes['idCaregiver'];
         $n = $notes['note'];
         $idn = $notes['idinput'];
-        $sql = "UPDATE a18ux02.Notes 
-            SET  Note = '$n' 
-            WHERE idCaregiver ='$cg' AND idNotes = '$idn'";
+        $sql ="INSERT into a18ux02.Notes (idNotes, Note, idCaregiver,created, modified) values ('$idn', '$n','$cg', CURRENT_TIME , CURRENT_TIME )
+                ON DUPLICATE KEY UPDATE Note = '$n', modified = CURRENT_TIME ";
         $this->db->query($sql);
     }
 
-    public function insertNote($notes){
-        $cg = $notes['idCaregiver'];
-        $n = $notes['note'];
-        $sql = "INSERT into a18ux02.Notes (Note, idCaregiver) values ('$n','$cg')";
-        $this->db->query($sql);
-    }
     public function deleteNote($notes){
         $cg = $notes['idCaregiver'];
         $id = $notes['idinput'];

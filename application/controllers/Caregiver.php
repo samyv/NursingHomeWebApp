@@ -212,25 +212,16 @@ class Caregiver extends CI_Controller
             redirect('index.php');
         }
 
-
         $data = array();
-        $data['notes']=$this->caregivers->getNotes($_SESSION['idCaregiver']);
+        if( $this->caregivers->getNotes($_SESSION['idCaregiver']) != false)
+        {
+            $data['notes'] = $this->caregivers->getNotes($_SESSION['idCaregiver']);
+        }
 
+        $dataHeader['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
 
-        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
-
-/*
-        if($this->input->post('submitNotes')){
-            $notes=array(
-                'note' => $_POST['note'],
-                'idnote' => $_POST['id'],
-                'idCaregiver' => $_SESSION['idCaregiver']
-            );
-            $insert=$this->caregivers->insertNote($notes);
-
-        }*/
-        $this->parser->parse('templates/header', $data);
-        $this->parser->parse('Caregiver/landingPage',$data);
+        $this->parser->parse('templates/header', $dataHeader);
+        $this->load->view('Caregiver/landingPage',$data);
 
     }
 
@@ -329,29 +320,12 @@ class Caregiver extends CI_Controller
     }
 
     public function saveNote(){
-
-        if(!empty($_POST['idinput'])){
-            $note = array(
-                'note' => $_POST['note'],
-                'idinput' => $_POST['idinput'],
-                'idCaregiver' => $_SESSION['idCaregiver']
-            );
-            $this->caregivers->updateNote($note);
-
-        }elseif (empty($_POST['idinput'])){
-            $note = array(
-                'note' => $_POST['note'],
-                'idCaregiver' => $_SESSION['idCaregiver']
-            );
-            $this->caregivers->insertNote($note);
-
-        }elseif (strcmp($_POST['note'],"")){
-            $note = array(
-                'idinput' => $_POST['idinput'],
-                'idCaregiver' => $_SESSION['idCaregiver']
-            );
-            $this->caregivers->deleteNote($note);
-        }
+        $note = array(
+            'note' => $_POST['note'],
+            'idinput' => $_POST['idinput'],
+            'idCaregiver' => $_SESSION['idCaregiver']
+        );
+        $this->caregivers->updateNote($note);
     }
 
     public function deleteNote(){
