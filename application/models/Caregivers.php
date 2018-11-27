@@ -48,6 +48,15 @@ Class Caregivers extends CI_Model{
             return count($result);
         }
     }
+    function lookUpByEmail($params= array()){
+        //fetch data by conditions
+        if(array_key_exists("conditions",$params)){
+            $email = $params['conditions']["email"];
+            $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email'";
+            $result = $this->db->query($sql);
+            return $result;
+        }
+    }
 
     function lookUpPassword($params= array()){
         //fetch data by conditions
@@ -214,26 +223,68 @@ Class Caregivers extends CI_Model{
 	    $this->load->library('email');
 	    $email = $data['email'];
 	    $name = $data['firstname'];
+	    $id = $data['activation_code'];
 
-        $sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
+        $sql = "UPDATE a18ux02.Caregiver a18ux02.Caregiver 
+        SET hash = '$id'
+        where email = '$email'";
         $result = $this->db->query($sql);
-        $row = $result->row();
-        $email_code = md5((string)$row->created);
+
+        if($result) {
+            $this->email->set_mailtype('html');
+            $this->email->from('a18ux02@gmail.com');
+            $this->email->to($email);
+
+            $this->email->subject('Activate your account');
+
+            $message = '<p> Dear ' . $name . ',</p>';
+            $message .= '<p><a href="' . base_url() . 'Caregiver/verifyEmail/' . $name . '/' . $id . '">click here</a> to verify your email address</p>';
+            $message .= '<p> Thanks</p>';
+
+            $this->email->message($message);
+            $this->email->send();
+        }
+    }
+
+
+    public function sendPasswordMail($data){
+        $this->load->library('email');
+        $email_coded = urlencode($data['email']);
+        $email = $data['email'];
+        $name = $data['firstname'];
+        $email_code = $data['activation_id'];
 
         $this->email->set_mailtype('html');
         $this->email->from('a18ux02@gmail.com');
         $this->email->to($email);
 
-        $this->email->subject('Activate your account');
+        $this->email->subject('Reset password');
 
         $message = '<p> Dear ' . $name.',</p>';
-        $message .= '<p><a href="' . base_url().'Caregiver/verifyEmail/'.$name.'/'.$email_code.'">click here</a> to verify your email address</p>';
+        $message .= '<p><a href="' . base_url().'Caregiver/resetPassword/'.$email_coded.'/'.$email_code.'">click here</a> to reset your password</p>';
         $message .= '<p> Thanks</p>';
 
         $this->email->message($message);
         $this->email->send();
     }
 
+    public function checkActivationDetails($email, $activation_id){
+        $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email' and hash = '$activation_id'";
+        $result= $this->db->query($sql);
+        return count($result);
+	}
+
+	public function updatePassword($data){
+	    $email = $data['email'];
+	    $activation_id = $data['activation_code'];
+	    $pw = $data['pw'];
+
+	    $sql = "UPDATE a18ux02.Caregivers
+	    SET password = '$pw'
+        Where email = $email and hash = '$activation_id'";
+	    $result = $this->db->query($sql);
+	    return count($result);
+    }
 
 
 }

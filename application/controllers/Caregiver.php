@@ -74,14 +74,14 @@ class Caregiver extends CI_Controller
                     $userData['new_password'] = hash('sha256',($this->input->post('new_password')));
                 }
 
-                $insert = $this->caregivers->modify($userData);/*
+                $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', 'Your new settings have been saved');
                     redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', 'Something went wrong...');
                     redirect('account');
-                }*/
+                }
             }
         }
         $data['caregiver'] = $userData;
@@ -131,7 +131,30 @@ class Caregiver extends CI_Controller
                 }
             }
         }
-		$this->parser->parse('Caregiver/login', $data);
+
+        if($this->input->post('loginSubmit')) {
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
+
+            if ($this->form_validation->run() == TRUE) {
+                $email = $this->input->post('email');
+
+                if ($this->caregivers->lookUpEmail($email)) {
+                    $userInfo = $this->caregivers->lookUpByEmail($email);
+                    $this->load->helper('string');
+                    $data['email'] = $email;
+                    $data['activation_id'] = random_string('alnum', 15);
+                    if (!empty($userInfo)) {
+                        $row = $userInfo->row();
+                        $data["firstname"] = (string)$row->firstname;
+                    }
+                    $this->caregivers->sendPasswordMail($data);
+                }
+
+            }
+        }
+
+        $this->parser->parse('Caregiver/login', $data);
+
     }
 
     /*
@@ -345,4 +368,50 @@ class Caregiver extends CI_Controller
         WHERE firstname = '$email_address' and MD5(created) = '$email_code'";
         $this->db->query($sql);
     }
+
+    function createPasswordMail(){
+        $this->load->library('form_validation');
+
+
+    }
+
+
+    // This function used to reset the password
+    function resetPassword($email, $activation_id)
+    {
+        $email = urldecode($email);
+        // Check activation id in database
+        $is_correct = $this->caregivers->checkActivationDetails($email, $activation_id);
+
+        $data['email'] = $email;
+        $data['activation_code'] = $activation_id;
+
+        if ($is_correct == 1)
+        {
+
+            $this->load->view('newPassword', $data);
+        }
+        else
+        {
+            redirect('users/login');
+        }
+
+        if($this->input->post('resetPassword')){
+            $this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
+            $this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
+        }
+
+        if($this->form_validation->run()==true){
+            $data['pw'] = hash('sha256', $this->input->post('password'));
+
+            $result = $this->caregivers->updatePassword($data);
+
+            if($result){
+                $this->session->set_userdata('success_msg', 'Your password has been reset.');
+                redirect('index.php');
+            }
+        }
+    }
+
+
 }
