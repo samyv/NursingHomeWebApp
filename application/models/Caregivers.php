@@ -30,10 +30,13 @@ Class Caregivers extends CI_Model{
             $email = $params['conditions']["email"];
             $password = $params['conditions']["password"];
             $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email' and password = '$password'";
-            $result = $this->db->query($sql)->result();
-            return $result;
+            $result = $this->db->query($sql);
+            $row = $result->row();
+            if(empty($row)) return 2;
+            if((string)$row->activated == 0) return 3;
+            else return $result->result();
         }
-        return 0;
+
     }
 
     function lookUpEmail($params= array()){
@@ -72,9 +75,8 @@ Class Caregivers extends CI_Model{
         $email = $data['email'];
         $password = $data['password'];
         //insert user data to users table
-        $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, created, modified, activated) VALUES (NULL,'$firstname','$lastname','$email','1','$password',CURRENT_TIME ,CURRENT_TIME,'0')";
+        $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0')";
         $insert = $this->db->query($sql);
-        print_r($insert);
 
         //return the status
         if($insert){
@@ -207,6 +209,31 @@ Class Caregivers extends CI_Model{
         $sql = "DELETE FROM a18ux02.Notes WHERE idCaregiver = '$cg' AND idNotes = '$id'";
         $this->db->query($sql);
     }
+
+    public function send_validation_email($data){
+	    $this->load->library('email');
+	    $email = $data['email'];
+	    $name = $data['firstname'];
+
+        $sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
+        $result = $this->db->query($sql);
+        $row = $result->row();
+        $email_code = md5((string)$row->created);
+
+        $this->email->set_mailtype('html');
+        $this->email->from('a18ux02@gmail.com');
+        $this->email->to($email);
+
+        $this->email->subject('Activate your account');
+
+        $message = '<p> Dear ' . $name.',</p>';
+        $message .= '<p><a href="' . base_url().'Caregiver/verifyEmail/'.$name.'/'.$email_code.'">click here</a> to verify your email address</p>';
+        $message .= '<p> Thanks</p>';
+
+        $this->email->message($message);
+        $this->email->send();
+    }
+
 
 
 }

@@ -69,9 +69,9 @@ class Caregiver extends CI_Controller
                 $userData['email'] = strip_tags($this->input->post('email'));
                 $userData['floor'] = strip_tags($this->input->post('floor'));
                 $userData['idCaregiver'] =$idCaregiver;
-                $userData['old_password'] = md5($this->input->post('old_password'));
+                $userData['old_password'] = hash('sha256', ($this->input->post('old_password')));
                 if (!empty($_POST['new_password'])) {
-                    $userData['new_password'] = md5($this->input->post('new_password'));
+                    $userData['new_password'] = hash('sha256',($this->input->post('new_password')));
                 }
 
                 $insert = $this->caregivers->modify($userData);/*
@@ -113,10 +113,14 @@ class Caregiver extends CI_Controller
             if ($this->form_validation->run() == true) {
                 $con['conditions'] = array(
                     'email'=>$this->input->post('email'),
-                    'password' => md5($this->input->post('password'))
+                    'password' => hash('sha256',($this->input->post('password')))
                 );
                 $checkLogin = $this->caregivers->lookUp($con);
-                if($checkLogin){
+                if($checkLogin == 2){
+                    $data['error_msg'] = 'Wrong email or password, please try again.';
+                }elseif($checkLogin == 3){
+                    $data['error_msg'] = "Please make sure you have activated your account, check your email and spam folder.";
+                }elseif($checkLogin){
                     $this->session->set_userdata('isUserLoggedIn',TRUE);
                     $this->session->set_userdata('idCaregiver',$checkLogin['0']->idCaregiver);
                     $this->session->set_userdata('firstname',$checkLogin['0']->firstname);
@@ -124,8 +128,6 @@ class Caregiver extends CI_Controller
                     $this->session->set_userdata('floor',$checkLogin['0']->floor);
                     $this->session->set_userdata('email',$checkLogin['0']->email);
                     redirect('landingPage');
-                }else{
-                    $data['error_msg'] = 'Wrong email or password, please try again.';
                 }
             }
         }
@@ -140,21 +142,22 @@ class Caregiver extends CI_Controller
         $userData = array();
         $data['page_title']='Register new caregiver | GraceAge';
         if($this->input->post('regisSubmit')){
-            $this->form_validation->set_rules('firstname', 'Name', 'required');
-            $this->form_validation->set_rules('lastname', 'Name', 'required');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_email_check');
-            $this->form_validation->set_rules('password', 'password', 'required');
-            $this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[password]');
+            $this->form_validation->set_rules('firstname', 'Name', 'trim|required');
+            $this->form_validation->set_rules('lastname', 'Name', 'trim|required');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check');
+            $this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
+            $this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
             if($this->form_validation->run() == true){
                 $userData = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
                     'lastname' => strip_tags($this->input->post('lastname')),
                     'email' => strip_tags($this->input->post('email')),
-                    'password' => md5($this->input->post('password')),
+                    'password' => hash('sha256', $this->input->post('password')),
                 );
                 $insert = $this->caregivers->insert($userData);
+                $this->caregivers->send_validation_email($userData);
                 if($insert){
-                    $this->session->set_userdata('success_msg', 'Your registration was successfully. Please login to your account.');
+                    $this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
                     redirect('index.php');
                 }else{
                     $data['error_msg'] = 'Some problems occured, please try again.';
@@ -196,7 +199,7 @@ class Caregiver extends CI_Controller
     }
     public function password_check($str, $id){
 
-        $con['conditions'] = array('password'=>md5($str),
+        $con['conditions'] = array('password'=>hash('sha256',$str),
                                     'id'=>$id);
         $checkPassword = $this->caregivers->lookUpPassword($con);
         if($checkPassword){
@@ -334,5 +337,12 @@ class Caregiver extends CI_Controller
             'idCaregiver' => $_SESSION['idCaregiver']
         );
         $this->caregivers->deleteNote($note);
+    }
+
+    function verifyEmail($email_address, $email_code) {
+        $sql = "UPDATE a18ux02.Caregiver
+        SET activated = 1 
+        WHERE firstname = '$email_address' and MD5(created) = '$email_code'";
+        $this->db->query($sql);
     }
 }
