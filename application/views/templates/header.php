@@ -23,6 +23,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="landingpage"><i class="fas fa-home"></i> Home</a>
             </li>
+
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Go to
@@ -33,10 +35,20 @@
                     {/dropdown_menu_items}
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bell"></i><span class="badge badge-warning">2</span>
                 </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {dropdown_menu_items}
+                    <a href="{link}" class="{className}">{name}</a>
+                    {/dropdown_menu_items}
+                </div>
+            </li>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="account"><i class="fas fa-cog"></i> Settings</a>
