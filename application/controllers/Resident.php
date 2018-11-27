@@ -73,8 +73,12 @@ class Resident extends CI_Controller
     public function page($index=1)
     {
         $data['question'] = $this->QuestionModel->getQuestion($index);
+        $num = ($this->QuestionModel->getNumofQuestionInThisSection($index));
 
-        $this->parser->parse('Resident/questionPage',$data);
+        $data['totalNum'] = $num;
+        $data['currentNum'] = 1;
+        $data['percentage'] = sprintf("%01.0f", (1/$num)*100).'%';
+        $this->parser->parse('Resident/questionPage', $data);
     }
 
     public function tutorialpage(){
