@@ -88,7 +88,7 @@ class Resident extends CI_Controller
 
         $this->QuestionModel->insertIndex($index);
         if($answer != null) {
-//            $this->QuestionModel->insertAnswer($index - 1, $answer);
+            $this->QuestionModel->insertAnswer($index - 1, $answer);
             $this->QuestionModel->insertTimestamp();
         }
         $data = $this->QuestionModel->getQuestion($index);
@@ -97,8 +97,8 @@ class Resident extends CI_Controller
 
     public function getOldAnswer(){
         $index = $this ->input->post('index');
-        $residentID = 1;
-        $data = $this->QuestionModel->getAnswer($residentID, $index);
+        $questionnaireID = 0;
+        $data = $this->QuestionModel->getAnswer($questionnaireID, $index);
         echo $data;
     }
     public function getNextQuestionType(){

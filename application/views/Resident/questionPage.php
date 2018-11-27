@@ -73,6 +73,16 @@
             }
         });
 
+        $.ajax({
+            url:'<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+            method:"POST",
+            data:{index:index},
+            success:function(answer)
+            {
+                $('#answer'+answer).prop('checked',true);
+            }
+        });
+
         function transQuestionTextAndAns($index, $answer){
             $.ajax({
                 url:'<?php echo site_url('index.php/Resident/update');?>',
@@ -87,17 +97,6 @@
             });
         }
 
-        function transOldAnswer($index){
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/getOldAnswer');?>',
-                method:"POST",
-                data:{index:$index},
-                success:function(answer)
-                {
-                    $('#answer'+answer).prop('checked',true);
-                }
-            });
-        }
 
         function checkIfLastQuestion($index){
             $.ajax({
@@ -177,7 +176,6 @@
         $('#previous').click(async function(){
             if(index > 1) index--;
             transQuestionTextAndAns(index,null);
-            // transOldAnswer(index);
         });
     });
 </script>
