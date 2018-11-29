@@ -87,11 +87,12 @@ class Resident extends CI_Controller
         $answer = $this->input->post('answer');
 
         $questionnaireId = 0;
+        $residentID = 1;
 
         $this->QuestionModel->insertIndex($index);
         if($answer != null) {
             $this->QuestionModel->insertAnswer($questionnaireId, $index - 1, $answer);
-            $this->QuestionModel->insertTimestamp();
+            $this->QuestionModel->insertTimestamp($residentID);
         }
         $data = $this->QuestionModel->getQuestion($index);
         echo $data;
@@ -136,6 +137,9 @@ class Resident extends CI_Controller
 
     public function section($id =1)
     {
+        $residentID = 1;
+        $this->QuestionModel->createQuestionnaires($residentID);
+
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
         $data['index'] = $this->getFirstQuestionIndex($id);
         $this->parser->parse('Resident/sectionPage',$data);
