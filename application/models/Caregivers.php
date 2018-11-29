@@ -138,7 +138,7 @@ Class Caregivers extends CI_Model{
 
 	public function getRows($conditions = array()){
 //		echo "init";
-		$userTbl = "a18ux02.Resident";
+		$userTbl = $conditions["table"];
 		$sql = 'SELECT ';
 		$sql .= array_key_exists("select",$conditions)?$conditions['select']:'*';
 		$sql .= ' FROM '.$userTbl;
