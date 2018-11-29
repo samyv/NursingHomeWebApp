@@ -194,8 +194,7 @@ class Caregiver extends CI_Controller
      * Existing email check during validation
      */
     public function email_check($str){
-        $con['conditions'] = array('email'=>$str);
-        $checkEmail = $this->caregivers->lookUpEmail($con);
+        $checkEmail = $this->caregivers->lookUpEmail($str);
         if($checkEmail > 0){
             $this->form_validation->set_message('email_check', 'The given email already exists.');
             return FALSE;

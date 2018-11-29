@@ -17,7 +17,7 @@
 </div>
     <div class="grid-container">
         <div class="image">
-            <img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.png" >
+            <img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.jpg" >
         </div>
 
         <div class="login-form">
