@@ -28,11 +28,9 @@ Class Caregivers extends CI_Model{
         //fetch data by conditions
         if(array_key_exists("conditions",$params)){
             $email = $params['conditions']["email"];
-            $password = $params['conditions']["password"];
-            $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email' and password = '$password'";
+            $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email'";
             $result = $this->db->query($sql);
             $row = $result->row();
-            if(empty($row)) return 2;
             if((string)$row->activated == 0) return 3;
             else return $result->result();
         }
