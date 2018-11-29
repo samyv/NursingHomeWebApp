@@ -5,11 +5,12 @@ html,body {
     display: flex;
     flex-direction: column;
     width: 100%;
-    font-family: Roboto;
+    font-family: Roboto !important;
 
 }
 
 body {
+    background-color: #F5FAFA !important;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -30,12 +31,36 @@ body {
     margin-top: 0 !important;
 }
 
+
+#forgot-password-modal-content{
+    display: none;
+    position: absolute;
+    margin-top: 15%;
+    width: 30%;
+    height: min-content;
+}
+.modal-footer{
+    width: 100%;
+}
+
+.modal-footer .btn{
+    background-color: #66a5ad;
+    color: white;
+    padding: 14px 50px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.modal-footer .btn:hover{
+    opacity: 0.8;
+}
+
 .h1 {
     align-self: center;
     justify-self: center;
     text-align: center;
     background-color: #003b46;
-    color: white;
+    color: white !important;
     width: 100%;
 }
 
@@ -51,6 +76,22 @@ body {
 .login-form {
     grid-area: log;
     margin-top: 25%;
+}
+
+#submitButtons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-auto-rows: auto;
+    grid-template-areas: "submit register";
+}
+
+input[type=submit]{
+    grid-area: submit;
+}
+
+input[type=button]{
+    grid-area: register;
 }
 
 input[type=email],input[type=text], input[type=password] {
@@ -69,10 +110,11 @@ input[type=submit],input[type=button]{
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    margin-right: 1em;
 }
 
 input[type=submit]:hover,input[type=button]:hover{
-    opacity: 0.8;
+    opacity: 0.8 !important;
 }
 
 span.psw {
@@ -138,6 +180,9 @@ span.psw {
         margin-top: 25%;
         grid-column: 3 / 10;
     }
+    #forgot-password-modal-content{
+        width: 50%;
+    }
 
 }
 
@@ -171,6 +216,8 @@ span.psw {
         margin-top: 10px;
         width: 100%;
     }
+
+
 }
 
 @media only screen and (max-width: 650px) {

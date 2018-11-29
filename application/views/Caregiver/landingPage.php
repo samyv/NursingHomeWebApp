@@ -37,14 +37,16 @@
     <h2 class="clndrheader">Calendar</h2>
 
     <div class="notes">
-            {notes}
-            <form name="submitNotes" class="existing form" action="">
-                <input type="number" name="id" id="idinput" class="idinput form-group" style="display:none;" value="{noteid}">
-                <a class="btn deleteNote" name="close"><i id="{noteid}" class="fa fa-trash-alt"></i></a>
-                <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes" name="note">{Note}</textarea>
-                <input id="{noteid}" class="savebtn btn form-group" type="button" value="Save" style="display:none">
-            </form>
-            {/notes}
+        <?php
+        if(isset($notes)){
+        foreach( $notes as $note){?>
+                <form name="submitNotes" class="existing form" action="">
+                    <input type="number" name="id" id="idinput" class="idinput form-group" style="display:none;" value="<?php echo $note['noteid']; ?>">
+                    <a class="btn deleteNote" name="close"><i id="<?php echo $note['noteid']; ?>" class="fa fa-trash-alt"></i></a>
+                    <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes" name="note"><?php echo $note['Note']; ?></textarea>
+                    <input id="<?php echo $note['noteid']; ?>" class="savebtn btn form-group" type="button" value="Save" style="display:none">
+                </form>
+        <?php }} ?>
         <div class="newNote" id="newNote">
             <button id="newNotebtn" type="button" class="btn">New note</button>
         </div>
@@ -115,7 +117,6 @@
 
         function deleteNote (event) {
             $note = $(event.target).parent();
-            console.log($note);
             $noteid = $(event.target).attr("id");
             Confirm('Delete note?', 'Are you sure you want to delete this note?', 'Yes', 'Cancel', $noteid, $note);
         };
