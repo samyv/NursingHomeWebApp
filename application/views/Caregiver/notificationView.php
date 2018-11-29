@@ -33,9 +33,6 @@
         //  Populates the notification list with the right
         //  messages.
         //  TODO: Still need to implement the database part
-        var database = "";
-        database = <?php echo json_encode($row)?>; // at the moment the caregivers are loaded, these need to be the notifications.
-        console.log(database);
         for (let i = 0 ; i <10 ; i++)
         {
             // get the element which we want to add notifications to
