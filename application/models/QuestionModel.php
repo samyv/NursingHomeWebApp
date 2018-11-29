@@ -80,9 +80,9 @@ class QuestionModel extends CI_Model
     }
 
 
-    function insertTimestamp(){
+    function insertTimestamp($residentID){
         $this->db->query(
-            "UPDATE a18ux02.Questionarries SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = 1"
+            "UPDATE a18ux02.Questionarries SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = $residentID"
         );
     }
 
