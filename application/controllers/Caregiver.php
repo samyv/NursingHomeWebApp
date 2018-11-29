@@ -361,9 +361,10 @@ class Caregiver extends CI_Controller
         $sql = "UPDATE a18ux02.Caregiver
         SET activated = 1 
         WHERE firstname = '$email_address' and MD5(created) = '$email_code'";
-        $result = $this->db->query($sql);
+        $this->db->query($sql);
+        $result = $this->db->affected_rows();
 
-        if($result){
+        if($result>0){
             $this->load->view('caregiver/activated');
         }
         else{
