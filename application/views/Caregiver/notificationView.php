@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Database Searching</title>
+    <title>Notifications</title>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/notificationView.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
@@ -15,19 +15,7 @@
     </div>
 
     <div class = list>
-        <div class = "notification">
-            <p class = "icon"><i class="material-icons read">access_time</i></p>
-            <p class = "date">Fri 10/4/18 at 14:47</p>
-            <p class = "content">Content of the notification goes here</p>
-            <p class = "read"><i class="material-icons read">fiber_new</i></p>
-        </div>
-
-        <div class = "notification">
-            <p class = "icon"><i class="material-icons read">access_time</i></p>
-            <p class = "date">Fri 10/4/18 at 14:47</p>
-            <p class = "content">Content of the notification goes here</p>
-            <p class = "read"></p>
-        </div>
+    </div>
     </div>
 
     <div class = "footer">
@@ -42,28 +30,50 @@
     window.onload = populate();
     function populate()
     {
+        //  Populates the notification list with the right
+        //  messages.
+        //  TODO: Still need to implement the database part
         var database = "";
-        database = <?php echo json_encode($listCar)?>;
-        var list = document.getElementsByClassName("list");
-        for (let i = 0 ; i <1 ; i++)
-        {
-            let notification = document.createElement("div");
-            let date = document.createElement("date");
-            date.innerHTML = "A";
-            let content = document.createElement("content");
-            content.innerHTML = "B";
-            let read = document.createElement("read");
-            read.innerHTML = "C";
+        database = <?php echo json_encode($listCar)?>; // at the moment the caregivers are loaded, these need to be the notifications.
 
+        for (let i = 0 ; i <10 ; i++)
+        {
+            var a = document.getElementsByClassName("list");
+            a = a[0];
+            let notification = document.createElement("div");
+            notification.className = "notification";
+
+            // Clock Icon
+            let clock = document.createElement("p");
+            clock.className = "icon";
+            let icon = document.createElement("i");
+            icon.className = "material-icons read";
+            icon.innerHTML = "access_time";
+            clock.appendChild(icon);
+            notification.appendChild(clock);
+
+            // Date
+            let date = document.createElement("p");
+            date.className = "date";
+            date.innerHTML = "Date goes here";
             notification.appendChild(date);
+
+            // content
+            let content = document.createElement("p");
+            content.className = "content";
+            content.innerHTML = "This is where the content of the notification goes";
             notification.appendChild(content);
+
+            // read
+            let read = document.createElement("p");
+            read.className = "read";
+            let symbol = document.createElement("i");
+            symbol.className = "material-icons read";
+            symbol.innerHTML = "fiber_new";
+            read.appendChild(symbol);
             notification.appendChild(read);
 
-            console.log(notification);
-            console.log(list);
-            //list.appendChild(notification);
+            a.appendChild(notification);
         }
-
-
     }
 </script>
