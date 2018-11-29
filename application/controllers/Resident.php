@@ -79,6 +79,7 @@ class Resident extends CI_Controller
 
     public function tutorialpage(){
         $data['resident'] = 'Jack';
+        print_r($_SESSION);
         $this->parser->parse("Resident/tutorialPage",$data);
     }
 
