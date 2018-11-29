@@ -29,11 +29,16 @@
 </div>
 
 <!--create buttons for each resident in the room, the form is so you can parse the right data to the session-->
-{residentNames}
-<form method="post">
-    <input type="submit" name="selectResident{residentID}" class="ResidentButton" value="{firstname} {lastname}">
-</form>
-{/residentNames}
+
+
+<?php
+$i = 1;
+foreach ($residentNames as $resident){?>
+    <form method="post">
+        <input type="submit" name="selectResident<?php echo $i?>" class="ResidentButton" value="<?php echo $resident['firstname'], " ", $resident['lastname'] ?>">
+    </form>
+<?php $i++;
+}?>
 
 <footer>
     <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
