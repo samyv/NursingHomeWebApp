@@ -119,4 +119,21 @@ class QuestionModel extends CI_Model
         );
     }
 
+    function createQuestionnaires($residentID){
+        $query = $this->db->query("SELECT * FROM a18ux02.Questionarries WHERE Resident_residentID = $residentID ORDER BY timestamp DESC LIMIT 1");
+
+        $row = $query->row_array();
+
+        if(isset($row)){
+            $now = new DateTime(date('Y-m-d H:i:s e'));
+            $lastTime = new DateTime($row['timestamp']);
+            $interval = $lastTime->diff($now);
+            if($interval->format('%a') > 7){
+                $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
+            }
+        } else {
+            $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
+        }
+    }
+
 }
