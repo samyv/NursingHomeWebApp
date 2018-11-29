@@ -48,6 +48,7 @@
 					let x = parseInt(sessionStorage.getItem('floorSelected'))
 					let y = parseInt(imagediv.attr('roomid'))
 					let nummer = x*100+y;
+					console.log(residents.filter(e => e.room == nummer))
 					let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))]
 					sessionStorage.setItem("residentSelected",room['residentID'])
 					location.href='roomView';
