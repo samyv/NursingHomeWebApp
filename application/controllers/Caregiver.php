@@ -260,8 +260,13 @@ class Caregiver extends CI_Controller
         $this->load->database('default');
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
+
+        $cond = array();
+        $cond['return_type'] = 'single';
+        $cond["table"] = 'a18ux02.Resident';
+        $row = $this->caregivers->getRows($cond);
         $this->parser->parse('templates/header',$data);
-        $this->parser->parse('Caregiver/notificationView', $data);
+        $this->parser->parse('Caregiver/notificationView', $row);
     }
 
     public function buildingView(){

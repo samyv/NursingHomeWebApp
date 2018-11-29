@@ -34,12 +34,13 @@
         //  messages.
         //  TODO: Still need to implement the database part
         var database = "";
-        database = <?php echo json_encode($listCar)?>; // at the moment the caregivers are loaded, these need to be the notifications.
-
+        database = <?php echo json_encode($row)?>; // at the moment the caregivers are loaded, these need to be the notifications.
+        console.log(database);
         for (let i = 0 ; i <10 ; i++)
         {
-            var a = document.getElementsByClassName("list");
-            a = a[0];
+            // get the element which we want to add notifications to
+            let a = document.getElementsByClassName("list"); // returns a list
+            a = a[0]; // get the first (and only) element of the list
             let notification = document.createElement("div");
             notification.className = "notification";
 
@@ -73,7 +74,7 @@
             read.appendChild(symbol);
             notification.appendChild(read);
 
-            a.appendChild(notification);
+            a.appendChild(notification); // add the entire html div to the notification list.
         }
     }
 </script>
