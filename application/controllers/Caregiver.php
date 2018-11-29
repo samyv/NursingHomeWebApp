@@ -254,15 +254,11 @@ class Caregiver extends CI_Controller
 
     public function notificationView(){
         $data = array();
-        $this->load->database('default');
-        $result = $this->caregivers->getResidents();
-        $data['listCar'] = $result;
-        $this->load->database('default');
-        $result = $this->caregivers->getResidents();
-        $data['listCar'] = $result;
-
+		$data['floorNotifications'] = $this->caregivers->getNotifications();
+//		print_r($data['floorNotifications']);
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/notificationView', $data);
+
     }
 
     public function buildingView(){
@@ -395,7 +391,6 @@ class Caregiver extends CI_Controller
             }
         }
     }
-
 
     // This function used to reset the password
     function resetPassword($email, $activation_id)
