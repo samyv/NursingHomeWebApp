@@ -267,7 +267,7 @@ Class Caregivers extends CI_Model{
 
     public function checkActivationDetails($email, $activation_id){
         $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email' and hash = '$activation_id'";
-        $result= $this->db->query($sql);
+        $result= $this->db->query($sql)->result();
         return count($result);
 	}
 
@@ -276,9 +276,9 @@ Class Caregivers extends CI_Model{
 	    $activation_id = $data['activation_code'];
 	    $pw = $data['pw'];
 
-	    $sql = "UPDATE a18ux02.Caregivers
-	    SET password = '$pw'
-        Where email = $email and hash = '$activation_id'";
+	    $sql = "UPDATE a18ux02.Caregiver
+	    SET password = '$pw', hash = ''
+        Where email = '$email' and hash = '$activation_id'";
 	    $result = $this->db->query($sql);
 	    return count($result);
     }

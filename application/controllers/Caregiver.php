@@ -348,8 +348,9 @@ class Caregiver extends CI_Controller
         SET activated = 1 
         WHERE firstname = '$email_address' and MD5(created) = '$email_code'";
         $result = $this->db->query($sql);
+        print_r($result);
 
-        if(count($result) == 1){
+        if($result){
             $this->load->view('caregiver/activated');
         }
         else{
@@ -359,23 +360,22 @@ class Caregiver extends CI_Controller
     }
 
     function createPasswordMail(){
-        if($this->input->post('loginSubmit')) {
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
-            if ($this->form_validation->run() == TRUE) {
-                $email = trim($this->input->post('email'));
 
-                $userInfo = $this->caregivers->lookUpByEmail($email);
-                $this->load->helper('string');
-                $data['email'] = $email;
-                $data['activation_id'] = random_string('alnum', 15);
-                if (!empty($userInfo)) {
-                    $row = $userInfo->row();
-                    $data["firstname"] = (string)$row->firstname;
-                }
-                $this->caregivers->sendPasswordMail($data);
+        $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
 
+        if ($this->form_validation->run() == TRUE) {
+            $email = trim($this->input->post('email'));
+            $userInfo = $this->caregivers->lookUpByEmail($email);
+            $this->load->helper('string');
+            $data['email'] = $email;
+            $data['activation_id'] = random_string('alnum', 15);
+            if (!empty($userInfo)) {
+                $row = $userInfo->row();
+                $data["firstname"] = (string)$row->firstname;
             }
+            $this->caregivers->sendPasswordMail($data);
         }
+
     }
 
 
@@ -385,18 +385,17 @@ class Caregiver extends CI_Controller
         $email = urldecode($email);
         // Check activation id in database
         $is_correct = $this->caregivers->checkActivationDetails($email, $activation_id);
-
         $data['email'] = $email;
         $data['activation_code'] = $activation_id;
 
         if ($is_correct == 1)
         {
 
-            $this->load->view('newPassword', $data);
+            $this->load->view('Caregiver/newPassword', $data);
         }
         else
         {
-            redirect('users/login');
+            redirect('index.php');
         }
 
         if($this->input->post('resetPassword')){
@@ -406,7 +405,7 @@ class Caregiver extends CI_Controller
 
         if($this->form_validation->run()==true){
             $data['pw'] = hash('sha256', $this->input->post('password'));
-
+            print_r($data);
             $result = $this->caregivers->updatePassword($data);
 
             if($result){
