@@ -62,19 +62,18 @@
     </div>
 
     <div class="modal-body">
-        <form method="post" id="Forgot-Password-Form" action="" role="form">
+        <form action="" id="Forgot-Password-Form" method="post" role="form">
             <p>Please fill in your email so we can send you a link to reset your password.</p>
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-                    <input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email" required>
+                    <input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email">
                 </div>
             </div>
 
-
     </div>
     <div class="modal-footer">
-        <button type="submit" name="forgotPW" id="submitEmail" class="btn btn-block btn-lg">
+        <button type="submit" id="submitemail" class="btn btn-block btn-lg">
             SUBMIT
         </button>
         </form>
@@ -98,12 +97,27 @@
             $('#forgot-password-modal-content').fadeOut('fast');
         })
 
-        $('#submitEmail').click(submitEmail)
+        $('#submitemail').click(submitEmail)
 
     });
 
     function submitEmail(event){
+
         $email = $('#email').val();
+
+        console.log($email);
+        $.ajax({
+            url: '<?php echo base_url();?>Caregiver/createPasswordMail',
+            method: 'post',
+            dataType: 'json',
+            data:{
+                'email' : $email
+            },
+            success: showmsg(event)
+        });
+    }
+
+    function showmsg(event) {
         $button = $(event.target).parent();
         $form = $(event.target).parent().prev().children();
         $modalBody = $(event.target).parent().prev();
@@ -112,19 +126,7 @@
         $button.remove();
         $modalBody.append("<p>A link to reset your password has been sent to " + $email + ".</p>");
 
-        $.ajax({
-            url: '<?= base_url()?>Caregiver/createPasswordMail',
-            method: 'post',
-            dataTyp: 'json',
-            data:{
-                'email' : $email
-            },
-            function(data) {
-                alert('An email to reset your password has been sent');
-            }
-        });
     }
-
 
 </script>
 

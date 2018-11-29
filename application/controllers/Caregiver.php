@@ -25,7 +25,6 @@ class Caregiver extends CI_Controller
      * User account information
      */
     public function account(){
-        print_r($_SESSION);
         $data = array();
         $userData = array();
         $data['page_title']='Account overview | GraceAge';
@@ -57,7 +56,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('firstname', 'First name', 'required');
             $this->form_validation->set_rules('lastname', 'Last name', 'required');
             $this->form_validation->set_rules('floor', 'Floor number', 'required|is_natural_no_zero');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('old_password', 'old password', 'required|callback_password_check['.$idCaregiver.']');
             if(isset($_POST['new_password'])) {
                 $this->form_validation->set_rules('new_password', 'new password', 'required');
@@ -90,9 +89,6 @@ class Caregiver extends CI_Controller
 
     /*
      * User login
-     */
-    /**
-     *
      */
     public function index(){
         $data = array();
@@ -136,11 +132,11 @@ class Caregiver extends CI_Controller
             }
         }
 
+
+
         $this->parser->parse('Caregiver/login', $data);
 
     }
-
-
 
     /*
      * User registration
@@ -351,34 +347,35 @@ class Caregiver extends CI_Controller
         $sql = "UPDATE a18ux02.Caregiver
         SET activated = 1 
         WHERE firstname = '$email_address' and MD5(created) = '$email_code'";
-        $this->db->query($sql);
+        $result = $this->db->query($sql);
+
+        if(count($result) == 1){
+            $this->load->view('caregiver/activated');
+        }
+        else{
+            $this->load->view('caregiver/not_activated');
+        }
+
     }
 
     function createPasswordMail(){
-
-        if($this->input->post('forgotPW')) {
+        if($this->input->post('loginSubmit')) {
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
-
             if ($this->form_validation->run() == TRUE) {
                 $email = trim($this->input->post('email'));
-                if ($this->caregivers->lookUpEmail($email)) {
-                    $userInfo = $this->caregivers->lookUpByEmail($email);
-                    $this->load->helper('string');
-                    $data['email'] = $email;
-                    $data['activation_id'] = random_string('alnum', 15);
-                    if (!empty($userInfo)) {
-                        $row = $userInfo->row();
-                        $data["firstname"] = (string)$row->firstname;
-                    }
-                    $this->sendPasswordMail($data);
-                }
 
-            }else{
-                $data['error_msg'] = 'something is wrong.';
+                $userInfo = $this->caregivers->lookUpByEmail($email);
+                $this->load->helper('string');
+                $data['email'] = $email;
+                $data['activation_id'] = random_string('alnum', 15);
+                if (!empty($userInfo)) {
+                    $row = $userInfo->row();
+                    $data["firstname"] = (string)$row->firstname;
+                }
+                $this->caregivers->sendPasswordMail($data);
+
             }
         }
-
-
     }
 
 
@@ -418,28 +415,6 @@ class Caregiver extends CI_Controller
             }
         }
     }
-
-    public function sendPasswordMail($data){
-        $this->load->library('email');
-        $email_coded = urlencode($data['email']);
-        $email = $data['email'];
-        $name = $data['firstname'];
-        $email_code = $data['activation_id'];
-
-        $this->email->set_mailtype('html');
-        $this->email->from('a18ux02@gmail.com');
-        $this->email->to($email);
-
-        $this->email->subject('Reset password');
-
-        $message = '<p> Dear ' . $name.',</p>';
-        $message .= '<p><a href="' . base_url().'Caregiver/resetPassword/'.$email_coded.'/'.$email_code.'">click here</a> to reset your password</p>';
-        $message .= '<p> Thanks</p>';
-
-        $this->email->message($message);
-        $this->email->send();
-    }
-
 
 
 }
