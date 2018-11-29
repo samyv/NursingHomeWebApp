@@ -62,19 +62,19 @@
     </div>
 
     <div class="modal-body">
-        <form method="post" id="Forgot-Password-Form" method="post" role="form">
+        <form method="post" id="Forgot-Password-Form" action="" role="form">
             <p>Please fill in your email so we can send you a link to reset your password.</p>
             <div class="form-group">
                 <div class="input-group">
                     <div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-                    <input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email" required data-parsley-type="email">
+                    <input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email" required>
                 </div>
             </div>
 
 
     </div>
     <div class="modal-footer">
-        <button type="submit" id="submitemail" class="btn btn-block btn-lg">
+        <button type="submit" name="forgotPW" id="submitEmail" class="btn btn-block btn-lg">
             SUBMIT
         </button>
         </form>
@@ -98,16 +98,24 @@
             $('#forgot-password-modal-content').fadeOut('fast');
         })
 
-        //$('#submitemail').click(submitEmail())
+        $('#submitEmail').click(submitEmail)
 
     });
 
-    function submitEmail(){
+    function submitEmail(event){
         $email = $('#email').val();
-        console.log($email);
+        $button = $(event.target).parent();
+        $form = $(event.target).parent().prev().children();
+        $modalBody = $(event.target).parent().prev();
+
+        $form.remove();
+        $button.remove();
+        $modalBody.append("<p>A link to reset your password has been sent to " + $email + ".</p>");
+
         $.ajax({
-            url: '<?php echo base_url();?>Caregiver/createPasswordMail',
+            url: '<?= base_url()?>Caregiver/createPasswordMail',
             method: 'post',
+            dataTyp: 'json',
             data:{
                 'email' : $email
             },

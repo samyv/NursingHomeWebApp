@@ -18,6 +18,7 @@ class Caregiver extends CI_Controller
         $this->load->library('session');
         $this->load->model('dropdownmodel');
         $this->load->database('default');
+        $this->load->helper('security');
     }
 
     /*
@@ -90,6 +91,9 @@ class Caregiver extends CI_Controller
     /*
      * User login
      */
+    /**
+     *
+     */
     public function index(){
         $data = array();
         $data['page_title']='Login caregiver | GraceAge';
@@ -108,7 +112,7 @@ class Caregiver extends CI_Controller
         }
 
         if($this->input->post('loginSubmit')){
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('password', 'password', 'required');
             if ($this->form_validation->run() == true) {
                 $con['conditions'] = array(
@@ -132,30 +136,11 @@ class Caregiver extends CI_Controller
             }
         }
 
-        if($this->input->post('loginSubmit')) {
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
-
-            if ($this->form_validation->run() == TRUE) {
-                $email = $this->input->post('email');
-
-                if ($this->caregivers->lookUpEmail($email)) {
-                    $userInfo = $this->caregivers->lookUpByEmail($email);
-                    $this->load->helper('string');
-                    $data['email'] = $email;
-                    $data['activation_id'] = random_string('alnum', 15);
-                    if (!empty($userInfo)) {
-                        $row = $userInfo->row();
-                        $data["firstname"] = (string)$row->firstname;
-                    }
-                    $this->caregivers->sendPasswordMail($data);
-                }
-
-            }
-        }
-
         $this->parser->parse('Caregiver/login', $data);
 
     }
+
+
 
     /*
      * User registration
@@ -167,7 +152,7 @@ class Caregiver extends CI_Controller
         if($this->input->post('regisSubmit')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required');
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check|xss_clean');
             $this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
             $this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
             if($this->form_validation->run() == true){
@@ -370,7 +355,28 @@ class Caregiver extends CI_Controller
     }
 
     function createPasswordMail(){
-        $this->load->library('form_validation');
+
+        if($this->input->post('forgotPW')) {
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
+
+            if ($this->form_validation->run() == TRUE) {
+                $email = trim($this->input->post('email'));
+                if ($this->caregivers->lookUpEmail($email)) {
+                    $userInfo = $this->caregivers->lookUpByEmail($email);
+                    $this->load->helper('string');
+                    $data['email'] = $email;
+                    $data['activation_id'] = random_string('alnum', 15);
+                    if (!empty($userInfo)) {
+                        $row = $userInfo->row();
+                        $data["firstname"] = (string)$row->firstname;
+                    }
+                    $this->sendPasswordMail($data);
+                }
+
+            }else{
+                $data['error_msg'] = 'something is wrong.';
+            }
+        }
 
 
     }
@@ -412,6 +418,28 @@ class Caregiver extends CI_Controller
             }
         }
     }
+
+    public function sendPasswordMail($data){
+        $this->load->library('email');
+        $email_coded = urlencode($data['email']);
+        $email = $data['email'];
+        $name = $data['firstname'];
+        $email_code = $data['activation_id'];
+
+        $this->email->set_mailtype('html');
+        $this->email->from('a18ux02@gmail.com');
+        $this->email->to($email);
+
+        $this->email->subject('Reset password');
+
+        $message = '<p> Dear ' . $name.',</p>';
+        $message .= '<p><a href="' . base_url().'Caregiver/resetPassword/'.$email_coded.'/'.$email_code.'">click here</a> to reset your password</p>';
+        $message .= '<p> Thanks</p>';
+
+        $this->email->message($message);
+        $this->email->send();
+    }
+
 
 
 }
