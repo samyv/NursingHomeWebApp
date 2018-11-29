@@ -31,7 +31,7 @@
     </div>
 
     <div class = "footer">
-        <p>Footer goes here</p>
+        <p>© KULeuven 2018</p>
     </div>
 
 </div>
@@ -44,10 +44,7 @@
     {
         var database = "";
         database = <?php echo json_encode($listCar)?>;
-        console.log(database);
-        console.log("loaded");
         var list = document.getElementsByClassName("list");
-        console.log(list);
         for (let i = 0 ; i <1 ; i++)
         {
             let notification = document.createElement("div");
