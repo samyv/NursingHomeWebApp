@@ -21,12 +21,12 @@ class Resident extends CI_Controller
     }
 
 
-        public function index(){
-            $data['page_title'] = 'Login resident | GraceAge';
-            $data['residentNames'] = array();
-            if($this->session->userdata('isUserLoggedIn')){
-                redirect('account');
-            }
+    public function index(){
+        $data['page_title'] = 'Login resident | GraceAge';
+        $data['residentNames'] = array();
+        if($this->session->userdata('isUserLoggedIn')){
+            redirect('account');
+        }
 
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
@@ -70,7 +70,7 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/login', $data);
     }
 
-    public function page($index=1)
+    public function questionpage($index=1)
     {
         $data['question'] = $this->QuestionModel->getQuestion($index);
 
@@ -86,10 +86,13 @@ class Resident extends CI_Controller
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
 
+        $questionnaireId = 0;
+        $residentID = 1;
+
         $this->QuestionModel->insertIndex($index);
         if($answer != null) {
-//            $this->QuestionModel->insertAnswer($index - 1, $answer);
-            $this->QuestionModel->insertTimestamp();
+            $this->QuestionModel->insertAnswer($questionnaireId, $index - 1, $answer);
+            $this->QuestionModel->insertTimestamp($residentID);
         }
         $data = $this->QuestionModel->getQuestion($index);
         echo $data;
@@ -97,8 +100,8 @@ class Resident extends CI_Controller
 
     public function getOldAnswer(){
         $index = $this ->input->post('index');
-        $residentID = 1;
-        $data = $this->QuestionModel->getAnswer($residentID, $index);
+        $questionnaireID = 0;
+        $data = $this->QuestionModel->getAnswer($questionnaireID, $index);
         echo $data;
     }
     public function getNextQuestionType(){
@@ -134,6 +137,9 @@ class Resident extends CI_Controller
 
     public function section($id =1)
     {
+        $residentID = 1;
+        $this->QuestionModel->createQuestionnaires($residentID);
+
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
         $data['index'] = $this->getFirstQuestionIndex($id);
         $this->parser->parse('Resident/sectionPage',$data);
@@ -157,6 +163,11 @@ class Resident extends CI_Controller
         $residentID = 1;
         $data = $this->QuestionModel->getIndex($residentID);
         echo $data;
+    }
+
+    public function finalPage(){
+        $data['resident'] = "Jack";
+        $this->parser->parse('Resident/finalpage',$data);
     }
 
 }

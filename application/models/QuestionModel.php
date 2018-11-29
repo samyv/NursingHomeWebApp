@@ -45,8 +45,8 @@ class QuestionModel extends CI_Model
         return $text;
     }
 
-    function getAnswer($residentID,$questionNr){
-        $query = $this->db->get_where('a18ux02.Questionarries', array('Resident_residentID'=>$residentID));
+    function getAnswer($questionnaireID,$questionNr){
+        $query = $this->db->get_where('a18ux02.Answers', array('questionnaireId'=>$questionnaireID, 'questionId'=>$questionNr));
 
         $row = $query->row_array();
 
@@ -54,22 +54,35 @@ class QuestionModel extends CI_Model
 
         if (isset($row))
         {
-            $text = $row['Question'.$questionNr];
+            $text = $row['answer'];
         }
         return $text;
     }
 
 
-    function insertAnswer($index,$answer){
-        $this->db->query(
-            "UPDATE a18ux02.Questionarries SET Question".$index." = ".$answer." WHERE Resident_residentID = 1"
-        );
+    function insertAnswer($questionnaireId,$index,$answer){
+        $query = $this->db->get_where('a18ux02.Answers', array('questionnaireId'=>$questionnaireId, 'questionId'=>$index));
+
+        $row = $query->row_array();
+
+        if (isset($row))
+        {
+            $this->db->query(
+                "UPDATE a18ux02.Answers SET answer = $answer WHERE questionnaireId = $questionnaireId AND questionId = $index"
+            );
+            $this->db->query(
+                "UPDATE a18ux02.Answers SET timestamp = CURRENT_TIMESTAMP WHERE questionnaireId = $questionnaireId AND questionId = $index"
+            );
+        } else {
+            $this->db->query("INSERT INTO a18ux02.Answers (questionnaireId, questionId, timestamp, answer) VALUES ($questionnaireId, $index, CURRENT_TIMESTAMP, $answer)");
+        }
+
     }
 
 
-    function insertTimestamp(){
+    function insertTimestamp($residentID){
         $this->db->query(
-            "UPDATE a18ux02.Questionarries SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = 1"
+            "UPDATE a18ux02.Questionarries SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = $residentID"
         );
     }
 
@@ -104,6 +117,23 @@ class QuestionModel extends CI_Model
         $this->db->query(
             "UPDATE a18ux02.Questionarries SET numOfCurrentQuestion = ".$index." WHERE Resident_residentID = 1"
         );
+    }
+
+    function createQuestionnaires($residentID){
+        $query = $this->db->query("SELECT * FROM a18ux02.Questionarries WHERE Resident_residentID = $residentID ORDER BY timestamp DESC LIMIT 1");
+
+        $row = $query->row_array();
+
+        if(isset($row)){
+            $now = new DateTime(date('Y-m-d H:i:s e'));
+            $lastTime = new DateTime($row['timestamp']);
+            $interval = $lastTime->diff($now);
+            if($interval->format('%a') > 7){
+                $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
+            }
+        } else {
+            $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
+        }
     }
 
 }

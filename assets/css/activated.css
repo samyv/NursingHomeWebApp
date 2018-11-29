@@ -1,0 +1,45 @@
+html,body {
+    background-color: #F5FAFA;
+    height: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: Roboto !important;
+
+}
+
+body {
+    background-color: #F5FAFA !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1em;
+    grid-template-areas:
+            ". . . p p p p p p . . ."
+}
+
+.h1 {
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    background-color: #003b46;
+    color: white !important;
+    width: 100%;
+}
+
+
+
+p, .p {
+    margin-top: 3em;
+    grid-area: p;
+    width: 100%;
+}
+
+
