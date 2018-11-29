@@ -1,0 +1,85 @@
+*{
+    font-family: Roboto;
+
+}
+
+html,body{
+    background-color: #F5FAFA;
+}
+
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 6em 2fr 1fr;
+    grid-template-areas:
+            ". .  title title title title title title title title . ."
+            ". .  list list list . graph graph graph graph graph ."
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
+
+}
+.footer{
+    grid-area: footer;
+}
+
+.title{
+    grid-area: title;
+    padding-top: 20px;
+    color: #003b46;
+    font-size: 32px;
+}
+
+.container {
+    border-style: solid;
+    vertical-align: top;
+    line-height:60px;
+    background-color: #66a5ad;
+    color: white !important;
+    font-size: 26px;
+    text-align: center;
+    transition: all .2s ease-in-out;
+}
+
+.container:hover{
+    opacity: 0.8;
+    transform: scale(1.05);
+}
+
+/* Hide default checkbox */
+.container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create checkmark (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    display: none;
+}
+
+/* Show the checkmark */
+.container input:checked ~ .checkmark:after {
+    display: inline-grid;
+}
+
+/* Style the checkmark */
+.container .checkmark:after {
+    margin-left: 5px;
+    width: 10px;
+    height: 18px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+}
+
+.list{
+    grid-area: list;
+}
+
+.graph{
+    grid-area: graph;
+    background-color: #8ba8af;
+}
