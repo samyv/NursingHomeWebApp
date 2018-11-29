@@ -337,7 +337,7 @@ class Caregiver extends CI_Controller
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
 
         $this->parser->parse('templates/header',$data);
-        $this->parser->parse('Caregiver/floorCompareView', $data);
+        $this->parser->parse('Caregiver/floor_comparison', $data);
     }
 
     public function saveNote(){
