@@ -233,9 +233,9 @@ class Caregiver extends CI_Controller
     }
 
     public function searchForResident(){
-        if(!$this->session->userdata('isUserLoggedIn')){
-            redirect('index.php');
-        }
+			if(!$this->session->userdata('isUserLoggedIn')){
+				redirect('index.php');
+			}
 
         $data = array();
         $data['page_title'] = "Search page";
@@ -253,12 +253,18 @@ class Caregiver extends CI_Controller
     }
 
     public function buildingView(){
+		if(!$this->session->userdata('isUserLoggedIn')){
+			redirect('index.php');
+		}
         $data = array();
         // parse
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
     public function floorView(){
+		if(!$this->session->userdata('isUserLoggedIn')){
+			redirect('index.php');
+		}
         $data = array();
         // parse
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
@@ -268,6 +274,9 @@ class Caregiver extends CI_Controller
     }
 
     public function roomView(){
+		if(!$this->session->userdata('isUserLoggedIn')){
+			redirect('index.php');
+		}
         $data = array();
         // parse
         $this->parser->parse('Caregiver/roomView', $data);
@@ -280,6 +289,9 @@ class Caregiver extends CI_Controller
     }
 
     public function resDash(){
+		if(!$this->session->userdata('isUserLoggedIn')){
+			redirect('index.php');
+		}
     	$data = array();
     	$cond = array();
     	$cond['where'] = array('residentID' => $_GET['id']);
@@ -302,6 +314,7 @@ class Caregiver extends CI_Controller
     }
 
     public function roomSelect(){
+    	$data = array();
 
         if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
