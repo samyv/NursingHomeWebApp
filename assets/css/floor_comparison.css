@@ -11,10 +11,10 @@ html,body{
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 6em 2fr 1fr;
+    grid-template-rows: 6em 4fr 1fr;
     grid-template-areas:
-            ". .  title title title title title title title title . ."
-            ". .  list list list . graph graph graph graph graph ."
+            ". title title title title title title title title title title ."
+            ". list list  . graph graph graph graph graph graph graph ."
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 
 }
