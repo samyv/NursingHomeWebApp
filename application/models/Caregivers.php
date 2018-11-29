@@ -223,27 +223,24 @@ Class Caregivers extends CI_Model{
 	    $this->load->library('email');
 	    $email = $data['email'];
 	    $name = $data['firstname'];
-	    $id = $data['activation_code'];
 
-        $sql = "UPDATE a18ux02.Caregiver a18ux02.Caregiver 
-        SET hash = '$id'
-        where email = '$email'";
+        $sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
         $result = $this->db->query($sql);
+        $row = $result->row();
+        $email_code = md5((string)$row->created);
 
-        if($result) {
-            $this->email->set_mailtype('html');
-            $this->email->from('a18ux02@gmail.com');
-            $this->email->to($email);
+        $this->email->set_mailtype('html');
+        $this->email->from('a18ux02@gmail.com');
+        $this->email->to($email);
 
-            $this->email->subject('Activate your account');
+        $this->email->subject('Activate your account');
 
-            $message = '<p> Dear ' . $name . ',</p>';
-            $message .= '<p><a href="' . base_url() . 'Caregiver/verifyEmail/' . $name . '/' . $id . '">click here</a> to verify your email address</p>';
-            $message .= '<p> Thanks</p>';
+        $message = '<p> Dear ' . $name.',</p>';
+        $message .= '<p><a href="' . base_url().'Caregiver/verifyEmail/'.$name.'/'.$email_code.'">click here</a> to verify your email address</p>';
+        $message .= '<p> Thanks</p>';
 
-            $this->email->message($message);
-            $this->email->send();
-        }
+        $this->email->message($message);
+        $this->email->send();
     }
 
 

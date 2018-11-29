@@ -132,26 +132,7 @@ class Caregiver extends CI_Controller
             }
         }
 
-        if($this->input->post('loginSubmit')) {
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
 
-            if ($this->form_validation->run() == TRUE) {
-                $email = $this->input->post('email');
-
-                if ($this->caregivers->lookUpEmail($email)) {
-                    $userInfo = $this->caregivers->lookUpByEmail($email);
-                    $this->load->helper('string');
-                    $data['email'] = $email;
-                    $data['activation_id'] = random_string('alnum', 15);
-                    if (!empty($userInfo)) {
-                        $row = $userInfo->row();
-                        $data["firstname"] = (string)$row->firstname;
-                    }
-                    $this->caregivers->sendPasswordMail($data);
-                }
-
-            }
-        }
 
         $this->parser->parse('Caregiver/login', $data);
 
@@ -366,11 +347,38 @@ class Caregiver extends CI_Controller
         $sql = "UPDATE a18ux02.Caregiver
         SET activated = 1 
         WHERE firstname = '$email_address' and MD5(created) = '$email_code'";
-        $this->db->query($sql);
+        $result = $this->db->query($sql);
+
+        if(count($result) == 1){
+            $this->load->view('caregiver/activated');
+        }
+        else{
+            $this->load->view('caregiver/not_activated');
+        }
+
     }
 
     function createPasswordMail(){
-        $this->load->library('form_validation');
+        if($this->input->post('loginSubmit')) {
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
+
+            if ($this->form_validation->run() == TRUE) {
+                $email = $this->input->post('email');
+
+                if ($this->caregivers->lookUpEmail($email)) {
+                    $userInfo = $this->caregivers->lookUpByEmail($email);
+                    $this->load->helper('string');
+                    $data['email'] = $email;
+                    $data['activation_id'] = random_string('alnum', 15);
+                    if (!empty($userInfo)) {
+                        $row = $userInfo->row();
+                        $data["firstname"] = (string)$row->firstname;
+                    }
+                    $this->caregivers->sendPasswordMail($data);
+                }
+
+            }
+        }
 
 
     }

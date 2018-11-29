@@ -98,16 +98,27 @@
             $('#forgot-password-modal-content').fadeOut('fast');
         })
 
-        //$('#submitemail').click(submitEmail())
+        $('#submitemail').click(submitEmail())
 
     });
 
     function submitEmail(){
+
+        $email = $('#email').val();
+        $button = $(event.target).parent();
+        $form = $(event.target).parent().prev().children();
+        $modalBody = $(event.target).parent().prev();
+
+        $form.remove();
+        $button.remove();
+        $modalBody.append("<p>A link to reset your password has been sent to " + $email + ".</p>");
+
         $email = $('#email').val();
         console.log($email);
         $.ajax({
             url: '<?php echo base_url();?>Caregiver/createPasswordMail',
             method: 'post',
+            dataType: 'json',
             data:{
                 'email' : $email
             },
