@@ -18,13 +18,13 @@ class Caregiver extends CI_Controller
         $this->load->library('session');
         $this->load->model('dropdownmodel');
         $this->load->database('default');
+        $this->load->helper('security');
     }
 
     /*
      * User account information
      */
     public function account(){
-        print_r($_SESSION);
         $data = array();
         $userData = array();
         $data['page_title']='Account overview | GraceAge';
@@ -56,7 +56,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('firstname', 'First name', 'required');
             $this->form_validation->set_rules('lastname', 'Last name', 'required');
             $this->form_validation->set_rules('floor', 'Floor number', 'required|is_natural_no_zero');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('old_password', 'old password', 'required|callback_password_check['.$idCaregiver.']');
             if(isset($_POST['new_password'])) {
                 $this->form_validation->set_rules('new_password', 'new password', 'required');
@@ -108,7 +108,7 @@ class Caregiver extends CI_Controller
         }
 
         if($this->input->post('loginSubmit')){
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('password', 'password', 'required');
             if ($this->form_validation->run() == true) {
                 $con['conditions'] = array(
@@ -148,7 +148,7 @@ class Caregiver extends CI_Controller
         if($this->input->post('regisSubmit')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required');
-            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check|xss_clean');
             $this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
             $this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
             if($this->form_validation->run() == true){
@@ -361,26 +361,21 @@ class Caregiver extends CI_Controller
     function createPasswordMail(){
         if($this->input->post('loginSubmit')) {
             $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|xss_clean');
-
             if ($this->form_validation->run() == TRUE) {
-                $email = $this->input->post('email');
+                $email = trim($this->input->post('email'));
 
-                if ($this->caregivers->lookUpEmail($email)) {
-                    $userInfo = $this->caregivers->lookUpByEmail($email);
-                    $this->load->helper('string');
-                    $data['email'] = $email;
-                    $data['activation_id'] = random_string('alnum', 15);
-                    if (!empty($userInfo)) {
-                        $row = $userInfo->row();
-                        $data["firstname"] = (string)$row->firstname;
-                    }
-                    $this->caregivers->sendPasswordMail($data);
+                $userInfo = $this->caregivers->lookUpByEmail($email);
+                $this->load->helper('string');
+                $data['email'] = $email;
+                $data['activation_id'] = random_string('alnum', 15);
+                if (!empty($userInfo)) {
+                    $row = $userInfo->row();
+                    $data["firstname"] = (string)$row->firstname;
                 }
+                $this->caregivers->sendPasswordMail($data);
 
             }
         }
-
-
     }
 
 

@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{page_title}</title>
-    <link href="<?=base_url()?>assets/css/login.css" rel="stylesheet" type="text/css">
+    <link href="<?=base_url()?>assets/css/activated.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
@@ -16,6 +16,6 @@
     <h2>Providing better care</h2>
 </div>
 <div class = grid-container>
-    <p class="image login-form">Something went wrong...</p>
+    <p>Something went wrong...</p>
 </div>
 </body>
