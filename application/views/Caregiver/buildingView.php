@@ -15,7 +15,7 @@
 	<div class = "title">
 		<p>Please select the desired floor</p>
 	</div>
-		<div id="list"></div>
+		<div class="list"></div>
 
 	<div class = "footer">
 		<p>Footer goes here</p>
@@ -25,21 +25,14 @@
 </body>
 
 <script>
-	var list = document.getElementById('list');
+	var list = $(".list");
 	var floorAmount = 0+<?php echo $maxFloors;?>;
 	for(var i = floorAmount; i >= 1;i--){
 		let a = document.createElement('a');
 		a.className = "listRow"+i;
 		a.innerText = "Floor "+i;
-		a.href = "floorView";
-		a.addEventListener("click",function(e) {
-			let floor = a.innerText.slice(-1)
-			$('#formlist').submit(function (e) {
-				console.log(e)
-				e.preventDefault();
-			})
-		},false)
-		list.appendChild(a);
+		a.href = "floorView?"+"id="+a.innerText.slice(-1);
+		list.append(a);
 
 	};
 
