@@ -147,49 +147,48 @@ Class Caregivers extends CI_Model
     public function getRows($conditions = array())
     {
 //		echo "init";
-        $userTbl = "a18ux02.Resident";
-        $sql = 'SELECT ';
-        $sql .= array_key_exists("select", $conditions) ? $conditions['select'] : '*';
-        $sql .= ' FROM ' . $userTbl;
-        if (array_key_exists("where", $conditions)) {
-            $sql .= ' WHERE ';
-            $i = 0;
-            foreach ($conditions['where'] as $key => $value) {
-                $pre = ($i > 0) ? ' AND ' : '';
-                $sql .= $pre . $key . " = '" . $value . "'";
-                $i++;
-            }
-        }
+		$userTbl = $conditions["table"];
+		$sql = 'SELECT ';
+		$sql .= array_key_exists("select",$conditions)?$conditions['select']:'*';
+		$sql .= ' FROM '.$userTbl;
+		if(array_key_exists("where",$conditions)){
+			$sql .= ' WHERE ';
+			$i = 0;
+			foreach($conditions['where'] as $key => $value){
+				$pre = ($i > 0)?' AND ':'';
+				$sql .= $pre.$key." = '".$value."'";
+				$i++;
+			}
+		}
 
 
-        $result = $this->db->query($sql);
+		$result = $this->db->query($sql);
 
-        $data = array();
-        if (array_key_exists("return_type", $conditions) && $conditions['return_type'] != 'all') {
-            switch ($conditions['return_type']) {
-                case 'count':
-                    $data = $result->num_rows;
-                    break;
-                case 'single':
-                    var_dump($result);
-                    $data = $result->fetch(PDO::FETCH_ASSOC);
-                    break;
-                default:
-                    $data = '';
-            }
-        } else {
-            if (count($result->result()) > 0) {
-                $data = $result;
-            }
-        }
+		$data = array();
+		if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
+			switch($conditions['return_type']){
+				case 'count':
+					$data = $result->num_rows;
+					break;
+				case 'single':
+					var_dump($result);
+					$data = $result->fetch(PDO::FETCH_ASSOC);
+					break;
+				default:
+					$data = '';
+			}
+		}else{
+			if(count($result->result()) > 0){
+				$data = $result;
+			}
+		}
 
-        return !empty($data) ? $data : false;
-    }
+		return !empty($data)?$data:false;
+	}
 
-    public function getQuote($number)
-    {
-        $sql = "SELECT * FROM a18ux02.Quotes WHERE Quote_ID = " . $number;
-        $result = $this->db->query($sql)->result();
+	public function getQuote($number){
+		$sql = "SELECT * FROM a18ux02.Quotes WHERE Quote_ID = ".$number;
+		$result = $this->db->query($sql)->result();
         $array = json_decode(json_encode($result), true);
         return $array[0]['Quote'] . "<br>" . "-" . $array[0]['Name'] . "-";
     }
@@ -227,11 +226,40 @@ Class Caregivers extends CI_Model
         $this->db->query($sql);
     }
 
-    public function send_validation_email($data)
-    {
-        $this->load->library('email');
-        $email = $data['email'];
-        $name = $data['firstname'];
+    public function getNotifications(){
+
+		//FIND FLOOR SELECTION ID
+		$sql = "SELECT * FROM a18ux02.Caregiver
+				RIGHT JOIN a18ux02.NotificationPreferences ON a18ux02.Caregiver.FK_NotificationPref = a18ux02.NotificationPreferences.NotificationPreferencesID
+				WHERE a18ux02.Caregiver.idCaregiver = ".$_SESSION['idCaregiver'].";";
+
+		$result = $this->db->query($sql)->result();
+		$resultarray = json_decode(json_encode($result),true);
+		$floorrow = $resultarray[0]['FK_Floorselect'];
+		// FIND FLOOR PREFERENCES
+		$sql2 = "SELECT * FROM a18ux02.FloorNotification
+				 WHERE FloorNotificationID =".$floorrow.";";
+		$result2 = json_decode(json_encode($this->db->query($sql2)->result()),true);
+		//FIND NOTIFICATIONS FOR EACH FLOOR
+		$floorNotifications = array();
+		$index = 0;
+		foreach($result2[0] as $key => $value){
+			if($key != 'FloorNotificationID') {
+				$index++;
+				if ($value == 1) {
+					$sql = "SELECT * FROM a18ux02.Notifications WHERE FK_FloorID =" . $index . ";";
+					$result2 = json_decode(json_encode($this->db->query($sql)->result()), true);
+					$floorNotifications[$key] = $result2;
+				}
+			}
+		}
+		return $floorNotifications;
+	}
+
+    public function send_validation_email($data){
+	    $this->load->library('email');
+	    $email = $data['email'];
+	    $name = $data['firstname'];
 
         $sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
         $result = $this->db->query($sql);

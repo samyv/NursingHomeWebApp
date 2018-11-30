@@ -259,13 +259,23 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
-    public function buildingView()
-    {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
+    public function notificationView(){
         $data = array();
-        // parse
+		$data['floorNotifications'] = $this->caregivers->getNotifications();
+//		print_r($data['floorNotifications']);
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/notificationView', $data);
+
+    }
+
+    public function buildingView(){
+		if(!$this->session->userdata('isUserLoggedIn')){
+			redirect('index.php');
+		}
+        $data = array();
+        $this->load->database('default');
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
@@ -277,6 +287,9 @@ class Caregiver extends CI_Controller
         $data = array();
         // parse
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+        $this->load->database('default');
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
 
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/floorView', $data);
@@ -408,7 +421,6 @@ class Caregiver extends CI_Controller
         }
 
     }
-
 
     // This function used to reset the password
     function resetPassword($email, $activation_id)
