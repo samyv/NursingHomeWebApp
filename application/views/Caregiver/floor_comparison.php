@@ -4,6 +4,7 @@
     <title>Database Searching</title>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/floor_comparison.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="http://d3js.org/d3.v4.js"></script>
 </head>
 
 <body>
@@ -44,3 +45,10 @@
 </div>
 </body>
 </html>
+
+<script>
+    console.log("loaded");
+    let g = d3.select("div");
+    g.append("p");
+    console.log(g);
+</script>
