@@ -99,6 +99,19 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
+    function getImage($id){
+        $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
+
+        $row = $query->row_array();
+
+        $text = '';
+
+        if (isset($row))
+        {
+            $text = $row['sectionIcon'];
+        }
+        return $text;
+    }
     function getIndex($residentID){
         $query = $this->db->get_where('a18ux02.Questionarries', array('Resident_residentID'=>$residentID));
 
@@ -134,6 +147,12 @@ class QuestionModel extends CI_Model
         } else {
             $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
         }
+    }
+
+    function getNumofQuestionInThisSection($index){
+        $type = $this->getQuestionType($index);
+        $query = $this->db->query("SELECT * FROM a18ux02.Question where questionType = $type");
+        return $query->num_rows();
     }
 
 }

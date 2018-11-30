@@ -15,14 +15,14 @@
     <h1 id="logo">GraceAge</h1>
     <button id="logout" type="submit">Log out</button>
 
-    <p id="questionType">Question Type(2/5)</p>
+<p id="questionType">Question Type({currentNum}/{totalNum})</p>
 
-    <div class="progress" id="progressbar">
-        <div class="progress-bar progress-bar-striped active" role="progressbar"
-             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-            40%
-        </div>
+<div class="progress" id="progressbar">
+    <div class="progress-bar progress-bar-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:{percentage}">
+        {percentage}
     </div>
+</div>
 
     <p id="question">{question}</p>
 
@@ -50,6 +50,9 @@
 <script>
     // var nextType = document.getElementById("nextType");
     // var currentType = document.getElementById("currentType");
+    // var currentNum = document.getElementById("currentNum");
+    // var totalNum = document.getElementById("totalNum");
+    // var percentage = document.getElementById("percentage");
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
@@ -60,6 +63,8 @@
         var maxQuestionNr = 50;
         var nextType;
         var currentType;
+        var currentNum=1;
+        var totalNum;
 
         $.ajax({
             url:'<?php echo site_url('index.php/Resident/getIndex');?>',
@@ -100,6 +105,25 @@
             });
         }
 
+        function getTotalNum($index){
+            $.ajax({
+                url:'<?php echo site_url('index.php/Resident/getTotalNum');?>',
+                method:"POST",
+                data:{index:$index},
+                success:function(i)
+                {
+                    $('#totalNum').html(i);
+                    totalNum = i;
+                }
+            });
+            currentNum++;
+            if(currentNum>totalNum){
+                currentNum = 1;
+            }
+            $('#currentNum').html(currentNum);
+
+            // return currentType !== nextType;
+        }
 
         function checkIfLastQuestion($index){
             $.ajax({
@@ -138,6 +162,10 @@
                 // if(true){
                     window.location.pathname='a18ux02/resident/section/'+nextType
                 } else {
+                    getTotalNum(index);
+                    console.log("current number: "+currentNum);
+                    console.log("total number: "+totalNum);
+                    $('#questionType').text("Question Type("+currentNum+"/"+totalNum+")");
                     transQuestionTextAndAns(index, 1);
                 }
                 $(this).prop('checked', false);
