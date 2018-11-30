@@ -23,10 +23,13 @@
 
 
     <div id="btn">
-        <button onclick="location.href='section'">Skip tutorial</button>
+        <button id="startQuestionnaire" onclick="location.href=<?php echo base_url()?>resident/startQuestionnaire">Skip tutorial</button>
     </div>
 </div>
 
+<script>
+
+</script>
 
 
 </body>

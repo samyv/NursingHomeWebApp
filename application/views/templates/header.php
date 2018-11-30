@@ -55,7 +55,7 @@
                 <a class="nav-link" href="account"><i class="fas fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="logoutButton" href="logout"><i class="material-icons">exit_to_app</i> Log out</a>
+                <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
             </li>
         </ul>
     </div>

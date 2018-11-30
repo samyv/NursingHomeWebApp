@@ -329,8 +329,12 @@ class Caregiver extends CI_Controller
     }
 
 	public function floorView(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
 		$data = array();
 		$cond['where'] = array('floor'	 => $_GET['id']);
+		$_SESSION['floorSelected'] = $_GET['id'];
 		$cond['table'] = 'a18ux02.Resident';
 		$result = json_decode(json_encode($this->caregivers->getRows($cond)->result(),true));
 		$data['residents'] = json_decode(json_encode($result),true);
@@ -347,7 +351,7 @@ class Caregiver extends CI_Controller
         }
         $data = array();
         // parse
-        $this->parser->parse('Caregiver/roomView', $data);
+        $this->parser->parse('Caregiver/resident_dashboard_template', $data);
     }
 
     public function singleRoomView()
@@ -424,7 +428,13 @@ class Caregiver extends CI_Controller
             'idinput' => $_POST['idinput'],
             'idCaregiver' => $_SESSION['idCaregiver']
         );
-        $this->caregivers->updateNote($note);
+        $idNote = $this->caregivers->updateNote($note);
+        return $idNote;
+    }
+
+    public function getIdLastNote($note){
+        $idNote = $this->caregivers->getIdNoteByText($note);
+        return $idNote;
     }
 
     public function deleteNote()

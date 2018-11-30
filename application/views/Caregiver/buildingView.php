@@ -32,6 +32,9 @@
 		a.className = "listRow"+i;
 		a.innerText = "Floor "+i;
 		a.href = "floorView?"+"id="+a.innerText.slice(-1);
+		a.addEventListener("click",function(e) {
+			sessionStorage.setItem("floorSelected",this.innerText.slice(-1))
+		})
 		list.append(a);
 
 	};
