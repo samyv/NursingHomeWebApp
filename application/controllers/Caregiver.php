@@ -148,24 +148,36 @@ class Caregiver extends CI_Controller
 		$data = array();
 		$userData = array();
 		$data['page_title'] = 'Register new caregiver | GraceAge';
+		$cond = array();
+
+		$cond["table"] = "a18ux02.NursingHome";
+		$result = json_decode(json_encode($this->caregivers->getRows($cond)->result(),true));
+		$data['nursingHomes'] = json_decode(json_encode($result),true);
+
 		if ($this->input->post('regisSubmit')) {
+//			print_r($this->input->post());
+			$key = strip_tags($this->input->post('key'));
+			$nursingHomeID = strip_tags($this->input->post('nursingHome'));
 			$this->form_validation->set_rules('firstname', 'Name', 'trim|required');
 			$this->form_validation->set_rules('lastname', 'Name', 'trim|required');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check|xss_clean');
 			$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
 			$this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
+			$this->form_validation->set_rules('key', 'key', 'trim|required|callback_email_check['. strip_tags($this->input->post('nursingHome')) . ']');
 			if ($this->form_validation->run() == true) {
 				$userData = array(
 					'firstname' => strip_tags($this->input->post('firstname')),
 					'lastname' => strip_tags($this->input->post('lastname')),
 					'email' => strip_tags($this->input->post('email')),
 					'password' => password_hash(trim($this->input->post('password')), PASSWORD_BCRYPT, array("cost" => 13)),
+					'key' => strip_tags($this->input->post('key')),
+					'nursingHome' =>  strip_tags($this->input->post('nursingHome'))
 				);
 				$insert = $this->caregivers->insert($userData);
 				$this->caregivers->send_validation_email($userData);
 				if ($insert) {
 					$this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
-					redirect('index.php');
+//					redirect('index.php');
 				} else {
 					$data['error_msg'] = 'Some problems occured, please try again.';
 				}
@@ -204,6 +216,16 @@ class Caregiver extends CI_Controller
         } else {
             return TRUE;
         }
+    }
+ public function key_check($key,$nursingHomeID)
+    {
+		if ($this->caregivers->checkKey($nursingHomeID,$key)) {
+			return TRUE;
+		} else {
+			$this->form_validation->set_message('email_check', 'Key is incorrect');
+			return FALSE;
+		}
+		return;
     }
 
     public function password_check($str, $id)
