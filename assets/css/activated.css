@@ -22,7 +22,7 @@ body {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 1em;
     grid-template-areas:
-            "p p p p p p p p p p p p"
+            ". . . p p p p p p . . ."
 }
 
 .h1 {
@@ -36,8 +36,10 @@ body {
 
 
 
-p {
+p, .p {
     margin-top: 3em;
     grid-area: p;
     width: 100%;
 }
+
+

@@ -15,14 +15,14 @@
     <h1 id="logo">GraceAge</h1>
     <button id="logout" type="submit">Log out</button>
 
-    <p id="questionType">Question Type(2/5)</p>
+<p id="questionType">Question Type({currentNum}/{totalNum})</p>
 
-    <div class="progress" id="progressbar">
-        <div class="progress-bar progress-bar-striped active" role="progressbar"
-             aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-            40%
-        </div>
+<div class="progress" id="progressbar">
+    <div class="progress-bar progress-bar-striped active" role="progressbar"
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:{percentage}">
+        {percentage}
     </div>
+</div>
 
     <p id="question">{question}</p>
 

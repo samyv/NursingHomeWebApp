@@ -28,11 +28,9 @@ Class Caregivers extends CI_Model{
         //fetch data by conditions
         if(array_key_exists("conditions",$params)){
             $email = $params['conditions']["email"];
-            $password = $params['conditions']["password"];
-            $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email' and password = '$password'";
+            $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email'";
             $result = $this->db->query($sql);
             $row = $result->row();
-            if(empty($row)) return 2;
             if((string)$row->activated == 0) return 3;
             else return $result->result();
         }
@@ -181,7 +179,7 @@ Class Caregivers extends CI_Model{
 		$sql = "SELECT * FROM a18ux02.Quotes WHERE Quote_ID = ".$number;
 		$result = $this->db->query($sql)->result();
         $array = json_decode(json_encode($result), true);
-		return $array[0]['Quote'];
+		return $array[0]['Quote']."<br>"."-".$array[0]['Name']."-";
 	}
 
 	public function getNotes($id){
@@ -297,7 +295,7 @@ Class Caregivers extends CI_Model{
 
     public function checkActivationDetails($email, $activation_id){
         $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email' and hash = '$activation_id'";
-        $result= $this->db->query($sql);
+        $result= $this->db->query($sql)->result();
         return count($result);
 	}
 
@@ -306,9 +304,9 @@ Class Caregivers extends CI_Model{
 	    $activation_id = $data['activation_code'];
 	    $pw = $data['pw'];
 
-	    $sql = "UPDATE a18ux02.Caregivers
-	    SET password = '$pw'
-        Where email = $email and hash = '$activation_id'";
+	    $sql = "UPDATE a18ux02.Caregiver
+	    SET password = '$pw', hash = ''
+        Where email = '$email' and hash = '$activation_id'";
 	    $result = $this->db->query($sql);
 	    return count($result);
     }
