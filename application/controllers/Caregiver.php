@@ -376,14 +376,17 @@ class Caregiver extends CI_Controller
 
     public function floorSelect()
     {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+		if(!$this->session->userdata('isUserLoggedIn')){
+			redirect('index.php');
+		}
+		$maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()),true);
+		$data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
 
-        $this->parser->parse('templates/header', $data);
-        $this->parser->parse('Caregiver/buildingView', $data);
-    }
+		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+		$this->parser->parse('templates/header',$data);
+		$this->parser->parse('Caregiver/buildingView', $data);
+
+	}
 
     public function roomSelect()
     {
