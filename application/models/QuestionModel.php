@@ -61,6 +61,8 @@ class QuestionModel extends CI_Model
 
 
     function insertAnswer($questionnaireId,$index,$answer){
+        if(!is_numeric($answer) || $answer>5 || $answer<1) return;
+
         $query = $this->db->get_where('a18ux02.Answers', array('questionnaireId'=>$questionnaireId, 'questionId'=>$index));
 
         $row = $query->row_array();
@@ -127,12 +129,15 @@ class QuestionModel extends CI_Model
     }
 
     function insertIndex($index){
+        if(!is_numeric($index) || $index<0) return;
         $this->db->query(
             "UPDATE a18ux02.Questionarries SET numOfCurrentQuestion = ".$index." WHERE Resident_residentID = 1"
         );
     }
 
     function createQuestionnaires($residentID){
+        if(!is_numeric($residentID) || $residentID<0) return;
+
         $query = $this->db->query("SELECT * FROM a18ux02.Questionarries WHERE Resident_residentID = $residentID ORDER BY timestamp DESC LIMIT 1");
 
         $row = $query->row_array();
