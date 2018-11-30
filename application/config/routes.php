@@ -68,6 +68,8 @@ $route['buildingView'] = 'Caregiver/buildingView';
 $route['floorView'] = 'Caregiver/floorView';
 $route['roomView'] = 'Caregiver/roomView';
 $route['newResident'] = 'Caregiver/newResident';
+$route['notificationView'] = 'Caregiver/notificationView';
+
 
 //routes for Resident
 $route['tutorial'] = 'Resident/tutorial';

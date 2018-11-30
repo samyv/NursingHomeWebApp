@@ -1,0 +1,115 @@
+*{
+    font-family: Roboto;
+
+}
+
+html,body{
+    background-color: #F5FAFA;
+}
+
+.material-icons.unread { color: #ffc107; }
+
+.material-icons.read { color: #ffffff; }
+
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 75px 0.2fr 0.5fr;
+    grid-template-areas:
+            ". .  title title title title title title title title . ."
+            ". .  list list list list list list list list . ."
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
+
+}
+
+.notification{
+    display: grid;
+    grid-template-columns: 0.05fr 0.3fr 1fr 0.1fr ;
+    grid-template-rows: 0.5fr;
+    grid-template-areas:
+            "icon date content read";
+    background-color: #66a5ad;
+    color: white!important;
+    padding: 10px;
+    font-size: 16px;
+    text-decoration: none!important;
+    transition: all .2s ease-in-out;
+    border: solid;
+}
+
+.notification:hover{
+    background-color: #83b6bc;
+    transform: scale(1.05);
+    display: grid;
+}
+
+.icon{
+    display  :grid;
+    grid-area: icon;
+    text-align: center;
+    color:white;
+}
+
+.date{
+    display  :grid;
+    grid-area: date;
+    text-align: center;
+    color:white;
+}
+
+.content{
+    display  :grid;
+    grid-area: content;
+    text-align: center;
+    color:white;
+}
+
+.read{
+    display  :grid;
+    grid-area: read;
+    text-align: center;
+    color:white;
+}
+
+.footer{
+    display  :grid;
+    grid-area: footer;
+    color:#003b46;
+    text-align: center;
+}
+
+
+.title{
+    display  :grid;
+    grid-area: title;
+    color: #003b46;
+    padding: 10px;
+    font-size: 32px;
+}
+
+.listRow:hover{
+    background-color: #83b6bc;
+    transform: scale(1.05);
+}
+
+.listRow{
+    border-style: solid;
+    vertical-align:top;
+    line-height:100px;
+    background-color: #66a5ad;
+    color: white!important;
+    padding: 10px;
+    font-size: 32px;
+    text-align: left;
+    text-decoration: none!important;
+    transition: all .2s ease-in-out;
+}
+
+.list{
+    vertical-align: middle;
+    display : grid;
+    grid-area: list;
+    background-color: #66a5ad;
+
+}

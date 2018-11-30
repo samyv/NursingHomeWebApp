@@ -29,4 +29,17 @@
 
 </div>
 </body>
+
+<script>
+    window.onload = function() {
+        console.log("loaded");
+        populate();
+    }
+
+        function populate()
+        {
+            var database = "";
+            database = <?php echo json_encode($listCar)?>;
+        }
+</script>
 </html>
