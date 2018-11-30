@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Database Searching</title>
-    <link rel="stylesheet" href="<?=base_url();?>assets/css/buildingView.css">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<title>Database Searching</title>
+	<link rel="stylesheet" href="<?=base_url();?>assets/css/buildingView.css">
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -11,22 +12,32 @@
 <!-- TODO: Add the correct links            -->
 <!-- TODO: Get the floors from the database -->
 
-    <div class = "title">
-        <p>Please select the desired floor</p>
-    </div>
+	<div class = "title">
+		<p>Please select the desired floor</p>
+	</div>
+		<div class="list"></div>
 
-    <div class = "list">
-        <a class = "listRow1" href='floorView'>Floor 5</a>
-        <a class = "listRow2" href='floorView'>Floor 4</a>
-        <a class = "listRow3" href='floorView'>Floor 3</a>
-        <a class = "listRow4" href='floorView'>Floor 2</a>
-        <a class = "listRow5" href='floorView'>Floor 1</a>
-    </div>
-
-    <div class = "footer">
-        <p>Footer goes here</p>
-    </div>
+	<div class = "footer">
+		<p>Footer goes here</p>
+	</div>
 
 </div>
 </body>
+
+<script>
+	var list = $(".list");
+	var floorAmount = 0+<?php echo $maxFloors;?>;
+	for(var i = floorAmount; i >= 1;i--){
+		let a = document.createElement('a');
+		a.className = "listRow"+i;
+		a.innerText = "Floor "+i;
+		a.href = "floorView?"+"id="+a.innerText.slice(-1);
+		list.append(a);
+
+	};
+
+
+
+
+</script>
 </html>

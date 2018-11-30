@@ -9,6 +9,7 @@ html,body {
 
 body {
     font-family: Roboto;
+    background-color: #F5FAFA !important;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -25,12 +26,20 @@ body {
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
-.h1 {
-    font-family: Merriweather !important;
+.h2 {
     align-self: center;
     justify-self: center;
     width: 100%;
     grid-area: head;
+}
+
+.h1 {
+    align-self: center;
+    justify-self: center;
+    text-align: center;
+    background-color: #003b46;
+    color: white !important;
+    width: 100%;
 }
 
 .register {
@@ -47,13 +56,21 @@ input[type=email],input[type=text], input[type=password] {
     width: 100%;
 }
 
-input[type=submit],input[type=button]{
+input[type=submit], input[type=button]{
     background-color: #66a5ad;
     color: white;
     padding: 14px 50px;
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    width: 100%;
 }
+
+input[type=submit]:hover, input[type=button]:hover{
+    background-color: #66a5ad;
+    opacity: 0.8 !important;
+}
+
+
 
 

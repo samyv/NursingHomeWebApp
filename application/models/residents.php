@@ -24,4 +24,27 @@ class residents extends CI_Model
 		return 0;
 	}
 
+    /*
+    * Insert user information
+    */
+    public function insert($data = array()) {
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+        $birthdate = $data['birthdate'];
+        $floor = $data['floor'];
+        $room = $data['room'];
+        $gender = $data['gender'];
+
+        //insert user data in resident table
+        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender')";
+        $insert = $this->db->query($sql);
+
+        //return the status
+        if($insert){
+            return $insert;
+        }else{
+            return false;
+        }
+    }
+
 }

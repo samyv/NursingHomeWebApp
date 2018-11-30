@@ -5,12 +5,18 @@
     <link href="<?= base_url();?>assets/css/registerCaregiver.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/images/logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
 <body>
+<div class="h1">
+    <h1>GraceAge</h1>
+    <h2>Providing better care</h2>
+</div>
 
 <main>
     <div class="grid-container">
-        <div class="h1">
+        <div class="h2">
         <h1>Register</h1>
         </div>
         <div class="register">

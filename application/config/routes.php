@@ -56,6 +56,7 @@ $route['default_controller'] = 'Caregiver';
 $route['register'] = 'Caregiver/register';
 $route['index.php']= 'Caregiver/index.php';
 $route['account'] = 'Caregiver/account';
+$route['account_overview'] = 'Caregiver/account_overview';
 $route['landingPage'] = 'Caregiver/landingPage';
 $route['landingpage'] = 'Caregiver/landingpage';
 $route['residents'] = 'Caregiver/searchForResident';
@@ -67,6 +68,8 @@ $route['resDash'] = 'Caregiver/resDash';
 $route['buildingView'] = 'Caregiver/buildingView';
 $route['floorView'] = 'Caregiver/floorView';
 $route['roomView'] = 'Caregiver/roomView';
+$route['newResident'] = 'Caregiver/newResident';
+$route['notificationView'] = 'Caregiver/notificationView';
 
 
 //routes for Resident

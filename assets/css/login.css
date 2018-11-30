@@ -78,6 +78,22 @@ body {
     margin-top: 25%;
 }
 
+#submitButtons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-auto-rows: auto;
+    grid-template-areas: "submit register";
+}
+
+input[type=submit]{
+    grid-area: submit;
+}
+
+input[type=button]{
+    grid-area: register;
+}
+
 input[type=email],input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
@@ -87,16 +103,18 @@ input[type=email],input[type=text], input[type=password] {
     width: 100%;
 }
 
-input[type=submit],input[type=button]{
+input[type=submit], input[type=button]{
     background-color: #66a5ad;
     color: white;
     padding: 14px 50px;
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    margin-right: 1em;
 }
 
-input[type=submit]:hover,input[type=button]:hover{
+input[type=submit]:hover, input[type=button]:hover{
+    background-color: #66a5ad;
     opacity: 0.8 !important;
 }
 

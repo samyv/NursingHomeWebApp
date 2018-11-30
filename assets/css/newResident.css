@@ -1,0 +1,88 @@
+*{
+    font-family: Roboto, Merriweather;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
+    grid-template-areas:
+            "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+            ". . resident resident . . . extra extra . . ."
+            ". . firstname firstname_input  . . . contact contact_input . . ."
+            ". . lastname lastname_input  . . . email email_input . . ."
+            ". . birthday birthday_input  . . .  phone phone_input . . ."
+            ". . gender gender_input . . . buttons buttons . . ."
+            ". . floor floor_input  . . . . . . . ."
+            ". . room room_input . . . . . . . ."
+}
+
+.firstname { grid-area: firstname; }
+
+.lastname { grid-area: lastname; }
+
+.birthday { grid-area: birthday; }
+
+.gender { grid-area: gender; }
+
+.floor { grid-area: floor; }
+
+.room {grid-area: room;}
+
+.contact_name {
+    grid-area: contact; }
+
+.email { grid-area: email; }
+
+.phone { grid-area: phone; }
+
+.header { grid-area: headerr; }
+
+.resident { grid-area: resident; }
+
+.extra { grid-area: extra; }
+
+.firstname_input { grid-area: firstname_input; }
+
+.lastname_input { grid-area: lastname_input; }
+
+.birthday_input { grid-area: birthday_input; }
+
+.gender_input {grid-area: gender_input; }
+
+.floor_input { grid-area: floor_input; }
+
+.room_input { grid-area: room_input; }
+
+.contact_name_input {
+    grid-area: contact_input;
+    width: 190px;
+}
+
+.email_input { grid-area: email_input; }
+
+.phone_input { grid-area: phone_input; }
+
+.buttons {
+    grid-area: buttons;
+}
+
+input[type=submit],input[type=button]{
+    float: left;
+    background-color: #66a5ad;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 4px 2px;
+}
+
+input[type=submit]:hover,input[type=button]:hover{
+    opacity: 0.8;
+}
+
+select option:hover,
+select option:focus,
+select option:active {
+    outline: none;
+}
+
