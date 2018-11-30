@@ -4,9 +4,9 @@
     <title>Database Searching</title>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/floor_comparison.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <script src="http://d3js.org/d3.v4.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
+    <script src="http://d3js.org/d3.v4.js"></script>
 </head>
 
 <body>
