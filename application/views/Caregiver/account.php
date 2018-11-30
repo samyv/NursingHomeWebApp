@@ -75,11 +75,12 @@
 			<input type="password" name="conf_password"  class = "form-control" placeholder="Confirm new password">
 			<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 		</div>
+        <div class="buttons">
+            <input type="submit" value="Save changes" name="saveSettings"/>
+            <input type="button" value="Cancel" onclick="location.href='account'"/>
+        </div>
 	</div>
-	<div class="buttons">
-		<input type="submit" value="Save changes" name="saveSettings"/>
-		<input type="button" value="Cancel" onclick="location.href='account'"/>
-	</div>
+
 </form>
 </body>
 </html>

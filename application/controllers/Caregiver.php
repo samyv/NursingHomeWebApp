@@ -365,12 +365,7 @@ class Caregiver extends CI_Controller
 		$this->parser->parse('Caregiver/floorView', $data);
 	}
 
-    public function singleRoomView()
-    {
-        $data = array();
-        // parse
-        $this->parser->parse('Caregiver/singleRoomView', $data);
-    }
+
 
     public function resDash()
     {
@@ -386,6 +381,7 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['resident'] = $result['result_object'][0];
         $this->load->view('templates/header');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
     }

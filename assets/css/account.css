@@ -4,15 +4,18 @@
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr [firstn] 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 3fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr;
+	grid-template-rows: 5em 3em 3em 3em 3em 1fr;
 	grid-template-areas:
 			"headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-			". firstname firstname_input firstname_input . . email email email_input email_input . ."
-			". lastname lastname_input lastname_input . . old_pass old_pass old_pass_input old_pass_input . ."
-			". floor floor_input floor_input . . new_pass new_pass new_pass_input new_pass_input . ."
+			". . firstname firstname_input firstname_input  . email email email_input email_input . ."
+			". . lastname lastname_input lastname_input  . old_pass old_pass old_pass_input old_pass_input . ."
+			". . floor floor_input floor_input  . new_pass new_pass new_pass_input new_pass_input . ."
 			". . . . . . conf_pass conf_pass conf_pass_input conf_pass_input . ."
+			". . button button button . . . . . . ."
 }
-
+div label{
+	margin-top: 10px
+}
 .firstname { grid-area: firstname; }
 
 .lastname { grid-area: lastname; }
@@ -46,8 +49,8 @@
 .conf_pass_input { grid-area: conf_pass_input; }
 
 .buttons {
-	grid-area: buttons;
-	margin-left: 111px;
+	grid-area: button;
+	display: flex;
 }
 
 .header { grid-area: headerr; }
