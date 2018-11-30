@@ -5,7 +5,7 @@
  * Date: 5-11-2018
  * Time: 18:39
  */
-//line 91
+
 class Resident extends CI_Controller
 {
     public function __construct()
@@ -81,9 +81,15 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/questionPage', $data);
     }
 
+    public function getTotalNum(){
+        $index = $this ->input->post('index');
+        $data = $this->QuestionModel->getNumofQuestionInThisSection($index);
+        echo $data;
+    }
+
     public function tutorialpage(){
         $data['resident'] = 'Jack';
-        print_r($_SESSION);
+        //print_r($_SESSION['Resident']['residentID']);
         $this->parser->parse("Resident/tutorialPage",$data);
     }
 
@@ -142,11 +148,9 @@ class Resident extends CI_Controller
 
     public function section($id =1)
     {
-        $residentID = 1;
-//        $this->QuestionModel->createQuestionnaires($residentID);
-
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
         $data['index'] = $this->getFirstQuestionIndex($id);
+        $data['image'] = $this->QuestionModel->getImage($id);
         $this->parser->parse('Resident/sectionPage',$data);
     }
 
@@ -174,5 +178,12 @@ class Resident extends CI_Controller
         $data['resident'] = "Jack";
         $this->parser->parse('Resident/finalpage',$data);
     }
+
+    public function startQuestionnaire(){
+        $idResident = $_SESSION['Resident']['residentID'];
+        $this->QuestionModel->createQuestionnaires($idResident);
+        $this->section();
+    }
+
 
 }

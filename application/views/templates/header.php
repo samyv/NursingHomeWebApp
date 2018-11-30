@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="landingpage"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-link" href="<?=base_url()?>landingpage"><i class="fas fa-home"></i> Home</a>
             </li>
 
 
@@ -52,10 +52,10 @@
 
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="account"><i class="fas fa-cog"></i> Settings</a>
+                <a class="nav-link" href="<?=base_url()?>account"><i class="fas fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="logoutButton" href="logout"><i class="material-icons">exit_to_app</i> Log out</a>
+                <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
             </li>
         </ul>
     </div>

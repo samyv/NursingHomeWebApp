@@ -1,30 +1,52 @@
-html,body {
-    height: 100%;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    font-size: 200%;
-}
-
-body {
+body{
     font-family: Verdana;
-    height: 100%;
-    display: flex;
-    margin: 0;
-    flex-direction: column;
-    width: 900px;
-    align-items: center;
-
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 3fr 5fr 1fr;
+    grid-template-areas:
+            "logo logo logo logo logo logo logo logo logo logo logo logo"
+            ". . form form form form form form form form . ."
+            ". . footer footer footer footer footer footer footer footer . .";
+    width: 100vw;
+    height: 100vh;
 }
 
-.logo {
-    align-self: center;
-    justify-self: center;
+.logo,.form,#footer{
     text-align: center;
 }
 
+/*body {*/
+    /*font-family: Verdana;*/
+    /*height: 100%;*/
+    /*display: flex;*/
+    /*margin: 0;*/
+    /*flex-direction: column;*/
+    /*width: 900px;*/
+    /*align-items: center;*/
+
+/*}*/
+
+
+.logo{
+    grid-area: logo;
+    background-color: #94b7a0;
+    grid-gap: 0;
+    padding-top: 5em;
+    padding-bottom: 1em;
+    line-height: 3em;
+}
+
 .form {
+    grid-area: form;
+    padding-top: 3em;
     height: 100%;
+}
+
+#footer{
+    grid-area: footer;
+
 }
 
 input[type=text], input[type=password] {

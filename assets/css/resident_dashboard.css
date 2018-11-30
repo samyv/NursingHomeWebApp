@@ -6,13 +6,12 @@ body{
 .grid-container {
 	display: grid;
 	width: 100vw;
-	height: 100vh;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 0.5fr 3fr 2fr 0.2fr 0.5fr 0.5fr;
-	grid-template-areas: "toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar toolbar"
+	grid-template-rows: 2fr 2fr 0.5fr 0.5fr;
+	grid-template-areas:
 	"picture picture picture visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
 	"info info info visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
-	"back_buttons back_buttons back_buttons visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
+
 	"back_buttons back_buttons back_buttons hint hint hint hint hint hint hint print print"
 	"back_buttons back_buttons back_buttons hint hint hint hint hint hint hint print print";
 }

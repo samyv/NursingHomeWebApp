@@ -5,43 +5,73 @@
     <link rel="stylesheet" href="<?=base_url();?>assets/css/floor_comparison.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="http://d3js.org/d3.v4.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
 </head>
 
 <body>
 <div class = "grid-container">
-    <!-- TODO: Add the correct links            -->
 
     <div class = "title">
         <p>Select floors to compare</p>
     </div>
 
     <div class = "list">
-        <label class="container">Floor 5
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
-        <label class="container">Floor 4
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
-        <label class="container">Floor 3
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
-        <label class="container">Floor 2
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
-        <label class="container">Floor 1
-            <input type="checkbox">
-            <span class="checkmark"></span>
-        </label>
+        <div class="floorbtn container">Floor 5
+            <i class="fas fa-check"></i>
+        </div>
+
+        <div class="floorbtn container">Floor 4
+            <i class="fas fa-check"></i>
+        </div>
+
+        <div class="floorbtn container">Floor 3
+            <i class="fas fa-check"></i>
+        </div>
+
+        <div class="floorbtn container">Floor 2
+            <i class="fas fa-check"></i>
+        </div>
+
+        <div class="floorbtn container">Floor 1
+            <i class="fas fa-check"></i>
+        </div>
     </div>
 
     <div class = "graph">
     </div>
-
 </div>
+
+<script>
+
+    $(document).ready(function () {
+        $('.floorbtn').click(myFunction)
+    })
+
+    function myFunction(event) {
+        var x = event.target.getElementsByTagName('i');
+        console.log(x);
+        if (x.length == [])
+        {
+            clickIcon(event);
+            return;
+        }
+        if (x[0].style.display == "inline-grid") {
+            x[0].style.display = "none";
+        } else {
+            x[0].style.display = "inline-grid";
+        }
+    }
+
+    function clickIcon(event) {
+        var x = event.target;
+        if (x.style.display == "inline-grid") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "inline-grid";
+        }
+    }
+</script>
 </body>
 </html>
 

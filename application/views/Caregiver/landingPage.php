@@ -26,15 +26,21 @@
         </h5>
     </div>
         <div class="btn-group">
-            <input id="1" value="Search a resident" type="button" class = "btn" onclick="location.href='residents'">
-            <input id="2" value="Floor comparison" type="button" class = "btn" onclick="location.href='floorCompare'">
-            <input id="3" value="Floor Select" type="button" class = "btn" onclick="location.href='floorSelect'">
+            <input id="1" value="Search resident" type="button" class = "btn" onclick="location.href='residents'">
+            <input id="2" value="Compare floor" type="button" class = "btn" onclick="location.href='floorCompare'">
+            <input id="3" value="Select floor" type="button" class = "btn" onclick="location.href='floorSelect'">
         </div>
 
-    <h2 class="noteheader">Notes</h2>
+    <div class="noteheader">
+        <h2 class="noteheader">Notes</h2>
+        <div class="newNote" id="newNote">
+            <button id="newNotebtn" type="button" class="btn">New note</button>
+        </div>
+    </div>
+    <div class="clndrheader">
+        <h2>Calendar</h2>
 
-    <h2 class="clndrheader">Calendar</h2>
-
+    </div>
     <div class="notes">
         <?php
         if (isset($notes)) {
@@ -52,10 +58,8 @@
                 </form>
             <?php }
         } ?>
-        <div class="newNote" id="newNote">
-            <button id="newNotebtn" type="button" class="btn">New note</button>
-        </div>
     </div>
+
     <div class="googleCalendar">
         <button id="authorize_button">Authorize</button>
     </div>
@@ -86,10 +90,17 @@
                 'note': $note,
                 'idinput': $noteid
             },
-            function(data) {
-                alert('data updated');
+            success: function() {
+                $.ajax({
+                    url: '<?=base_url()?>Caregiver/getIdLastNote/' + $note,
+                    success: function(idNote){
+                        console.log(idNote);
+                        $(event.target).attr("id",idNote);
+                    }
+                });
             }
         });
+
         $(event.target).before("<i class=\"fa fa-check\"></i>");
         $(event.target).prev().css({
             "position": "absolute",
@@ -170,12 +181,18 @@
 
     $(document).ready(function () {
         $('#newNotebtn').click(function () {
-            $('#newNote').before("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
+            $('#newNote').parent().next().next().append("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
                 "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
                 "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +
                 "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\"></textarea>\n" +
                 "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" value=\"Save\" style=\"display:none\">\n" +
                 "            </form>");
+            /*$('#newNote').before("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
+                "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
+                "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +
+                "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\"></textarea>\n" +
+                "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" value=\"Save\" style=\"display:none\">\n" +
+                "            </form>");*/
             $('.note').focus(showSave);
             $('.deleteNote').click(deleteNote);
             $('.savebtn').click(saveNote);
