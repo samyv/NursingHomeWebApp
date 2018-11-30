@@ -318,23 +318,19 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
-    public function floorView()
-    {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-        $data = array();
-        // parse
-        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
-        $this->load->database('default');
-        $result = $this->caregivers->getResidents();
-        $data['listCar'] = $result;
+	public function floorView(){
+		$data = array();
+		$cond['where'] = array('floor'	 => $_GET['id']);
+		$cond['table'] = 'a18ux02.Resident';
+		$result = json_decode(json_encode($this->caregivers->getRows($cond)->result(),true));
+		$data['residents'] = json_decode(json_encode($result),true);
+		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
+		$this->parser->parse('templates/header',$data);
+		$this->parser->parse('Caregiver/floorView', $data);
+	}
 
-        $this->parser->parse('templates/header', $data);
-        $this->parser->parse('Caregiver/floorView', $data);
-    }
 
-    public function roomView()
+	public function roomView()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
