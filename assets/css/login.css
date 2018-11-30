@@ -81,7 +81,7 @@ body {
 #submitButtons{
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 1fr 1fr;
     grid-auto-rows: auto;
     grid-template-areas: "submit register";
 }
@@ -159,8 +159,13 @@ span.psw {
         margin: 8px 0 0 0;
     }
 
-    #submitButtons{
-        width: 100%;
+
+    input[type=submit]{
+        grid-area: submit;
+    }
+
+    input[type=button]{
+        grid-area: register;
     }
 
     input[type=submit] {
@@ -170,7 +175,6 @@ span.psw {
         border: none;
         cursor: pointer;
         margin-top: 10px;
-        width: 49%;
     }
 
     .image{
@@ -192,6 +196,13 @@ span.psw {
     main{
         margin:0 2%;
         width:auto;
+    }
+    input[type=submit]{
+        grid-area: submit;
+    }
+
+    input[type=button]{
+        grid-area: register;
     }
 
     input[type=email], input[type=text], input[type=password]{
@@ -217,8 +228,6 @@ span.psw {
         margin-top: 10px;
         width: 100%;
     }
-
-
 }
 
 @media only screen and (max-width: 650px) {
