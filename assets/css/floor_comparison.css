@@ -7,6 +7,11 @@ html,body{
     background-color: #F5FAFA;
 }
 
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+}
+
 .grid-container {
     background-color: #F5FAFA;
     display: grid;
@@ -45,41 +50,20 @@ html,body{
     transform: scale(1.05);
 }
 
-/* Hide default checkbox */
-.container input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-/* Create checkmark (hidden when not checked) */
-.checkmark:after {
-    content: "";
-    display: none;
-}
-
-/* Show the checkmark */
-.container input:checked ~ .checkmark:after {
-    display: inline-grid;
-}
-
-/* Style the checkmark */
-.container .checkmark:after {
-    margin-left: 5px;
-    width: 10px;
-    height: 18px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-}
-
 .list{
     grid-area: list;
 }
 
+.fa-check {
+    display: none;
+}
+
 .graph{
     grid-area: graph;
-    background-color: #8ba8af;
+    transition: all .3s ease-in-out;
+}
+
+.graph:hover{
+    transform: scale(1.3);
+    grid-area: graph;
 }

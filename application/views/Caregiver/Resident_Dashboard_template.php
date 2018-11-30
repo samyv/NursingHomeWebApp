@@ -42,12 +42,7 @@
 		?>
 	</div>
 	<div class="back_start"></div>
-	<div class="back_buttons">
-		<button>RETURN TO HOME</button>
-		<br>
-		<button>RETURN</button>
-	</div>
-	<div class="toolbar">TOOLBAR</div>
+
 	<div class="visualisation">
 		<div id="chart"></div>
 	</div>
@@ -55,7 +50,7 @@
 		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!!</text>
 	</div>
 	<div class="print">
-		<input type="submit"></input>
+		<input type="submit" value="Print">
 	</div>
 </div>
 <script src="../javascript/rawdata.js"></script>

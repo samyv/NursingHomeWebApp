@@ -13,7 +13,7 @@
 <div class="grid-container">
     <h1 id="dummy"></h1>
     <h1 id="logo">GraceAge</h1>
-    <button id="logout" type="submit">Log out</button>
+    <button id="logout" type="submit" onclick="location.href='<?=base_url();?>Resident'">Log out</button>
 
 <p id="questionType">Question Type({currentNum}/{totalNum})</p>
 

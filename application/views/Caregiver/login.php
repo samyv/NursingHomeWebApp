@@ -46,7 +46,7 @@
                     <span class="psw"><a href="#" id="FPModal">Forgot password?</a></span>
                     <div class="form-group" id="submitButtons">
                         <input type="submit" name="loginSubmit" value="Login"/>
-                        <input type="button" value="Register a new caregiver" onclick="location.href='register'"/>
+                        <input type="button" value="Register" onclick="location.href='register'"/>
                     </div>
             </form>
 			<form method="get">
@@ -115,6 +115,7 @@
         });
     }
 
+    //test
     function showmsg(event) {
         $button = $(event.target).parent();
         $form = $(event.target).parent().prev().children();
