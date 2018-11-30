@@ -6,7 +6,7 @@
 <div class = "grid-container">
 
 	<div class = "title">
-		<p>Please select the desired room</p>
+		<p>Please select the desired resident</p>
 	</div>
 </div>
 </body>
