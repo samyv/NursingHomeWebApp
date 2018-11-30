@@ -13,7 +13,7 @@
 <div class="grid-container">
 
     <div class="title">
-        <h1>Welcome back <?php echo $_SESSION['firstname']; ?>!</h1>
+        <h1>Welcome <?php echo $_SESSION['firstname']; ?>!</h1>
     </div>
 
     <div class="quote">
