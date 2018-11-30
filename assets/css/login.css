@@ -103,7 +103,7 @@ input[type=email],input[type=text], input[type=password] {
     width: 100%;
 }
 
-input[type=submit],input[type=button]{
+input[type=submit], input[type=button]{
     background-color: #66a5ad;
     color: white;
     padding: 14px 50px;
@@ -113,7 +113,8 @@ input[type=submit],input[type=button]{
     margin-right: 1em;
 }
 
-input[type=submit]:hover,input[type=button]:hover{
+input[type=submit]:hover, input[type=button]:hover{
+    background-color: #66a5ad;
     opacity: 0.8 !important;
 }
 
