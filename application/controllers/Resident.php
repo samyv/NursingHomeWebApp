@@ -143,7 +143,7 @@ class Resident extends CI_Controller
     public function section($id =1)
     {
         $residentID = 1;
-        $this->QuestionModel->createQuestionnaires($residentID);
+//        $this->QuestionModel->createQuestionnaires($residentID);
 
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
         $data['index'] = $this->getFirstQuestionIndex($id);

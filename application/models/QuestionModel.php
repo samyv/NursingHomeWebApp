@@ -99,6 +99,19 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
+    function getImage($id){
+        $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
+
+        $row = $query->row_array();
+
+        $text = '';
+
+        if (isset($row))
+        {
+            $text = $row['sectionIcon'];
+        }
+        return $text;
+    }
     function getIndex($residentID){
         $query = $this->db->get_where('a18ux02.Questionarries', array('Resident_residentID'=>$residentID));
 
