@@ -15,6 +15,7 @@ class Caregiver extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('caregivers');
+        $this->load->model('residents');
         $this->load->library('session');
         $this->load->model('dropdownmodel');
         $this->load->database('default');
@@ -259,6 +260,55 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/searchForResident', $data);
     }
 
+    public function newResident()
+    {
+        $data = array();
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newResident');
+        $dataResident = array();
+        $data['page_title']='Register resident';
+        $this->parser->parse('templates/header',$data);
+
+        if($this->input->post('saveSettings')){
+            $this->form_validation->set_rules('firstname', 'Name', 'required');
+            $this->form_validation->set_rules('lastname', 'Name', 'required');
+            $this->form_validation->set_rules('birthdate','Date','required|callback_date_valid');
+            $this->form_validation->set_rules('floor', 'Number', 'required|required|is_natural');
+            $this->form_validation->set_rules('room', 'Number', 'required|is_natural_no_zero');
+
+            if($this->form_validation->run() == true){
+                $dataResident = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'birthdate' => strip_tags($this->input->post('birthdate')),
+                    'floor' => strip_tags($this->input->post('floor')),
+                    'room' => strip_tags($this->input->post('room')),
+                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f')
+                );
+                $this->residents->insert($dataResident);
+            }
+
+        }
+        $data['resident'] = $dataResident;
+        //load the view
+        $this->parser->parse('Caregiver/newResident', $data);
+    }
+
+    /*
+     * Validate dd/mm/yyyy
+     */
+    public function date_valid($date)
+    {
+        $parts = explode("/", $date);
+        if (count($parts) == 3) {
+            if (checkdate($parts[1], $parts[0], $parts[2]) == false) {
+                $this->form_validation->set_message('date_valid', 'The Date field must be mm/dd/yyyy');
+                return FALSE;
+            }
+        } else {
+            return TRUE;
+        }
+    }
+
     public function buildingView()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
@@ -326,11 +376,9 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
-    public function roomSelect()
-    {
-        $data = array();
-
-        if (!$this->session->userdata('isUserLoggedIn')) {
+    public function roomSelect(){
+    	$data = array();
+        if(!$this->session->userdata('isUserLoggedIn')){
             redirect('index.php');
         }
 
@@ -344,7 +392,6 @@ class Caregiver extends CI_Controller
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-
     }
 
     public function floorCompare()
@@ -364,6 +411,7 @@ class Caregiver extends CI_Controller
         );
         $this->caregivers->updateNote($note);
     }
+
 
     public function deleteNote()
     {

@@ -18,6 +18,9 @@ class dropdownmodel extends CI_Model
             array('name'=>'Resident overview', 'link'=>'residents', 'className'=>'dropdown-item active'),
             array('name'=>'Floor selection', 'link'=>'floorSelect', 'className'=>'dropdown-item inactive'),
             array('name'=>'Floor comparison', 'link'=>'floorCompare', 'className'=>'dropdown-item inactive'),
+            array('name'=>'New resident', 'link'=>'newResident', 'className'=>'dropdown-item inactive'),
+            array('name'=>'New Question', 'link'=>'newQuestion', 'className'=>'dropdown-item inactive'),
+
         );
     }
 

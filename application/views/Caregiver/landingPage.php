@@ -25,12 +25,11 @@
             ?>
         </h5>
     </div>
-    <div class="btn-group">
-        <input id="1" value="Search a resident" type="button" class="btn" onclick="location.href='residents'">
-        <input id="2" value="Floor comparison" type="button" class="btn" onclick="location.href='floorCompare'">
-        <input id="3" value="Floor Select" type="button" class="btn" onclick="location.href='floorSelect'">
-        <input id="4" value="Action center" type="button" class="btn" onclick="location.href='actionCenter'">
-    </div>
+        <div class="btn-group">
+            <input id="1" value="Search a resident" type="button" class = "btn" onclick="location.href='residents'">
+            <input id="2" value="Floor comparison" type="button" class = "btn" onclick="location.href='floorCompare'">
+            <input id="3" value="Floor Select" type="button" class = "btn" onclick="location.href='floorSelect'">
+        </div>
 
     <h2 class="noteheader">Notes</h2>
 
