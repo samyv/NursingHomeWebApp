@@ -217,6 +217,9 @@ Class Caregivers extends CI_Model
         $sql = "INSERT into a18ux02.Notes (idNotes, Note, idCaregiver,created, modified) values ('$idn', '$n','$cg', CURRENT_TIME , CURRENT_TIME )
                 ON DUPLICATE KEY UPDATE Note = '$n', modified = CURRENT_TIME ";
         $this->db->query($sql);
+        $sql = "SELECT LAST_INSERT_ID()";
+        $idNote = $this->db->query($sql);
+        return $idNote;
     }
 
     public function deleteNote($notes)
@@ -334,6 +337,13 @@ Class Caregivers extends CI_Model
 		$result = $this->db->query($sql);
 		return $result;
 	}
+
+	public function getIdNoteByText($note){
+        $sql = "SELECT idNotes From a18ux02.Notes Where Note = '$note' ORDER BY idNotes DESC limit 1";
+        $result = $this->db->query($sql);
+        $row = $result->row();
+        return $row['idNotes'];
+    }
 
 
 

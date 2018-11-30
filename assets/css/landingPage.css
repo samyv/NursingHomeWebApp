@@ -19,7 +19,7 @@ body {
                                                 ". . quote quote quote quote quote quote quote quote . ."
                                         ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
                                         ". . noteheader noteheader noteheader noteheader clndrhdr clndrhdr clndrhdr clndrhdr . ."
-                                        ". . notes notes notes notes clndr clndr clndr clndr . ."
+                                        ". . notes notes notes . clndr clndr clndr clndr . ."
                                         ". . . . . . clndr clndr clndr clndr . ."
                             "footer footer footer footer footer footer footer footer footer footer footer footer";
     grid-gap: 1em;
@@ -27,6 +27,8 @@ body {
 
 .noteheader{
     grid-area: noteheader;
+    display: flex;
+    flex-direction: row;
 }
 
 .clndrheader{
@@ -65,12 +67,16 @@ body {
      background-color: #003b46;
  }
 
+.newNote{
+    grid-area: notebtn;
+}
 .newNote .btn{
+
     width: 100%;
     background-color: #003B46;
     color: white;
     border-radius: 0;
-    margin: 0.5em 1em 0 0;
+    margin-left: 2em;
 }
 
 .note{

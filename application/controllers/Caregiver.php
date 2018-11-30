@@ -425,7 +425,13 @@ class Caregiver extends CI_Controller
             'idinput' => $_POST['idinput'],
             'idCaregiver' => $_SESSION['idCaregiver']
         );
-        $this->caregivers->updateNote($note);
+        $idNote = $this->caregivers->updateNote($note);
+        return $idNote;
+    }
+
+    public function getIdLastNote($note){
+        $idNote = $this->caregivers->getIdNoteByText($note);
+        return $idNote;
     }
 
     public function deleteNote()
