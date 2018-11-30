@@ -147,10 +147,10 @@ class QuestionModel extends CI_Model
             $lastTime = new DateTime($row['timestamp']);
             $interval = $lastTime->diff($now);
             if($interval->format('%a') > 7){
-                $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
+                $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 0)");
             }
         } else {
-            $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 31)");
+            $this->db->query("INSERT INTO a18ux02.Questionarries (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 0)");
         }
     }
 
