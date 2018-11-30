@@ -369,6 +369,7 @@ class Caregiver extends CI_Controller
         }
         $data = array();
         $cond = array();
+		$cond['table'] = "a18ux02.Resident";
         $cond['where'] = array('residentID' => $_GET['id']);
 //    	$cond['return_type'] = 'single';
         $row = $this->caregivers->getRows($cond);
