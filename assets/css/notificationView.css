@@ -15,7 +15,7 @@ html,body{
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.1fr 0.2fr 0.5fr;
+    grid-template-rows: 75px 0.2fr 0.5fr;
     grid-template-areas:
             ". .  title title title title title title title title . ."
             ". .  list list list list list list list list . ."
