@@ -5,7 +5,7 @@
  * Date: 5-11-2018
  * Time: 18:39
  */
-//line 91
+
 class Resident extends CI_Controller
 {
     public function __construct()
