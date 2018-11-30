@@ -18,6 +18,7 @@ class Caregiver extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('dropdownmodel');
 		$this->load->database('default');
+		$this->load->helper('security');
 	}
 
 	/*
