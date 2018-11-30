@@ -201,7 +201,7 @@
                 .attr("id","t" +notificationid)
                 .attr("x",x)
                 .attr("y",y)
-                .attr("color",color_on)
+                .attr("fill",color_on)
                 .text("Category : Date : Score");
 
     }
