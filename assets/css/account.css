@@ -7,10 +7,10 @@
 	grid-template-rows: 3fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr;
 	grid-template-areas:
 			"headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-			". firstname firstname_input . . . email email email_input . . ."
-			". lastname lastname_input . . . old_pass old_pass old_pass_input . . ."
-			". floor floor_input . . . new_pass new_pass new_pass_input . . ."
-			". . . . . . conf_pass conf_pass conf_pass_input . . ."
+			". firstname firstname_input firstname_input . . email email email_input email_input . ."
+			". lastname lastname_input lastname_input . . old_pass old_pass old_pass_input old_pass_input . ."
+			". floor floor_input floor_input . . new_pass new_pass new_pass_input new_pass_input . ."
+			". . . . . . conf_pass conf_pass conf_pass_input conf_pass_input . ."
 }
 
 .firstname { grid-area: firstname; }
@@ -63,4 +63,8 @@ input[type=submit],input[type=button]{
 }
 input[type=submit]:hover,input[type=button]:hover{
 	opacity: 0.8;
+}
+
+.form-control{
+
 }
