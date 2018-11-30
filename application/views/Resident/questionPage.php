@@ -10,51 +10,49 @@
 </head>
 <body>
 
-
-
-<div id="firstRow">
+<div class="grid-container">
     <h1 id="dummy"></h1>
     <h1 id="logo">GraceAge</h1>
-    <button type="submit">Log out</button>
-</div>
+    <button id="logout" type="submit">Log out</button>
 
-<p id="questionType">Question Type(2/5)</p>
+<p id="questionType">Question Type({currentNum}/{totalNum})</p>
 
 <div class="progress" id="progressbar">
     <div class="progress-bar progress-bar-striped active" role="progressbar"
-         aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:40%">
-        40%
+         aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:{percentage}">
+        {percentage}
     </div>
 </div>
 
-<p id="question">{question}</p>
-<div id = hidden>
-<p id="nextType">{nextType}</p>
-<p id="currentType">{currentType}</p>
+    <p id="question">{question}</p>
+
+    <div id="answers">
+        <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
+        <label for="answer1" id="answer_1">Answer1</label>
+
+        <input type="radio" id="answer2" name="answer" value="2" class = 'question_radio'/>
+        <label for="answer2" id="answer_2">Answer2</label>
+
+        <input type="radio" id="answer3" name="answer" value="3" class = 'question_radio'/>
+        <label for="answer3" id="answer_3">Answer3</label>
+
+        <input type="radio" id="answer4" name="answer" value="4" class = 'question_radio'/>
+        <label for="answer4" id="answer_4">Answer4</label>
+
+        <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
+        <label for="answer5" id="answer_5">Answer5</label>
+    </div>
+
+    <button id="previous">Previous</button>
 </div>
-<div id="answers">
-    <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
-    <label for="answer1">Answer1</label>
-
-    <input type="radio" id="answer2" name="answer" value="2" class = 'question_radio'/>
-    <label for="answer2">Answer2</label>
-
-    <input type="radio" id="answer3" name="answer" value="3" class = 'question_radio'/>
-    <label for="answer3">Answer3</label>
-
-    <input type="radio" id="answer4" name="answer" value="4" class = 'question_radio'/>
-    <label for="answer4">Answer4</label>
-
-    <input type="radio" id="answer5" name="answer" value="5" class = 'question_radio'/>
-    <label for="answer5">Answer5</label>
-</div>
-
-<button id="previous">Change Last Answer</button>
 
 
 <script>
     // var nextType = document.getElementById("nextType");
     // var currentType = document.getElementById("currentType");
+    // var currentNum = document.getElementById("currentNum");
+    // var totalNum = document.getElementById("totalNum");
+    // var percentage = document.getElementById("percentage");
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
@@ -65,6 +63,8 @@
         var maxQuestionNr = 50;
         var nextType;
         var currentType;
+        var currentNum=1;
+        var totalNum;
 
         $.ajax({
             url:'<?php echo site_url('index.php/Resident/getIndex');?>',
@@ -77,6 +77,19 @@
                 }
             }
         });
+
+        function transOldAnswer() {
+            $.ajax({
+                url: '<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+                method: "POST",
+                data: {index: index},
+                success: function (answer) {
+                    $('#answer' + answer).prop('checked', true);
+                }
+            });
+        }
+
+        transOldAnswer();
 
         function transQuestionTextAndAns($index, $answer){
             $.ajax({
@@ -92,16 +105,24 @@
             });
         }
 
-        function transOldAnswer($index){
+        function getTotalNum($index){
             $.ajax({
-                url:'<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+                url:'<?php echo site_url('index.php/Resident/getTotalNum');?>',
                 method:"POST",
                 data:{index:$index},
-                success:function(answer)
+                success:function(i)
                 {
-                    $('#answer'+answer).prop('checked',true);
+                    $('#totalNum').html(i);
+                    totalNum = i;
                 }
             });
+            currentNum++;
+            if(currentNum>totalNum){
+                currentNum = 1;
+            }
+            $('#currentNum').html(currentNum);
+
+            // return currentType !== nextType;
         }
 
         function checkIfLastQuestion($index){
@@ -141,9 +162,12 @@
                 // if(true){
                     window.location.pathname='a18ux02/resident/section/'+nextType
                 } else {
+                    getTotalNum(index);
+                    console.log("current number: "+currentNum);
+                    console.log("total number: "+totalNum);
+                    $('#questionType').text("Question Type("+currentNum+"/"+totalNum+")");
                     transQuestionTextAndAns(index, 1);
                 }
-                // transOldAnswer(index);
                 $(this).prop('checked', false);
             }
         });
@@ -152,7 +176,6 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,2);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
@@ -160,7 +183,6 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,3);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
@@ -168,7 +190,6 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,4);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
 
@@ -176,13 +197,12 @@
             if(index < maxQuestionNr) index++;
             await sleep(awaitTime);
             transQuestionTextAndAns(index,5);
-            // transOldAnswer(index);
             $(this).prop('checked', false);
         });
         $('#previous').click(async function(){
             if(index > 1) index--;
             transQuestionTextAndAns(index,null);
-            // transOldAnswer(index);
+            transOldAnswer();
         });
     });
 </script>

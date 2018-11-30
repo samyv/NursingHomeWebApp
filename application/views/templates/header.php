@@ -10,11 +10,12 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark">
-    <a class="navbar-brand" href="account"><?php echo $_SESSION['firstname'];?> <?php echo $_SESSION['lastname'];?></a>
+    <a class="navbar-brand" href="#"><?php echo $_SESSION['firstname'];?> <?php echo $_SESSION['lastname'];?></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -23,6 +24,8 @@
             <li class="nav-item">
                 <a class="nav-link" href="landingpage"><i class="fas fa-home"></i> Home</a>
             </li>
+
+
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Go to
@@ -33,10 +36,20 @@
                     {/dropdown_menu_items}
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
+
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-bell"></i><span class="badge badge-warning">2</span>
                 </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    {dropdown_menu_items}
+                    <a href="{link}" class="{className}">{name}</a>
+                    {/dropdown_menu_items}
+                </div>
+            </li>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="account"><i class="fas fa-cog"></i> Settings</a>

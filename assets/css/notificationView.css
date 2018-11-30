@@ -7,17 +7,69 @@ html,body{
     background-color: #F5FAFA;
 }
 
+.material-icons.unread { color: #ffc107; }
+
+.material-icons.read { color: #ffffff; }
+
 .grid-container {
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.5fr 4fr 0.5fr 0.5fr;
+    grid-template-rows: 75px 0.2fr 0.5fr;
     grid-template-areas:
             ". .  title title title title title title title title . ."
             ". .  list list list list list list list list . ."
-            ". . . . . . . . . . . . "
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 
+}
+
+.notification{
+    display: grid;
+    grid-template-columns: 0.05fr 0.3fr 1fr 0.1fr ;
+    grid-template-rows: 0.5fr;
+    grid-template-areas:
+            "icon date content read";
+    background-color: #66a5ad;
+    color: white!important;
+    padding: 10px;
+    font-size: 16px;
+    text-decoration: none!important;
+    transition: all .2s ease-in-out;
+    border: solid;
+}
+
+.notification:hover{
+    background-color: #83b6bc;
+    transform: scale(1.05);
+    display: grid;
+}
+
+.icon{
+    display  :grid;
+    grid-area: icon;
+    text-align: center;
+    color:white;
+}
+
+.date{
+    display  :grid;
+    grid-area: date;
+    text-align: center;
+    color:white;
+}
+
+.content{
+    display  :grid;
+    grid-area: content;
+    text-align: center;
+    color:white;
+}
+
+.read{
+    display  :grid;
+    grid-area: read;
+    text-align: center;
+    color:white;
 }
 
 .footer{
@@ -34,15 +86,14 @@ html,body{
     color: #003b46;
     padding: 10px;
     font-size: 32px;
-    background-color: #F5FAFA;
 }
 
-.listRow1:hover,.listRow2:hover,.listRow3:hover,.listRow4:hover,.listRow5:hover{
-    opacity: 0.8;
+.listRow:hover{
+    background-color: #83b6bc;
     transform: scale(1.05);
 }
 
-.listRow1,.listRow2,.listRow3,.listRow4,.listRow5{
+.listRow{
     border-style: solid;
     vertical-align:top;
     line-height:100px;
@@ -59,5 +110,6 @@ html,body{
     vertical-align: middle;
     display : grid;
     grid-area: list;
+    background-color: #66a5ad;
 
 }

@@ -1,81 +1,68 @@
-body{
-    display: flex;
-    flex-direction: column;
-}
-
-#firstRow{
-    display: grid;
-    width: 100%;
-    grid-template-columns: 33.3% 33.3% 33.3%;
-    grid-template-areas: "dummy logo logout";
-    align-items: center;
-}
-
-#firstRow #logo{
-    grid-area: logo;
-    font-size: 70px;
-    text-align: center;
-}
-
-#firstRow #dummy{
-    grid-area: dummy;
-    font-size: 64px;
-    color: white;
-}
-
-
-#firstRow button{
-    margin-right: 10px;
-    grid-area: logout;
-    justify-self: right;
-    width: 200px;
-    height: 50px;
-    color: white;
-    background-color: red;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    font-size: 30px;
-}
-
-#firstRow button:hover{
-    background-color: darkred;
-    cursor: pointer;
-}
-
-#title{
-    margin-top: 50px;
-    font-size: 60px;
-    text-align: center;
-}
-#description{
-    margin-top: 50px;
-    font-size: 50px;
-    text-align: center;
-}
-#logoImg{
-    margin-top: 30px;
-    align-self: center;
-}
-#answers,footer,header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
 body {
     font-family: Verdana;
 }
 
+.grid-container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr 3fr 1fr;
+    grid-template-areas:
+            ". . . . logo logo logo logo . logout logout logout"
+            ". title title title title title title title title title title ."
+            ". description description description description description description description description description description ."
+            ". logoimg logoimg logoimg logoimg logoimg logoimg logoimg logoimg logoimg logoimg ."
+            ". . . . continue_btn continue_btn continue_btn continue_btn . . . .";
+    width: 100vw;
+    height: 100vh;
+}
+
+#logo{
+    grid-area: logo;
+    font-size: 5em;
+    text-align: center;
+    justify-self: center;
+}
+
+
+#logout{
+    grid-area: logout;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
+    height: 2em;
+    color: white;
+    background-color: #d48478;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    font-size: 3em;
+}
+
+#logout:hover{
+    background-color: indianred;
+    cursor: pointer;
+}
+
+#title{
+    grid-area: title;
+    font-size: 4em;
+    text-align: center;
+}
+#description{
+    grid-area: description;
+    font-size: 4em;
+    text-align: center;
+}
+#logoImg{
+    grid-area: logoimg;
+    width: 50em;
+}
+
 
 #continue{
-    margin-top: 70px;
+    grid-area: continue_btn;
     align-self: center;
-    float: left;
-    width: 300px;
-    height: 50px;
+    height: 2em;
     color: black;
-    background-color: yellowgreen;
+    background-color: #A5DC86;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-    font-size: 30px;
+    font-size: 3em;
 }
 

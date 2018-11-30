@@ -5,26 +5,26 @@ body{
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 1fr 4.5fr 1fr;
+    grid-template-rows: 1fr 4.5fr 2fr 1fr 1fr;
     grid-template-areas:
-            "names names names names names names names names names names names names"
+            "name name name name name name name name name name name name"
+            ". praise praise praise praise praise praise praise praise praise praise ."
             ". . note note note note note note note note . ."
-            "img img img img img img img img img img img img"
-            ". . . btn btn btn btn btn btn . . .";
+            ". . . . . home home . . . . ."
+            "previous previous . . . . . . . . . .";
     width: 100vw;
     height: 100vh;
 }
 
 
-#names,#note,#img,#btn{
+#name,#note,#praise,#home_btn,#previous_btn{
     text-align: center;
 }
 
-#names{
-    grid-area: names;
+#name{
+    grid-area: name;
     background-color: #94b7a0;
     grid-gap: 0;
-    padding-top: 8em;
     padding-bottom: 1em;
     line-height: 3em;
 }
@@ -34,9 +34,12 @@ body{
     font-size: 5em;
 }
 
-#subname{
-    font-size: 2em;
+#praise{
+    grid-area: praise;
+    font-size: 3.5em;
+    margin-top: 2em;
 }
+
 
 #note{
     grid-area: note;
@@ -45,19 +48,14 @@ body{
     margin-bottom: 1em;
 }
 
-#img{
-    grid-area: img;
-    margin-bottom: auto;
-    margin-top: auto;
-}
 
-#btn{
-    grid-area: btn;
+#home_btn{
+    grid-area: home;
     margin-top: 1em;
 }
 
-img{
-    width: 55em;
+#previous_btn{
+    grid-area: previous;
 }
 
 button{
@@ -66,7 +64,6 @@ button{
     text-align: center;
 
     display: inline-block;
-    background-color: #d48478;
     color: rgba(0, 0, 0, 0.6);
     font-weight: normal;
     text-shadow: none;
@@ -81,8 +78,22 @@ button{
 
 
 button:hover{
-    background-color: indianred;
     cursor: pointer;
 }
 
+#home{
+    background-color: #d48478;
+}
+
+#home:hover{
+    background-color: indianred;
+}
+
+#previous{
+    background-color: #e4e4e4;
+}
+
+#previous:hover{
+    background-color: #A5DC86;
+}
 

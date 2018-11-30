@@ -1,18 +1,29 @@
 html,body {
+    background-color: #F5FAFA;
     height: 100%;
     align-items: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    font-family: Roboto !important;
+
+}
+
+body {
+    background-color: #F5FAFA !important;
+    margin: 0;
     display: flex;
     flex-direction: column;
 }
 
-body {
-    font-family: Verdana;
-    height: 100%;
-    display: flex;
-    margin: 0;
-    flex-direction: column;
-    width: 100%;
-    align-items: center;
+.grid-container {
+    background-color: #F5FAFA;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 30em 1fr;
+    grid-template-areas:
+            ". image image image image image . log log log log ."
+            "footer footer footer footer footer footer footer footer footer footer footer footer";
 }
 
 
@@ -20,17 +31,67 @@ body {
     margin-top: 0 !important;
 }
 
-.logo {
+
+#forgot-password-modal-content{
+    display: none;
+    position: absolute;
+    margin-top: 15%;
+    width: 30%;
+    height: min-content;
+}
+.modal-footer{
+    width: 100%;
+}
+
+.modal-footer .btn{
+    background-color: #66a5ad;
+    color: white;
+    padding: 14px 50px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+.modal-footer .btn:hover{
+    opacity: 0.8;
+}
+
+.h1 {
     align-self: center;
     justify-self: center;
     text-align: center;
     background-color: #003b46;
-    color: white;
+    color: white !important;
     width: 100%;
 }
 
-.form {
-    height: 100%;
+.image {
+    grid-area: image;
+    margin-top: 20%;
+}
+
+#remyImg{
+    width: 100%;
+}
+
+.login-form {
+    grid-area: log;
+    margin-top: 25%;
+}
+
+#submitButtons{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    grid-auto-rows: auto;
+    grid-template-areas: "submit register";
+}
+
+input[type=submit]{
+    grid-area: submit;
+}
+
+input[type=button]{
+    grid-area: register;
 }
 
 input[type=email],input[type=text], input[type=password] {
@@ -42,56 +103,24 @@ input[type=email],input[type=text], input[type=password] {
     width: 100%;
 }
 
-input[type=submit],input[type=button]{
+input[type=submit], input[type=button]{
     background-color: #66a5ad;
     color: white;
     padding: 14px 50px;
     border: none;
     cursor: pointer;
     margin-top: 10px;
+    margin-right: 1em;
 }
 
-#loginResident{
-    width: 100%;
-    padding: 14px 0;
-}
-
-input[type=submit]:hover,input[type=button]:hover{
-    opacity: 0.8;
-}
-
-
-
-.container {
-    display: grid;
-    grid-template-areas: "image login-form";
-    grid-template-columns: 50% 50%;
-}
-
-.image{
-    grid-area: image;
-    margin: 20% 5% 5% 5%;
-}
-
-#remyImg{
-    width: 100%;
-
-}
-
-.login-form{
-    grid-area: login-form;
-    margin: 20% 5% 0 5%;
+input[type=submit]:hover, input[type=button]:hover{
+    background-color: #66a5ad;
+    opacity: 0.8 !important;
 }
 
 span.psw {
     padding-top: 16px;
     font-size: 12px;
-}
-footer{
-    bottom:0;
-    text-align: center;
-    font-size: 10px;
-    position: fixed;
 }
 
 .modal{
@@ -130,14 +159,6 @@ footer{
         margin: 8px 0 0 0;
     }
 
-    .container{
-        display: grid;
-        grid-template-areas: "login-form";
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-        width: 50%;
-    }
-
     #submitButtons{
         width: 100%;
     }
@@ -156,6 +177,14 @@ footer{
         display: none;
     }
 
+    .login-form {
+        margin-top: 25%;
+        grid-column: 3 / 10;
+    }
+    #forgot-password-modal-content{
+        width: 50%;
+    }
+
 }
 
 @media screen and (max-width: 650px) {
@@ -171,17 +200,13 @@ footer{
         padding: 12px 0 12px 0;
     }
 
-
-    .container{
-        display: grid;
-        grid-template-areas: "login-form";
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-        width: 60%;
-    }
-
     .image{
         display: none;
+    }
+
+    .login-form {
+        margin-top: 25%;
+        grid-column: 3 / 10;
     }
 
     input[type=submit],input[type=button] {
@@ -196,10 +221,9 @@ footer{
 
 }
 
-
 @media only screen and (max-width: 650px) {
 
-    main{
+    main {
         margin:0 2%;
         width:auto;
     }
@@ -210,17 +234,12 @@ footer{
         padding: 12px 0 12px 0;
     }
 
-
-    .container{
-        display: grid;
-        grid-template-areas: "login-form";
-        grid-template-rows: auto;
-        grid-template-columns: auto;
-        width: 100%;
-    }
-
     .image{
         display: none;
+    }
+
+    .login-form {
+        grid-column: 3 / 10;
     }
 
     input[type=submit],input[type=button] {
@@ -230,13 +249,6 @@ footer{
         cursor: pointer;
         margin-top: 10px;
         width: 100%;
-    }
-
-    footer{
-        bottom: auto;
-        text-align: center;
-        font-size: 10px;
-        position: inherit;
     }
 
 
