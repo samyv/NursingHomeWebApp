@@ -7,6 +7,11 @@ html,body{
     background-color: #F5FAFA;
 }
 
+.area {
+    fill: lightsteelblue;
+    stroke-width: 0;
+}
+
 .grid-container {
     background-color: #F5FAFA;
     display: grid;

@@ -49,14 +49,37 @@
     /////////////////////////////////////////////////////////
     //////              D3.JS GRAPH                     /////
     /////////////////////////////////////////////////////////
-    var data = [];
     let text_color = "white";
-    for (let i = 0 ; i < 100 ; i++) {
-        data.push(
+    let amountOfFloors = 5;
+    var collection = [];
+    for (var a = 0 ; a < amountOfFloors ; a++)
+    {
+        let data = [];
+        var offset = a;
+
+
+        for (let i = 0 ; i < 100 ; i++) {
+            // calculate offset
+
+
+            if (a === 0)
             {
-                date: new Date(i),
-                value: Math.sin(i/13.0)
-            });
+                offset = 0;
+            }
+            else
+            {
+                let data = collection[a-1];
+                offset = data[i].value;
+            }
+
+            // push to array
+            data.push(
+                {
+                    date: i,
+                    value: 1 + 0.1*Math.sin(i/2) + offset
+                });
+        }
+        collection.push(data);
     }
 
     var container = d3.select("body").selectAll("div.graph");
@@ -85,8 +108,10 @@
     var line = d3.line()
         .x(function(d) { return x(d.date)})
         .y(function(d) { return y(d.value)})
-    x.domain(d3.extent(data, function(d) { return d.date }));
-    y.domain(d3.extent(data, function(d) { return d.value }));
+    x.domain(d3.extent(collection[0], function(d) { return d.date }));
+
+    let max = getMaximum(collection[amountOfFloors-1]);
+    y.domain([0, max]);
 
     g.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -104,12 +129,28 @@
         .attr("text-anchor", "end")
         .text("Value");
 
-    g.append("path")
-        .datum(data)
-        .attr("fill", "none")
-        .attr("stroke", text_color)
-        .attr("stroke-linejoin", "round")
-        .attr("stroke-linecap", "round")
-        .attr("stroke-width", 1.5)
-        .attr("d", line);
+
+    for ( let i = 0 ; i < 5 ; i++) {
+        g.append("path")
+            .datum(collection[i])
+            .attr("fill", "none")
+            .attr("stroke", text_color)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 1.5)
+            .attr("d", line);
+    }
+
+    function getMaximum(collection)
+    {
+        // calculate the maximum of a custom formatted data array
+        let array = [];
+        for (let i = 0 ; i < collection.length ; i++)
+        {
+            let val = collection[i].value;
+            array.push(val);
+        }
+        return 1.1 * Math.max(...array); // the ... notation is needed here
+    }
+
 </script>
