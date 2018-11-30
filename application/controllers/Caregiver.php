@@ -329,6 +329,9 @@ class Caregiver extends CI_Controller
     }
 
 	public function floorView(){
+        if(!$this->session->userdata('isUserLoggedIn')){
+            redirect('index.php');
+        }
 		$data = array();
 		$cond['where'] = array('floor'	 => $_GET['id']);
 		$_SESSION['floorSelected'] = $_GET['id'];
@@ -348,7 +351,7 @@ class Caregiver extends CI_Controller
         }
         $data = array();
         // parse
-        $this->parser->parse('Caregiver/roomView', $data);
+        $this->parser->parse('Caregiver/resident_dashboard_template', $data);
     }
 
     public function singleRoomView()
