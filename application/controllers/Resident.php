@@ -130,7 +130,6 @@ class Resident extends CI_Controller
 
 
     public function tutorial(){
-        print_r($_SESSION);
         //checks if a resident is logged in, else go to the login page
         if(!isset($_SESSION['isResidentLoggedIn'])){
             redirect('resident/index');

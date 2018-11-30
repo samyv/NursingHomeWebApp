@@ -26,9 +26,9 @@
         </h5>
     </div>
         <div class="btn-group">
-            <input id="1" value="Search a resident" type="button" class = "btn" onclick="location.href='residents'">
-            <input id="2" value="Floor comparison" type="button" class = "btn" onclick="location.href='floorCompare'">
-            <input id="3" value="Floor Select" type="button" class = "btn" onclick="location.href='floorSelect'">
+            <input id="1" value="Search resident" type="button" class = "btn" onclick="location.href='residents'">
+            <input id="2" value="Compare floor" type="button" class = "btn" onclick="location.href='floorCompare'">
+            <input id="3" value="Select floor" type="button" class = "btn" onclick="location.href='floorSelect'">
         </div>
 
     <div class="noteheader">
