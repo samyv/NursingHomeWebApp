@@ -72,25 +72,49 @@
             <h3>Contact information</h3>
         </div>
 
-        <div class="contact_name">
-            <b>Name: </b>
+        <div class="contact_first">
+            <b>First name: </b>
         </div>
-        <div class="contact_name_input">
-            <input type="text" name="full_name"  class = "form-control" placeholder="Enter contact person" required="">
+        <div class="contact_first_input">
+            <input type="text" name="first_name"  class = "form-control" placeholder="Enter first name" required="">
             <br>
+        </div>
+        <div class="contact_last">
+            <b>Last name: </b>
+        </div>
+        <div class="contact_last_input">
+            <input type="text" name="last_name"  class = "form-control" placeholder="Enter last name" required="">
+            <br>
+
         </div>
         <div class="email">
             <b>Email: </b>
         </div>
         <div class="email_input">
-            <input type="text" name="email" class = "form-control" placeholder="example@example.com">
+            <input type="text" name="email" class = "form-control" placeholder="Enter email">
             <br>
         </div>
         <div class="phone">
             <b>Phone nr: </b>
         </div>
         <div class="phone_input">
-            <input type="tel" name="phone" class = "form-control" placeholder="phonenumber">
+            <input type="tel" name="phone" class = "form-control" placeholder="Enter phone number">
+        </div>
+        <div class="relation">
+            <b>Relation: </b>
+        </div>
+
+        <div class="relation_input">
+            <select name="relation" onchange='checkChoice(this.value);' class="form-control">
+                <option>Relation to resident</option>
+                <option value="son">son</option>
+                <option value="daughter">daughter</option>
+                <option value="brother">brother</option>
+                <option value="sister">sister</option>
+                <option value="other">other</option>
+            </select>
+            <input type="text" name="relation" id="relation" style='display:none;' class="form-control" placeholder="Enter your relation"/>
+
         </div>
         <div class="buttons">
             <input type="submit" value="Add resident" name="saveSettings"/>
@@ -98,5 +122,15 @@
         </div>
         </div>
 </form>
+<script type="text/javascript">
+    function checkChoice(val){
+        var element=document.getElementById('relation');
+        if(val=='Choose your relation'||val=='other')
+            element.style.display='block';
+        else
+            element.style.display='none';
+    }
+
+</script>
 </body>
 </html>

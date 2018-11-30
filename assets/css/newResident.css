@@ -4,16 +4,18 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
+    grid-template-rows: 2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
             ". . resident resident . . . extra extra . . ."
-            ". . firstname firstname_input  . . . contact contact_input . . ."
-            ". . lastname lastname_input  . . . email email_input . . ."
-            ". . birthday birthday_input  . . .  phone phone_input . . ."
-            ". . gender gender_input . . . buttons buttons . . ."
-            ". . floor floor_input  . . . . . . . ."
+            ". . firstname firstname_input  . . . contact_first contact_first_input . . ."
+            ". . lastname lastname_input  . . . contact_last contact_last_input . . ."
+            ". . birthday birthday_input  . . . email email_input  . . ."
+            ". . gender gender_input . . . phone phone_input . . ."
+            ". . floor floor_input  . . . relation relation_input . . ."
             ". . room room_input . . . . . . . ."
+            ". . . . . . . buttons buttons . . ."
+
 }
 
 .firstname { grid-area: firstname; }
@@ -28,12 +30,15 @@
 
 .room {grid-area: room;}
 
-.contact_name {
-    grid-area: contact; }
+.contact_first { grid-area: contact_first; }
+
+.contact_last { grid-area: contact_last; }
 
 .email { grid-area: email; }
 
 .phone { grid-area: phone; }
+
+.relation{ grid-area: relation; }
 
 .header { grid-area: headerr; }
 
@@ -53,14 +58,18 @@
 
 .room_input { grid-area: room_input; }
 
-.contact_name_input {
-    grid-area: contact_input;
+.contact_first_input {
+    grid-area: contact_first_input;
     width: 190px;
 }
+
+.contact_last_input{ grid-area: contact_last_input; }
 
 .email_input { grid-area: email_input; }
 
 .phone_input { grid-area: phone_input; }
+
+.relation_input{ grid-area: relation_input; }
 
 .buttons {
     grid-area: buttons;
