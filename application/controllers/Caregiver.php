@@ -331,6 +331,7 @@ class Caregiver extends CI_Controller
 	public function floorView(){
 		$data = array();
 		$cond['where'] = array('floor'	 => $_GET['id']);
+		$_SESSION['floorSelected'] = $_GET['id'];
 		$cond['table'] = 'a18ux02.Resident';
 		$result = json_decode(json_encode($this->caregivers->getRows($cond)->result(),true));
 		$data['residents'] = json_decode(json_encode($result),true);

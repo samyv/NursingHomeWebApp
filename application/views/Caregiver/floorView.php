@@ -35,17 +35,15 @@
 			let h = $("<h2></h2>").text(room);
 			number.append(h);
 			child.append(number);
-			if(i == 3){
-				kak = 8;
-			}
 			//images
 			for (let j = 1; j <=found.length; j++) {
 				let imagediv = $("<div></div>");
 				imagediv.addClass("image" + j);
-				imagediv.attr("roomid", i)
-				imagediv.attr("id",j-1)
+				imagediv.attr("roomid", i);
+				imagediv.attr("id",j-1);
 				imagediv.click(function () {
 					let x = parseInt(sessionStorage.getItem('floorSelected'))
+					console.log("x: "+x)
 					let y = parseInt(imagediv.attr('roomid'))
 					let nummer = x*100+y;
 					console.log(residents.filter(e => e.room == nummer))
