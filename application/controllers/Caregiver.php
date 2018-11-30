@@ -343,17 +343,6 @@ class Caregiver extends CI_Controller
 		$this->parser->parse('Caregiver/floorView', $data);
 	}
 
-
-	public function roomView()
-    {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-        $data = array();
-        // parse
-        $this->parser->parse('Caregiver/resident_dashboard_template', $data);
-    }
-
     public function singleRoomView()
     {
         $data = array();
@@ -374,6 +363,7 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['resident'] = $result['result_object'][0];
+        $this->load->view('templates/header');
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
     }
