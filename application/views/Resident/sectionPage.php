@@ -17,7 +17,7 @@
 
     <p id="description">{sectionDescription}</p>
 
-    <img id="logoImg" src="http://localhost/a18ux02//assets/images/knife-and-fork.png" >
+    <img id="logoImg" src="http://localhost/a18ux02//assets/images/{image}">
 
     <button id="continue" onclick="location.pathname='a18ux02/resident/questionpage/'+{index}">Continue</button>
 
