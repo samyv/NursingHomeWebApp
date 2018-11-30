@@ -49,8 +49,14 @@
     /////////////////////////////////////////////////////////
     //////              D3.JS GRAPH                     /////
     /////////////////////////////////////////////////////////
+
+    /// CONFIG VARIABLES ///
     let text_color = "white";
+    let graph_color = ["#009933","#ffff00","#ff0000","#cc00cc","#0000ff"];
+    let brightness_of_colors = 60; // brightness in percentage
     let amountOfFloors = 5;
+    //// END OF CONFIG ////
+
     var collection = [];
     for (var a = 0 ; a < amountOfFloors ; a++)
     {
@@ -58,10 +64,8 @@
         var offset = a;
 
 
-        for (let i = 0 ; i < 100 ; i++) {
+        for (let i = 0 ; i < 20 ; i++) {
             // calculate offset
-
-
             if (a === 0)
             {
                 offset = 0;
@@ -71,12 +75,11 @@
                 let data = collection[a-1];
                 offset = data[i].value;
             }
-
             // push to array
             data.push(
                 {
-                    date: i,
-                    value: 1 + 0.1*Math.sin(i/2) + offset
+                    date: new Date().getUTCDate() + i*1000*60*60*24, // add one day for each data point
+                    value: 1 + 0.3*Math.sin(i/5 + a*2) + offset
                 });
         }
         collection.push(data);
@@ -88,7 +91,7 @@
                                     .attr("width", 50)
                                     .attr("height", 50);
 
-    var svgWidth = 600, svgHeight = 400;
+    var svgWidth = 800, svgHeight = 400;
     var margin = { top: 20, right: 20, bottom: 30, left: 30 };
     var width = svgWidth - margin.left - margin.right;
     var height = svgHeight - margin.top - margin.bottom;
@@ -119,6 +122,30 @@
         .select(".domain")
         .remove();
 
+    var area = d3.area()
+        .x(function(d) { return x(d.date); })
+        .y0(height)
+        .y1(function(d) { return y(d.value); });
+
+    for ( let i = amountOfFloors-1 ; i >= 0 ; i--)
+    {
+        let color = graph_color[i];
+        let brighter_color = increase_brightness(color,brightness_of_colors);
+        g.append("path")
+            .datum(collection[i])
+            .attr("fill", "none")
+            .attr("stroke", color)
+            .attr("stroke-linejoin", "round")
+            .attr("stroke-linecap", "round")
+            .attr("stroke-width", 1.5)
+            .attr("d", line);
+
+        g.append("path")
+            .datum(collection[i])
+            .attr("fill", brighter_color)
+            .attr("d", area);
+    }
+
     g.append("g")
         .call(d3.axisLeft(y))
         .append("text")
@@ -130,16 +157,7 @@
         .text("Value");
 
 
-    for ( let i = 0 ; i < 5 ; i++) {
-        g.append("path")
-            .datum(collection[i])
-            .attr("fill", "none")
-            .attr("stroke", text_color)
-            .attr("stroke-linejoin", "round")
-            .attr("stroke-linecap", "round")
-            .attr("stroke-width", 1.5)
-            .attr("d", line);
-    }
+
 
     function getMaximum(collection)
     {
@@ -150,7 +168,27 @@
             let val = collection[i].value;
             array.push(val);
         }
-        return 1.1 * Math.max(...array); // the ... notation is needed here
+        return 1.1 * Math.ceil(Math.max(...array)); // the ... notation is needed here
+    }
+
+    function increase_brightness(hex, percent) // generate brighter versions of the colors
+    {
+        // strip the leading # if it's there
+        hex = hex.replace(/^\s*#|\s*$/g, '');
+
+        // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+        if(hex.length == 3){
+            hex = hex.replace(/(.)/g, '$1$1');
+        }
+
+        var r = parseInt(hex.substr(0, 2), 16),
+            g = parseInt(hex.substr(2, 2), 16),
+            b = parseInt(hex.substr(4, 2), 16);
+
+        return '#' +
+            ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+            ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+            ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
     }
 
 </script>

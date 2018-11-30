@@ -86,5 +86,10 @@ html,body{
 
 .graph{
     grid-area: graph;
-    background-color: #8ba8af;
+    transition: all .3s ease-in-out;
+}
+
+.graph:hover{
+    transform: scale(1.3);
+    grid-area: graph;
 }
