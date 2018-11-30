@@ -14,11 +14,31 @@
 	<script src="http://d3js.org/d3.v4.js"></script>
 </head>
 <body>
+
 <div class="grid-container">
 	<div class="picture">
 		PICTURE
 <!--		<img src="https://i.pinimg.com/originals/d0/dd/2c/d0dd2c8bb30ef5281ebb4472f1cc71fa.jpg" />-->
 	</div>
+
+    <div class="modal-content" id="information-contactperson-modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+        </div>
+        <div class="info-contact">
+            <?php
+            echo "Contact person: " . $resident['firstname'].' '.$resident['firstname'];
+            echo "<br>";
+            echo "Email: " . $resident['firstname'];
+            echo "<br>";
+            echo "Phone number: " . $resident['firstname'];
+            echo "<br>";
+            echo "Relation: ".$resident['firstname'];
+            ?>
+        </div>
+    </div>
+
 	<div class="info">
 		<?php
 		echo $resident['firstname'].' '.$resident['lastname'];
@@ -40,7 +60,8 @@
 		echo "<br>";
 		echo "Allergieën: Geen";
 		?>
-	</div>
+        <br> <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
+    </div>
 	<div class="back_start"></div>
 
 	<div class="visualisation">
@@ -55,6 +76,19 @@
 </div>
 <script src="../javascript/rawdata.js"></script>
 <script src="../javascript/trulia_vis.js"></script>
+
 </body>
+<script>
+    $(document).ready(function () {
+        $('#CIModal').click(function(){
+            $('#information-contactperson-modal-content').fadeIn('fast');
+        });
+
+        $('#closemodal').click(function () {
+            $('#information-contactperson-modal-content').fadeOut('fast');
+        })
+    });
+</script>
+
 </html>
 
