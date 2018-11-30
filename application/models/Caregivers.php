@@ -107,7 +107,7 @@ Class Caregivers extends CI_Model
 
         if (!empty($data['new_password'])) {
             $newPassword = $data['new_password'];
-            $sql = "UPDATE a18ux02.Caregiver 
+				$sql = "UPDATE a18ux02.Caregiver 
                 SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', password ='$newPassword', modified = CURRENT_TIME
                 WHERE idCaregiver = '$idCaregiver'";
             $insert = $this->db->query($sql);
@@ -328,6 +328,15 @@ Class Caregivers extends CI_Model
         $result = $this->db->query($sql);
         return count($result);
     }
+
+    public function getNumberOfRows($column){
+		$sql = "SELECT MAX(".$column.") FROM a18ux02.Resident";
+		$result = $this->db->query($sql);
+		return $result;
+	}
+
+
+
 
 
 }

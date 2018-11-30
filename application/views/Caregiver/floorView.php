@@ -1,289 +1,75 @@
 <link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
 <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
 <body>
 <div class = "grid-container">
 
-    <div class = "title">
-    </div>
-
-    <div class = "room1">
-        <div class = roomNr>
-            <h2>Room 1</h2>
-        </div>
-        <div class = image1 onclick="location.href='roomView'">
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" />
-        </div>
-        <div class = image2 onclick="location.href='roomView'">
-            <h3>Bob</h3>
-        <img src="assets/images/profile_picture.jpg" width="50" height="50" />
-        </div>
-
-    </div>
-
-    <div class = "room2">
-        <div class = roomNr>
-            <h2>Room 2</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room3">
-        <div class = roomNr>
-            <h2>Room 3</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room4">
-        <div class = roomNr>
-            <h2>Room 4</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room5">
-        <div class = roomNr>
-            <h2>Room 5</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room6">
-        <div class = roomNr>
-            <h2>Room 6</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room7">
-        <div class = roomNr>
-            <h2>Room 7</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room8">
-        <div class = roomNr>
-            <h2>Room 8</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room9">
-        <div class = roomNr>
-            <h2>Room 9</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room10">
-        <div class = roomNr>
-            <h2>Room 10</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room11">
-        <div class = roomNr>
-            <h2>Room 11</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room12">
-        <div class = roomNr>
-            <h2>Room 12</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room13">
-        <div class = roomNr>
-            <h2>Room 13</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room14">
-        <div class = roomNr>
-            <h2>Room 14</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
-    <div class = "room15">
-        <div class = roomNr>
-            <h2>Room 15</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-    <div class = "room16">
-        <div class = roomNr>
-            <h2>Room 16</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-    <div class = "room17">
-        <div class = roomNr>
-            <h2>Room 17</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-    <div class = "room18">
-        <div class = roomNr>
-            <h2>Room 18</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-    <div class = "room19">
-        <div class = roomNr>
-            <h2>Room 19</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-    <div class = "room20">
-        <div class = roomNr>
-            <h2>Room 20</h2>
-        </div>
-        <div class = image1>
-            <h3>Alice</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-        <div class = image2>
-            <h3>Bob</h3>
-            <img src="assets/images/profile_picture.jpg" width="50" height="50" onclick="location.href='roomView'" />
-        </div>
-    </div>
-
+	<div class = "title">
+		<p>Please select the desired room</p>
+	</div>
 </div>
 </body>
+<script>
+	$(function () {
+		let amount = 0+<?php print_r(sizeof($residents));?>;
+		let residents = <?php print_r(json_encode($residents));?>;
+		let rooms = [];
+		const unique = (value, index, self) => {
+			return self.indexOf(value) === index;
+		}
+		rooms = residents.map(a => a.room).filter(unique);
+		var sorted = residents.sort(function(a,b){return a.room - b.room});
+		for(let i = 1;i<=rooms.length;i++) {
+			let room = rooms[i-1]
+			var found = residents.filter(e => e.room == room);
+			//BIG CHILD
+			let child = $("<div></div>");
+			let z = room.split("");
+			let roomNumber = "room"+(z[1]==0?'':z[1])+""+z[2];
+			child.addClass(roomNumber);
+
+			//NUMBER
+			let number = $("<div></div>");
+			number.addClass("roomNr");
+			let h = $("<h2></h2>").text(room);
+			number.append(h);
+			child.append(number);
+			if(i == 3){
+				kak = 8;
+			}
+			//images
+			for (let j = 1; j <=found.length; j++) {
+				let imagediv = $("<div></div>");
+				imagediv.addClass("image" + j);
+				imagediv.attr("roomid", i)
+				imagediv.attr("id",j-1)
+				imagediv.click(function () {
+					let x = parseInt(sessionStorage.getItem('floorSelected'))
+					let y = parseInt(imagediv.attr('roomid'))
+					let nummer = x*100+y;
+					console.log(residents.filter(e => e.room == nummer))
+					let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))]
+					sessionStorage.setItem("residentSelected",room['residentID'])
+					location.href='roomView';
+
+				})
+				let name = $("<h3></h3>").text(found[j-1]['firstname']);
+				imagediv.append(name);
+				let image = $("<img>");
+				image.attr("src", "assets/images/profile_picture.jpg");
+				image.attr("width", "50");
+				image.attr("height", "50");
+				imagediv.append(image)
+				child.append(imagediv);
+			}
+			$(".grid-container").append(child);
+
+			function setClick(id) {
+				sessionStorage.setItem("selectedCaregiver",id);
+			}
+		}
+	})
+</script>
 
 
