@@ -83,7 +83,7 @@ class Resident extends CI_Controller
 
     public function tutorialpage(){
         $data['resident'] = 'Jack';
-        print_r($_SESSION);
+        //print_r($_SESSION['Resident']['residentID']);
         $this->parser->parse("Resident/tutorialPage",$data);
     }
 
@@ -142,8 +142,8 @@ class Resident extends CI_Controller
 
     public function section($id =1)
     {
-        $residentID = 1;
-//        $this->QuestionModel->createQuestionnaires($residentID);
+        $residentID = 4;
+        $this->QuestionModel->createQuestionnaires($residentID);
 
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
         $data['index'] = $this->getFirstQuestionIndex($id);
