@@ -52,9 +52,11 @@
 
     /// CONFIG VARIABLES ///
     let text_color = "white";
-    let graph_color = ["#009933","#ffff00","#ff0000","#cc00cc","#0000ff"];
-    let brightness_of_colors = 60; // brightness in percentage
-    let amountOfFloors = 5;
+    let brightness_of_colors = 70; // brightness in percentage
+    let color_on = "#66a5ad";
+    let color_off = increase_brightness(color_on,brightness_of_colors);
+    let notificationid = 0;
+    let amountOfFloors = 11;
     //// END OF CONFIG ////
 
     var collection = [];
@@ -79,7 +81,7 @@
             data.push(
                 {
                     date: new Date().getUTCDate() + i*1000*60*60*24, // add one day for each data point
-                    value: 1 + 0.3*Math.sin(i/5 + a*2) + offset
+                    value: 2.5 + 0.5*Math.sin(i/3 + a) + 0.1*Math.sin(i/0.6 + a) + 0.9*Math.sin(i/4 - a/2) + 0.5*Math.sin(i/16 + a) + 0.5*Math.sin(i/19)
                 });
         }
         collection.push(data);
@@ -91,7 +93,7 @@
                                     .attr("width", 50)
                                     .attr("height", 50);
 
-    var svgWidth = 800, svgHeight = 400;
+    var svgWidth = 700, svgHeight = 400;
     var margin = { top: 20, right: 20, bottom: 30, left: 30 };
     var width = svgWidth - margin.left - margin.right;
     var height = svgHeight - margin.top - margin.bottom;
@@ -114,7 +116,7 @@
     x.domain(d3.extent(collection[0], function(d) { return d.date }));
 
     let max = getMaximum(collection[amountOfFloors-1]);
-    y.domain([0, max]);
+    y.domain([0, 5]);
 
     g.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -129,21 +131,18 @@
 
     for ( let i = amountOfFloors-1 ; i >= 0 ; i--)
     {
-        let color = graph_color[i];
-        let brighter_color = increase_brightness(color,brightness_of_colors);
         g.append("path")
             .datum(collection[i])
             .attr("fill", "none")
-            .attr("stroke", color)
+            .attr("stroke", color_off)
             .attr("stroke-linejoin", "round")
             .attr("stroke-linecap", "round")
-            .attr("stroke-width", 1.5)
-            .attr("d", line);
+            .attr("stroke-width", 3)
+            .attr("d", line)
+            .on("mouseover", mouseEnter)
+            .on("mouseout", mouseLeave);
 
-        g.append("path")
-            .datum(collection[i])
-            .attr("fill", brighter_color)
-            .attr("d", area);
+
     }
 
     g.append("g")
@@ -155,6 +154,37 @@
         .attr("dy", "0.71em")
         .attr("text-anchor", "end")
         .text("Value");
+
+
+
+
+    function mouseEnter(data,i)
+    {
+        notificationid++;
+        let x = event.clientX-width + 150;
+        let y = event.clientY-height/2;
+        d3.select(this)
+            .attr("stroke-width", 8)
+            .attr("stroke",color_on);
+
+            g.append("text")
+                .attr("id","t" +notificationid)
+                .attr("x",x)
+                .attr("y",y)
+                .attr("color",color_on)
+                .text("Category : Date : Score");
+
+    }
+
+    function mouseLeave(data,i)
+    {
+        d3.select(this)
+            .attr("stroke-width", 3)
+            .attr("stroke",color_off);
+
+
+        d3.select("#t" +notificationid).remove();
+    }
 
 
 
