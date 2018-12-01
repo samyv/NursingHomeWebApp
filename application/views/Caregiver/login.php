@@ -2,23 +2,44 @@
 <html>
 <head>
 	<title>{page_title}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="<?=base_url()?>assets/css/login.css" rel="stylesheet" type="text/css">
 	<link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
-	<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
 	<link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="assets/css/transitions.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<script src="assets/js/barba.min.js" type="text/javascript"></script>
+	<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
 </head>
 
 <body>
-<div id="barba-wrapper">
-	<div class="barba-container">
-		<div class="h1">
+		<div class="h1 fade-in">
 			<h1>GraceAge</h1>
 			<h2>Providing better care</h2>
 		</div>
-		<div class="grid-container">
+		<div class="modal-content" id="forgot-password-modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Recover Password</h4>
+			</div>
+			<form action="" method="post" name="submitEmail">
+				<div class="modal-body">
+
+					<p>Please fill in your email so we can send you a link to reset your password.</p>
+					<div class="form-group">
+						<div class="input-group">
+							<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
+							<input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email">
+						</div>
+					</div>
+
+				</div>
+				<div class="modal-footer">
+					<input type="submit" id="submitEmail" name="submitEmail" class="btn btn-block btn-lg" value="Submit">
+				</div>
+			</form>
+
+		</div>
+		<div class="grid-container fade-in">
 			<div class="image">
 				<img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.jpg" >
 			</div>
@@ -52,45 +73,8 @@
 						<input type="button" value="Register" onclick="location.href='register'"/>
 					</div>
 				</form>
-				<form method="get">
-
-				</form>
 			</div>
 		</div>
-	</div>
-</div>
-
-
-<div class="modal-content" id="forgot-password-modal-content">
-	<div class="modal-header">
-		<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Recover Password</h4>
-	</div>
-	<form action="" method="post" name="submitEmail">
-		<div class="modal-body">
-
-			<p>Please fill in your email so we can send you a link to reset your password.</p>
-			<div class="form-group">
-				<div class="input-group">
-					<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-					<input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email">
-				</div>
-			</div>
-
-		</div>
-		<div class="modal-footer">
-			<input type="submit" id="submitEmail" name="submitEmail" class="btn btn-block btn-lg" value="Submit">
-		</div>
-	</form>
-
-</div>
-<!-- forgot password content -->
-
-
-
-</body>
-</html>
-
 <script>
 	$(document).ready(function () {
 		$('#FPModal').click(function(){
@@ -102,8 +86,6 @@
 		})
 
 		$('#submitEmail').click(submitEmail)
-
-		Barba.Pjax.start();
 
 	});
 
@@ -123,7 +105,6 @@
 		});
 	}
 
-	//test
 	function showmsg(event) {
 		$button = $(event.target).parent();
 		$form = $(event.target).parent().prev().children();
@@ -136,6 +117,9 @@
 	}
 
 </script>
+</body>
+</html>
+
 
 
 
