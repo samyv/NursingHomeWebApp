@@ -59,8 +59,10 @@
 		echo "Kamer: ".$resident['room'];
 		echo "<br>";
 		echo "Allergieën: Geen";
+		echo "<br>";
 		?>
-        <br> <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
+        <br>
+        <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
     </div>
 	<div class="back_start"></div>
 
@@ -74,6 +76,7 @@
 		<input type="submit" value="Print">
 	</div>
 </div>
+
 <script src="../javascript/rawdata.js"></script>
 <script src="../javascript/trulia_vis.js"></script>
 
@@ -89,6 +92,5 @@
         })
     });
 </script>
-
 </html>
 
