@@ -28,13 +28,13 @@
         </div>
         <div class="info-contact">
             <?php
-            echo "Contact person: " . $resident['firstname'].' '.$resident['firstname'];
+            echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
             echo "<br>";
-            echo "Email: " . $resident['firstname'];
+            echo "Email: " . $contactperson['email'];
             echo "<br>";
-            echo "Phone number: " . $resident['firstname'];
+            echo "Phone number: " . $contactperson['phonenumber'];
             echo "<br>";
-            echo "Relation: ".$resident['firstname'];
+            echo "Relation: ".$contactperson['relation'];
             ?>
         </div>
     </div>
