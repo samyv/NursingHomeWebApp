@@ -129,7 +129,8 @@
                 <option value="other">other</option>
             </select>
             <input type="text" name="relation" id="relation" style='display:none;' class="form-control" placeholder="Enter your relation"/>
-			<span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
+			<span class="infcon"><a href="#" id="CIModal">Add existing Contactperson</a></span>
+			<button type="button" class="xbut">X</button>
 
 		</div>
         <div class="buttons">
@@ -145,6 +146,7 @@
 	$(function () {
 		populate();
 		init();
+
 	});
     function checkChoice(val){
         var element=document.getElementById('relation');
@@ -225,13 +227,28 @@
 
 	function init() {
 		$('#myTable tbody').on('click', 'tr', function() {
-			// var id_td = this.firstChild;
-			// var test = id_td.innerHTML;
-			// var contact = database.filter(e => e.idContactInformation = test);
-			// console.log(contact);
 			$(".contact").prop('disabled', true);
+			var id_td = this.firstChild;
+			var test = id_td.innerHTML;
+			var contact = database.filter(e => e.idContactInformation == test)[0];
+			console.log(contact)
 			$('#information-contactperson-modal-content').fadeOut('fast');
+			$('[name="first_name"]').val(contact.firstname);
+			$('[name="last_name"]').val(contact.lastname);
+			$('[name="email"]').val(contact.email);
+			$('[name="phone"]').val(contact.phonenumber);
+			$('.xbut').toggle();
+			$('#CIModal').hide();
+		})
 
+		$('.xbut').on('click',function () {
+			$('.xbut').toggle();
+			$('#CIModal').show();
+			$(".contact").prop('disabled', false);
+			$('[name="first_name"]').val("");
+			$('[name="last_name"]').val("");
+			$('[name="email"]').val("");
+			$('[name="phone"]').val("");
 		})
 	}
 	$(document).ready(function () {

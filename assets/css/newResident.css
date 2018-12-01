@@ -129,3 +129,7 @@ input[type=submit]:hover,input[type=button]:hover{
 	transform: translate(-50%, -50%);
 	width: 50%;
 }
+
+.xbut{
+	display: none;
+}
