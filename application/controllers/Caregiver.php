@@ -289,6 +289,11 @@ class Caregiver extends CI_Controller
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
 
+        $cond = array();
+        $cond['table'] = 'a18ux02.ContactPerson';
+        $contactpersons = $this->caregivers->getRows($cond)->result();
+
+        $data['contactpersons'] = json_decode(json_encode($contactpersons),true);
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'required');
             $this->form_validation->set_rules('lastname', 'Name', 'required');

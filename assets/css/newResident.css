@@ -89,9 +89,43 @@ input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
 }
 
-select option:hover,
-select option:focus,
-select option:active {
-    outline: none;
+.modal{
+	display: none;
+	position: absolute;
 }
 
+.modal-header {
+	display: block !important;
+	align-items: center !important;
+}
+
+.info-contact {
+	margin: 10px 20px 10px 20px;
+}
+
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.info {
+	grid-area: info;
+}
+
+#information-contactperson-modal-content{
+	display: none;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+}

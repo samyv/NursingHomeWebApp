@@ -27,10 +27,10 @@
 
 
 <script>
-	window.onload = function (ev) {
+	$(function() {
 		populate();
 		init();
-	};
+	});
 	var list,name;
 	function search() {
 		var input, filter, table, i;
@@ -53,8 +53,7 @@
 		}
 	}
 
-	function populate()
-	{
+	function populate() {
 		var database = "";
 		database = <?php echo json_encode($listCar)?>;
 		var table = document.getElementById("myTable");

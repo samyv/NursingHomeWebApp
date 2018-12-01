@@ -21,23 +21,7 @@
 <!--		<img src="https://i.pinimg.com/originals/d0/dd/2c/d0dd2c8bb30ef5281ebb4472f1cc71fa.jpg" />-->
 	</div>
 
-    <div class="modal-content" id="information-contactperson-modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
-        </div>
-        <div class="info-contact">
-            <?php
-            echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
-            echo "<br>";
-            echo "Email: " . $contactperson['email'];
-            echo "<br>";
-            echo "Phone number: " . $contactperson['phonenumber'];
-            echo "<br>";
-            echo "Relation: ".$contactperson['relation'];
-            ?>
-        </div>
-    </div>
+
 
 	<div class="info">
 		<?php
@@ -74,6 +58,23 @@
 	</div>
 	<div class="print">
 		<input type="submit" value="Print">
+	</div>
+	<div class="modal-content" id="information-contactperson-modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+		</div>
+		<div class="info-contact">
+			<?php
+			echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
+			echo "<br>";
+			echo "Email: " . $contactperson['email'];
+			echo "<br>";
+			echo "Phone number: " . $contactperson['phonenumber'];
+			echo "<br>";
+			echo "Relation: ".$contactperson['relation'];
+			?>
+		</div>
 	</div>
 </div>
 
