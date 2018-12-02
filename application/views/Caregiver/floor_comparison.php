@@ -7,6 +7,8 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <script src="http://d3js.org/d3.v4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
 </head>
 
 <body>
@@ -40,10 +42,59 @@
 
     <div class = "graph">
     </div>
+
+    <div class="radarChart"></div>
+
+    <script src="javascript/radarChart.js"></script>
+    <script>
+        var margin = {top: 100, right: 100, bottom: 100, left: 100},
+            width = Math.min(1000, window.innerWidth) - margin.left - margin.right,
+            height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+        var data = [
+            [//veiligheid
+                {axis:"Floor 1",value:0.22},
+                {axis:"Floor 2",value:0.28},
+                {axis:"Floor 3",value:0.29},
+                {axis:"Floor 4",value:0.17},
+                {axis:"Floor 5",value:0.22}
+            ],[//eten
+                {axis:"Floor 1",value:0.52},
+                {axis:"Floor 2",value:0.68},
+                {axis:"Floor 3",value:0.29},
+                {axis:"Floor 4",value:0.99},
+                {axis:"Floor 5",value:0.79}
+            ],[//Nokia Smartphone
+                {axis:"Floor 1",value:0.82},
+                {axis:"Floor 2",value:0.77},
+                {axis:"Floor 3",value:0.65},
+                {axis:"Floor 4",value:0.33},
+                {axis:"Floor 5",value:0.85}
+            ]
+        ];
+        //////////////////////////////////////////////////////////////
+        //////////////////// Draw the Chart //////////////////////////
+        //////////////////////////////////////////////////////////////
+
+        var color = d3.scale.ordinal()
+            .range(["#EDC951","#CC333F","#00A0B0"]);
+
+        var radarChartOptions = {
+            w: width,
+            h: height,
+            margin: margin,
+            maxValue: 1,
+            levels: 5,
+            roundStrokes: true,
+            color: color
+        };
+        //Call function to draw the Radar chart
+        RadarChart(".radarChart", data, radarChartOptions);
+    </script>
+
 </div>
 
 <script>
-
     $(document).ready(function () {
         $('.floorbtn').click(myFunction)
     })
@@ -72,6 +123,7 @@
         }
     }
 </script>
+
 </body>
 </html>
 
@@ -171,8 +223,6 @@
             .attr("d", line)
             .on("mouseover", mouseEnter)
             .on("mouseout", mouseLeave);
-
-
     }
 
     g.append("g")
@@ -215,9 +265,6 @@
 
         d3.select("#t" +notificationid).remove();
     }
-
-
-
 
     function getMaximum(collection)
     {
