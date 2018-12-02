@@ -7,13 +7,13 @@
     grid-template-rows: 2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-            ". . resident resident . . . extra extra . . ."
-            ". . firstname firstname_input  . . . contact contact_input . . ."
-            ". . lastname lastname_input  . . . email email_input . . ."
-            ". . birthday birthday_input  . . .  phone phone_input . . ."
-            ". . gender gender_input . . . buttons buttons . . ."
-            ". . floor floor_input  . . . . . . . ."
-            ". . room room_input . . . . . . . ."
+            ". .  . resident resident . . extra extra . . ."
+            ". . . firstname firstname_input  . . first_name first_name_input . . ."
+            ". . . lastname lastname_input . . last_name last_name_input . . ."
+            ". . . birthday birthday_input . .  email email_input . . ."
+            ". . . gender gender_input . . phone phone_input . . ."
+            ". . . floor floor_input . . buttons buttons . . ."
+            ". . . room room_input . . . . . . ."
 }
 
 .firstname { grid-area: firstname; }
@@ -28,8 +28,12 @@
 
 .room {grid-area: room;}
 
-.contact_name {
-    grid-area: contact; }
+.contact_first_name {
+    grid-area: first_name;
+}
+.contact_last_name {
+    grid-area: last_name;
+}
 
 .email { grid-area: email; }
 
@@ -53,10 +57,14 @@
 
 .room_input { grid-area: room_input; }
 
-.contact_name_input {
-    grid-area: contact_input;
+.cp_first_name_input{
+    grid-area: first_name_input;
     width: 190px;
 }
+.cp_last_name_input{
+     grid-area: last_name_input;
+     width: 190px;
+ }
 
 .email_input { grid-area: email_input; }
 

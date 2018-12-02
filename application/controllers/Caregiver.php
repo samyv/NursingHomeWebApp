@@ -15,6 +15,7 @@ class Caregiver extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->model('caregivers');
+		$this->load->model('residents');
 		$this->load->library('session');
 		$this->load->model('dropdownmodel');
 		$this->load->database('default');
@@ -290,11 +291,17 @@ class Caregiver extends CI_Controller
         $this->parser->parse('templates/header',$data);
 
         if($this->input->post('saveSettings')){
-            $this->form_validation->set_rules('firstname', 'Name', 'required');
-            $this->form_validation->set_rules('lastname', 'Name', 'required');
-            $this->form_validation->set_rules('birthdate','Date','required|callback_date_valid');
-            $this->form_validation->set_rules('floor', 'Number', 'required|required|is_natural');
-            $this->form_validation->set_rules('room', 'Number', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('birthdate','Date','trim|required|callback_date_valid|xss_clean');
+            $this->form_validation->set_rules('floor', 'Number', 'trim|required|required|is_natural|xss_clean');
+            $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean');
+            $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
+
+
 
             if($this->form_validation->run() == true){
                 $dataResident = array(
@@ -303,7 +310,11 @@ class Caregiver extends CI_Controller
                     'birthdate' => strip_tags($this->input->post('birthdate')),
                     'floor' => strip_tags($this->input->post('floor')),
                     'room' => strip_tags($this->input->post('room')),
-                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f')
+                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f'),
+                    'cp_first_name' =>strip_tags($this->input->post('cp_first_name')),
+                    'cp_last_name' =>strip_tags($this->input->post('cp_last_name')),
+                    'cp_email' =>strip_tags($this->input->post('cp_email')),
+                    'cp_phone' =>strip_tags($this->input->post('cp_phone')),
                 );
                 $this->residents->insert($dataResident);
             }
@@ -521,6 +532,21 @@ class Caregiver extends CI_Controller
             }
         }
     }
+
+    public function regex_check($str)
+    {
+        if (preg_match('/^((\+|00)32\s?|0)4(60|[789]\d)((\s?\d{2}){3})|((\s?\d{3}){2})/', trim($str))||preg_match('/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/', trim($str)))
+        {
+            return TRUE;
+        }
+        else
+        {
+            $this->form_validation->set_message('regex_check', 'The %s field is not valid!');
+            return FALSE;
+        }
+    }
+
+
 
 
 }
