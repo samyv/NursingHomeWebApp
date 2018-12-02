@@ -391,6 +391,14 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['resident'] = $result['result_object'][0];
+
+        $cond['table'] = "a18ux02.ContactPerson";
+        $cond['where'] = array('idContactInformation' => $result['result_object'][0]["FK_ContactPerson"] );
+        $row = $this->caregivers->getRows($cond);
+        $result = json_decode(json_encode($row), true);
+        $data['contactperson'] = $result['result_object'][0];
+
+
         $this->load->view('templates/header');
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);

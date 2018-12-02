@@ -5,33 +5,16 @@ body{
 
 .grid-container {
 	display: grid;
-	width: 100vw;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 2fr 2fr 0.5fr 0.5fr;
+	grid-template-rows: 1fr 1fr 0.5fr;
 	grid-template-areas:
 	"picture picture picture visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
 	"info info info visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
-
-	"back_buttons back_buttons back_buttons hint hint hint hint hint hint hint print print"
-	"back_buttons back_buttons back_buttons hint hint hint hint hint hint hint print print";
+	"hint hint hint hint hint hint hint hint hint hint print print"
 }
 .picture {
 	grid-area: picture;
 	background-color: floralwhite;
-}
-
-.info {
-	grid-area: info;
-	background-color: skyblue;
-}
-
-.back_buttons {
-	grid-area: back_buttons;
-	background-color: cornflowerblue;
-}
-.toolbar {
-	grid-area: toolbar;
-	background-color: navajowhite;
 }
 
 .visualisation {
@@ -44,7 +27,6 @@ body{
 }
 
 .hint {
-	margin: 5px;
 	grid-area: hint;
 	background-color: lightseagreen;
 	border: 3px outset #000000;
@@ -52,7 +34,6 @@ body{
 }
 
 .print {
-	margin: 10px;
 	grid-area: print;
 	background-color: blue;
 }
@@ -62,10 +43,50 @@ body{
 	position: relative;
 	/*display: bloc	k;*/
 	width: 100%;
-
 	height: 100%;
 	height: available;
 	border: none;
 	cursor: pointer;
 	text-align: center;
+}
+
+.modal{
+	display: none;
+	position: absolute;
+}
+
+.modal-header {
+	display: block !important;
+	align-items: center !important;
+}
+
+.info-contact {
+	margin: 10px 20px 10px 20px;
+}
+
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.info {
+	grid-area: info;
+}
+
+#information-contactperson-modal-content{
+	display: none;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 25%;
 }
