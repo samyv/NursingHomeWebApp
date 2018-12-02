@@ -541,6 +541,10 @@ class Caregiver extends CI_Controller
         }
     }
 
+
+    /*
+     * This function checks if a phone number is in the correct format
+     */
     public function regex_check($str)
     {
         if (preg_match('/^((\+|00)32\s?|0)4(60|[789]\d)((\s?\d{2}){3})|((\s?\d{3}){2})/', trim($str))||preg_match('/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/', trim($str)))
@@ -549,7 +553,7 @@ class Caregiver extends CI_Controller
         }
         else
         {
-            $this->form_validation->set_message('regex_check', 'The %s field is not valid!');
+            $this->form_validation->set_message('regex_check', 'The %s field is not in the right format');
             return FALSE;
         }
     }
