@@ -139,6 +139,7 @@
                 await sleep(awaitTime);
                 checkIfLastQuestion(index);
                 if(currentType !== nextType){
+                    index++;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
                 } else {
                     getTotalNum(index);
@@ -154,6 +155,7 @@
                 await sleep(awaitTime);
                 checkIfLastQuestion(index);
                 if(currentType !== nextType){
+                    index++;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
                 } else {
                     getTotalNum(index);
@@ -169,6 +171,7 @@
                 await sleep(awaitTime);
                 checkIfLastQuestion(index);
                 if(currentType !== nextType){
+                    index++;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
                 } else {
                     getTotalNum(index);
@@ -184,6 +187,7 @@
                 await sleep(awaitTime);
                 checkIfLastQuestion(index);
                 if(currentType !== nextType){
+                    index++;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
                 } else {
                     getTotalNum(index);
@@ -199,6 +203,7 @@
                 await sleep(awaitTime);
                 checkIfLastQuestion(index);
                 if(currentType !== nextType){
+                    index++;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
                 } else {
                     getTotalNum(index);
