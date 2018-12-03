@@ -19,7 +19,7 @@
 
     <img id="logoImg" src="http://localhost/a18ux02/assets/images/{image}">
 
-    <button id="continue" onclick="location.href='<?php echo base_url()?>resident/questionpage/{index}'">Continue</button>
+    <button id="continue" onclick="location.href='<?=base_url();?>resident/questionpage/{index}'">Continue</button>
 
 </div>
 

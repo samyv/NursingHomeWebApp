@@ -42,6 +42,7 @@ class QuestionModel extends CI_Model
         {
             $text = $row['questionType'];
         }
+
         return $text;
     }
 
@@ -50,13 +51,13 @@ class QuestionModel extends CI_Model
 
         $row = $query->row_array();
 
-        $text = '';
+        $answer = 0;
 
         if (isset($row))
         {
-            $text = $row['answer'];
+            $answer = $row['answer'];
         }
-        return $text;
+        return $answer;
     }
 
 
@@ -158,6 +159,22 @@ class QuestionModel extends CI_Model
         $type = $this->getQuestionType($index);
         $query = $this->db->query("SELECT * FROM a18ux02.Question where questionType = $type");
         return $query->num_rows();
+    }
+
+    function getQuestionnaireID($residentID){
+        if(!is_numeric($residentID) || $residentID<0) return;
+
+        $query = $this->db->get_where('a18ux02.Questionarries', array('Resident_residentID'=>$residentID));
+
+        $row = $query->row_array();
+
+        $questionnaireID = -1;
+
+        if(isset($row)){
+            $questionnaireID = $row['idQuestionarries'];
+        }
+
+        return $questionnaireID;
     }
 
 }
