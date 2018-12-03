@@ -514,5 +514,13 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function newQuestion(){
+        $data = array();
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newQuestion');
+        $data['page_title']='New Question';
 
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/newQuestion', $data);
+
+    }
 }
