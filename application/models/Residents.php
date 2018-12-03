@@ -34,9 +34,26 @@ class residents extends CI_Model
         $floor = $data['floor'];
         $room = $data['room'];
         $gender = $data['gender'];
+        $cp_first_name = $data['cp_first_name'];
+        $cp_last_name = $data['cp_last_name'];
+        $cp_email = $data['cp_email'];
+        $cp_phone = $data['cp_phone'];
+
+
+        $sql = "SELECT idContactInformation FROM a18ux02.ContactPerson where email = '$cp_email' limit 1";
+
+        $result = $this->db->query($sql);
+        if($result != NULL){
+            $row = (array)$result->row();
+            $id = $row['idContactInformation'];
+        }else{
+            $sql = "INSERT INTO a18ux02.ContactPerson (firstname, lastname, email, phonenumber) VALUES ('$cp_first_name','$cp_last_name','$cp_email','$cp_phone')";
+            $this->db->query($sql);
+            $id =$this->db->insert_id();
+        }
 
         //insert user data in resident table
-        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender')";
+        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender,FK_ContactPerson) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender','$id')";
         $insert = $this->db->query($sql);
 
         //return the status

@@ -72,25 +72,36 @@
             <h3>Contact information</h3>
         </div>
 
-        <div class="contact_name">
-            <b>Name: </b>
+        <div class="contact_first_name">
+            <b>First name: </b>
         </div>
-        <div class="contact_name_input">
-            <input type="text" name="full_name"  class = "form-control" placeholder="Enter contact person" required="">
+        <div class="cp_first_name_input">
+            <input type="text" name="cp_first_name"  class = "form-control" placeholder="Enter first name" required="">
+            <?php echo form_error('cp_first_name','<span class="help-block">','</span>'); ?>
+            <br>
+        </div>
+        <div class="contact_last_name">
+            <b>Last name: </b>
+        </div>
+        <div class="cp_last_name_input">
+            <input type="text" name="cp_last_name"  class = "form-control" placeholder="Enter first name" required="">
+            <?php echo form_error('cp_first_name','<span class="help-block">','</span>'); ?>
             <br>
         </div>
         <div class="email">
             <b>Email: </b>
         </div>
         <div class="email_input">
-            <input type="text" name="email" class = "form-control" placeholder="example@example.com">
+            <input type="text" name="cp_email" class = "form-control" placeholder="example@example.com">
+            <?php echo form_error('cp_email','<span class="help-block">','</span>'); ?>
             <br>
         </div>
         <div class="phone">
             <b>Phone nr: </b>
         </div>
         <div class="phone_input">
-            <input type="tel" name="phone" class = "form-control" placeholder="phonenumber">
+            <input type="tel" name="cp_phone" class = "form-control" placeholder="phonenumber">
+            <?php echo form_error('cp_phone','<span class="help-block">','</span>'); ?>
         </div>
         <div class="buttons">
             <input type="submit" value="Add resident" name="saveSettings"/>

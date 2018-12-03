@@ -15,6 +15,7 @@ class Caregiver extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->model('caregivers');
+		$this->load->model('residents');
 		$this->load->library('session');
 		$this->load->model('dropdownmodel');
 		$this->load->database('default');
@@ -148,24 +149,36 @@ class Caregiver extends CI_Controller
 		$data = array();
 		$userData = array();
 		$data['page_title'] = 'Register new caregiver | GraceAge';
+		$cond = array();
+
+		$cond["table"] = "a18ux02.NursingHome";
+		$result = json_decode(json_encode($this->caregivers->getRows($cond)->result(),true));
+		$data['nursingHomes'] = json_decode(json_encode($result),true);
+
 		if ($this->input->post('regisSubmit')) {
+//			print_r($this->input->post());
+			$key = strip_tags($this->input->post('key'));
+			$nursingHomeID = strip_tags($this->input->post('nursingHome'));
 			$this->form_validation->set_rules('firstname', 'Name', 'trim|required');
 			$this->form_validation->set_rules('lastname', 'Name', 'trim|required');
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check|xss_clean');
 			$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
 			$this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
+			$this->form_validation->set_rules('key', 'key', 'trim|required|callback_email_check['. strip_tags($this->input->post('nursingHome')) . ']');
 			if ($this->form_validation->run() == true) {
 				$userData = array(
 					'firstname' => strip_tags($this->input->post('firstname')),
 					'lastname' => strip_tags($this->input->post('lastname')),
 					'email' => strip_tags($this->input->post('email')),
 					'password' => password_hash(trim($this->input->post('password')), PASSWORD_BCRYPT, array("cost" => 13)),
+					'key' => strip_tags($this->input->post('key')),
+					'nursingHome' =>  strip_tags($this->input->post('nursingHome'))
 				);
 				$insert = $this->caregivers->insert($userData);
 				$this->caregivers->send_validation_email($userData);
 				if ($insert) {
 					$this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
-					redirect('index.php');
+//					redirect('index.php');
 				} else {
 					$data['error_msg'] = 'Some problems occured, please try again.';
 				}
@@ -204,6 +217,16 @@ class Caregiver extends CI_Controller
         } else {
             return TRUE;
         }
+    }
+ public function key_check($key,$nursingHomeID)
+    {
+		if ($this->caregivers->checkKey($nursingHomeID,$key)) {
+			return TRUE;
+		} else {
+			$this->form_validation->set_message('email_check', 'Key is incorrect');
+			return FALSE;
+		}
+		return;
     }
 
     public function password_check($str, $id)
@@ -268,11 +291,17 @@ class Caregiver extends CI_Controller
         $this->parser->parse('templates/header',$data);
 
         if($this->input->post('saveSettings')){
-            $this->form_validation->set_rules('firstname', 'Name', 'required');
-            $this->form_validation->set_rules('lastname', 'Name', 'required');
-            $this->form_validation->set_rules('birthdate','Date','required|callback_date_valid');
-            $this->form_validation->set_rules('floor', 'Number', 'required|required|is_natural');
-            $this->form_validation->set_rules('room', 'Number', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('birthdate','Date','trim|required|callback_date_valid|xss_clean');
+            $this->form_validation->set_rules('floor', 'Number', 'trim|required|required|is_natural|xss_clean');
+            $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean');
+            $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
+
+
 
             if($this->form_validation->run() == true){
                 $dataResident = array(
@@ -281,7 +310,11 @@ class Caregiver extends CI_Controller
                     'birthdate' => strip_tags($this->input->post('birthdate')),
                     'floor' => strip_tags($this->input->post('floor')),
                     'room' => strip_tags($this->input->post('room')),
-                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f')
+                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f'),
+                    'cp_first_name' =>strip_tags($this->input->post('cp_first_name')),
+                    'cp_last_name' =>strip_tags($this->input->post('cp_last_name')),
+                    'cp_email' =>strip_tags($this->input->post('cp_email')),
+                    'cp_phone' =>strip_tags($this->input->post('cp_phone')),
                 );
                 $this->residents->insert($dataResident);
             }
@@ -344,22 +377,6 @@ class Caregiver extends CI_Controller
 	}
 
 
-	public function roomView()
-    {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-        $data = array();
-        // parse
-        $this->parser->parse('Caregiver/resident_dashboard_template', $data);
-    }
-
-    public function singleRoomView()
-    {
-        $data = array();
-        // parse
-        $this->parser->parse('Caregiver/singleRoomView', $data);
-    }
 
     public function resDash()
     {
@@ -374,6 +391,16 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['resident'] = $result['result_object'][0];
+
+        $cond['table'] = "a18ux02.ContactPerson";
+        $cond['where'] = array('idContactInformation' => $result['result_object'][0]["FK_ContactPerson"] );
+        $row = $this->caregivers->getRows($cond);
+        $result = json_decode(json_encode($row), true);
+        $data['contactperson'] = $result['result_object'][0];
+
+
+        $this->load->view('templates/header');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
     }
@@ -513,6 +540,25 @@ class Caregiver extends CI_Controller
             }
         }
     }
+
+
+    /*
+     * This function checks if a phone number is in the correct format
+     */
+    public function regex_check($str)
+    {
+        if (preg_match('/^((\+|00)32\s?|0)4(60|[789]\d)((\s?\d{2}){3})|((\s?\d{3}){2})/', trim($str))||preg_match('/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/', trim($str)))
+        {
+            return TRUE;
+        }
+        else
+        {
+            $this->form_validation->set_message('regex_check', 'The %s field is not in the right format');
+            return FALSE;
+        }
+    }
+
+
 
 
 }

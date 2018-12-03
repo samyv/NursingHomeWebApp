@@ -25,7 +25,7 @@
 			<b>First name: </b>
 		</div>
 		<div class="firstname_input">
-			<input type="text" value="<?php echo $caregiver['firstname']; ?>" name="firstname" required="">
+			<input type="text" value="<?php echo $caregiver['firstname']; ?>" class = "form-control" name="firstname" required="">
 			<?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -33,7 +33,7 @@
 			<b>Last name: </b>
 		</div>
 		<div class="lastname_input">
-			<input type="text" value="<?php echo $caregiver['lastname']; ?>" name="lastname" required="">
+			<input type="text" value="<?php echo $caregiver['lastname']; ?>"  class = "form-control"name="lastname" required="">
 			<?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -41,14 +41,14 @@
 			<b>Floor: </b>
 		</div>
 		<div class="floor_input">
-			<input type="number" min="0" value="<?php echo $caregiver['floor']; ?>" name="floor" required="">
+			<input type="number" min="0" value="<?php echo $caregiver['floor']; ?>"  class = "form-control" name="floor" required="">
 			<?php echo form_error('floor','<span class="help-block">','</span>'); ?>
 		</div>
 		<div class="email">
 			<b>Email: </b>
 		</div>
 		<div class="email_input">
-			<input type="email" value="<?php echo $caregiver['email']; ?>" name="email" required="">
+			<input type="email" value="<?php echo $caregiver['email']; ?>"  class = "form-control" name="email" required="">
 			<?php echo form_error('email','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -56,7 +56,7 @@
 			<b>Old password: </b>
 		</div>
 		<div class="old_pass_input">
-			<input type="password" name="old_password" placeholder="Enter old password" required="">
+			<input type="password" name="old_password" class = "form-control" placeholder="Enter old password" required="">
 			<?php echo form_error('old_password','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -64,7 +64,7 @@
 			<b>New password: </b>
 		</div>
 		<div class="new_pass_input">
-			<input type="password" name="new_password" placeholder="Enter new password">
+			<input type="password" name="new_password" class = "form-control" placeholder="Enter new password">
 			<?php echo form_error('new_password','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -72,14 +72,15 @@
 			<b>Confirm password: </b>
 		</div>
 		<div class="conf_pass_input">
-			<input type="password" name="conf_password" placeholder="Confirm new password">
+			<input type="password" name="conf_password"  class = "form-control" placeholder="Confirm new password">
 			<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 		</div>
+        <div class="buttons">
+            <input type="submit" value="Save changes" name="saveSettings"/>
+            <input type="button" value="Cancel" onclick="location.href='account'"/>
+        </div>
 	</div>
-	<div class="buttons">
-		<input type="submit" value="Save changes" name="saveSettings"/>
-		<input type="button" value="Cancel" onclick="location.href='account'"/>
-	</div>
+
 </form>
 </body>
 </html>
