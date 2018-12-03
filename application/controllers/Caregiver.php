@@ -93,6 +93,7 @@ class Caregiver extends CI_Controller
      */
 	public function index()
 	{
+		$this->caregivers->sendEmails();
 		$data = array();
 		$data['page_title'] = 'Login caregiver | GraceAge';
 		if ($this->session->userdata('isUserLoggedIn')) {

@@ -5,8 +5,8 @@
 <body>
 <div class = "grid-container">
 
-	<div class = "title">
-		<p>Please select the desired resident</p>
+<!--	<div class = "title">-->
+		<p>Please select the desired room</p>
 	</div>
 </div>
 </body>
@@ -49,8 +49,7 @@
 					console.log(residents.filter(e => e.room == nummer))
 					let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))]
 					sessionStorage.setItem("residentSelected",room['residentID'])
-                    console.log(sessionStorage);
-					location.href='resDash/?id='+room['residentID'];
+					location.href='roomView';
 
 				})
 				let name = $("<h3></h3>").text(found[j-1]['firstname']);
