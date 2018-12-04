@@ -595,7 +595,7 @@ class Caregiver extends CI_Controller
     public function cp_check($str){
         $checkEmail = $this->residents->lookUpEmail($str);
         if ($checkEmail > 0) {
-            $this->form_validation->set_message('cp_check', 'The given contact person already exists, please select it from the list');
+            $this->form_validation->set_message('cp_check', 'There is already a contact person with that email, please select it from the list.');
             return FALSE;
         } else {
             return TRUE;

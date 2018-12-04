@@ -64,4 +64,11 @@ class residents extends CI_Model
         }
     }
 
+    function lookUpEmail($params)
+    {
+        $sql = "SELECT * FROM a18ux02.ContactPerson WHERE email = '$params'";
+        $result = $this->db->query($sql)->result();
+        return count($result);
+    }
+
 }
