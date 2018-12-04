@@ -69,9 +69,9 @@
 	<div class="visualisation">
 		<div id="chart">
             <select class="custom-select selectQuestionnaire">
-                {questionnaires}
-                <option value="{idQuestionnaires}">{timestamp}</option>
-                {/questionnaires}
+                <?php foreach ($questionnaires as $questionnaire){?>
+                <option value="<?php echo $questionnaire['idQuestionnaires'];?>"><?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y')?></option>
+                <?php }?>
             </select>
         </div>
 	</div>
