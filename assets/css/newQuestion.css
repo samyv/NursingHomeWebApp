@@ -4,24 +4,34 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 5em 1.2fr 5em 1.2fr 1.2fr 1fr;
+    grid-template-rows: 5em 5em 1.2fr 5em 1.2fr 1.2fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-            ". . section section . . . . . . . ."
-            ". . section_input section_input  . . . . . . . ."
-            ". . question question  . . . . . . . ."
-            ". . question_input question_input  . . .  . . . . ."
+            ". . section section section section section section section section . ."
+            ". . section_input section_input section_input section_input section_input section_input section_input section_input . ."
+            ". . question question question question question question question question . ."
+            ". . question_input question_input question_input question_input question_input question_input question_input question_input . ."
             ". . buttons buttons . . . . . . . ."
-            "footer footer footer footer footer footer footer footer footer footer footer footer"
 
 }
 
-.section{grid-area: section;}
+.header { grid-area: headerr; }
 
-.section_input{grid-area: section_input;}
+.section{
+    grid-area: section;
+    align-self: center;
+}
 
-.question{grid-area: question;}
+.section_input{ grid-area: section_input;}
 
-.question_input{grid-area: question_input;}
+.question{
+    grid-area: question;
+    align-self: center;
+}
 
-.buttons{grid-area: buttons;}
+.question_input{ grid-area: question_input;}
+
+.buttons{
+    grid-area: buttons;
+    align-self: center;
+}
