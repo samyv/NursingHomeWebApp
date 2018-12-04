@@ -33,9 +33,19 @@ body{
     grid-area: logo;
     background-color: #94b7a0;
     grid-gap: 0;
-    padding-top: 5em;
+    padding-top: 6em;
     padding-bottom: 1em;
     line-height: 3em;
+}
+#tile{
+    font-size : 6em;
+}
+
+#subtitle{
+    font-size : 2em;
+}
+#roomNum{
+    font-size : 2em;
 }
 
 .form {

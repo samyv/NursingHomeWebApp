@@ -11,15 +11,15 @@
 <body>
   <div class="grid-container">
      <div class="logo">
-        <h1>GraceAge</h1>
-        <h2>Providing better care</h2>
+        <h1 id="tile">GraceAge</h1>
+        <h2 id="subtitle">Providing better care</h2>
      </div>
 
 <!-- form to submit the room number -->
      <div class="form">
         <form action="" method="POST">
             <div class="form-group">
-                <label for="roomField"><b>Room number</b></label>
+                <label for="roomField" id = "roomNum"><b>Room number</b></label>
                 <input type="number" min="0" placeholder="Enter room number" name="room_number" required="">
                 <?php echo form_error('room_number','<span class="help-block">','</span>'); ?>
             </div>
