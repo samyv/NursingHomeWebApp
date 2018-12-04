@@ -324,7 +324,7 @@ class Caregiver extends CI_Controller
                 // Define file rules
 
                 $config['upload_path']          = './upload/';
-                $config['allowed_types']        = 'gif|jpg|png';
+                $config['allowed_types']        = 'jpg';
                 $config['max_size']             = 100;
                 $config['max_width']            = 1024;
                 $config['max_height']           = 1024;
@@ -336,13 +336,11 @@ class Caregiver extends CI_Controller
                     echo $this->upload->display_errors();
                 } else {
                     $data = $this->upload->data();
-                    $imagename = $data['file_name'];
-                    $pictureid = $this->upl->create($imagename);
-                    $dataResident['pictureID'] = $pictureid;
+                    $dataResident['filepath'] = $data['full_path'];
+                    $dataResident['mime'] = $data['file_type'];
+                    $this->residents->insert($dataResident);
                 }
-                $this->residents->insert($dataResident);
             }
-
         }
         $data['resident'] = $dataResident;
         //load the view
@@ -408,8 +406,8 @@ class Caregiver extends CI_Controller
         $idResident = $_GET['id'];
         $data = array();
         $cond = array();
-		$cond['table'] = "a18ux02.Resident";
-        $cond['where'] = array('residentID' => $_GET['id']);
+		$cond['table'] = "a18ux02.Resident INNER JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
+        $cond['where'] = array('a18ux02.Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['resident'] = $result['result_object'][0];
@@ -420,9 +418,12 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
+        print_r($data);
+
         /*
          * get all the questionnaires from the current Resident
          */
+        /*
         $cond['table'] = "a18ux02.Questionnaires";
         $cond['where'] = array('Resident_residentID'=> $_GET['id'],
                                 'completed' => 1,
@@ -432,12 +433,14 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond)->result();
         $result = json_decode(json_encode($row), true);
         $data['questionnaires'] = $result;
-
+*/
 
 
         /*
          * get the answers from the selected questionnaire
          */
+
+        /*
         if(!isset($_GET['idQuestionnaire'])){
             redirect('resDash/?id='.$idResident.'&idQuestionnaire='.$result["0"]["idQuestionnaires"]);
         }else{
@@ -450,6 +453,7 @@ class Caregiver extends CI_Controller
             print_r($result);
         }
 
+        */
 
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('templates/header',$data);

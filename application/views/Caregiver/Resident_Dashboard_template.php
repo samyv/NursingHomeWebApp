@@ -18,7 +18,7 @@
 <div class="grid-container">
 	<div class="picture">
 		PICTURE
-<!--		<img src="https://i.pinimg.com/originals/d0/dd/2c/d0dd2c8bb30ef5281ebb4472f1cc71fa.jpg" />-->
+		<img src="data:image/jpg;base64, <?php echo $resident['picture'];?>" />
 	</div>
 
     <div class="modal-content" id="information-contactperson-modal-content">
@@ -38,6 +38,7 @@
             ?>
         </div>
     </div>
+
 
 	<div class="info">
 		<?php
