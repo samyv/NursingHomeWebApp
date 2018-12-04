@@ -81,8 +81,17 @@ class Resident extends CI_Controller
         $currentType = $this->QuestionModel->getQuestionType($index);
         $data['currentType'] = $currentType;
 
-        $data['currentNum'] = 0;
-        $data['percentage'] = sprintf("%01.0f", (0/$totalNum)*100).'%';
+        $residentID = $_SESSION['Resident']['residentID'];
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($residentID);
+        if($questionnaireId == -1) {
+            return;
+        }
+        $answer = $this->QuestionModel->getAnswer($questionnaireId,$index);
+        $pos = $this->QuestionModel->getQuestionPosition($index);
+        if($answer == 0) $currentNum = $pos-1;
+        else $currentNum = $pos;
+        $data['currentNum'] = $currentNum;
+        $data['percentage'] = sprintf("%01.0f", ($currentNum/$totalNum)*100).'%';
         $this->parser->parse('Resident/questionPage', $data);
     }
 

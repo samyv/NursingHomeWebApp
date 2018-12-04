@@ -197,4 +197,18 @@ class QuestionModel extends CI_Model
         return $re;
     }
 
+    function getQuestionPosition($questionID){
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$questionID));
+
+        $row = $query->row_array();
+
+        $pos = 0;
+
+        if(isset($row)){
+            $pos = $row['positionNum'];
+        }
+
+        return $pos;
+    }
+
 }
