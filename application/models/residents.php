@@ -38,17 +38,27 @@ class residents extends CI_Model
         $cp_last_name = $data['cp_last_name'];
         $cp_email = $data['cp_email'];
         $cp_phone = $data['cp_phone'];
-        $pictureid = $data['pictureID'];
+        $mime = $data['mime'];
+
+        $blob = fopen($data['filepath'], 'rb');
 
 
         // insert contact person in DB
+
+
+        $sql = "INSERT INTO a18ux02.Pictures (pictureMime, picture) VALUES ('$mime', :data)";
+        $stmt = $this->db->conn_id->prepare($sql);
+        $stmt->bindParam(':data', $blob, PDO::PARAM_LOB);
+        $stmt->execute();
+        $pictureid =$this->db->insert_id();
+
         $sql = "INSERT INTO a18ux02.ContactPerson (firstname, lastname, email, phonenumber) VALUES ('$cp_first_name','$cp_last_name','$cp_email','$cp_phone')";
         $this->db->query($sql);
-        $id =$this->db->insert_id();
+        $idcp =$this->db->insert_id();
 
 
         //insert resident in resident table
-        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender,FK_ContactPerson, pictureId) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender','$id','$pictureid')";
+        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender,FK_ContactPerson, pictureId) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender','$idcp','$pictureid')";
         $insert = $this->db->query($sql);
 
         //return the status

@@ -17,8 +17,9 @@
 
 <div class="grid-container">
 	<div class="picture">
-		PICTURE
-		<img src="data:image/jpg;base64, <?php echo $resident['picture'];?>" />
+        <?php if(isset($resident['picture'])){ ?>
+		<img src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
+        <?php }?>
 	</div>
 
     <div class="modal-content" id="information-contactperson-modal-content">

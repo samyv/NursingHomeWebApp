@@ -188,8 +188,6 @@ Class Caregivers extends CI_Model
 
 		$result = $this->db->query($sql);
 
-		print_r($result);
-
 		$data = array();
 		if(array_key_exists("return_type",$conditions) && $conditions['return_type'] != 'all'){
 			switch($conditions['return_type']){
@@ -372,6 +370,39 @@ Class Caregivers extends CI_Model
         return $row['idNotes'];
     }
 
+
+    public function getResidentDashboardInfo($conditions = array())
+    {
+//		echo "init";
+        $userTbl = $conditions["table"];
+        $sql = 'SELECT ';
+        $sql .= array_key_exists("select",$conditions)?$conditions['select']:'*';
+        $sql .= ' FROM '.$userTbl;
+        if(array_key_exists("where",$conditions)){
+            $sql .= ' WHERE ';
+            $i = 0;
+            foreach($conditions['where'] as $key => $value){
+                $pre = ($i > 0)?' AND ':'';
+                $sql .= $pre.$key." = '".$value."'";
+                $i++;
+            }
+        }
+        if(array_key_exists("order",$conditions)){
+            $sql .= 'ORDER BY ';
+            $sql .= $conditions['orderColumn'];
+            $sql .= ' ';
+            $sql .= $conditions['order'];
+        }
+
+
+        $stmt = $this->db->conn_id->prepare($sql);
+        $stmt->execute();
+        $result = $stmt->fetchall();
+
+
+
+        return !empty($result)?$result:false;
+    }
 
 
 
