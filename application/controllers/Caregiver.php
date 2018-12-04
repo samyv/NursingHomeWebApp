@@ -413,7 +413,7 @@ class Caregiver extends CI_Controller
 
         $data['questionnaires'] = $result;
 
-        //redirect(base_url()/'resDash/?id='+$_GET['id']+'&idQuestionnaire='+$result['0']['idQuestionnaires']);
+        redirect(base_url()/'resDash/?id='+$_GET['id']+'&idQuestionnaire='+$result['0']['idQuestionnaires']);
         /*
          * get the answers from the selected questionnaire
          */
