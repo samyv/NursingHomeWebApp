@@ -386,6 +386,7 @@ class Caregiver extends CI_Controller
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
+        $idResident = $_GET['id'];
         $data = array();
         $cond = array();
 		$cond['table'] = "a18ux02.Resident";
@@ -410,13 +411,22 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond)->result();
         $result = json_decode(json_encode($row), true);
 
-
         $data['questionnaires'] = $result;
 
-        redirect(base_url()/'resDash/?id='+$_GET['id']+'&idQuestionnaire='+$result['0']['idQuestionnaires']);
+
+
         /*
          * get the answers from the selected questionnaire
          */
+        if(!isset($_GET['idQuestionnaire'])){
+            redirect('resDash/?id='.$idResident.'&idQuestionnaire='.$result["0"]["idQuestionnaires"]);
+        }else{
+            $cond['table'] = "a18ux02.Answers";
+            $cond['where'] = array('questionnairesId'=> $_GET['idQuestionnaire']);
+            $row = $this->caregivers->getRows($cond)->result();
+            $result = json_decode(json_encode($row), true);
+            print_r($result);
+        }
 
 
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');

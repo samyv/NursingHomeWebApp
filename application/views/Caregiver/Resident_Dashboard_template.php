@@ -70,7 +70,7 @@
 		<div id="chart">
             <select class="custom-select selectQuestionnaire">
                 {questionnaires}
-                <option value="{idQuestionarries}">{timestamp}</option>
+                <option value="{idQuestionnaires}">{timestamp}</option>
                 {/questionnaires}
             </select>
         </div>
@@ -100,10 +100,13 @@
 
     $(".selectQuestionnaire")
         .change(function () {
-            $idQuestionnaire = $( ".selectQuestionnaire option:selected" );
-
-        })
-        .change();
+            var str = window.location.href;
+            var start = str.search("id=") + 3;
+            var end = str.search("&");
+            var id = str.slice(start, end);
+            $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
+            window.location.assign(window.location.pathname+"?id="+id+"&idQuestionnaire="+$idQuestionnaire)
+        });
 
 </script>
 </html>
