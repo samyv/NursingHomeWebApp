@@ -9,7 +9,7 @@
 </head>
 
 <body>
-<form action="" method="post">
+<?php echo form_open_multipart('Caregiver/newResident');?>
     <div class="grid-container">
         <div class="form-errors">
             <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
@@ -77,6 +77,12 @@
             <input type="number" name="room" class = "form-control" placeholder="Enter room number" min="1"required=""
                    value="<?php echo (isset($_POST['room']) ? $_POST['room'] : ''); ?>">
 
+        </div>
+        <div class="picture_input">
+            <div class="form-group">
+                <b>Upload resident picture</b>
+                <input type="file" name="imageURL"  size="20">
+            </div>
         </div>
 
         <div class = "extra">

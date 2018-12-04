@@ -15,6 +15,11 @@
             ". . . gender gender_input . . phone phone_input . . ."
             ". . . floor floor_input . . buttons buttons . . ."
             ". . . room room_input . . . . . . ."
+            ". . . picture picture . . . . . . ."
+}
+
+.picture_input{
+    grid-area: picture;
 }
 
 .form-errors{

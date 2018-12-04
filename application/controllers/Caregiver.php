@@ -17,9 +17,11 @@ class Caregiver extends CI_Controller
 		$this->load->model('caregivers');
 		$this->load->model('residents');
 		$this->load->library('session');
+
 		$this->load->model('dropdownmodel');
 		$this->load->database('default');
 		$this->load->helper('security');
+		$this->load->model('Upload_model', 'upl');
 	}
 
 	/**
@@ -306,8 +308,6 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
-
-
             if($this->form_validation->run() == true){
                 $dataResident = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
@@ -321,6 +321,25 @@ class Caregiver extends CI_Controller
                     'cp_email' =>strip_tags($this->input->post('cp_email')),
                     'cp_phone' =>strip_tags($this->input->post('cp_phone')),
                 );
+                // Define file rules
+
+                $config['upload_path']          = './upload/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 100;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 1024;
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $imagename = 'no-img.jpg';
+                if (!$this->upload->do_upload('imageURL')) {
+                    $error = array('error' => $this->upload->display_errors());
+                    echo $this->upload->display_errors();
+                } else {
+                    $data = $this->upload->data();
+                    $imagename = $data['file_name'];
+                    $pictureid = $this->upl->create($imagename);
+                    $dataResident['pictureID'] = $pictureid;
+                }
                 $this->residents->insert($dataResident);
             }
 
