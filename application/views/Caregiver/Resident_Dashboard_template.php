@@ -18,6 +18,9 @@
 <div class="grid-container">
 	<div class="picture">
 		PICTURE
+		<?php
+		echo "here";
+		?>
 <!--		<img src="https://i.pinimg.com/originals/d0/dd/2c/d0dd2c8bb30ef5281ebb4472f1cc71fa.jpg" />-->
 	</div>
 
@@ -34,7 +37,6 @@
             echo "<br>";
             echo "Phone number: " . $contactperson['phonenumber'];
             echo "<br>";
-            echo "Relation: ".$contactperson['relation'];
             ?>
         </div>
     </div>
