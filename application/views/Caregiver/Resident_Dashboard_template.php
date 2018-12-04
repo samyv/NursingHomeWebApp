@@ -69,7 +69,13 @@
 	<div class="back_start"></div>
 
 	<div class="visualisation">
-		<div id="chart"></div>
+		<div id="chart">
+            <select class="custom-select selectQuestionnaire">
+                {questionnaires}
+                <option value="{idQuestionarries}">{timestamp}</option>
+                {/questionnaires}
+            </select>
+        </div>
 	</div>
 	<div class="hint">
 		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!!</text>
@@ -93,6 +99,14 @@
             $('#information-contactperson-modal-content').fadeOut('fast');
         })
     });
+
+    $(".selectQuestionnaire")
+        .change(function () {
+            $idQuestionnaire = $( ".selectQuestionnaire option:selected" );
+
+        })
+        .change();
+
 </script>
 </html>
 

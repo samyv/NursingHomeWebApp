@@ -22,7 +22,7 @@ class Caregiver extends CI_Controller
 		$this->load->helper('security');
 	}
 
-	/*
+	/**
      * User account information
      */
 	public function account()
@@ -88,7 +88,7 @@ class Caregiver extends CI_Controller
 		$data['caregiver'] = $userData;
 	}
 
-	/*
+	/**
      * User login
      */
 	public function index()
@@ -141,7 +141,7 @@ class Caregiver extends CI_Controller
 
 	}
 
-	/*
+	/**
      * User registration
      */
 	public function register()
@@ -191,7 +191,7 @@ class Caregiver extends CI_Controller
 
 	}
 
-	/*
+	/**
      * User logout
      */
     public function logout()
@@ -205,7 +205,7 @@ class Caregiver extends CI_Controller
         redirect('index.php');
     }
 
-    /*
+    /**
      * Existing email check during validation
      */
     public function email_check($str)
@@ -218,7 +218,12 @@ class Caregiver extends CI_Controller
             return TRUE;
         }
     }
- public function key_check($key,$nursingHomeID)
+
+    /**
+     * form validation function for the key
+     */
+
+    public function key_check($key,$nursingHomeID)
     {
 		if ($this->caregivers->checkKey($nursingHomeID,$key)) {
 			return TRUE;
@@ -376,8 +381,6 @@ class Caregiver extends CI_Controller
 		$this->parser->parse('Caregiver/floorView', $data);
 	}
 
-
-
     public function resDash()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
@@ -387,7 +390,6 @@ class Caregiver extends CI_Controller
         $cond = array();
 		$cond['table'] = "a18ux02.Resident";
         $cond['where'] = array('residentID' => $_GET['id']);
-//    	$cond['return_type'] = 'single';
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['resident'] = $result['result_object'][0];
@@ -398,9 +400,28 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
+        /*
+         * get all the questionnaires from the current Resident
+         */
+        $cond['table'] = "a18ux02.Questionnaires";
+        $cond['where'] = array('Resident_residentID'=> $_GET['id'],
+                                'completed' => 1,
+                                );
+        $row = $this->caregivers->getRows($cond)->result();
+        $result = json_decode(json_encode($row), true);
 
-        $this->load->view('templates/header');
+
+        $data['questionnaires'] = $result;
+
+        //redirect(base_url()/'resDash/?id='+$_GET['id']+'&idQuestionnaire='+$result['0']['idQuestionnaires']);
+        /*
+         * get the answers from the selected questionnaire
+         */
+
+
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
+        $this->parser->parse('templates/header',$data);
+
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
     }
