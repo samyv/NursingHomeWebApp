@@ -178,6 +178,12 @@ Class Caregivers extends CI_Model
 				$i++;
 			}
 		}
+		if(array_key_exists("order",$conditions)){
+		    $sql .= 'ORDER BY ';
+		    $sql .= $conditions['orderColumn'];
+		    $sql .= ' ';
+		    $sql .= $conditions['order'];
+        }
 
 
 		$result = $this->db->query($sql);

@@ -408,9 +408,10 @@ class Caregiver extends CI_Controller
         $cond['where'] = array('Resident_residentID'=> $_GET['id'],
                                 'completed' => 1,
                                 );
+        $cond['order'] = "DESC";
+        $cond['orderColumn'] = "timestamp";
         $row = $this->caregivers->getRows($cond)->result();
         $result = json_decode(json_encode($row), true);
-
         $data['questionnaires'] = $result;
 
 
