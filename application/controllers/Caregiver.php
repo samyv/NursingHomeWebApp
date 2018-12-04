@@ -303,7 +303,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean');
             $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
-            $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
 
@@ -422,9 +422,11 @@ class Caregiver extends CI_Controller
         if(!isset($_GET['idQuestionnaire'])){
             redirect('resDash/?id='.$idResident.'&idQuestionnaire='.$result["0"]["idQuestionnaires"]);
         }else{
-            $cond['table'] = "a18ux02.Answers";
-            $cond['where'] = array('questionnairesId'=> $_GET['idQuestionnaire']);
-            $row = $this->caregivers->getRows($cond)->result();
+            $condit['table'] = "a18ux02.Answers";
+            $condit['where'] = array('questionnairesId'=> $_GET['idQuestionnaire']);
+            $condit['order'] = "ASC";
+            $condit['orderColumn'] = "questionId";
+            $row = $this->caregivers->getRows($condit)->result();
             $result = json_decode(json_encode($row), true);
             print_r($result);
         }
@@ -590,7 +592,15 @@ class Caregiver extends CI_Controller
         }
     }
 
-
+    public function cp_check($str){
+        $checkEmail = $this->residents->lookUpEmail($str);
+        if ($checkEmail > 0) {
+            $this->form_validation->set_message('cp_check', 'The given contact person already exists, please select it from the list');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
 
 
 }

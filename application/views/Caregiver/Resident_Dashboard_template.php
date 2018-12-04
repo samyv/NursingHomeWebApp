@@ -68,7 +68,7 @@
 
 	<div class="visualisation">
 		<div id="chart">
-            <select class="custom-select selectQuestionnaire">
+            <select class="custom-select selectQuestionnaire" style="width: min-content">
                 <?php foreach ($questionnaires as $questionnaire){?>
                 <option value="<?php echo $questionnaire['idQuestionnaires'];?>" <?php if($_GET['idQuestionnaire']==$questionnaire['idQuestionnaires']){?>selected<?php } ?>>
                     <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y')?>
@@ -109,7 +109,6 @@
             $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
             window.location.assign(window.location.pathname+"?id="+id+"&idQuestionnaire="+$idQuestionnaire)
         });
-
 </script>
 </html>
 
