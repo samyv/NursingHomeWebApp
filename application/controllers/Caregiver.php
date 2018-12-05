@@ -516,11 +516,49 @@ class Caregiver extends CI_Controller
 
     public function newQuestion(){
         $data = array();
+        $cond = array();
+        $cond['table'] = "a18ux02.Section";
+        $row = $this->caregivers->getRows($cond)->result();
+        $result = json_decode(json_encode($row), true);
+
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newQuestion');
         $data['page_title']='New Question';
-
+        $data['sections'] = $result;
+        //print_r()
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/newQuestion', $data);
+
+        if($this->input->post('questionSubmit')){
+            $this->form_validation->set_rules('section', 'Section', 'required');
+            $this->form_validation->set_rules('question', 'Question', 'required');
+
+           /* if($this->form_validation->run() == true){
+                    'section' => strip_tags($this->input->post('section'));
+                    'question' => strip_tags($this->input->post('question'));
+
+                    $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, 'section', 'New section', NULL)";
+                    $insert = $this->db->query($sql);
+
+                    if($insert){
+                        return $insert;
+                    }
+                    else{
+                        return false;
+                    }
+
+                    $sql = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, 'question', 'sectionId', 'nextQuestionId')";
+                    $insert = $this->db->query($sql);
+
+                    if($insert){
+                        return $insert;
+                    }
+                    else{
+                        return false;
+                    }
+
+            }
+            */
+        }
 
     }
 }
