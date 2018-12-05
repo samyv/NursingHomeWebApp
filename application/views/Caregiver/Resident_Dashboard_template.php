@@ -26,6 +26,7 @@
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
         </div>
+
         <div id="info-contact" class="info-contact">
             <?php
             echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
@@ -53,8 +54,6 @@
             value="<?php echo !empty($contactperson['phonenumber'])?$contactperson['phonenumber']:''; ?>">
             <?php echo form_error('phonenumber','<span class="help-block">','</span>'); ?>
         </div>
-
-        <input style="display: none" id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info">
 
         <div class="modal-footer">
             <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info">
@@ -119,9 +118,18 @@
     });
 
     function changeInfo(event){
-        document.getElementById('info-contact').innerHTML = document.getElementById('info-contact-changed').innerHTML;
-        document.getElementById('changeInfo').innerHTML = document.getElementById('saveInfo');
+
+        if (document.getElementById('changeInfo').value == "Change info") {
+            document.getElementById('info-contact').style.display='none';
+            document.getElementById('info-contact-changed').style.display='block';
+            document.getElementById('changeInfo').value = "Save info";
+        } else {
+            document.getElementById('info-contact').style.display='block';
+            document.getElementById('info-contact-changed').style.display='none';
+            document.getElementById('changeInfo').value = "Change info";
+        }
     }
+
 
 </script>
 
