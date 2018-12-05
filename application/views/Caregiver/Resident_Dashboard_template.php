@@ -26,7 +26,7 @@
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
         </div>
-        <div class="info-contact">
+        <div id="info-contact" class="info-contact">
             <?php
             echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
             echo "<br>";
@@ -34,8 +34,30 @@
             echo "<br>";
             echo "Phone number: " . $contactperson['phonenumber'];
             echo "<br>";
-            echo "Relation: ".$contactperson['relation'];
             ?>
+        </div>
+
+        <div id="info-contact-changed" style="display: none">
+            <input type="text" placeholder="Enter firstname" class = "form-control" name="name" required=""
+            value="<?php echo !empty($contactperson['firstname'])?$contactperson['firstname']:''; ?>">
+            <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
+
+            <input type="text" placeholder="Enter lastname" class = "form-control" name="name" required=""
+            value="<?php echo !empty($contactperson['lastname'])?$contactperson['lastname']:''; ?>">
+            <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
+            <input type="text" placeholder="Enter email " class = "form-control" name="email" required=""
+            value="<?php echo !empty($contactperson['email'])?$contactperson['email']:''; ?>">
+            <?php echo form_error('email','<span class="help-block">','</span>'); ?>
+
+            <input type="text" placeholder="Enter phone number " class = "form-control" name="phonenumber" required=""
+            value="<?php echo !empty($contactperson['phonenumber'])?$contactperson['phonenumber']:''; ?>">
+            <?php echo form_error('phonenumber','<span class="help-block">','</span>'); ?>
+        </div>
+
+        <input style="display: none" id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info">
+
+        <div class="modal-footer">
+            <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info">
         </div>
     </div>
 
@@ -81,6 +103,7 @@
 <script src="../javascript/trulia_vis.js"></script>
 
 </body>
+
 <script>
     $(document).ready(function () {
         $('#CIModal').click(function(){
@@ -90,7 +113,17 @@
         $('#closemodal').click(function () {
             $('#information-contactperson-modal-content').fadeOut('fast');
         })
+
+        $('#changeInfo').click(changeInfo)
+
     });
+
+    function changeInfo(event){
+        document.getElementById('info-contact').innerHTML = document.getElementById('info-contact-changed').innerHTML;
+        document.getElementById('changeInfo').innerHTML = document.getElementById('saveInfo');
+    }
+
 </script>
+
 </html>
 
