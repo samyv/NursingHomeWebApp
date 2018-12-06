@@ -1,17 +1,19 @@
 body{
+    margin:0;
     font-family: Verdana;
 }
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 4.5fr 2fr 1fr 1fr;
+    grid-template-rows: 1fr 4.5fr 2fr 1fr 1fr 0.5fr;
     grid-template-areas:
             "name name name name name name name name name name name name"
             ". praise praise praise praise praise praise praise praise praise praise ."
             ". . note note note note note note note note . ."
             ". . . . . home home . . . . ."
-            "previous previous . . . . . . . . . .";
+            "previous previous previous . . . . . . . . ."
+            ". . footer footer footer footer footer footer footer footer . .";;
     width: 100vw;
     height: 100vh;
 }
@@ -37,29 +39,32 @@ body{
 #praise{
     grid-area: praise;
     font-size: 3.5em;
-    margin-top: 2em;
+    margin-top: 1em;
 }
 
 
 #note{
     grid-area: note;
     font-size: 2.5em;
-    margin-top: 4em;
-    margin-bottom: 1em;
+    margin-top: 3em;
+    margin-bottom: 0.5em;
 }
 
 
 #home_btn{
+    height: 1.5em;
     grid-area: home;
     margin-top: 1em;
 }
 
 #previous_btn{
+    height: 1.5em;
     grid-area: previous;
 }
 
 button{
-    size: A3;
+    /*size: A3;*/
+    height: 1.5em;
     font-size: 3em;
     text-align: center;
 
@@ -97,3 +102,8 @@ button:hover{
     background-color: #A5DC86;
 }
 
+#footer{
+    grid-area: footer;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+}

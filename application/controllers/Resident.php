@@ -72,6 +72,7 @@ class Resident extends CI_Controller
 
     public function questionpage($index)
     {
+        $data['totalNum'] = 52;
         $data['index'] = $index;
         $data['question'] = $this->QuestionModel->getQuestion($index);
         $totalNum = $this->QuestionModel->getNumofQuestionInThisSection($index);
@@ -151,7 +152,6 @@ class Resident extends CI_Controller
             redirect('resident/index');
         }
         //load the view
-        print_r($_SESSION['Resident']['residentID']);
         $this->tutorialpage();
     }
 
@@ -167,8 +167,9 @@ class Resident extends CI_Controller
     {
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($sectionID);
         $data['index'] = $questionID+1;
+        $data['sectionID'] = $sectionID;
         $data['image'] = $this->QuestionModel->getImage($sectionID);
-        $this->parser->parse('Resident/sectionPage',$data);
+        $this->load->view('Resident/sectionPage',$data);
     }
 
     public function getFirstQuestionIndex($id =1)
@@ -192,7 +193,8 @@ class Resident extends CI_Controller
     }
 
     public function finalPage(){
-        $data['resident'] = $_SESSION['Resident']['residentID'];
+        $residentNum = $_SESSION['Resident']['residentID'];
+        $data['resident'] = $this->QuestionModel->getResidentFirstName($residentNum);
         $this->parser->parse('Resident/finalpage',$data);
     }
 

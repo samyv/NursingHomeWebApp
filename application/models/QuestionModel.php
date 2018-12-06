@@ -5,7 +5,7 @@
  * Date: 11/13/18
  * Time: 9:08 AM
  */
-
+date_default_timezone_set('Europe/Brussels');
 class QuestionModel extends CI_Model
 {
 
@@ -206,6 +206,20 @@ class QuestionModel extends CI_Model
 
         if(isset($row)){
             $pos = $row['positionNum'];
+        }
+
+        return $pos;
+    }
+
+    function getResidentFirstName($ID){
+        $query = $this->db->get_where('a18ux02.Resident', array('residentID'=>$ID));
+
+        $row = $query->row_array();
+
+        $pos = 0;
+
+        if(isset($row)){
+            $pos = $row['firstname'];
         }
 
         return $pos;
