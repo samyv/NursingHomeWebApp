@@ -56,7 +56,7 @@
         </div>
 
         <div class="modal-footer">
-            <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info">
+            <input id="changeInfo" class="btn btn-block btn-lg" value="Change info" readonly>
         </div>
     </div>
 
