@@ -8,14 +8,15 @@
 ?>
 <html>
 <head>
-	<title>Simple d3js example</title>
+	<title>{page_title}</title>
+	<link rel="stylesheet" href="assets/css/transitions.css">
 	<link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css' />
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="http://d3js.org/d3.v4.js"></script>
 </head>
 <body>
 
-<div class="grid-container">
+<div class="grid-container fade-in">
 	<div class="picture">
         <?php if(isset($resident['picture'])){ ?>
 		<img src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
@@ -106,9 +107,9 @@
 		<input type="submit" value="Print">
 	</div>
 </div>
-
-<script src="../javascript/rawdata.js"></script>
-<script src="../javascript/trulia_vis.js"></script>
+<!---->
+<!--<script src="../javascript/rawdata.js"></script>-->
+<!--<script src="../javascript/trulia_vis.js"></script>-->
 
 </body>
 

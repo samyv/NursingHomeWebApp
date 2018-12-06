@@ -5,10 +5,12 @@
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/transitions.css">
     <title>{page_title}</title>
 </head>
 
 <body>
+<form class ="fade-in" action="" method="post">
 <?php echo form_open_multipart('Caregiver/newResident');?>
     <div class="grid-container">
         <div class="form-errors">

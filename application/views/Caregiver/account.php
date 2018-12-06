@@ -5,10 +5,11 @@
 	<link rel="stylesheet" href="assets/css/bootstrap.css">
 	<link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/transitions.css">
 	<title>{page_title}</title>
 </head>
 <body>
-<form action="" method="post">
+<form class="fade-in" action="" method="post">
 	<?php
 	if(!empty($success_msg)){
 		echo '<p class="statusMsg">'.$success_msg.'</p>';

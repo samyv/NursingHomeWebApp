@@ -7,7 +7,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<title>{page_title}</title>
 </head>
-<body>
+<body class ="fade-in">
 <form action="" method="post">
 	<?php
 	if(!empty($success_msg)){

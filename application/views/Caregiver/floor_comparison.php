@@ -7,10 +7,11 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
     <script src="http://d3js.org/d3.v4.js"></script>
+	<link rel="stylesheet" href="assets/css/transitions.css">
 </head>
 
 <body>
-<div class = "grid-container">
+<div class = "grid-container fade-in">
 
     <div class = "title">
         <p>Select floors to compare</p>
