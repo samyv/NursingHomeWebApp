@@ -17,11 +17,9 @@
 
 <div class="grid-container">
 	<div class="picture">
-		PICTURE
-		<?php
-		echo "here";
-		?>
-<!--		<img src="https://i.pinimg.com/originals/d0/dd/2c/d0dd2c8bb30ef5281ebb4472f1cc71fa.jpg" />-->
+        <?php if(isset($resident['picture'])){ ?>
+		<img src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
+        <?php }?>
 	</div>
 
     <div class="modal-content" id="information-contactperson-modal-content">
@@ -40,6 +38,7 @@
             ?>
         </div>
     </div>
+
 
 	<div class="info">
 		<?php
@@ -70,10 +69,12 @@
 
 	<div class="visualisation">
 		<div id="chart">
-            <select class="custom-select selectQuestionnaire">
-                {questionnaires}
-                <option value="{idQuestionarries}">{timestamp}</option>
-                {/questionnaires}
+            <select class="custom-select selectQuestionnaire" style="width: min-content">
+                <?php foreach ($questionnaires as $questionnaire){?>
+                <option value="<?php echo $questionnaire['idQuestionnaires'];?>" <?php if($_GET['idQuestionnaire']==$questionnaire['idQuestionnaires']){?>selected<?php } ?>>
+                    <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y')?>
+                </option>
+                <?php }?>
             </select>
         </div>
 	</div>
@@ -102,11 +103,13 @@
 
     $(".selectQuestionnaire")
         .change(function () {
-            $idQuestionnaire = $( ".selectQuestionnaire option:selected" );
-
-        })
-        .change();
-
+            var str = window.location.href;
+            var start = str.search("id=") + 3;
+            var end = str.search("&");
+            var id = str.slice(start, end);
+            $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
+            window.location.assign(window.location.pathname+"?id="+id+"&idQuestionnaire="+$idQuestionnaire)
+        });
 </script>
 </html>
 
