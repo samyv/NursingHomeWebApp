@@ -17,8 +17,8 @@
 
     <div id="note">Watch the tutorial video below to see how to log in</div>
 
-    <div id="img">
-        <img src="<?=base_url();?>assets/images/tutorial.jpg">
+    <div id="video">
+        <video src="<?=base_url();?>assets/videos/tutorial.mp4" controls="controls" autoplay="autoplay">The browser does not support the video.</video>
     </div>
 
 

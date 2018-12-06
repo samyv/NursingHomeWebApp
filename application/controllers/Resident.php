@@ -74,11 +74,24 @@ class Resident extends CI_Controller
     {
         $data['index'] = $index;
         $data['question'] = $this->QuestionModel->getQuestion($index);
-        $num = $this->QuestionModel->getNumofQuestionInThisSection($index);
+        $totalNum = $this->QuestionModel->getNumofQuestionInThisSection($index);
+        $data['totalNum'] = $totalNum;
+        $nextType = $this->QuestionModel->getQuestionType($index+1);
+        $data['nextType'] = $nextType;
+        $currentType = $this->QuestionModel->getQuestionType($index);
+        $data['currentType'] = $currentType;
 
-        $data['totalNum'] = $num;
-        $data['currentNum'] = 1;
-        $data['percentage'] = sprintf("%01.0f", (1/$num)*100).'%';
+        $residentID = $_SESSION['Resident']['residentID'];
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($residentID);
+        if($questionnaireId == -1) {
+            return;
+        }
+        $answer = $this->QuestionModel->getAnswer($questionnaireId,$index);
+        $pos = $this->QuestionModel->getQuestionPosition($index);
+        if($answer == 0) $currentNum = $pos-1;
+        else $currentNum = $pos;
+        $data['currentNum'] = $currentNum;
+        $data['percentage'] = sprintf("%01.0f", ($currentNum/$totalNum)*100).'%';
         $this->parser->parse('Resident/questionPage', $data);
     }
 
@@ -103,7 +116,7 @@ class Resident extends CI_Controller
             return;
         }
 
-        $this->QuestionModel->insertIndex($index);
+        $this->QuestionModel->insertIndex($index,$questionnaireId);
         if($answer != null) {
             $this->QuestionModel->insertAnswer($questionnaireId, $index, $answer);
             $this->QuestionModel->insertTimestamp($residentID);
@@ -187,8 +200,15 @@ class Resident extends CI_Controller
         $idResident = $_SESSION['Resident']['residentID'];
         $this->QuestionModel->createQuestionnaires($idResident);
         $currentQuestionIndex = $this->QuestionModel->getIndex($idResident);
-        $currentSectionIndex = $this->QuestionModel->getQuestionType($currentQuestionIndex);
+        $currentSectionIndex = $this->QuestionModel->getQuestionType($currentQuestionIndex+1);
         $this->section($currentSectionIndex, $currentQuestionIndex);
+    }
+
+    public function checkIfLast(){
+        $index = $this->input->post('index');
+        $last = $this->QuestionModel->checkIfLast($index);
+        if(is_numeric($last)) echo 0;
+        else echo 1;
     }
 
 

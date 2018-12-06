@@ -47,11 +47,6 @@
 
 
 <script>
-    // var nextType = document.getElementById("nextType");
-    // var currentType = document.getElementById("currentType");
-    // var currentNum = document.getElementById("currentNum");
-    // var totalNum = document.getElementById("totalNum");
-    // var percentage = document.getElementById("percentage");
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
@@ -59,11 +54,9 @@
     $(document).ready(function(){
         var awaitTime = 200;
         var maxQuestionNr = 50;
-        var nextType;
-        var currentType;
-        var currentNum=1;
-        var totalNum;
         var index = <?= $index?>;
+        var currentType = <?= $currentType?>;
+        var nextType = <?= $nextType?>;
 
 
         function transOldAnswer() {
@@ -85,50 +78,7 @@
                 method:"POST",
                 data:{index:$index,
                     answer:$answer,
-                    },
-                success:function()
-                {
-                    alert("nice");
-                }
-            });
-        }
-
-        function getTotalNum($index){
-            $.ajax({
-                url:'<?=base_url();?>Resident/getTotalNum',
-                method:"POST",
-                data:{index:$index},
-                success:function(i)
-                {
-                    totalNum = i;
-                }
-            });
-            currentNum++;
-            if(currentNum>totalNum){
-                currentNum = 1;
-            }
-
-            // return currentType !== nextType;
-        }
-
-        function checkIfLastQuestion($index){
-            $.ajax({
-                url:'<?=base_url();?>Resident/getNextQuestionType',
-                method:"POST",
-                data:{index:$index},
-                success:function(i)
-                {
-                    nextType = i;
-                }
-            });
-            $.ajax({
-                url:'<?=base_url();?>Resident/getCurrentQuestionType',
-                method:"POST",
-                data:{index:$index},
-                success:function(i)
-                {
-                    currentType = i;
-                }
+                    }
             });
         }
 
@@ -137,11 +87,9 @@
             updateNewAns(index,1);
             if(index+1 < maxQuestionNr) {
                 await sleep(awaitTime);
-                checkIfLastQuestion(index);
-                if(currentType !== nextType){
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    getTotalNum(index);
                     index++;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
@@ -152,11 +100,9 @@
             updateNewAns(index,2);
             if(index+1 < maxQuestionNr) {
                 await sleep(awaitTime);
-                checkIfLastQuestion(index);
-                if(currentType !== nextType){
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    getTotalNum(index);
                     index++;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
@@ -167,11 +113,9 @@
             updateNewAns(index,3);
             if(index+1 < maxQuestionNr) {
                 await sleep(awaitTime);
-                checkIfLastQuestion(index);
-                if(currentType !== nextType){
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    getTotalNum(index);
                     index++;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
@@ -182,11 +126,9 @@
             updateNewAns(index,4);
             if(index+1 < maxQuestionNr) {
                 await sleep(awaitTime);
-                checkIfLastQuestion(index);
-                if(currentType !== nextType){
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    getTotalNum(index);
                     index++;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
@@ -197,11 +139,9 @@
             updateNewAns(index,5);
             if(index+1 < maxQuestionNr) {
                 await sleep(awaitTime);
-                checkIfLastQuestion(index);
-                if(currentType !== nextType){
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/0';
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    getTotalNum(index);
                     index++;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }

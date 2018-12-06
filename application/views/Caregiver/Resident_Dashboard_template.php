@@ -17,8 +17,9 @@
 
 <div class="grid-container">
 	<div class="picture">
-		PICTURE
-<!--		<img src="https://i.pinimg.com/originals/d0/dd/2c/d0dd2c8bb30ef5281ebb4472f1cc71fa.jpg" />-->
+        <?php if(isset($resident['picture'])){ ?>
+		<img src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
+        <?php }?>
 	</div>
 
     <div class="modal-content" id="information-contactperson-modal-content">
@@ -34,10 +35,10 @@
             echo "<br>";
             echo "Phone number: " . $contactperson['phonenumber'];
             echo "<br>";
-            echo "Relation: ".$contactperson['relation'];
             ?>
         </div>
     </div>
+
 
 	<div class="info">
 		<?php
@@ -58,21 +59,22 @@
 		echo "<br>";
 		echo "Kamer: ".$resident['room'];
 		echo "<br>";
-		echo "Allergieën: Geen";
-		echo "<br>";
 		?>
-        <br>
         <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
     </div>
 	<div class="back_start"></div>
 
 	<div class="visualisation">
+        <label>Select a questionnaire:</label>
+        <select class="custom-select selectQuestionnaire" style="width: min-content">
+            <?php foreach ($questionnaires as $questionnaire){?>
+                <option value="<?php echo $questionnaire['idQuestionnaires'];?>" <?php if($_GET['idQuestionnaire']==$questionnaire['idQuestionnaires']){?>selected<?php } ?>>
+                    <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y')?>
+                </option>
+            <?php }?>
+        </select>
 		<div id="chart">
-            <select class="custom-select selectQuestionnaire">
-                {questionnaires}
-                <option value="{idQuestionarries}">{timestamp}</option>
-                {/questionnaires}
-            </select>
+
         </div>
 	</div>
 	<div class="hint">
@@ -100,11 +102,9 @@
 
     $(".selectQuestionnaire")
         .change(function () {
-            $idQuestionnaire = $( ".selectQuestionnaire option:selected" );
-
-        })
-        .change();
-
+            $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
+            window.location.assign(window.location.pathname+"?id=<?php echo $_GET['id']; ?>"+"&idQuestionnaire="+$idQuestionnaire)
+        });
 </script>
 </html>
 
