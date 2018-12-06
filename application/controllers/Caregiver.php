@@ -436,9 +436,11 @@ class Caregiver extends CI_Controller
                                 );
         $cond['order'] = "DESC";
         $cond['orderColumn'] = "timestamp";
-        $row = $this->caregivers->getRows($cond)->result();
-        $result = json_decode(json_encode($row), true);
-        $data['questionnaires'] = $result;
+        if($row = $this->caregivers->getRows($cond)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result), true);
+            $data['questionnaires'] = $result;
+        }
 
 
 
@@ -452,8 +454,10 @@ class Caregiver extends CI_Controller
             $condit['where'] = array('questionnairesId'=> $_GET['idQuestionnaire']);
             $condit['order'] = "ASC";
             $condit['orderColumn'] = "questionId";
-            $row = $this->caregivers->getRows($condit)->result();
-            $result = json_decode(json_encode($row), true);
+            if($row = $this->caregivers->getRows($condit)) {
+                $result = $row->result();
+                $result = json_decode(json_encode($result), true);
+            }
         }
 
 

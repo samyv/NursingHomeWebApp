@@ -20,7 +20,10 @@
 		}
 		rooms = residents.map(a => a.room).filter(unique);
 		var sorted = residents.sort(function(a,b){return a.room - b.room});
+		let parent = $("<div></div>");
+		parent.addClass("roomContainer");
 		for(let i = 1;i<=rooms.length;i++) {
+
 			let room = rooms[i-1]
 			var found = residents.filter(e => e.room == room);
 			//BIG CHILD
@@ -28,6 +31,7 @@
 			let z = room.split("");
 			let roomNumber = "room"+(z[1]==0?'':z[1])+""+z[2];
 			child.addClass(roomNumber);
+			child.addClass("room");
 
 			//NUMBER
 			let number = $("<div></div>");
@@ -66,12 +70,14 @@
 				imagediv.append(image)
 				child.append(imagediv);
 			}
-			$(".grid-container").append(child);
+			parent.append(child);
 
 			function setClick(id) {
 				sessionStorage.setItem("selectedCaregiver",id);
 			}
+
 		}
+		$(".grid-container").append(parent);
 	})
 </script>
 
