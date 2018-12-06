@@ -43,6 +43,16 @@
 
     $(document).ready(function () {
         $('.floorbtn').click(myFunction);
+        $.ajax({
+            url: '<?=base_url()?>caregiver/getFloorData',
+            dataType: 'json',
+            success: function (data) {
+                floordata = data[0];
+                amountOfCategories = parseInt(data[1]);
+                console.log(floordata);
+                draw();
+            }
+        });
     })
 
     function myFunction(event) {
@@ -56,7 +66,6 @@
             x[0].style.display = "none";
         } else {
             x[0].style.display = "inline-grid";
-            getFloorData(event);
         }
     }
 
@@ -66,27 +75,11 @@
             x.style.display = "none";
         } else {
             x.style.display = "inline-grid";
-            getFloorData(event);
         }
     }
 
 
-    function getFloorData(event) {
-        $floorID = $(event.target).attr('id');
-        if(floordata[$floorID]==undefined) {
-            $.ajax({
-                url: '<?=base_url()?>caregiver/getFloorData/?floor=' + $floorID,
-                dataType: 'json',
-                success: function (data) {
-                    floordata[$floorID] = data[0];
-                    amountOfCategories = parseInt(data[1]);
-                    console.log(amountOfCategories);
-                    draw();
-                }
-            });
 
-        }
-    }
     /////////////////////////////////////////////////////////
     //////              D3.JS GRAPH                     /////
     /////////////////////////////////////////////////////////
@@ -102,25 +95,23 @@
     function draw() {
         var collection = [];
         let f = 1;
-        while(f < (floorAmount+1)) {
-            if(floordata[f]!==undefined) {
-                collection[f] = [];
-                for (var a = 1; a < amountOfCategories+1; a++) {
-                    collection[f][a] = [];
-                    for (let i = 0; i < floordata[f].length; i++) {
-                        let j = 0;
-                        if(floordata[f][i]['questionType']==a) {
-                            collection[f][a][j]={};
-                            collection[f][a][j].date = new Date(floordata[f][i]['timestamp']).getTime();
-                            collection[f][a][j].value = parseFloat(floordata[f][i]['answers']);
-                            j++;
-                        }
+        while(f <=(floorAmount)) {
+            let floorcol = [];
+            for (var a = 1; a < amountOfCategories+1; a++) {
+                let catcol=[];
+                for (let i = 0; i < floordata.length; i++) {
+                    if(floordata[i]['questionType']==a &&floordata[i]['floor']==f) {
+                        catcol.push({
+                            date: new Date(floordata[i]['timestamp']).getTime(),
+                            value: parseFloat(floordata[i]['answers'])
+                        });
                     }
+
                 }
-                f++;
-            }else{
-                f++;
+                floorcol.push(catcol);
             }
+            f++;
+            collection.push(floorcol);
 
         }
         console.log(collection);

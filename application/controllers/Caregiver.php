@@ -641,8 +641,7 @@ class Caregiver extends CI_Controller
     }
 
     public function getFloorData(){
-        $floor = $_GET['floor'];
-        $query = "SELECT a18ux02.Questionnaires.timestamp, AVG(a18ux02.Answers.answer) as answers, a18ux02.Resident.floor , a18ux02.Question.questionType
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, a18ux02.Questionnaires.timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
@@ -650,9 +649,8 @@ class Caregiver extends CI_Controller
                         on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
                     INNER JOIN a18ux02.Question
                         on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
-                    WHERE a18ux02.Resident.floor = '$floor'
-                    GROUP BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType
-                    ORDER BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType ASC";
+                    GROUP BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
+                    ORDER BY a18ux02.Resident.floor, a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType ASC";
         if($row = $this->caregivers->executeQuery($query)){
             $result = $row->result();
             $result = json_decode(json_encode($result),true);
