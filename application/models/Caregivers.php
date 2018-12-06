@@ -301,7 +301,7 @@ Class Caregivers extends CI_Model
 			$message .= '<p> Thanks</p>';
 
 			$this->email->message($message);
-			$this->email->send();
+//			$this->email->send();
 		}
 
 	}
@@ -367,7 +367,7 @@ Class Caregivers extends CI_Model
 			$message .= '<p> Thanks</p>';
 
 			$this->email->message($message);
-			$this->email->send();
+//			$this->email->send();
 		}
 
 	}
