@@ -5,7 +5,7 @@
  * Date: 11/13/18
  * Time: 9:08 AM
  */
-
+date_default_timezone_set('Europe/Brussels');
 class QuestionModel extends CI_Model
 {
 
