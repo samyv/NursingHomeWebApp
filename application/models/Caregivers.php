@@ -358,24 +358,39 @@ Class Caregivers extends CI_Model
 			$this->db->query($sql2);
         } else {
         	//GET positionNum of last question of the section
+            $sql = "SELECT MAX(positionNum) FROM a18ux02.Question WHERE questionType = '$sectionId'";
 
-			//make variabele that is one more => new positionNum
+            $prevPos = $this->db->query($sql)->result();
+
+			//make variable that is one more => new positionNum
+            print_r($prevPos);
+            $currPos = $prevPos + 1;
 
 			//insert new question with this new positionNum and put nextQuestionID to NULL + get new ID
 
+            $sql = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', '$currPos', NULL)";
+            $this->db->query($sql);
+
+            $currId = $this->db->insert_id();
+            $nextId = $currId + 1;
+            $sql = "UPDATE a18ux02.Question SET nextQuestionId = '$nextId' WHERE positionNum = '$currPos'";
+            $this->db->query($sql);
+
 			//UPDATE the old last question nextQuestionID to the id you got from the insert
 
+            $sql = "UPDATE a18ux02.Question SET nextQuestionId = '$currId' WHERE positionNum = '$prevPos'";
+            $this->db->query($sql);
 
-			$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', NULL, NULL)";
+            //$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', NULL, NULL)";
 
-			$insert2 = $this->db->query($sql2);
+			//$insert2 = $this->db->query($sql2);
 		}
-        //return the status
-        if ($insert2) {
-            return $insert2;
+        /*//return the status
+        if ($insert) {
+            return $insert;
         } else {
             return false;
-        }
+        }*/
 
 
     }
