@@ -227,7 +227,8 @@ Class Caregivers extends CI_Model
 		}
 	}
 	public function sendEmails(){
-		$this->caregivers->checkWeekly();
+//		$this->caregivers->checkWeekly();
+		$this->caregivers->sendWeekly();
 		$this->caregivers->checkMonthly();
 	}
 
@@ -263,7 +264,41 @@ Class Caregivers extends CI_Model
 		}
 
 	}
+	public function sendWeekly(){
 
+		//STEP 1: select all the caregivers that are weekly
+		$sql = "SELECT * FROM a18ux02.Caregiver
+				JOIN a18ux02.NotificationPreferences ON Caregiver.FK_NotificationPref = NotificationPreferences.NotificationPreferencesID
+                WHERE NotificationPreferences.Cycle = 'weekly'";
+
+
+		$result = $this->db->query($sql)->result();
+		$array = (json_decode(json_encode($result),true));
+		//STEP 2: loop every caregiver
+		$caregivers = array();
+
+		foreach($array as $caregiver){
+			$this->load->library('email');
+			$email = $caregiver['email'];
+			$name = $caregiver['firstname'];
+			$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
+			$result = $this->db->query($sql);
+			$row = $result->row();
+			$this->email->set_mailtype('html');
+			$this->email->from('a18ux02@gmail.com');
+			$this->email->to($email);
+
+			$this->email->subject('weekly updates');
+
+			$message = '<p> Dear ' . $caregiver['firstname'] . ',</p>';
+			$message .= '<p>the weekly updates of the resident are here! check them out</p>';
+			$message .= '<p> Thanks</p>';
+
+			$this->email->message($message);
+			$this->email->send();
+		}
+
+	}
 	public function checkMonthly(){
 		$sendFlag = false;
 		$now = new DateTime(date('Y-m-d'));
@@ -295,19 +330,41 @@ Class Caregivers extends CI_Model
 		}
 
 	}
-	public function sendWeekly(){
 
-	}
 	public function sendMonthly(){
+//STEP 1: select all the caregivers that are monthly
+		$sql = "SELECT * FROM a18ux02.Caregiver
+				JOIN a18ux02.NotificationPreferences ON Caregiver.FK_NotificationPref = NotificationPreferences.NotificationPreferencesID
+                WHERE NotificationPreferences.Cycle = 'monthly'";
+
+
+		$result = $this->db->query($sql)->result();
+		$array = (json_decode(json_encode($result),true));
+		//STEP 2: loop every caregiver
+		$caregivers = array();
+
+		foreach($array as $caregiver){
+			$this->load->library('email');
+			$email = $caregiver['email'];
+			$name = $caregiver['firstname'];
+			$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
+			$result = $this->db->query($sql);
+			$row = $result->row();
+			$this->email->set_mailtype('html');
+			$this->email->from('a18ux02@gmail.com');
+			$this->email->to($email);
+
+			$this->email->subject('monthly updates');
+
+			$message = '<p> Dear ' . $caregiver['firstname'] . ',</p>';
+			$message .= '<p>the monthly updates of the resident are here! check them out</p>';
+			$message .= '<p> Thanks</p>';
+
+			$this->email->message($message);
+			$this->email->send();
+		}
 
 	}
-
-
-	public function test(){
-
-	}
-
-
 
 	public function updateNote($notes)
 	{
