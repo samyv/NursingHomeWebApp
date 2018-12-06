@@ -59,23 +59,22 @@
 		echo "<br>";
 		echo "Kamer: ".$resident['room'];
 		echo "<br>";
-		echo "Allergieën: Geen";
-		echo "<br>";
 		?>
-        <br>
         <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
     </div>
 	<div class="back_start"></div>
 
 	<div class="visualisation">
-		<div id="chart">
-            <select class="custom-select selectQuestionnaire" style="width: min-content">
-                <?php foreach ($questionnaires as $questionnaire){?>
+        <label>Select a questionnaire:</label>
+        <select class="custom-select selectQuestionnaire" style="width: min-content">
+            <?php foreach ($questionnaires as $questionnaire){?>
                 <option value="<?php echo $questionnaire['idQuestionnaires'];?>" <?php if($_GET['idQuestionnaire']==$questionnaire['idQuestionnaires']){?>selected<?php } ?>>
                     <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y')?>
                 </option>
-                <?php }?>
-            </select>
+            <?php }?>
+        </select>
+		<div id="chart">
+
         </div>
 	</div>
 	<div class="hint">
