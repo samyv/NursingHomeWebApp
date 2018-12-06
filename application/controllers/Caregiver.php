@@ -488,6 +488,9 @@ class Caregiver extends CI_Controller
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
 
+        $maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()),true);
+        $data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
+
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floor_comparison', $data);
     }
@@ -619,6 +622,7 @@ class Caregiver extends CI_Controller
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
+        print_r(base64_encode($row[0]['picture']));
         return base64_encode($row[0]['picture']);
     }
 
@@ -633,6 +637,61 @@ class Caregiver extends CI_Controller
             $result = json_encode($result);
             print_r($result);
             return $result;
+        }
+    }
+
+    public function getFloorData(){
+        $floor = $_GET['floor'];
+        $query = "SELECT a18ux02.Questionnaires.timestamp, AVG(a18ux02.Answers.answer) as answers, a18ux02.Resident.floor , a18ux02.Question.questionType
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    WHERE a18ux02.Resident.floor = '$floor'
+                    GROUP BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType
+                    ORDER BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType ASC";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result),true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if($row2 = $this->caregivers->executeQuery($query))
+            {
+                $result2 = json_decode(json_encode($row2->result()),true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result,$max));
+                print_r($result);
+            }
+
+
+        }
+    }
+    public function getFloorSpinData(){
+        $floor = $_GET['floor'];
+        $query = "SELECT AVG(a18ux02.Answers.answer), a18ux02.Resident.floor , a18ux02.Question.questionType
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    WHERE a18ux02.Resident.floor = '$floor'
+                    GROUP BY a18ux02.Question.questionType
+                    ORDER BY a18ux02.Question.questionType ASC";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result),true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if($row2 = $this->caregivers->executeQuery($query))
+            {
+                $result2 = json_decode(json_encode($row2->result()),true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result,$max));
+                print_r($result);
+            }
         }
     }
 }

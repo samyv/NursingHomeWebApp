@@ -405,6 +405,11 @@ Class Caregivers extends CI_Model
     }
 
 
+    public function executeQuery($sql){
+        $result = $this->db->query($sql);
+        return !empty($result)?$result:false;
+    }
+
 
 
 }
