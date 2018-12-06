@@ -6,7 +6,6 @@
     <link href="<?=base_url()?>assets/css/finalpage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
 <div class="grid-container">
 
 
@@ -27,6 +26,5 @@
         <button id="previous">Previous</button>
     </div>
 </div>
-
 </body>
 </html>
