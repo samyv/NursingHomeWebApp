@@ -22,7 +22,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="landingpage"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-link" href="<?=base_url()?>landingpage"><i class="fas fa-home"></i> Home</a>
             </li>
 
 
@@ -32,7 +32,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {dropdown_menu_items}
-                    <a href="{link}" class="{className}">{name}</a>
+                    <a href="<?=base_url();?>{link}" class="{className}">{name}</a>
                     {/dropdown_menu_items}
                 </div>
             </li>
@@ -52,7 +52,7 @@
 
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="account"><i class="fas fa-cog"></i> Settings</a>
+                <a class="nav-link" href="<?=base_url()?>account"><i class="fas fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i> Log out</a>

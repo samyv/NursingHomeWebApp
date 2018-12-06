@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Tutorial</title>
     <link href="<?=base_url();?>assets/css/tutorialpage.css" type="text/css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -16,13 +17,13 @@
 
     <div id="note">Watch the tutorial video below to see how to log in</div>
 
-    <div id="img">
-        <img src="<?=base_url();?>assets/images/tutorial.jpg">
+    <div id="video">
+        <video src="<?=base_url();?>assets/videos/tutorial.mp4" controls="controls" autoplay="autoplay">The browser does not support the video.</video>
     </div>
 
 
     <div id="btn">
-        <button id="startQuestionnaire" onclick="location.href=<?php echo base_url()?>resident/startQuestionnaire">Skip tutorial</button>
+        <button id="startQuestionnaire" onclick="location.href='<?=base_url();?>Resident/startQuestionnaire'">Skip tutorial</button>
     </div>
 </div>
 

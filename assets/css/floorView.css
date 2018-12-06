@@ -10,13 +10,9 @@ html,body{
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.5fr 0.5fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 5em 1fr;
     grid-template-areas:    ". . title title title title title title title title . ."
-                            ". .  room1 room1 room2 room2 room3 room3 room4 room4 . ."
-                             ". .  room5 room5 room6 room6 room7 room7 room8 room8 . ."
-                            ". .  room9 room9 room10 room10 room11 room11 room12 room12 . ."
-                             ". .  room13 room13 room14 room14 room15 room15 room16 room16 . ."
-                            ". .  room17 room17 room18 room18 room19 room19 room20 room20 . .";
+                            ". . rooms rooms rooms rooms rooms rooms rooms rooms . .";
 
 }
 
@@ -27,6 +23,16 @@ html,body{
     padding: 10px;
     font-size: 32px;
 }
+.room{
+    width: 25%;
+}
+
+.roomContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    grid-area: rooms;
+}
 
 .room1{
     display: grid;
@@ -36,7 +42,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room1;
     padding: 10px;
     font-size: 10px;
     text-align: center;
@@ -49,7 +54,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room2;
     padding: 10px;
     font-size: 10px;
     text-align: center;
@@ -62,7 +66,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room3;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -76,7 +79,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room4;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -90,7 +92,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room5;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -103,7 +104,6 @@ html,body{
              "roomNr roomNr roomNr"
              "image1 . image2"
              "image1 . image2";
-     grid-area: room6;
      background-color: #003b46;
      padding: 10px;
      font-size: 10px;
@@ -117,7 +117,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room7;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -131,7 +130,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room8;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -145,7 +143,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room9;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -159,7 +156,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room10;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -173,7 +169,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room11;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -187,7 +182,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room12;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -201,7 +195,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room13;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -215,7 +208,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room14;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -229,7 +221,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room15;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -243,7 +234,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room16;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -257,7 +247,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room17;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -271,7 +260,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room18;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -285,7 +273,6 @@ html,body{
             "roomNr roomNr roomNr"
             "image1 . image2"
             "image1 . image2";
-    grid-area: room19;
     background-color: #003b46;
     padding: 10px;
     font-size: 10px;
@@ -298,7 +285,6 @@ html,body{
              "roomNr roomNr roomNr"
              "image1 . image2"
              "image1 . image2";
-     grid-area: room20;
      background-color: #003b46;
      padding: 10px;
      font-size: 10px;
@@ -336,4 +322,31 @@ html,body{
 
 .image1:hover, .image2:hover{
     cursor: pointer;
+}
+
+@media screen and (max-width: 1600px) {
+    .room{
+        width: 33%;
+    }
+
+    .roomContainer{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        grid-area: rooms;
+    }
+}
+
+@media screen and (max-width: 1100px){
+    .room{
+        width: 50%;
+    }
+
+    .roomContainer{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        grid-area: rooms;
+    }
+
 }

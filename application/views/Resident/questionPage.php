@@ -11,9 +11,8 @@
 <body>
 
 <div class="grid-container">
-    <h1 id="dummy"></h1>
     <h1 id="logo">GraceAge</h1>
-    <button id="logout" type="submit">Log out</button>
+    <button id="logout" type="submit" onclick="location.href='<?=base_url();?>Resident'">Log out</button>
 
 <p id="questionType">Question Type({currentNum}/{totalNum})</p>
 
@@ -24,7 +23,7 @@
     </div>
 </div>
 
-    <p id="question">{question}</p>
+    <div id="question">{question}</div>
 
     <div id="answers">
         <input type="radio" id="answer1" name="answer" value="1" class = 'question_radio'/>
@@ -48,42 +47,24 @@
 
 
 <script>
-    // var nextType = document.getElementById("nextType");
-    // var currentType = document.getElementById("currentType");
-    // var currentNum = document.getElementById("currentNum");
-    // var totalNum = document.getElementById("totalNum");
-    // var percentage = document.getElementById("percentage");
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms))
     }
 
     $(document).ready(function(){
-        var index = 1;
         var awaitTime = 200;
         var maxQuestionNr = 50;
-        var nextType;
-        var currentType;
-        var currentNum=1;
-        var totalNum;
+        var index = <?= $index?>;
+        var currentType = <?= $currentType?>;
+        var nextType = <?= $nextType?>;
 
-        $.ajax({
-            url:'<?php echo site_url('index.php/Resident/getIndex');?>',
-            method:"POST",
-            success:function(i)
-            {
-                if( i == null)
-                {index = 1;}else{
-                    index = i;
-                }
-            }
-        });
 
         function transOldAnswer() {
             $.ajax({
-                url: '<?php echo site_url('index.php/Resident/getOldAnswer');?>',
+                url: '<?=base_url();?>Resident/getOldAnswer',
                 method: "POST",
                 data: {index: index},
-                success: function (answer) {
+                success: function(answer) {
                     $('#answer' + answer).prop('checked', true);
                 }
             });
@@ -91,118 +72,85 @@
 
         transOldAnswer();
 
-        function transQuestionTextAndAns($index, $answer){
+        function updateNewAns($index, $answer){
             $.ajax({
-                url:'<?php echo site_url('index.php/Resident/update');?>',
+                url:'<?=base_url();?>Resident/update',
                 method:"POST",
                 data:{index:$index,
                     answer:$answer,
-                    },
-                success:function(question)
-                {
-                    $('#question').html(question);
-                }
+                    }
             });
         }
 
-        function getTotalNum($index){
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/getTotalNum');?>',
-                method:"POST",
-                data:{index:$index},
-                success:function(i)
-                {
-                    $('#totalNum').html(i);
-                    totalNum = i;
-                }
-            });
-            currentNum++;
-            if(currentNum>totalNum){
-                currentNum = 1;
-            }
-            $('#currentNum').html(currentNum);
-
-            // return currentType !== nextType;
-        }
-
-        function checkIfLastQuestion($index){
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/getNextQuestionType');?>',
-                method:"POST",
-                data:{index:$index},
-                success:function(i)
-                {
-                    $('#nextType').html(i);
-                    nextType = i;
-                }
-            });
-            $.ajax({
-                url:'<?php echo site_url('index.php/Resident/getCurrentQuestionType');?>',
-                method:"POST",
-                data:{index:$index},
-                success:function(i)
-                {
-                    $('#currentType').html(i);
-                    currentType = i;
-                }
-            });
-            // return currentType !== nextType;
-        }
-
-        // transOldAnswer(index);
 
         $('#answer1').click(async function(){
-            if(index < maxQuestionNr) {
-                index++;
+            updateNewAns(index,1);
+            if(index+1 < maxQuestionNr) {
                 await sleep(awaitTime);
-                checkIfLastQuestion(index)
-                if(currentType !== nextType){
-                    console.log("current: "+currentType);
-                    console.log("next: "+nextType);
-                // if(true){
-                    window.location.pathname='a18ux02/resident/section/'+nextType
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    getTotalNum(index);
-                    console.log("current number: "+currentNum);
-                    console.log("total number: "+totalNum);
-                    $('#questionType').text("Question Type("+currentNum+"/"+totalNum+")");
-                    transQuestionTextAndAns(index, 1);
+                    index++;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
-                $(this).prop('checked', false);
             }
         });
 
         $('#answer2').click(async function(){
-            if(index < maxQuestionNr) index++;
-            await sleep(awaitTime);
-            transQuestionTextAndAns(index,2);
-            $(this).prop('checked', false);
+            updateNewAns(index,2);
+            if(index+1 < maxQuestionNr) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index++;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            }
         });
 
         $('#answer3').click(async function(){
-            if(index < maxQuestionNr) index++;
-            await sleep(awaitTime);
-            transQuestionTextAndAns(index,3);
-            $(this).prop('checked', false);
+            updateNewAns(index,3);
+            if(index+1 < maxQuestionNr) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index++;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            }
         });
 
         $('#answer4').click(async function(){
-            if(index < maxQuestionNr) index++;
-            await sleep(awaitTime);
-            transQuestionTextAndAns(index,4);
-            $(this).prop('checked', false);
+            updateNewAns(index,4);
+            if(index+1 < maxQuestionNr) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index++;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            }
         });
 
         $('#answer5').click(async function() {
-            if(index < maxQuestionNr) index++;
-            await sleep(awaitTime);
-            transQuestionTextAndAns(index,5);
-            $(this).prop('checked', false);
+            updateNewAns(index,5);
+            if(index+1 < maxQuestionNr) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index++;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            }
         });
+
         $('#previous').click(async function(){
             if(index > 1) index--;
-            transQuestionTextAndAns(index,null);
-            transOldAnswer();
+            window.location.href = '<?=base_url();?>resident/questionpage/'+index;
         });
     });
 </script>

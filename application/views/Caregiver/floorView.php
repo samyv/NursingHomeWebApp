@@ -20,7 +20,10 @@
 		}
 		rooms = residents.map(a => a.room).filter(unique);
 		var sorted = residents.sort(function(a,b){return a.room - b.room});
+		let parent = $("<div></div>");
+		parent.addClass("roomContainer");
 		for(let i = 1;i<=rooms.length;i++) {
+
 			let room = rooms[i-1]
 			var found = residents.filter(e => e.room == room);
 			//BIG CHILD
@@ -28,6 +31,7 @@
 			let z = room.split("");
 			let roomNumber = "room"+(z[1]==0?'':z[1])+""+z[2];
 			child.addClass(roomNumber);
+			child.addClass("room");
 
 			//NUMBER
 			let number = $("<div></div>");
@@ -41,32 +45,39 @@
 				imagediv.addClass("image" + j);
 				imagediv.attr("roomid", i);
 				imagediv.attr("id",j-1);
+                let x = parseInt(sessionStorage.getItem('floorSelected'))
+                let y = parseInt(imagediv.attr('roomid'))
+                let nummer = x*100+y;
+                let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))];
 				imagediv.click(function () {
-					let x = parseInt(sessionStorage.getItem('floorSelected'))
-					console.log("x: "+x)
-					let y = parseInt(imagediv.attr('roomid'))
-					let nummer = x*100+y;
-					console.log(residents.filter(e => e.room == nummer))
-					let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))]
-					sessionStorage.setItem("residentSelected",room['residentID'])
-					location.href='roomView';
+					sessionStorage.setItem("residentSelected",room['residentID']);
+					location.href='resDash/?id='+room['residentID'];
 
 				})
 				let name = $("<h3></h3>").text(found[j-1]['firstname']);
 				imagediv.append(name);
+
+				$.ajax({
+                    url: '<?=base_url()?>/caregiver/getResidentImage/?id=' + room['residentID'],
+                    success: function ($image) {
+                        image.attr("src", 'data:image/jpg;base64, ' + $image);
+                    }
+                });
+
 				let image = $("<img>");
-				image.attr("src", "assets/images/profile_picture.jpg");
 				image.attr("width", "50");
 				image.attr("height", "50");
 				imagediv.append(image)
 				child.append(imagediv);
 			}
-			$(".grid-container").append(child);
+			parent.append(child);
 
 			function setClick(id) {
 				sessionStorage.setItem("selectedCaregiver",id);
 			}
+
 		}
+		$(".grid-container").append(parent);
 	})
 </script>
 

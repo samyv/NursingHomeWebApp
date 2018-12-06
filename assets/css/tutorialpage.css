@@ -2,6 +2,7 @@ body{
     font-family: Verdana;
 }
 
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -16,7 +17,7 @@ body{
 }
 
 
-#names,#note,#img,#btn{
+#names,#note,#video,#btn{
     text-align: center;
 }
 
@@ -40,12 +41,12 @@ body{
 
 #note{
     grid-area: note;
-    font-size: 2.5em;
-    margin-top: 4em;
+    font-size: 2em;
+    margin-top: 2.5em;
     margin-bottom: 1em;
 }
 
-#img{
+#video{
     grid-area: img;
     margin-bottom: auto;
     margin-top: auto;
@@ -56,9 +57,10 @@ body{
     margin-top: 1em;
 }
 
-img{
-    width: 55em;
+video{
+    width: 90%;
 }
+
 
 button{
     size: A3;
@@ -85,4 +87,87 @@ button:hover{
     cursor: pointer;
 }
 
+@media only screen and (orientation: landscape) {
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1r 4.5fr 1fr;
+        grid-template-areas:
+                "note "
+                "img img img img img img img img img img img img"
+                ". . . . btn btn btn btn . . . .";
+        width: 100vw;
+        height: 100vh;
+    }
+
+    #names,#note,#video,#btn{
+        text-align: center;
+    }
+
+    #names{
+        display: none;
+        background-color: #94b7a0;
+        grid-gap: 0;
+        padding-top: 8em;
+        padding-bottom: 1em;
+        line-height: 3em;
+    }
+
+
+    #name{
+        font-size: 5em;
+    }
+
+    #subname{
+        font-size: 2em;
+    }
+
+    #note{
+        grid-area: note;
+        font-size: 2em;
+        margin-top: 2.5em;
+        margin-bottom: 1em;
+    }
+
+    #video{
+        grid-area: img;
+        margin-bottom: auto;
+        margin-top: auto;
+    }
+
+    #btn{
+        grid-area: btn;
+        margin-top: 1em;
+    }
+
+    video{
+        width: 80%;
+    }
+
+
+    button{
+        size: A3;
+        font-size: 3em;
+        text-align: center;
+
+        display: inline-block;
+        background-color: #d48478;
+        color: rgba(0, 0, 0, 0.6);
+        font-weight: normal;
+        text-shadow: none;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+        -webkit-transition: all 0.1s ease-in-out;
+        -moz-transition:    all 0.1s ease-in-out;
+        -o-transition:      all 0.1s ease-in-out;
+        transition:         all 0.1s ease-in-out;
+    }
+
+
+    button:hover{
+        background-color: indianred;
+        cursor: pointer;
+    }
+}
 

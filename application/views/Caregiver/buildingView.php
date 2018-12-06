@@ -16,11 +16,6 @@
 		<p>Please select the desired floor</p>
 	</div>
 		<div class="list"></div>
-
-	<div class = "footer">
-		<p>Footer goes here</p>
-	</div>
-
 </div>
 </body>
 
