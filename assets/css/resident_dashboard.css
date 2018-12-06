@@ -68,6 +68,19 @@ body{
 	align-items: center !important;
 }
 
+.modal-footer {
+    display: block !important;
+    align-items: center !important;
+}
+
+.modal-footer .btn{
+    background-color: #66a5ad;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 .info-contact {
 	margin: 10px 20px 10px 20px;
 }
