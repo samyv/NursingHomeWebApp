@@ -12,13 +12,14 @@
     <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/transitions.css">
 </head>
 
-<div class="h1">
+<div class="h1 fade-in">
     <h1>GraceAge</h1>
     <h2>Providing better care</h2>
 </div>
-<div class="grid-container">
+<div class="grid-container fade-in">
 <form class="p" id="resetPassword" name="resetPassword" method="post" action="" '>
     <table class="table table-bordered table-hover table-striped">
         <tbody>

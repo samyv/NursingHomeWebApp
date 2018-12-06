@@ -297,6 +297,11 @@ class Caregiver extends CI_Controller
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
 
+        $cond = array();
+        $cond['table'] = 'a18ux02.ContactPerson';
+        $contactpersons = $this->caregivers->getRows($cond)->result();
+
+        $data['contactpersons'] = json_decode(json_encode($contactpersons),true);
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
@@ -607,6 +612,35 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function newQuestion(){
+        $data = array();
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newQuestion');
+        $data['page_title']='New Question';
+
+        $cond = array();
+        $cond['table'] = "a18ux02.Section";
+        $row = $this->caregivers->getRows($cond)->result();
+        $result = json_decode(json_encode($row), true);
+        $data['sections'] = $result;
+
+        if($this->input->post('questionSubmit')){
+            //$this->form_validation->set_rules('section_input', 'Section', 'required');
+            $this->form_validation->set_rules('question', 'Question', 'required');
+
+            if($this->form_validation->run() == true){
+
+                    $newSection = strip_tags($this->input->post('section_input'));
+                    $question = strip_tags($this->input->post('question'));
+                    $sectionId = strip_tags($this->input->post('section'));
+
+                $this->caregivers->insertQuestion($question, $newSection, $sectionId);
+            }
+
+        }
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/newQuestion', $data);
+    }
 
     /*
      * This function checks if a phone number is in the correct format
