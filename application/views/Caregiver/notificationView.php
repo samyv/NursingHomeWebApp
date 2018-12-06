@@ -4,12 +4,12 @@
     <title>Notifications</title>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/notificationView.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/transitions.css">
 </head>
 
 <body>
-<div class = "grid-container">
+<div class = "grid-container fade-in">
     <div class = "title">
         <p>Notifications</p>
     </div>
@@ -17,11 +17,6 @@
     <div class = list>
     </div>
     </div>
-
-    <div class = "footer">
-        <p>© KULeuven 2018</p>
-    </div>
-
 </div>
 </body>
 </html>
