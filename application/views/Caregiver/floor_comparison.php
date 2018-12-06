@@ -79,7 +79,8 @@
                 dataType: 'json',
                 success: function (data) {
                     floordata[$floorID] = data[0];
-                    amountOfCategories = data[1];
+                    amountOfCategories = parseInt(data[1]);
+                    console.log(amountOfCategories);
                     draw();
                 }
             });
@@ -101,27 +102,28 @@
     function draw() {
         var collection = [];
         let f = 1;
-        while(f < floorAmount+1) {
+        while(f < (floorAmount+1)) {
             if(floordata[f]!==undefined) {
+                collection[f] = [];
                 for (var a = 1; a < amountOfCategories+1; a++) {
-                    let data = [];
+                    collection[f][a] = [];
                     for (let i = 0; i < floordata[f].length; i++) {
+                        let j = 0;
                         if(floordata[f][i]['questionType']==a) {
-                            data.push(
-                                {
-                                    date: new Date(floordata[f][i]['timestamp']),
-                                    value: floordata[f][i]['answers']
-                                });
+                            collection[f][a][j]={};
+                            collection[f][a][j].date = new Date(floordata[f][i]['timestamp']).getTime();
+                            collection[f][a][j].value = parseFloat(floordata[f][i]['answers']);
+                            j++;
                         }
                     }
-                    collection.push(data);
                 }
                 f++;
             }else{
                 f++;
             }
+
         }
-        console.log(collection[0]);
+        console.log(collection);
 
         var container = d3.select("body").selectAll("div.graph");
 
@@ -153,12 +155,24 @@
             .y(function (d) {
                 return y(d.value)
             })
-        for(let i = 0; i<collection.length; i++){
-            x.domain(d3.extent(collection[i][0], function (d) {
-                return d.date
-            }));
-        }
 
+        let i = 1;
+        let j = 1;
+        while(i<collection.length) {
+            if(collection[i] !== undefined) {
+                while (j < collection[i].length) {
+                    if (collection[i][j] !== undefined) {
+                        x.domain(d3.extent(collection[i][j][0], function (d) {
+                            return d.date
+                        }));
+                        break;
+                    }
+                    j++
+                }
+                break;
+            }
+            i++
+        }
 
         y.domain([0, 5]);
 
@@ -177,20 +191,27 @@
                 return y(d.value);
             });
 
-        for (let i = amountOfCategories - 1; i >= 0; i--) {
-            g.append("path")
-                .datum(collection[i])
-                .attr("fill", "none")
-                .attr("stroke", color_off)
-                .attr("stroke-linejoin", "round")
-                .attr("stroke-linecap", "round")
-                .attr("stroke-width", 3)
-                .attr("d", line)
-                .on("mouseover", mouseEnter)
-                .on("mouseout", mouseLeave);
-
-
+        for(let f = floorAmount;f>=1;f--) {
+            if(collection[f] !== undefined) {
+                for (let a = amountOfCategories; a >= 1; a--) {
+                    if (collection[i][j] !== undefined) {
+                        for (let i = floordata[f].length; i >= 0; i--) {
+                            g.append("path")
+                                .datum(collection[f][a][i])
+                                .attr("fill", "none")
+                                .attr("stroke", color_off)
+                                .attr("stroke-linejoin", "round")
+                                .attr("stroke-linecap", "round")
+                                .attr("stroke-width", 3)
+                                .attr("d", line)
+                                .on("mouseover", mouseEnter)
+                                .on("mouseout", mouseLeave);
+                        }
+                    }
+                }
+            }
         }
+
 
         g.append("g")
             .call(d3.axisLeft(y))
@@ -228,37 +249,26 @@
 
             d3.select("#t" + notificationid).remove();
         }
+    }
 
+    function increase_brightness(hex, percent) // generate brighter versions of the colors
+    {
+        // strip the leading # if it's there
+        hex = hex.replace(/^\s*#|\s*$/g, '');
 
-        function getMaximum(collection) {
-            // calculate the maximum of a custom formatted data array
-            let array = [];
-            for (let i = 0; i < collection.length; i++) {
-                let val = collection[i].value;
-                array.push(val);
-            }
-            return 1.1 * Math.ceil(Math.max(...array)); // the ... notation is needed here
+        // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
+        if (hex.length == 3) {
+            hex = hex.replace(/(.)/g, '$1$1');
         }
 
-        function increase_brightness(hex, percent) // generate brighter versions of the colors
-        {
-            // strip the leading # if it's there
-            hex = hex.replace(/^\s*#|\s*$/g, '');
+        var r = parseInt(hex.substr(0, 2), 16),
+            g = parseInt(hex.substr(2, 2), 16),
+            b = parseInt(hex.substr(4, 2), 16);
 
-            // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
-            if (hex.length == 3) {
-                hex = hex.replace(/(.)/g, '$1$1');
-            }
-
-            var r = parseInt(hex.substr(0, 2), 16),
-                g = parseInt(hex.substr(2, 2), 16),
-                b = parseInt(hex.substr(4, 2), 16);
-
-            return '#' +
-                ((0 | (1 << 8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
-                ((0 | (1 << 8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
-                ((0 | (1 << 8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
-        }
+        return '#' +
+            ((0 | (1 << 8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
+            ((0 | (1 << 8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
+            ((0 | (1 << 8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
     }
 </script>
 </body>
