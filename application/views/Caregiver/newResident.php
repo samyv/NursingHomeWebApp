@@ -6,12 +6,28 @@
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/transitions.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>{page_title}</title>
 </head>
 
 <body>
 <form class ="fade-in" action="" method="post">
 <?php echo form_open_multipart('Caregiver/newResident');?>
+<div class="modal modal-content" id="information-contactperson-modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+	</div>
+	<div class="info-contact">
+		<div class = "search">
+			<input type="text" id="myInput" onkeyup="search()" placeholder="Search.." title="Type in a name">
+		</div>
+		<div class="table">
+			<table id="myTable"></table>
+		</div>
+	</div>
+</div>
+<form action="" method="post">
     <div class="grid-container">
         <div class="form-errors">
             <?php if(isset($error_msg)){ ?>
@@ -135,5 +151,134 @@
         </div>
 </form>
 
+<script type="text/javascript">
+	var database = "";
+	var list,name;
+	$(function () {
+		populate();
+		init();
+
+	});
+    function checkChoice(val){
+        var element=document.getElementById('relation');
+        if(val=='Choose your relation'||val=='other')
+            element.style.display='block';
+        else
+            element.style.display='none';
+    }
+
+	function search() {
+		var input, filter, table, i;
+		input = document.getElementById("myInput");
+		filter = input.value.toUpperCase();
+		table = document.getElementById("myTable");
+		list = document.getElementsByTagName('tr');
+		for (i = 1; i <= list.length; i++) {
+			if(list[i] != undefined) {
+				name = list[i].getElementsByTagName("td")[1].innerHTML;
+				if (name.toUpperCase().indexOf(filter) > -1) {
+					list[i].style.display = "";
+				} else {
+					list[i].style.display = "none";
+				}
+			}
+		}
+	}
+
+	function populate() {
+		database = <?php echo json_encode($contactpersons)?>;
+		var table = document.getElementById("myTable");
+		var tbody = createTopRow();
+		var elements = [];
+		for (var i = 0 ; i < database.length ; i++)
+		{
+			var element = getElements(database[i]);
+			elements.push(element);
+
+			var row = document.createElement('tr');
+
+			var id = document.createElement('td');
+			id.innerHTML = element.id;
+			// id.style.display = "block"
+			row.appendChild(id);
+
+			var col2 = document.createElement('td');
+			col2.innerHTML = element.name;
+			row.appendChild(col2)
+			var col3 = document.createElement('td');
+			col3.innerHTML = element.email;
+			row.appendChild(col3)
+			tbody.appendChild(row);
+		}
+		table.appendChild(tbody)
+	}
+	function createTopRow() {
+		var tbody = document.createElement("tbody");
+		var row = document.createElement('tr');
+		var id = document.createElement('th');
+		// id.style.display = "block";
+		id.innerHTML = "ID";
+		row.appendChild(id);
+		var col1 = document.createElement('th');
+		col1.innerHTML = "Name";
+		row.appendChild(col1)
+		var col2 = document.createElement('th');
+		col2.innerHTML = "Email";
+		row.appendChild(col2)
+		tbody.appendChild(row);
+		return tbody;
+	}
+	function getElements(db_element) {
+		var element = {}
+		element.id = db_element['idContactInformation'];
+		element.name = db_element['firstname'] +" " + db_element['lastname'];
+		element.email = db_element['email'];
+		return element;
+	}
+
+	function init() {
+		$('#myTable tbody').on('click', 'tr', function() {
+			$(".contact").prop('disabled', true);
+			var id_td = this.firstChild;
+			var test = id_td.innerHTML;
+			var contact = database.filter(e => e.idContactInformation == test)[0];
+			console.log(contact)
+			$('#information-contactperson-modal-content').fadeOut('fast');
+			$('[name="first_name"]').val(contact.firstname);
+			$('[name="last_name"]').val(contact.lastname);
+			$('[name="email"]').val(contact.email);
+			$('[name="phone"]').val(contact.phonenumber);
+			$('.xbut').toggle();
+			$('#CIModal').hide();
+		})
+
+		$('.xbut').on('click',function () {
+			$('.xbut').toggle();
+			$('#CIModal').show();
+			$(".contact").prop('disabled', false);
+			$('[name="first_name"]').val("");
+			$('[name="last_name"]').val("");
+			$('[name="email"]').val("");
+			$('[name="phone"]').val("");
+		})
+	}
+	$(document).ready(function () {
+		$('#CIModal').click(function(){
+			$('#information-contactperson-modal-content').fadeIn('fast');
+		});
+
+		$('#closemodal').click(function () {
+			$('#information-contactperson-modal-content').fadeOut('fast');
+		})
+	});
+
+</script>
+
+<script>
+
+</script>
 </body>
 </html>
+
+
+
