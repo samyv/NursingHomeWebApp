@@ -1,12 +1,15 @@
 body{
 	/*background-color: black;*/
 	margin: 0px;
+	background-color: #F5FAFA;
 }
 
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 1fr 1fr 0.5fr;
+	grid-template-rows: min-content min-content auto;
+	height: 100%;
+
 	grid-template-areas:
 	"picture picture picture visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
 	"info info info visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
@@ -14,16 +17,21 @@ body{
 }
 .picture {
 	grid-area: picture;
-	background-color: floralwhite;
+}
+
+.picture img{
+	width: 100%;
 }
 
 .visualisation {
 	grid-area: visualisation;
-	color: limegreen;
-	text-align: center;
-	vertical-align: center;
-	line-height: 400px;
-	background-color: lavender;
+	height: min-content;
+	padding: 1em 0 0 1em;
+}
+
+.visualisation .selectQuestionnaire{
+	width: min-content;
+	width: -moz-min-content;
 }
 
 .hint {
@@ -60,6 +68,19 @@ body{
 	align-items: center !important;
 }
 
+.modal-footer {
+    display: block !important;
+    align-items: center !important;
+}
+
+.modal-footer .btn{
+    background-color: #66a5ad;
+    color: white;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
 .info-contact {
 	margin: 10px 20px 10px 20px;
 }
@@ -79,6 +100,7 @@ body{
 
 .info {
 	grid-area: info;
+	padding-left: 1em;
 }
 
 #information-contactperson-modal-content{
@@ -88,5 +110,5 @@ body{
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 30%;
+	width: 25%;
 }

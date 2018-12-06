@@ -17,7 +17,7 @@ body{
 }
 
 
-#names,#note,#img,#btn{
+#names,#note,#video,#btn{
     text-align: center;
 }
 
@@ -46,7 +46,7 @@ body{
     margin-bottom: 1em;
 }
 
-#img{
+#video{
     grid-area: img;
     margin-bottom: auto;
     margin-top: auto;
@@ -57,7 +57,7 @@ body{
     margin-top: 1em;
 }
 
-img{
+video{
     width: 90%;
 }
 
@@ -100,7 +100,7 @@ button:hover{
         height: 100vh;
     }
 
-    #names,#note,#img,#btn{
+    #names,#note,#video,#btn{
         text-align: center;
     }
 
@@ -129,7 +129,7 @@ button:hover{
         margin-bottom: 1em;
     }
 
-    #img{
+    #video{
         grid-area: img;
         margin-bottom: auto;
         margin-top: auto;
@@ -140,7 +140,7 @@ button:hover{
         margin-top: 1em;
     }
 
-    img{
+    video{
         width: 80%;
     }
 
