@@ -26,6 +26,7 @@
                 <option value="new">New Section</option>
             </select>
             <input type="text" name="section_input" id="section_input" style='display:none;' class="form-control" placeholder="Section name"/>
+            <?php echo form_error('section','<span class="help-block">','</span>'); ?>
             <br>
         </div>
 
@@ -35,6 +36,7 @@
 
         <div class="question_input">
             <input type="text" name="question" class = "form-control" placeholder="Type new question here">
+            <?php echo form_error('question','<span class="help-block">','</span>'); ?>
             <br>
         </div>
 

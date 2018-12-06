@@ -345,7 +345,27 @@ Class Caregivers extends CI_Model
         return $row['idNotes'];
     }
 
+    public function insertQuestion($question, $newSection, $sectionId){
 
+
+        if(!empty($newSection)){
+            $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', NULL)";
+            $insert = $this->db->query($sql);
+        }
+
+        $sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$sectionId', NULL, NULL)";
+
+        $insert2 = $this->db->query($sql2);
+
+        //return the status
+        if ($insert2) {
+            return $insert2;
+        } else {
+            return false;
+        }
+
+
+    }
 
 
 }
