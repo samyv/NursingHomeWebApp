@@ -442,28 +442,6 @@ class Caregiver extends CI_Controller
             $data['questionnaires'] = $result;
         }
 
-
-
-        /*
-         * get the answers from the selected questionnaire
-         */
-        if(isset($data['questionnaires'])) {
-            if (!isset($_GET['idQuestionnaire'])) {
-                redirect('resDash/?id=' . $idResident . '&idQuestionnaire=' . $result["0"]["idQuestionnaires"]);
-            } else {
-                $condit['table'] = "a18ux02.Answers";
-                $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
-                $condit['order'] = "ASC";
-                $condit['orderColumn'] = "questionId";
-                if ($row = $this->caregivers->getRows($condit)) {
-                    $result = $row->result();
-                    $result = json_decode(json_encode($result), true);
-                }
-            }
-        }
-
-
-
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('templates/header',$data);
 

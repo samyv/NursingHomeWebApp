@@ -1,72 +1,3 @@
-var testdata = [{"answer":"3","questionType":"1","positionNum":"1"},{"answer":"1","questionType":"1","positionNum":"2"},{"answer":"2","questionType":"2","positionNum":"1"},{"answer":"5","questionType":"2","positionNum":"2"},{"answer":"2","questionType":"2","positionNum":"3"},{"answer":"2","questionType":"2","positionNum":"4"},{"answer":"1","questionType":"2","positionNum":"5"},{"answer":"3","questionType":"3","positionNum":"1"},{"answer":"3","questionType":"3","positionNum":"2"},{"answer":"4","questionType":"3","positionNum":"3"},{"answer":"4","questionType":"4","positionNum":"1"},{"answer":"1","questionType":"4","positionNum":"2"},{"answer":"3","questionType":"4","positionNum":"3"},{"answer":"1","questionType":"4","positionNum":"4"},{"answer":"3","questionType":"4","positionNum":"5"},{"answer":"3","questionType":"4","positionNum":"6"},{"answer":"1","questionType":"5","positionNum":"1"},{"answer":"4","questionType":"5","positionNum":"2"},{"answer":"5","questionType":"5","positionNum":"3"},{"answer":"4","questionType":"5","positionNum":"4"},{"answer":"3","questionType":"5","positionNum":"5"},{"answer":"5","questionType":"5","positionNum":"6"},{"answer":"3","questionType":"5","positionNum":"7"},{"answer":"5","questionType":"6","positionNum":"1"},{"answer":"2","questionType":"6","positionNum":"2"},{"answer":"2","questionType":"6","positionNum":"3"},{"answer":"1","questionType":"6","positionNum":"4"},{"answer":"5","questionType":"7","positionNum":"1"},{"answer":"5","questionType":"7","positionNum":"2"},{"answer":"5","questionType":"7","positionNum":"3"},{"answer":"2","questionType":"7","positionNum":"4"},{"answer":"2","questionType":"7","positionNum":"5"},{"answer":"4","questionType":"7","positionNum":"6"},{"answer":"2","questionType":"8","positionNum":"1"},{"answer":"2","questionType":"8","positionNum":"2"},{"answer":"4","questionType":"8","positionNum":"3"},{"answer":"4","questionType":"8","positionNum":"4"},{"answer":"2","questionType":"8","positionNum":"5"},{"answer":"5","questionType":"9","positionNum":"1"},{"answer":"4","questionType":"9","positionNum":"2"},{"answer":"1","questionType":"9","positionNum":"3"},{"answer":"1","questionType":"9","positionNum":"4"},{"answer":"2","questionType":"9","positionNum":"5"},{"answer":"4","questionType":"10","positionNum":"1"},{"answer":"5","questionType":"10","positionNum":"2"},{"answer":"3","questionType":"10","positionNum":"3"},{"answer":"1","questionType":"10","positionNum":"4"},{"answer":"1","questionType":"10","positionNum":"5"},{"answer":"1","questionType":"11","positionNum":"1"},{"answer":"3","questionType":"11","positionNum":"2"},{"answer":"2","questionType":"11","positionNum":"3"},{"answer":"5","questionType":"11","positionNum":"4"}];
-
-
-var data = {}
-var dummy = getAllScoresPerSection(rawData)
-var datadummy = [];
-datadummy['data'] = []
-for(var i = 0; i < testdata.length; i++){
-	for(var key in testdata[i]){
-		datadummy[testdata[i]['questionType']+testdata[i]['positionNum']] = testdata[i]['answer'];
-	}
-}
-console.log(dummy);
-data['input'] = []
-data['input']['data'] = []
-data['input']['data'] = Object.values(datadummy);
-data['input']['keys'] = []
-data['input']['keys'] = Object.keys(datadummy);
-data['range'] = [1,5];
-console.log(data);
-function getAllScoresPerSection(rawDat) {
-	//loop every question
-	let range = [5,0]
-	temp_scores = [] //like dummy
-	var score_section = []
-	var section = "A";
-	count = 1
-	newSection = false;
-	for(i in rawDat){
-		//get section of question
-		var question_Section = rawDat[i]['Code'].split("")[0];
-
-		//check if still in same section
-		if(section != question_Section){
-			//NO => push previous section and empty section array
-			temp_scores.push(score_section)
-			var score_section = []
-			newSection = true;
-			count = 1;
-		}
-
-		//push question score into section score and update section
-		const score = calculateScore(rawDat[i])
-		score_section[question_Section+""+count]  = score;
-		if(score > range[1]){
-			range[1] = score
-		} else if(score < range[0]){
-			range[0] = score
-		}
-		count++;
-		section = question_Section
-	}
-	//push last sections
-	temp_scores.push(score_section)
-	return {temp_scores,range}
-}
-function calculateScore(question) {
-	var answers = ["Never or Rarely","Sometimes","Most of the time","Always"]
-	// calculate score: always(3), MOTT(2), SMT(1), NOR(0)
-	var total = 0
-	var score = 0
-	answers.forEach(function(answer,i) {
-		total += question[answer]
-		score += question[answer]*i
-	})
-	//normalize score
-	score /= total;
-	return Number((score).toFixed(3))
-}
 
 //////////////////////////////////////////////////////
 ///////////////////////D3JS///////////////////////////
@@ -78,7 +9,7 @@ const height = 650 - margin.top - margin.bottom
 const gridSize = Math.floor(width / 15.5)
 const legendElementWidth = gridSize*2
 const buckets = 9
-const colors = ["#ff6666","#ff8c66","#ffb366","#ffd966","#ffff66","#d9ff66","#b3ff66","#8cff66","#66ff66"]
+const colors = ["#ff6666","#ffb366","#ffff66","#b3ff66","#66ff66"]
 const sectionsNames = ["Privacy", "Eten en maaltijden", "Veiligheid","Zich prettig voelen","Autonomie","Respect","Reageren door medewerkers op vragen","Een band voelen met wie hier werkt","Keuze aan activiteiten","Persoonlijke omgang"," Informatie vanuit het woonzorgcentrum"]
 const sections = ["1","2","3","4","5","6","7","8","9","10","11"]
 const times = [1,2,3,4,5,6,7,8,9,10,11]
@@ -185,4 +116,21 @@ const heatmapChart = function(p_data){
 
 
 }
-heatmapChart(data.input)
+
+function drawChart(testdata) {
+    var data = {}
+    var datadummy = [];
+    datadummy['data'] = []
+    for(var i = 0; i < testdata.length; i++){
+        for(var key in testdata[i]){
+            datadummy[testdata[i]['questionType']+testdata[i]['positionNum']] = testdata[i]['answer'];
+        }
+    }
+    data['input'] = []
+    data['input']['data'] = []
+    data['input']['data'] = Object.values(datadummy);
+    data['input']['keys'] = []
+    data['input']['keys'] = Object.keys(datadummy);
+    data['range'] = [1,5];
+    heatmapChart(data.input)
+}
