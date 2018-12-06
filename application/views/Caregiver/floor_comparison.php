@@ -49,7 +49,8 @@
             success: function (data) {
                 floordata = data[0];
                 amountOfCategories = parseInt(data[1]);
-                console.log(floordata);
+                console.log(amountOfCategories);
+                console.log(floorAmount);
                 draw(floordata);
             }
         });
@@ -84,6 +85,21 @@
     //////              D3.JS GRAPH                     /////
     /////////////////////////////////////////////////////////
 
+
+
+    // set the dimensions and margins of the graph
+ ;
+
+    // set the ranges
+
+
+    // define the line
+
+
+    // append the svg obgect to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+
     /// CONFIG VARIABLES ///
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
         width = 960 - margin.left - margin.right,
@@ -92,12 +108,6 @@
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
 
-    var valueline = d3.line()
-        .x(function(d) { return x(d.timestamp); })
-        .y(function(d) { return y(d.answers); });
-    // define the line
-
-    var parseTime = d3.timeParse("%d %B %Y");
 
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
@@ -113,12 +123,33 @@
     //// END OF CONFIG ////
     function draw(data) {
         data.forEach(function(d) {
-            d.timestamp = new Date(d.timestamp).getTime();
-            // d.floor = +parseInt(d.floor);
-            // d.questionType = +d.questionType;
+            d.timestamp = new Date(d.timestamp);
+            d.floor = +parseInt(d.floor);
+            d.questionType = +d.questionType;
             d.answers = +parseFloat(d.answers);
         });
-        console.log(data);
+        console.log(data)
+        let valuelines=[];
+        let newData=[];
+        for(let f = 0; f < floorAmount;f++){
+            for(let q = 0; q < amountOfCategories; q++){
+                newData[f+q*floorAmount]=[];
+                let i = 0;
+                data.forEach(function (d) {
+                    if (d.floor == (f+1) && d.questionType == (q+1)) {
+                        newData[f+q*floorAmount][i]={};
+                        newData[f+q*floorAmount][i].timestamp = d.timestamp;
+                        newData[f+q*floorAmount][i].answers = +d.answers;
+                        valuelines[f + q * floorAmount] = d3.line()
+                            .x(function(d) { return x(d.timestamp); })
+                            .y(function(d) { return x(d.answers); });
+                        i++;
+                    }
+                })
+            }
+        }
+        console.log(newData[1]);
+        console.log(valuelines[1]);
 
         data.sort(function(a, b){
             return a["timestamp"]-b["timestamp"];
@@ -127,10 +158,13 @@
         x.domain(d3.extent(data, function(d) { return d.timestamp; }));
         y.domain([0, 5]);
 
+
         svg.append("path")
-            .data([data])
+            .data([newData[1]])
             .attr("class", "line")
-            .attr("d", valueline);
+            .attr("d", valuelines[1]);
+
+
         // Add the X Axis
         svg.append("g")
             .attr("transform", "translate(0," + height + ")")
@@ -139,7 +173,6 @@
         // Add the Y Axis
         svg.append("g")
             .call(d3.axisLeft(y));
-
 
     }
 
