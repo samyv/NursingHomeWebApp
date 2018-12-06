@@ -41,22 +41,26 @@
 				imagediv.addClass("image" + j);
 				imagediv.attr("roomid", i);
 				imagediv.attr("id",j-1);
+                let x = parseInt(sessionStorage.getItem('floorSelected'))
+                let y = parseInt(imagediv.attr('roomid'))
+                let nummer = x*100+y;
+                let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))];
 				imagediv.click(function () {
-					let x = parseInt(sessionStorage.getItem('floorSelected'))
-					console.log("x: "+x)
-					let y = parseInt(imagediv.attr('roomid'))
-					let nummer = x*100+y;
-					console.log(residents.filter(e => e.room == nummer))
-					let room = residents.filter(e => e.room == nummer)[parseInt(imagediv.attr('id'))]
-					sessionStorage.setItem("residentSelected",room['residentID'])
-                    console.log(sessionStorage);
+					sessionStorage.setItem("residentSelected",room['residentID']);
 					location.href='resDash/?id='+room['residentID'];
 
 				})
 				let name = $("<h3></h3>").text(found[j-1]['firstname']);
 				imagediv.append(name);
+
+				$.ajax({
+                    url: '<?=base_url()?>/caregiver/getResidentImage/?id=' + room['residentID'],
+                    success: function ($image) {
+                        image.attr("src", 'data:image/jpg;base64, ' + $image);
+                    }
+                });
+
 				let image = $("<img>");
-				image.attr("src", "assets/images/profile_picture.jpg");
 				image.attr("width", "50");
 				image.attr("height", "50");
 				imagediv.append(image)

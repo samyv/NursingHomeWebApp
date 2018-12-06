@@ -180,7 +180,7 @@ class Caregiver extends CI_Controller
 				$this->caregivers->send_validation_email($userData);
 				if ($insert) {
 					$this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
-//					redirect('index.php');
+					redirect('index.php');
 				} else {
 					$data['error_msg'] = 'Some problems occured, please try again.';
 				}
@@ -338,8 +338,14 @@ class Caregiver extends CI_Controller
                     $data = $this->upload->data();
                     $dataResident['filepath'] = $data['full_path'];
                     $dataResident['mime'] = $data['file_type'];
-                    $this->residents->insert($dataResident);
-                    unlink($data['full_path']);
+                    if($this->residents->insert($dataResident)) {
+                        unlink($data['full_path']);
+                        $data['success_msg'] = "The new resident is registered successful.";
+                        unset($_POST);
+                    }else
+                    {
+                        $data['error_msg'] = "Something went wrong, please try again.";
+                    }
                 }
             }
         }
@@ -622,5 +628,15 @@ class Caregiver extends CI_Controller
         }
     }
 
+
+    public function getResidentImage(){
+        $cond = array();
+        $cond['select'] = 'picture';
+        $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
+        $cond['where'] = array('Resident.residentID' => $_GET['id']);
+        $row = $this->caregivers->getResidentDashboardInfo($cond);
+        print_r(base64_encode($row[0]['picture']));
+        return base64_encode($row[0]['picture']);
+    }
 
 }

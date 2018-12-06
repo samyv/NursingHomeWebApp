@@ -17,6 +17,10 @@ body{
 	background-color: floralwhite;
 }
 
+.picture img{
+	width: 100%;
+}
+
 .visualisation {
 	grid-area: visualisation;
 	color: limegreen;

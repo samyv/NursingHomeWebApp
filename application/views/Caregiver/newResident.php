@@ -12,6 +12,12 @@
 <?php echo form_open_multipart('Caregiver/newResident');?>
     <div class="grid-container">
         <div class="form-errors">
+            <?php if(isset($error_msg)){ ?>
+                <span><?php echo $error_msg; ?></span>
+            <?php } ?>
+            <?php if(isset($success_msg)){ ?>
+                <span class="success"><?php echo $success_msg; ?></span>
+            <?php } ?>
             <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
             <?php echo form_error('cp_email','<span class="help-block">','</span>'); ?>
             <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>

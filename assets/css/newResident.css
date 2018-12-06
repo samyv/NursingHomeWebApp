@@ -32,6 +32,11 @@
     padding: 1em;
 }
 
+.form-errors .success{
+    background: #94b7a0;
+    padding: 1em;
+}
+
 .firstname { grid-area: firstname; }
 
 .lastname { grid-area: lastname; }
