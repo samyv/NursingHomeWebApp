@@ -347,16 +347,29 @@ Class Caregivers extends CI_Model
 
     public function insertQuestion($question, $newSection, $sectionId){
 
-
+    	$id_section = $sectionId;
+    	//caregiver wants to make a new section
         if(!empty($newSection)){
+        	//push new section in the section table
             $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', NULL)";
-            $insert = $this->db->query($sql);
-        }
+            $id_section = $this->db->query($sql);
+            //push new queston with new section
+			$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', 1, NULL)";
+			$this->db->query($sql2);
+        } else {
+        	//GET positionNum of last question of the section
 
-        $sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$sectionId', NULL, NULL)";
+			//make variabele that is one more => new positionNum
 
-        $insert2 = $this->db->query($sql2);
+			//insert new question with this new positionNum and put nextQuestionID to NULL + get new ID
 
+			//UPDATE the old last question nextQuestionID to the id you got from the insert
+
+
+			$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', NULL, NULL)";
+
+			$insert2 = $this->db->query($sql2);
+		}
         //return the status
         if ($insert2) {
             return $insert2;
