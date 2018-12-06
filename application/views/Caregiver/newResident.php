@@ -117,7 +117,7 @@
             <b>First name: </b>
         </div>
         <div class="cp_first_name_input">
-            <input type="text" name="cp_first_name"  class = "form-control" placeholder="Enter first name" required=""
+            <input type="text" name="cp_first_name"  class = "contact form-control" placeholder="Enter first name" required=""
                    value="<?php echo (isset($_POST['cp_first_name']) ? $_POST['cp_first_name'] : ''); ?>">
             <br>
         </div>
@@ -125,7 +125,7 @@
             <b>Last name: </b>
         </div>
         <div class="cp_last_name_input">
-            <input type="text" name="cp_last_name"  class = "form-control" placeholder="Enter first name" required=""
+            <input type="text" name="cp_last_name"  class = "contact form-control" placeholder="Enter first name" required=""
                    value="<?php echo (isset($_POST['cp_last_name']) ? $_POST['cp_last_name'] : ''); ?>">
             <br>
         </div>
@@ -133,7 +133,7 @@
             <b>Email: </b>
         </div>
         <div class="email_input">
-            <input type="text" name="cp_email" class = "form-control" placeholder="example@example.com"
+            <input type="text" name="cp_email" class = "contact form-control" placeholder="example@example.com"
                    value="<?php echo (isset($_POST['cp_email']) ? $_POST['cp_email'] : ''); ?>">
             <br>
         </div>
@@ -141,9 +141,12 @@
             <b>Phone nr: </b>
         </div>
         <div class="phone_input">
-            <input type="tel" name="cp_phone" class = "form-control" placeholder="+32 123 456 789"
+            <input type="tel" name="cp_phone" class = "contact form-control" placeholder="+32 123 456 789"
                    value="<?php echo (isset($_POST['cp_phone']) ? $_POST['cp_phone'] : ''); ?>">
-        </div>
+			<span class="infcon"><a href="#" id="CIModal">Add existing Contactperson</a></span>
+			<button type="button" class="xbut">X</button>
+
+		</div>
         <div class="buttons">
             <input type="submit" value="Add resident" name="saveSettings"/>
             <input type="button" value="Cancel" onclick="location.href='landingPage'"/>
@@ -244,10 +247,10 @@
 			var contact = database.filter(e => e.idContactInformation == test)[0];
 			console.log(contact)
 			$('#information-contactperson-modal-content').fadeOut('fast');
-			$('[name="first_name"]').val(contact.firstname);
-			$('[name="last_name"]').val(contact.lastname);
-			$('[name="email"]').val(contact.email);
-			$('[name="phone"]').val(contact.phonenumber);
+			$('[name="cp_first_name"]').val(contact.firstname);
+			$('[name="cp_last_name"]').val(contact.lastname);
+			$('[name="cp_email"]').val(contact.email);
+			$('[name="cp_phone"]').val(contact.phonenumber);
 			$('.xbut').toggle();
 			$('#CIModal').hide();
 		})
