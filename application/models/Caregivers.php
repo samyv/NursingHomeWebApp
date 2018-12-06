@@ -348,42 +348,34 @@ Class Caregivers extends CI_Model
     public function insertQuestion($question, $newSection, $sectionId){
 
     	$id_section = $sectionId;
-    	//caregiver wants to make a new section
+    	////----caregiver wants to make a new section-----////
         if(!empty($newSection)){
         	//push new section in the section table
             $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', NULL)";
-            $id_section = $this->db->query($sql);
+            $this->db->query($sql);
+			$id_section = $this->db->insert_id();
             //push new queston with new section
 			$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', 1, NULL)";
 			$this->db->query($sql2);
         } else {
-        	//GET positionNum of last question of the section
+        	////----caregiver wants to add a question to a section----////
+
+        	// 1. GET positionNum of last question of the section
             $sql = "SELECT MAX(positionNum) FROM a18ux02.Question WHERE questionType = '$sectionId'";
+            $max = json_decode(json_encode($this->db->query($sql)->result()),true);
 
-            $prevPos = $this->db->query($sql)->result();
-
+			$prevPos =$max[0]['MAX(positionNum)'];
 			//make variable that is one more => new positionNum
-            print_r($prevPos);
             $currPos = $prevPos + 1;
 
 			//insert new question with this new positionNum and put nextQuestionID to NULL + get new ID
-
             $sql = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', '$currPos', NULL)";
             $this->db->query($sql);
 
-            $currId = $this->db->insert_id();
-            $nextId = $currId + 1;
-            $sql = "UPDATE a18ux02.Question SET nextQuestionId = '$nextId' WHERE positionNum = '$currPos'";
-            $this->db->query($sql);
-
 			//UPDATE the old last question nextQuestionID to the id you got from the insert
-
-            $sql = "UPDATE a18ux02.Question SET nextQuestionId = '$currId' WHERE positionNum = '$prevPos'";
+			$insertedID = $this->db->insert_id();
+            $sql = "UPDATE a18ux02.Question SET nextQuestionId = '$insertedID' WHERE positionNum = '$prevPos' AND questionType = '$sectionId'";
             $this->db->query($sql);
-
-            //$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', NULL, NULL)";
-
-			//$insert2 = $this->db->query($sql2);
 		}
         /*//return the status
         if ($insert) {
