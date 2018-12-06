@@ -103,12 +103,8 @@
 
     $(".selectQuestionnaire")
         .change(function () {
-            var str = window.location.href;
-            var start = str.search("id=") + 3;
-            var end = str.search("&");
-            var id = str.slice(start, end);
             $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-            window.location.assign(window.location.pathname+"?id="+id+"&idQuestionnaire="+$idQuestionnaire)
+            window.location.assign(window.location.pathname+"?id=<?php echo $_GET['id']; ?>"+"&idQuestionnaire="+$idQuestionnaire)
         });
 </script>
 </html>
