@@ -1,19 +1,23 @@
+var testdata = [{"answer":"3","questionType":"1","positionNum":"1"},{"answer":"1","questionType":"1","positionNum":"2"},{"answer":"2","questionType":"2","positionNum":"1"},{"answer":"5","questionType":"2","positionNum":"2"},{"answer":"2","questionType":"2","positionNum":"3"},{"answer":"2","questionType":"2","positionNum":"4"},{"answer":"1","questionType":"2","positionNum":"5"},{"answer":"3","questionType":"3","positionNum":"1"},{"answer":"3","questionType":"3","positionNum":"2"},{"answer":"4","questionType":"3","positionNum":"3"},{"answer":"4","questionType":"4","positionNum":"1"},{"answer":"1","questionType":"4","positionNum":"2"},{"answer":"3","questionType":"4","positionNum":"3"},{"answer":"1","questionType":"4","positionNum":"4"},{"answer":"3","questionType":"4","positionNum":"5"},{"answer":"3","questionType":"4","positionNum":"6"},{"answer":"1","questionType":"5","positionNum":"1"},{"answer":"4","questionType":"5","positionNum":"2"},{"answer":"5","questionType":"5","positionNum":"3"},{"answer":"4","questionType":"5","positionNum":"4"},{"answer":"3","questionType":"5","positionNum":"5"},{"answer":"5","questionType":"5","positionNum":"6"},{"answer":"3","questionType":"5","positionNum":"7"},{"answer":"5","questionType":"6","positionNum":"1"},{"answer":"2","questionType":"6","positionNum":"2"},{"answer":"2","questionType":"6","positionNum":"3"},{"answer":"1","questionType":"6","positionNum":"4"},{"answer":"5","questionType":"7","positionNum":"1"},{"answer":"5","questionType":"7","positionNum":"2"},{"answer":"5","questionType":"7","positionNum":"3"},{"answer":"2","questionType":"7","positionNum":"4"},{"answer":"2","questionType":"7","positionNum":"5"},{"answer":"4","questionType":"7","positionNum":"6"},{"answer":"2","questionType":"8","positionNum":"1"},{"answer":"2","questionType":"8","positionNum":"2"},{"answer":"4","questionType":"8","positionNum":"3"},{"answer":"4","questionType":"8","positionNum":"4"},{"answer":"2","questionType":"8","positionNum":"5"},{"answer":"5","questionType":"9","positionNum":"1"},{"answer":"4","questionType":"9","positionNum":"2"},{"answer":"1","questionType":"9","positionNum":"3"},{"answer":"1","questionType":"9","positionNum":"4"},{"answer":"2","questionType":"9","positionNum":"5"},{"answer":"4","questionType":"10","positionNum":"1"},{"answer":"5","questionType":"10","positionNum":"2"},{"answer":"3","questionType":"10","positionNum":"3"},{"answer":"1","questionType":"10","positionNum":"4"},{"answer":"1","questionType":"10","positionNum":"5"},{"answer":"1","questionType":"11","positionNum":"1"},{"answer":"3","questionType":"11","positionNum":"2"},{"answer":"2","questionType":"11","positionNum":"3"},{"answer":"5","questionType":"11","positionNum":"4"}];
+
+
 var data = {}
 var dummy = getAllScoresPerSection(rawData)
 var datadummy = [];
 datadummy['data'] = []
-for(var i = 0; i < dummy.temp_scores.length; i++){
-	for(var key in dummy.temp_scores[i]){
-		datadummy['data'][key] = dummy.temp_scores[i][key]
-		// datadummy.push(el);
+for(var i = 0; i < testdata.length; i++){
+	for(var key in testdata[i]){
+		datadummy[testdata[i]['questionType']+testdata[i]['positionNum']] = testdata[i]['answer'];
 	}
 }
+console.log(dummy);
 data['input'] = []
 data['input']['data'] = []
-data['input']['data'] = Object.values(datadummy.data);
+data['input']['data'] = Object.values(datadummy);
 data['input']['keys'] = []
-data['input']['keys'] = Object.keys(datadummy.data);
-data['range'] = dummy.range;
+data['input']['keys'] = Object.keys(datadummy);
+data['range'] = [1,5];
+console.log(data);
 function getAllScoresPerSection(rawDat) {
 	//loop every question
 	let range = [5,0]
@@ -68,17 +72,17 @@ function calculateScore(question) {
 ///////////////////////D3JS///////////////////////////
 //////////////////////////////////////////////////////
 
-const margin = { top: 30, right: 0, bottom: 100, left: 120 }
+const margin = { top: 30, right: 0, bottom: 100, left: 300 }
 const width = 960 - margin.left - margin.right
-const height = 600 - margin.top - margin.bottom
+const height = 650 - margin.top - margin.bottom
 const gridSize = Math.floor(width / 15.5)
 const legendElementWidth = gridSize*2
 const buckets = 9
 const colors = ["#ff6666","#ff8c66","#ffb366","#ffd966","#ffff66","#d9ff66","#b3ff66","#8cff66","#66ff66"]
-const sectionsNames = ["FOOD", "PRIVACY", "HEALTH","COMFORT","REST","CAREGIVERS","SPORT","ACTIVITIES","SLEEP","FAMILY"]
-const sections = ["A","B","C","D","E","F","G","H","I","J"]
-const times = [0,1,2,3,4,5,6,7,8,9]
-const xLabels = [0,1,2,3,4,5,6]
+const sectionsNames = ["Privacy", "Eten en maaltijden", "Veiligheid","Zich prettig voelen","Autonomie","Respect","Reageren door medewerkers op vragen","Een band voelen met wie hier werkt","Keuze aan activiteiten","Persoonlijke omgang"," Informatie vanuit het woonzorgcentrum"]
+const sections = ["1","2","3","4","5","6","7","8","9","10","11"]
+const times = [1,2,3,4,5,6,7,8,9,10,11]
+const xLabels = [1,2,3,4,5,6,7]
 const hash = []
 
 for(var i = 0;i < sections.length;i++){

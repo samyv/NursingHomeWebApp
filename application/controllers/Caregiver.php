@@ -641,8 +641,20 @@ class Caregiver extends CI_Controller
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
-        print_r(base64_encode($row[0]['picture']));
         return base64_encode($row[0]['picture']);
     }
 
+    public function getQuestionnaireResults(){
+        $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion";
+        $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
+        $condit['select'] = "answer, questionType, positionNum";
+        $condit['order'] = "ASC";
+        $condit['orderColumn'] = "questionTYpe, positionNum";
+        if ($row = $this->caregivers->getRows($condit)) {
+            $result = $row->result();
+            $result = json_encode($result);
+            print_r($result);
+            return $result;
+        }
+    }
 }
