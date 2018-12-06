@@ -70,14 +70,28 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/login', $data);
     }
 
-    public function questionpage($index=1)
+    public function questionpage($index)
     {
+        $data['index'] = $index;
         $data['question'] = $this->QuestionModel->getQuestion($index);
-        $num = ($this->QuestionModel->getNumofQuestionInThisSection($index));
+        $totalNum = $this->QuestionModel->getNumofQuestionInThisSection($index);
+        $data['totalNum'] = $totalNum;
+        $nextType = $this->QuestionModel->getQuestionType($index+1);
+        $data['nextType'] = $nextType;
+        $currentType = $this->QuestionModel->getQuestionType($index);
+        $data['currentType'] = $currentType;
 
-        $data['totalNum'] = $num;
-        $data['currentNum'] = 1;
-        $data['percentage'] = sprintf("%01.0f", (1/$num)*100).'%';
+        $residentID = $_SESSION['Resident']['residentID'];
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($residentID);
+        if($questionnaireId == -1) {
+            return;
+        }
+        $answer = $this->QuestionModel->getAnswer($questionnaireId,$index);
+        $pos = $this->QuestionModel->getQuestionPosition($index);
+        if($answer == 0) $currentNum = $pos-1;
+        else $currentNum = $pos;
+        $data['currentNum'] = $currentNum;
+        $data['percentage'] = sprintf("%01.0f", ($currentNum/$totalNum)*100).'%';
         $this->parser->parse('Resident/questionPage', $data);
     }
 
@@ -88,8 +102,7 @@ class Resident extends CI_Controller
     }
 
     public function tutorialpage(){
-        $data['resident'] = 'Jack';
-        //print_r($_SESSION['Resident']['residentID']);
+        $data['resident'] = $_SESSION['Resident']['residentID'];
         $this->parser->parse("Resident/tutorialPage",$data);
     }
 
@@ -97,33 +110,36 @@ class Resident extends CI_Controller
         $index = $this ->input->post('index');
         $answer = $this->input->post('answer');
 
-        $questionnaireId = 0;
-        $residentID = 1;
+        $residentID = $_SESSION['Resident']['residentID'];
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($residentID);
+        if($questionnaireId == -1) {
+            return;
+        }
 
-        $this->QuestionModel->insertIndex($index);
+        $this->QuestionModel->insertIndex($index,$questionnaireId);
         if($answer != null) {
-            $this->QuestionModel->insertAnswer($questionnaireId, $index - 1, $answer);
+            $this->QuestionModel->insertAnswer($questionnaireId, $index, $answer);
             $this->QuestionModel->insertTimestamp($residentID);
         }
-        $data = $this->QuestionModel->getQuestion($index);
-        echo $data;
     }
 
     public function getOldAnswer(){
         $index = $this ->input->post('index');
-        $questionnaireID = 0;
+        $idResident = $_SESSION['Resident']['residentID'];
+        $questionnaireID = $this->QuestionModel->getQuestionnaireID($idResident);
+        if($questionnaireID == -1) {
+            return;
+        }
         $data = $this->QuestionModel->getAnswer($questionnaireID, $index);
         echo $data;
     }
     public function getNextQuestionType(){
         $index = $this ->input->post('index');
-        $residentID = 1;
         $data = $this->QuestionModel->getQuestionType($index+1);
         echo $data;
     }
     public function getCurrentQuestionType(){
         $index = $this ->input->post('index');
-        $residentID = 1;
         $data = $this->QuestionModel->getQuestionType($index);
         echo $data;
     }
@@ -135,7 +151,8 @@ class Resident extends CI_Controller
             redirect('resident/index');
         }
         //load the view
-        $this->load->view('Resident/tutorialPage');
+        print_r($_SESSION['Resident']['residentID']);
+        $this->tutorialpage();
     }
 
 
@@ -146,11 +163,11 @@ class Resident extends CI_Controller
         redirect('Resident/index');
     }
 
-    public function section($id =1)
+    public function section($sectionID, $questionID)
     {
-        $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($id);
-        $data['index'] = $this->getFirstQuestionIndex($id);
-        $data['image'] = $this->QuestionModel->getImage($id);
+        $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($sectionID);
+        $data['index'] = $questionID+1;
+        $data['image'] = $this->QuestionModel->getImage($sectionID);
         $this->parser->parse('Resident/sectionPage',$data);
     }
 
@@ -167,22 +184,31 @@ class Resident extends CI_Controller
         return -1;
     }
 
-    public function getIndex($id =1)
+    public function getIndex()
     {
-        $residentID = 1;
+        $residentID = $_SESSION['Resident']['residentID'];
         $data = $this->QuestionModel->getIndex($residentID);
         echo $data;
     }
 
     public function finalPage(){
-        $data['resident'] = "Jack";
+        $data['resident'] = $_SESSION['Resident']['residentID'];
         $this->parser->parse('Resident/finalpage',$data);
     }
 
     public function startQuestionnaire(){
         $idResident = $_SESSION['Resident']['residentID'];
         $this->QuestionModel->createQuestionnaires($idResident);
-        $this->section();
+        $currentQuestionIndex = $this->QuestionModel->getIndex($idResident);
+        $currentSectionIndex = $this->QuestionModel->getQuestionType($currentQuestionIndex+1);
+        $this->section($currentSectionIndex, $currentQuestionIndex);
+    }
+
+    public function checkIfLast(){
+        $index = $this->input->post('index');
+        $last = $this->QuestionModel->checkIfLast($index);
+        if(is_numeric($last)) echo 0;
+        else echo 1;
     }
 
 

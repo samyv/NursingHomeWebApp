@@ -58,7 +58,7 @@ body{
 #question{
     grid-area: question;
     font-size: 4em;
-    text-align: center;
+    text-align: left;
 }
 
 #answers,footer{

@@ -4,18 +4,37 @@
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
+    grid-template-rows: 2fr 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-            ". . resident resident . . . extra extra . . ."
-            ". . firstname firstname_input  . . . contact_first contact_first_input . . ."
-            ". . lastname lastname_input  . . . contact_last contact_last_input . . ."
-            ". . birthday birthday_input  . . . email email_input  . . ."
-            ". . gender gender_input . . . phone phone_input . . ."
-            ". . floor floor_input  . . . relation relation_input . . ."
-            ". . room room_input . . . . . . . ."
-            ". . . . . . . buttons buttons . . ."
+            ". .  . resident resident . . extra extra . . ."
+            ". . . form_errors form_errors form_errors form_errors form_errors form_errors . . ."
+            ". . . firstname firstname_input  . . first_name first_name_input . . ."
+            ". . . lastname lastname_input . . last_name last_name_input . . ."
+            ". . . birthday birthday_input . .  email email_input . . ."
+            ". . . gender gender_input . . phone phone_input . . ."
+            ". . . floor floor_input . . buttons buttons . . ."
+            ". . . room room_input . . . . . . ."
+            ". . . picture picture . . . . . . ."
+}
 
+.picture_input{
+    grid-area: picture;
+}
+
+.form-errors{
+    grid-area: form_errors;
+    margin-bottom: 2em;
+}
+
+.form-errors span{
+    background: #d48478;
+    padding: 1em;
+}
+
+.form-errors .success{
+    background: #94b7a0;
+    padding: 1em;
 }
 
 .firstname { grid-area: firstname; }
@@ -30,15 +49,16 @@
 
 .room {grid-area: room;}
 
-.contact_first { grid-area: contact_first; }
-
-.contact_last { grid-area: contact_last; }
+.contact_first_name {
+    grid-area: first_name;
+}
+.contact_last_name {
+    grid-area: last_name;
+}
 
 .email { grid-area: email; }
 
 .phone { grid-area: phone; }
-
-.relation{ grid-area: relation; }
 
 .header { grid-area: headerr; }
 
@@ -58,18 +78,18 @@
 
 .room_input { grid-area: room_input; }
 
-.contact_first_input {
-    grid-area: contact_first_input;
+.cp_first_name_input{
+    grid-area: first_name_input;
     width: 190px;
 }
-
-.contact_last_input{ grid-area: contact_last_input; }
+.cp_last_name_input{
+     grid-area: last_name_input;
+     width: 190px;
+ }
 
 .email_input { grid-area: email_input; }
 
 .phone_input { grid-area: phone_input; }
-
-.relation_input{ grid-area: relation_input; }
 
 .buttons {
     grid-area: buttons;

@@ -32,7 +32,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {dropdown_menu_items}
-                    <a href="{link}" class="{className}">{name}</a>
+                    <a href="<?=base_url();?>{link}" class="{className}">{name}</a>
                     {/dropdown_menu_items}
                 </div>
             </li>

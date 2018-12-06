@@ -70,7 +70,7 @@ function calculateScore(question) {
 
 const margin = { top: 30, right: 0, bottom: 100, left: 120 }
 const width = 960 - margin.left - margin.right
-const height = 850 - margin.top - margin.bottom
+const height = 600 - margin.top - margin.bottom
 const gridSize = Math.floor(width / 15.5)
 const legendElementWidth = gridSize*2
 const buckets = 9

@@ -15,13 +15,16 @@ class Caregiver extends CI_Controller
 		$this->load->helper('url');
 		$this->load->library('form_validation');
 		$this->load->model('caregivers');
+		$this->load->model('residents');
 		$this->load->library('session');
+
 		$this->load->model('dropdownmodel');
 		$this->load->database('default');
 		$this->load->helper('security');
+		$this->load->model('Upload_model', 'upl');
 	}
 
-	/*
+	/**
      * User account information
      */
 	public function account()
@@ -87,7 +90,7 @@ class Caregiver extends CI_Controller
 		$data['caregiver'] = $userData;
 	}
 
-	/*
+	/**
      * User login
      */
 	public function index()
@@ -140,7 +143,7 @@ class Caregiver extends CI_Controller
 
 	}
 
-	/*
+	/**
      * User registration
      */
 	public function register()
@@ -177,7 +180,7 @@ class Caregiver extends CI_Controller
 				$this->caregivers->send_validation_email($userData);
 				if ($insert) {
 					$this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
-//					redirect('index.php');
+					redirect('index.php');
 				} else {
 					$data['error_msg'] = 'Some problems occured, please try again.';
 				}
@@ -190,7 +193,7 @@ class Caregiver extends CI_Controller
 
 	}
 
-	/*
+	/**
      * User logout
      */
     public function logout()
@@ -204,7 +207,7 @@ class Caregiver extends CI_Controller
         redirect('index.php');
     }
 
-    /*
+    /**
      * Existing email check during validation
      */
     public function email_check($str)
@@ -217,7 +220,12 @@ class Caregiver extends CI_Controller
             return TRUE;
         }
     }
- public function key_check($key,$nursingHomeID)
+
+    /**
+     * form validation function for the key
+     */
+
+    public function key_check($key,$nursingHomeID)
     {
 		if ($this->caregivers->checkKey($nursingHomeID,$key)) {
 			return TRUE;
@@ -290,11 +298,15 @@ class Caregiver extends CI_Controller
         $this->parser->parse('templates/header',$data);
 
         if($this->input->post('saveSettings')){
-            $this->form_validation->set_rules('firstname', 'Name', 'required');
-            $this->form_validation->set_rules('lastname', 'Name', 'required');
-            $this->form_validation->set_rules('birthdate','Date','required|callback_date_valid');
-            $this->form_validation->set_rules('floor', 'Number', 'required|required|is_natural');
-            $this->form_validation->set_rules('room', 'Number', 'required|is_natural_no_zero');
+            $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
+            $this->form_validation->set_rules('birthdate','Date','trim|required|callback_date_valid|xss_clean');
+            $this->form_validation->set_rules('floor', 'Number', 'trim|required|required|is_natural|xss_clean');
+            $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean');
+            $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if($this->form_validation->run() == true){
                 $dataResident = array(
@@ -303,11 +315,39 @@ class Caregiver extends CI_Controller
                     'birthdate' => strip_tags($this->input->post('birthdate')),
                     'floor' => strip_tags($this->input->post('floor')),
                     'room' => strip_tags($this->input->post('room')),
-                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f')
+                    'gender' => (strip_tags($this->input->post('gender'))=='male'?'m':'f'),
+                    'cp_first_name' =>strip_tags($this->input->post('cp_first_name')),
+                    'cp_last_name' =>strip_tags($this->input->post('cp_last_name')),
+                    'cp_email' =>strip_tags($this->input->post('cp_email')),
+                    'cp_phone' =>strip_tags($this->input->post('cp_phone')),
                 );
-                $this->residents->insert($dataResident);
-            }
+                // Define file rules
 
+                $config['upload_path']          = './upload/';
+                $config['allowed_types']        = 'jpg|jpeg';
+                $config['max_size']             = 100;
+                $config['max_width']            = 1024;
+                $config['max_height']           = 1024;
+                $config['encrypt_name'] = TRUE;
+                $this->load->library('upload',$config);
+                $imagename = 'no-img.jpg';
+                if (!$this->upload->do_upload('imageURL')) {
+                    $error = array('error' => $this->upload->display_errors());
+                    echo $this->upload->display_errors();
+                } else {
+                    $data = $this->upload->data();
+                    $dataResident['filepath'] = $data['full_path'];
+                    $dataResident['mime'] = $data['file_type'];
+                    if($this->residents->insert($dataResident)) {
+                        unlink($data['full_path']);
+                        $data['success_msg'] = "The new resident is registered successful.";
+                        unset($_POST);
+                    }else
+                    {
+                        $data['error_msg'] = "Something went wrong, please try again.";
+                    }
+                }
+            }
         }
         $data['resident'] = $dataResident;
         //load the view
@@ -365,31 +405,68 @@ class Caregiver extends CI_Controller
 		$this->parser->parse('Caregiver/floorView', $data);
 	}
 
-
-
     public function resDash()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
+        $idResident = $_GET['id'];
         $data = array();
         $cond = array();
-		$cond['table'] = "a18ux02.Resident";
-        $cond['where'] = array('residentID' => $_GET['id']);
-//    	$cond['return_type'] = 'single';
-        $row = $this->caregivers->getRows($cond);
-        $result = json_decode(json_encode($row), true);
-        $data['resident'] = $result['result_object'][0];
+		$cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
+        $cond['where'] = array('Resident.residentID' => $_GET['id']);
+        $row = $this->caregivers->getResidentDashboardInfo($cond);
+        $data['resident'] = $row[0];
 
         $cond['table'] = "a18ux02.ContactPerson";
-        $cond['where'] = array('idContactInformation' => $result['result_object'][0]["FK_ContactPerson"] );
+        $cond['where'] = array('idContactInformation' => $row[0]['FK_ContactPerson'] );
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
 
-        $this->load->view('templates/header');
+
+        /*
+         * get all the questionnaires from the current Resident
+         */
+
+        $cond['table'] = "a18ux02.Questionnaires";
+        $cond['where'] = array('Resident_residentID'=> $_GET['id'],
+                                'completed' => 1,
+                                );
+        $cond['order'] = "DESC";
+        $cond['orderColumn'] = "timestamp";
+        if($row = $this->caregivers->getRows($cond)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result), true);
+            $data['questionnaires'] = $result;
+        }
+
+
+
+        /*
+         * get the answers from the selected questionnaire
+         */
+        if(isset($data['questionnaires'])) {
+            if (!isset($_GET['idQuestionnaire'])) {
+                redirect('resDash/?id=' . $idResident . '&idQuestionnaire=' . $result["0"]["idQuestionnaires"]);
+            } else {
+                $condit['table'] = "a18ux02.Answers";
+                $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
+                $condit['order'] = "ASC";
+                $condit['orderColumn'] = "questionId";
+                if ($row = $this->caregivers->getRows($condit)) {
+                    $result = $row->result();
+                    $result = json_decode(json_encode($result), true);
+                }
+            }
+        }
+
+
+
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
+        $this->parser->parse('templates/header',$data);
+
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
     }
@@ -530,5 +607,42 @@ class Caregiver extends CI_Controller
         }
     }
 
+
+    /*
+     * This function checks if a phone number is in the correct format
+     */
+    public function regex_check($str)
+    {
+        if (preg_match('/^((\+|00)32\s?|0)4(60|[789]\d)((\s?\d{2}){3})|((\s?\d{3}){2})/', trim($str))||preg_match('/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/', trim($str)))
+        {
+            return TRUE;
+        }
+        else
+        {
+            $this->form_validation->set_message('regex_check', 'The %s field is not in the right format');
+            return FALSE;
+        }
+    }
+
+    public function cp_check($str){
+        $checkEmail = $this->residents->lookUpEmail($str);
+        if ($checkEmail > 0) {
+            $this->form_validation->set_message('cp_check', 'There is already a contact person with that email, please select it from the list.');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+
+
+    public function getResidentImage(){
+        $cond = array();
+        $cond['select'] = 'picture';
+        $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
+        $cond['where'] = array('Resident.residentID' => $_GET['id']);
+        $row = $this->caregivers->getResidentDashboardInfo($cond);
+        print_r(base64_encode($row[0]['picture']));
+        return base64_encode($row[0]['picture']);
+    }
 
 }
