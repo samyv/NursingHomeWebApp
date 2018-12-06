@@ -14,14 +14,13 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 8em 4em 2em 15em 15em 1fr;
+    grid-template-rows: 8em 8em 4em 2em 13em 13em;
     grid-template-areas:                    ". . title title title title title title title title . ."
                                                 ". . quote quote quote quote quote quote quote quote . ."
                                         ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
                                         ". . noteheader noteheader noteheader noteheader clndrhdr clndrhdr clndrhdr clndrhdr . ."
                                         ". . notes notes notes . clndr clndr clndr clndr . ."
-                                        ". . . . . . clndr clndr clndr clndr . ."
-                            "footer footer footer footer footer footer footer footer footer footer footer footer";
+                                        ". . . . . . clndr clndr clndr clndr . .";
     grid-gap: 1em;
 }
 
@@ -70,13 +69,12 @@ body {
 .newNote{
     grid-area: notebtn;
 }
-.newNote .btn{
-
-    width: 100%;
-    background-color: #003B46;
-    color: white;
-    border-radius: 0;
-    margin-left: 2em;
+.newNote i{
+    margin-left: 10px;
+    color: #003b46;
+}
+.newNote i:hover{
+    cursor: pointer;
 }
 
 .note{

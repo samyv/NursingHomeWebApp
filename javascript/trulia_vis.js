@@ -132,5 +132,6 @@ function drawChart(testdata) {
     data['input']['keys'] = []
     data['input']['keys'] = Object.keys(datadummy);
     data['range'] = [1,5];
+    console.log(data);
     heatmapChart(data.input)
 }

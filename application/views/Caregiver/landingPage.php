@@ -34,7 +34,7 @@
     <div class="noteheader">
         <h2 class="noteheader">Notes</h2>
         <div class="newNote" id="newNote">
-            <button id="newNotebtn" type="button" class="btn">New note</button>
+            <i id="newNotebtn" class="fas fa-2x fa-plus-circle"></i>
         </div>
     </div>
     <div class="clndrheader">

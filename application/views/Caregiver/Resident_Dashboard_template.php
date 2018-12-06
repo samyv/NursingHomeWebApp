@@ -107,7 +107,6 @@
                     dataType: 'json',
                     success:function (array) {
                         testdata = array;
-                        console.log(testdata);
                         drawChart(testdata);
                     }
                 });
@@ -120,7 +119,6 @@
             dataType: 'json',
             success:function (array) {
                 testdata = array;
-                console.log(testdata);
                 drawChart(testdata);
             }
         });
