@@ -211,4 +211,18 @@ class QuestionModel extends CI_Model
         return $pos;
     }
 
+    function getResidentFirstName($ID){
+        $query = $this->db->get_where('a18ux02.Resident', array('residentID'=>$ID));
+
+        $row = $query->row_array();
+
+        $pos = 0;
+
+        if(isset($row)){
+            $pos = $row['firstname'];
+        }
+
+        return $pos;
+    }
+
 }

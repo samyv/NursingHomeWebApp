@@ -25,6 +25,12 @@
     <div id="previous_btn">
         <button id="previous">Previous</button>
     </div>
+    <div id="footer">
+        <footer>
+            <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
+            </p>
+        </footer>
+    </div>
 </div>
 </body>
 </html>

@@ -13,7 +13,7 @@
      <div class="logo">
 <!--        <h1 id="tile">GraceAge</h1>-->
 <!--        <h2 id="subtitle">Providing better care</h2>-->
-         <div id="tile">GraceAge</div><br>
+         <div id="title">GraceAge</div><br>
          <div id="subtitle">Providing better care</div>
      </div>
 
