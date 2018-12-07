@@ -218,20 +218,159 @@ Class Caregivers extends CI_Model
         return $array[0]['Quote'] . "<br>" . "-" . $array[0]['Name'] . "-";
     }
 
-    public function getNotes($id)
-    {
-        $sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= " . $id;
-        $result = $this->db->query($sql)->result();
-        if (!empty($result)) {
-            $array = json_decode(json_encode($result), true);
-            foreach ($array as $key => $value) {
-                $this->notes['note' . $key] = array('Note' => $value['Note'], 'noteid' => $value['idNotes']);
-            }
-            return $this->notes;
-        } else {
-            return false;
-        }
-    }
+	public function getNotes($id)
+	{
+		$sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= " . $id;
+		$result = $this->db->query($sql)->result();
+		if (!empty($result)) {
+			$array = json_decode(json_encode($result), true);
+			foreach ($array as $key => $value) {
+				$this->notes['note' . $key] = array('Note' => $value['Note'], 'noteid' => $value['idNotes']);
+			}
+			return $this->notes;
+		} else {
+			return false;
+		}
+	}
+	public function sendEmails(){
+//		$this->caregivers->checkWeekly();
+		$this->caregivers->sendWeekly();
+		$this->caregivers->checkMonthly();
+	}
+
+	public function checkWeekly(){
+		$sendFlag = false;
+		$now = new DateTime(date('Y-m-d'));
+		$prev_monday = new DateTime(date('Y-m-d', strtotime("previous monday", strtotime($now->format("Y-m-d")))));
+
+		$sql = "SELECT lastEmailSendWeekly FROM a18ux02.GLOBAL WHERE FK_NURSINGHOME = 1";
+		$result = json_decode(json_encode($this->db->query($sql)->result()),true);
+
+		$lastEmailSendWeekly_raw = $result[0]['lastEmailSendWeekly'];
+		$lastEmailSendWeekly = new DateTime(date("Y-m-d",strtotime($lastEmailSendWeekly_raw)));
+		//chech if today is monday
+		if(date('l') == "Monday"){
+			//YES: check if we already send emails today:
+			if($lastEmailSendWeekly == $now){
+				return;
+			} else {
+				//SEND THOSE EMAILS
+				$sendFlag = true;
+			}
+			//check if lastemailsendweekly is send after the last monday
+		} else if($lastEmailSendWeekly > $prev_monday){
+			return;
+		} else {
+			//SEND THOSE EMAILS
+			$sendFlag = true;
+		}
+
+		if($sendFlag){
+			$this->caregivers->sendWeekly();
+		}
+
+	}
+	public function sendWeekly(){
+
+		//STEP 1: select all the caregivers that are weekly
+		$sql = "SELECT * FROM a18ux02.Caregiver
+				JOIN a18ux02.NotificationPreferences ON Caregiver.FK_NotificationPref = NotificationPreferences.NotificationPreferencesID
+                WHERE NotificationPreferences.Cycle = 'weekly'";
+
+
+		$result = $this->db->query($sql)->result();
+		$array = (json_decode(json_encode($result),true));
+		//STEP 2: loop every caregiver
+		$caregivers = array();
+
+		foreach($array as $caregiver){
+			$this->load->library('email');
+			$email = $caregiver['email'];
+			$name = $caregiver['firstname'];
+			$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
+			$result = $this->db->query($sql);
+			$row = $result->row();
+			$this->email->set_mailtype('html');
+			$this->email->from('a18ux02@gmail.com');
+			$this->email->to($email);
+
+			$this->email->subject('weekly updates');
+
+			$message = '<p> Dear ' . $caregiver['firstname'] . ',</p>';
+			$message .= '<p>the weekly updates of the resident are here! check them out</p>';
+			$message .= '<p> Thanks</p>';
+
+			$this->email->message($message);
+//			$this->email->send();
+		}
+
+	}
+	public function checkMonthly(){
+		$sendFlag = false;
+		$now = new DateTime(date('Y-m-d'));
+		$prev_first = new DateTime(date('Y-m-d', strtotime("first day of this month", strtotime($now->format("Y-m-d")))));
+		$sql = "SELECT lastEmailSendWeekly FROM a18ux02.GLOBAL WHERE FK_NURSINGHOME = 1";
+		$result = json_decode(json_encode($this->db->query($sql)->result()),true);
+
+		$lastEmailSendWeekly_raw = $result[0]['lastEmailSendWeekly'];
+		$lastEmailSendWeekly = new DateTime(date("Y-m-d",strtotime($lastEmailSendWeekly_raw)));
+		//chech if today is the first
+		if(date('d') == "01"){
+			//YES: check if we already send emails today:
+			if($lastEmailSendWeekly == $now){
+				return;
+			} else {
+				//SEND THOSE EMAILS
+				$sendFlag = true;
+			}
+			//check if lastemailsendweekly is send after the first
+		} else if($lastEmailSendWeekly > $prev_first){
+			return;
+		} else {
+			//SEND THOSE EMAILS
+			$sendFlag = true;
+		}
+
+		if($sendFlag){
+			$this->caregivers->sendMonthly();
+		}
+
+	}
+
+	public function sendMonthly(){
+//STEP 1: select all the caregivers that are monthly
+		$sql = "SELECT * FROM a18ux02.Caregiver
+				JOIN a18ux02.NotificationPreferences ON Caregiver.FK_NotificationPref = NotificationPreferences.NotificationPreferencesID
+                WHERE NotificationPreferences.Cycle = 'monthly'";
+
+
+		$result = $this->db->query($sql)->result();
+		$array = (json_decode(json_encode($result),true));
+		//STEP 2: loop every caregiver
+		$caregivers = array();
+
+		foreach($array as $caregiver){
+			$this->load->library('email');
+			$email = $caregiver['email'];
+			$name = $caregiver['firstname'];
+			$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
+			$result = $this->db->query($sql);
+			$row = $result->row();
+			$this->email->set_mailtype('html');
+			$this->email->from('a18ux02@gmail.com');
+			$this->email->to($email);
+
+			$this->email->subject('monthly updates');
+
+			$message = '<p> Dear ' . $caregiver['firstname'] . ',</p>';
+			$message .= '<p>the monthly updates of the resident are here! check them out</p>';
+			$message .= '<p> Thanks</p>';
+
+			$this->email->message($message);
+//			$this->email->send();
+		}
+
+	}
 
     public function updateNote($notes)
     {
@@ -376,7 +515,7 @@ Class Caregivers extends CI_Model
     	////----caregiver wants to make a new section-----////
         if(!empty($newSection)){
         	//push new section in the section table
-            $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', NULL)";
+            $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', 'extra_questions.png')";
             $this->db->query($sql);
 			$id_section = $this->db->insert_id();
             //push new queston with new section
@@ -435,6 +574,13 @@ Class Caregivers extends CI_Model
 
         return !empty($result)?$result:false;
     }
+
+
+    public function executeQuery($sql){
+        $result = $this->db->query($sql);
+        return !empty($result)?$result:false;
+    }
+
 
 
 }

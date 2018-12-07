@@ -6,7 +6,6 @@
     <link href="<?=base_url()?>assets/css/finalpage.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
 <div class="grid-container">
 
 
@@ -24,7 +23,13 @@
     </div>
 
     <div id="previous_btn">
-        <button id="previous">Previous</button>
+        <button id="previous" onclick="location.href = '<?=base_url();?>resident/questionpage/<?= $index?>'">Previous</button>
+    </div>
+    <div id="footer">
+        <footer>
+            <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
+            </p>
+        </footer>
     </div>
 </div>
 

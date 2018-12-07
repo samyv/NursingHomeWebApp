@@ -4,10 +4,11 @@ body{
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 3fr 5fr 1fr;
+    grid-template-rows: 2fr 1.6fr 3.4fr 1fr;
     grid-template-areas:
             "logo logo logo logo logo logo logo logo logo logo logo logo"
-            ". . form form form form form form form form . ."
+            "form form form form form form form form form form form form"
+            ". ResidentButton ResidentButton ResidentButton ResidentButton ResidentButton ResidentButton ResidentButton ResidentButton ResidentButton ResidentButton ."
             ". . footer footer footer footer footer footer footer footer . .";
     width: 100vw;
     height: 100vh;
@@ -16,17 +17,6 @@ body{
 .logo,.form,#footer{
     text-align: center;
 }
-
-/*body {*/
-    /*font-family: Verdana;*/
-    /*height: 100%;*/
-    /*display: flex;*/
-    /*margin: 0;*/
-    /*flex-direction: column;*/
-    /*width: 900px;*/
-    /*align-items: center;*/
-
-/*}*/
 
 
 .logo{
@@ -37,6 +27,53 @@ body{
     padding-bottom: 1em;
     line-height: 3em;
 }
+.ResidentButton{
+    grid-area: ResidentButton;
+    display:grid;
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+}
+
+.ResidentButton > div{
+    display:grid;
+    grid-template-rows: 5fr 1fr;
+    font-size: 1.8em;
+}
+
+.ResidentButton > div > div{
+    margin: 1em;
+}
+
+.ResidentButton > div > div >img{
+    width:100%;
+    height: 100%;
+    margin-bottom: 1em;
+}
+.ResidentButton > div >form{
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#title{
+    font-size : 5em;
+}
+
+#subtitle{
+    font-size : 2.5em;
+}
+#roomNum{
+    font-size : 2em;
+}
+
+.inputController{
+    font-size : 2em;
+    border:1px solid black;
+    margin-left: 0.5em;
+}
+#loginButton{
+    font-size : 2em;
+    margin-top : 0.5em;
+}
 
 .form {
     grid-area: form;
@@ -46,7 +83,7 @@ body{
 
 #footer{
     grid-area: footer;
-
+    margin-top: 3em;
 }
 
 input[type=text], input[type=password] {
@@ -86,6 +123,7 @@ span.psw {
     padding-top: 16px;
     font-size: 12px;
 }
+
 footer{
     margin-bottom:0;
     text-align: center;

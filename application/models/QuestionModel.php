@@ -5,7 +5,7 @@
  * Date: 11/13/18
  * Time: 9:08 AM
  */
-
+date_default_timezone_set('Europe/Brussels');
 class QuestionModel extends CI_Model
 {
 
@@ -83,9 +83,9 @@ class QuestionModel extends CI_Model
     }
 
 
-    function insertTimestamp($residentID){
+    function insertQuestionnaireTimestamp($questionnaireId){
         $this->db->query(
-            "UPDATE a18ux02.Questionnaires SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = $residentID"
+            "UPDATE a18ux02.Questionnaires SET timestamp = CURRENT_TIMESTAMP WHERE idQuestionnaires = $questionnaireId"
         );
     }
 
@@ -153,7 +153,7 @@ class QuestionModel extends CI_Model
             $now = new DateTime(date('Y-m-d H:i:s e'));
             $lastTime = new DateTime($row['timestamp']);
             $interval = $lastTime->diff($now);
-            if($interval->format('%a') > 7){
+            if($interval->i > 4){
                 $this->db->query("INSERT INTO a18ux02.Questionnaires (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 0)");
             }
         } else {
@@ -209,6 +209,94 @@ class QuestionModel extends CI_Model
         }
 
         return $pos;
+    }
+
+    function getResidentFirstName($ID){
+        $query = $this->db->get_where('a18ux02.Resident', array('residentID'=>$ID));
+
+        $row = $query->row_array();
+
+        $pos = 0;
+
+        if(isset($row)){
+            $pos = $row['firstname'];
+        }
+
+        return $pos;
+    }
+
+    function getFirstQuestion(){
+        $query = $this->db->get_where('a18ux02.Question', array('previousQuestionId'=>'NULL'));
+
+        $row = $query->row_array();
+
+        $id = -1;
+
+        if(isset($row)){
+            $id = $row['idQuestion'];
+        }
+
+        return $id;
+    }
+
+    function getLastQuestion(){
+        $query = $this->db->get_where('a18ux02.Question', array('nextQuestionId'=>'NULL'));
+
+        $row = $query->row_array();
+
+        $id = -1;
+
+        if(isset($row)){
+            $id = $row['idQuestion'];
+        }
+
+        return $id;
+    }
+
+    function nextQuestion($index){
+        if($index==0) return $this->getFirstQuestion();
+
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$index));
+
+        $row = $query->row_array();
+
+        $next = -1;
+
+        if(isset($row)){
+            $next = $row['nextQuestionId'];
+        }
+
+        if($next == 'NULL') $next = -1;
+
+        return $next;
+    }
+
+    function previousQuestion($index){
+        if($index==0) return -1;
+
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$index));
+
+        $row = $query->row_array();
+
+        $prev = -1;
+
+        if(isset($row)){
+            $prev = $row['previousQuestionId'];
+        }
+
+        if($prev == 'NULL') $prev = -1;
+
+        return $prev;
+    }
+
+    function setQuestionnaireCompleted($questionnaireId){
+        $query = $this->db->get_where('a18ux02.Questionnaires',array('idQuestionnaires'=>$questionnaireId));
+
+        $row = $query->row_array();
+
+        if(isset($row)){
+            $this->db->query("UPDATE a18ux02.Questionnaires SET Completed = '1' WHERE idQuestionnaires = $questionnaireId");
+        }
     }
 
 }

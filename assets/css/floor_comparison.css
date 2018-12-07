@@ -16,9 +16,10 @@ html,body{
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 6em 4fr 1fr;
+    grid-template-rows: 6em 8em 4fr 1fr;
     grid-template-areas:
             ". title title title title title title title title title title ."
+            ". list list  . tab tab tab tab tab tab tab ."
             ". list list  . graph graph graph graph graph graph graph ."
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 
@@ -45,6 +46,52 @@ html,body{
     transition: all .2s ease-in-out;
 }
 
+/* Style the tab */
+.tab {
+    grid-area: tab;
+    color: white;
+    overflow: auto;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #ccc;
+    background-color: #66a5ad;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+    min-width: 10em;
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    border-top: none;
+    position: relative;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
+}
+
 .container:hover{
     opacity: 0.8;
     transform: scale(1.05);
@@ -63,7 +110,28 @@ html,body{
     transition: all .3s ease-in-out;
 }
 
-.graph:hover{
-    transform: scale(1.3);
-    grid-area: graph;
+.line {
+    fill: none;
+    stroke-width: 5px;
+    stroke-opacity: 0.3;
+}
+
+.line:hover{
+    stroke-opacity: 1;
+    stroke-width: 10px;
+}
+
+@media screen and (max-width: 1730px){
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 6em 8em 4fr 1fr;
+        grid-template-areas:
+                ". title title title title title title title title title title ."
+                ". list list  tab tab tab tab tab tab tab tab ."
+                ". list list  graph graph graph graph graph graph graph graph ."
+                "footer footer footer footer footer footer footer footer footer footer footer footer";
+
+    }
 }
