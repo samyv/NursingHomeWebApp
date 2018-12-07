@@ -152,6 +152,13 @@ Class Caregivers extends CI_Model
 		return $result;
 	}
 
+    public function getCaregivers()
+    {
+        $sql1 = "SELECT * FROM a18ux02.Caregiver";
+        $result = $this->db->query($sql1)->result();
+        return $result;
+    }
+
 	/*
     * Returns rows from the database based on the conditions
      * conditons:

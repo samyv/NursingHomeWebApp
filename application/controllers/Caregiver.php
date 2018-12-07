@@ -278,7 +278,7 @@ class Caregiver extends CI_Controller
         $data = array();
         $data['page_title'] = "Search page";
         $this->load->database('default');
-        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
         $this->parser->parse('templates/header', $data);
 
 
@@ -680,4 +680,28 @@ class Caregiver extends CI_Controller
         return base64_encode($row[0]['picture']);
     }
 
+
+    public function deleteCaregiver()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Caregiver";
+        $this->load->database('default');
+        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getCaregivers();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteCaregiver', $data);
+    }
+
 }
+
+
