@@ -81,7 +81,6 @@ class residents extends CI_Model
 
     public function updateContactPerson($data = array())
     {
-        $cp_contactperson_id = $data['cp_contactperson_id'];
         $firstname = $data['firstname'];
         $lastname = $data['lastname'];
         $email = $data['email'];

@@ -28,6 +28,7 @@
         <div class="modal-header">
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+
         </div>
 
         <div id="info-contact" class="info-contact">
@@ -41,6 +42,7 @@
             echo "<br>";
             ?>
         </div>
+
         <form method="post" action="">
         <div id="info-contact-changed" style="display: none">
             <input type="text" placeholder="Enter firstname" class = "form-control" name="firstname" required=""
@@ -59,11 +61,9 @@
             value="<?php echo $contactperson['phonenumber']; ?>">
             <?php echo form_error('phonenumber','<span class="help-block">','</span>'); ?>
         </div>
-
         <div class="modal-footer">
             <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info" readonly>
             <input type="submit" id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info" style="display: none" readonly>
-
         </div>
         </form>
     </div>
@@ -73,7 +73,6 @@
             <?php
             echo $resident['firstname'].' '.$resident['lastname']; ?>
         </div>
-
 		<?php
         $dateOfBirth = $resident['birthdate'];
 		date_default_timezone_set("Europe/Brussels");
@@ -91,13 +90,16 @@
 		echo "Kamer: ".$resident['room'];
 		echo "<br>";
 		?>
-        <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
+        <span class="infcon">
+            <i class="fa fa-info-circle" style="color: #0c5460"></i>
+            <a href="#" id="CIModal" style="color: #0c5460"> Info contactperson</a>
+        </span>
     </div>
 	<div class="back_start"></div>
 	<div class="visualisation">
 		<div id="chart" name="chart">
         </div>
-        <label>Select a questionnaire:</label>
+        <label><br>Select a questionnaire:</label>
         <select class="custom-select selectQuestionnaire" style="width: min-content">
             <?php foreach ($questionnaires as $questionnaire){?>
                 <option value="<?php echo $questionnaire['idQuestionnaires'];?>" <?php if($_GET['idQuestionnaire']==$questionnaire['idQuestionnaires']){?>selected<?php } ?>>
@@ -107,7 +109,7 @@
         </select>
 	</div>
 	<div class="hint">
-		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!!</text>
+		<text rows="4" cols="50">Hier komen de hints </text>
 	</div>
 	<div class="print">
         <button type="submit">
