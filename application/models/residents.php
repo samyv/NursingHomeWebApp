@@ -77,3 +77,18 @@ class residents extends CI_Model
     }
 
 }
+
+function updateContactPerson($data = array())
+{
+    $cp_contactperson_id = $data['cp_contactperson_id'];
+    $firstname = $data['firstname'];
+    $lastname = $data['lastname'];
+    $email = $data['email'];
+    $phonenumber = $data['phonenumber'];
+
+    $sql = "UPDATE a18ux02.ContactPerson 
+                    SET firstname = '$firstname', lastname= '$lastname', email = '$email', phonenumber ='$phonenumber'
+                    WHERE idContactInformation = 9";
+    $this->db->query($sql);
+
+}

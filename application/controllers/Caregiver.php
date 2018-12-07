@@ -297,11 +297,6 @@ class Caregiver extends CI_Controller
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
 
-        $cond = array();
-        $cond['table'] = 'a18ux02.ContactPerson';
-        $contactpersons = $this->caregivers->getRows($cond)->result();
-
-        $data['contactpersons'] = json_decode(json_encode($contactpersons),true);
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
@@ -354,10 +349,13 @@ class Caregiver extends CI_Controller
                 }
             }
         }
+
         $data['resident'] = $dataResident;
+
         //load the view
         $this->parser->parse('Caregiver/newResident', $data);
     }
+
 
     /*
      * Validate dd/mm/yyyy
@@ -429,6 +427,27 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
+        /*
+         * change contact info
+         */
+        $dataContactperson = array();
+        if($this->input->post('saveInfo')) {
+            $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
+
+            if ($this->form_validation->run() == true) {
+                $dataContactperson = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'email' => strip_tags($this->input->post('email')),
+                    'phonenumber' => strip_tags($this->input->post('phonenumber')),
+                );
+            }
+            $data['contactperson'] = $dataContactperson;
+            $this->residents->updateContactPerson($dataContactperson);
+        }
 
 
         /*
@@ -446,7 +465,6 @@ class Caregiver extends CI_Controller
             $result = json_decode(json_encode($result), true);
             $data['questionnaires'] = $result;
         }
-
 
 
         /*
@@ -467,11 +485,8 @@ class Caregiver extends CI_Controller
             }
         }
 
-
-
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('templates/header',$data);
-
         $this->parser->parse('Caregiver/Resident_Dashboard_template', $data);
 
     }

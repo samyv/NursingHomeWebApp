@@ -41,28 +41,29 @@
         </div>
 
         <div id="info-contact-changed" style="display: none">
-            <input type="text" placeholder="Enter firstname" class = "form-control" name="name" required=""
-            value="<?php echo !empty($contactperson['firstname'])?$contactperson['firstname']:''; ?>">
+            <input type="text" placeholder="Enter firstname" class = "form-control" name="firstname" required=""
+            value="<?php echo $contactperson['firstname']; ?>">
             <?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
 
-            <input type="text" placeholder="Enter lastname" class = "form-control" name="name" required=""
-            value="<?php echo !empty($contactperson['lastname'])?$contactperson['lastname']:''; ?>">
+            <input type="text" placeholder="Enter lastname" class = "form-control" name="lastname" required=""
+            value="<?php echo $contactperson['lastname']; ?>">
             <?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
+
             <input type="text" placeholder="Enter email " class = "form-control" name="email" required=""
-            value="<?php echo !empty($contactperson['email'])?$contactperson['email']:''; ?>">
+            value="<?php echo $contactperson['email']; ?>">
             <?php echo form_error('email','<span class="help-block">','</span>'); ?>
 
             <input type="text" placeholder="Enter phone number " class = "form-control" name="phonenumber" required=""
-            value="<?php echo !empty($contactperson['phonenumber'])?$contactperson['phonenumber']:''; ?>">
+            value="<?php echo $contactperson['phonenumber']; ?>">
             <?php echo form_error('phonenumber','<span class="help-block">','</span>'); ?>
         </div>
 
         <div class="modal-footer">
-            <input id="changeInfo" class="btn btn-block btn-lg" value="Change info" readonly>
+            <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info" readonly>
+            <input id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info" style="display: none" readonly>
+
         </div>
     </div>
-
-
 
 	<div class="info">
 		<?php
@@ -107,23 +108,6 @@
 	<div class="print">
 		<input type="submit" value="Print">
 	</div>
-	<div class="modal-content" id="information-contactperson-modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
-		</div>
-		<div class="info-contact">
-			<?php
-			echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
-			echo "<br>";
-			echo "Email: " . $contactperson['email'];
-			echo "<br>";
-			echo "Phone number: " . $contactperson['phonenumber'];
-			echo "<br>";
-			echo "Relation: ".$contactperson['relation'];
-			?>
-		</div>
-	</div>
 </div>
 
 <script src="../javascript/rawdata.js"></script>
@@ -141,22 +125,25 @@
         })
 
         $('#changeInfo').click(changeInfo)
+        $('#saveInfo').click(saveInfo)
+
 
     });
 
-
     function changeInfo(event){
+        document.getElementById('info-contact').style.display='none';
+        document.getElementById('info-contact-changed').style.display='block';
+        document.getElementById('changeInfo').style.display='none';
+        document.getElementById('saveInfo').style.display='block';
+    }
 
-        if (document.getElementById('changeInfo').value == "Change info") {
-            document.getElementById('info-contact').style.display='none';
-            document.getElementById('info-contact-changed').style.display='block';
-            document.getElementById('changeInfo').value = "Save info";
-        } else {
+    function saveInfo(event){
             document.getElementById('info-contact').style.display='block';
             document.getElementById('info-contact-changed').style.display='none';
-            document.getElementById('changeInfo').value = "Change info";
-        }
+            document.getElementById('changeInfo').style.display='block';
+            document.getElementById('saveInfo').style.display='none';
     }
+
     $(".selectQuestionnaire")
         .change(function () {
             $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
