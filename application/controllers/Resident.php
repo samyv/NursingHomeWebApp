@@ -130,10 +130,10 @@ class Resident extends CI_Controller
         }
 
         $this->QuestionModel->insertIndex($index,$questionnaireId);
-        if($answer != null) {
-            $this->QuestionModel->insertAnswer($questionnaireId, $index, $answer);
-            $this->QuestionModel->insertTimestamp($residentID);
-        }
+
+        $this->QuestionModel->insertAnswer($questionnaireId, $index, $answer);
+        $this->QuestionModel->insertQuestionnaireTimestamp($questionnaireId);
+
     }
 
     public function getOldAnswer(){
@@ -205,6 +205,9 @@ class Resident extends CI_Controller
     }
 
     public function finalPage(){
+        $idResident = $_SESSION['Resident']['residentID'];
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
+        $this->QuestionModel->setQuestionnaireCompleted($questionnaireId);
         $index = $this->QuestionModel->getLastQuestion();
         $data['resident'] = $_SESSION['Resident']['firstname'];
         $data['index'] = $index;
