@@ -177,6 +177,7 @@ class Resident extends CI_Controller
 
     public function section($sectionID, $questionID)
     {
+        $data['sectionID'] = $sectionID;
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($sectionID);
         $data['index'] = $questionID;
         $data['image'] = $this->QuestionModel->getImage($sectionID);
