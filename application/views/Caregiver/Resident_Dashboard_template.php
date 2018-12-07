@@ -22,9 +22,6 @@
         <?php if(isset($resident['picture'])){ ?>
 		<img src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
         <?php }?>
-        <div class="name">
-            <?php echo $resident['firstname'].' '.$resident['lastname']; ?>
-        </div>
     </div>
 
     <div class="modal-content" id="information-contactperson-modal-content">
@@ -70,8 +67,13 @@
     </div>
 
 	<div class="info">
+        <div class="name">
+            <?php
+            echo $resident['firstname'].' '.$resident['lastname']; ?>
+        </div>
+
 		<?php
-		$dateOfBirth = $resident['birthdate'];
+        $dateOfBirth = $resident['birthdate'];
 		date_default_timezone_set("Europe/Brussels");
 		$today = date("Y-m-d");
 		$diff = date_diff(date_create($dateOfBirth),date_create($today));
@@ -90,8 +92,9 @@
         <span class="infcon"><a href="#" id="CIModal">Info contactperson</a></span>
     </div>
 	<div class="back_start"></div>
-
 	<div class="visualisation">
+		<div id="chart" name="chart">
+        </div>
         <label>Select a questionnaire:</label>
         <select class="custom-select selectQuestionnaire" style="width: min-content">
             <?php foreach ($questionnaires as $questionnaire){?>
@@ -100,15 +103,14 @@
                 </option>
             <?php }?>
         </select>
-		<div id="chart">
-
-        </div>
 	</div>
 	<div class="hint">
 		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!!</text>
 	</div>
 	<div class="print">
-		<button type="submit">Print<i class="fa fa-print"></i>
+        <button type="submit">
+        <i class="fa fa-print"></i>
+        </button>
     </div>
 </div>
 

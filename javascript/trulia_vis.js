@@ -69,9 +69,9 @@ function calculateScore(question) {
 //////////////////////////////////////////////////////
 
 const margin = { top: 30, right: 0, bottom: 100, left: 120 }
-const width = 960 - margin.left - margin.right
-const height = 600 - margin.top - margin.bottom
-const gridSize = Math.floor(width / 15.5)
+const width = 500 - margin.left - margin.right
+const height = 250 - margin.top - margin.bottom
+const gridSize = Math.floor(width / 17)
 const legendElementWidth = gridSize*2
 const buckets = 9
 const colors = ["#ff6666","#ff8c66","#ffb366","#ffd966","#ffff66","#d9ff66","#b3ff66","#8cff66","#66ff66"]

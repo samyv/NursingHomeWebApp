@@ -5,68 +5,76 @@ body{
 }
 html,body {
     background-color: #f5fafa;
-    height: 100vh;
-    width: 100%
+
 }
 
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: min-content min-content min-content auto;
+	grid-template-rows: min-content min-content min-content min-content;
 	grid-template-areas:
-    ". . . . . . . visualisation visualisation visualisation visualisation visualisation"
-	". picture picture picture v1 info info visualisation visualisation visualisation visualisation visualisation"
-	". picture picture picture v1 hint hint visualisation visualisation visualisation visualisation visualisation"
-	". name . . . . . . . . . print";
+    ". picture picture picture	. visualisation visualisation visualisation visualisation visualisation visualisation ."
+	". picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation ."
+	". info info info . hint hint hint hint hint hint ."
+	". . . . . . . . . . print ."
 }
 .picture {
 	grid-area: picture;
-    align-self: center;
+	margin-top: 10px;
 }
 
 .picture img{
 	width: 100%;
 }
 
-.name {
-    grid-area: name;
-    font-size: 30px;
-    text-align: center;
+.info {
+	grid-area: info;
 }
 
-.info {
-    grid-area: info;
-    border: none;
-    background-color: white;
-    height: 100%;
-    width: 100%;
-    padding: 2em 2em 1em 1em;
-    resize: none;
-    box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+.name {
+	font-weight: bold;
+	font-size: x-large;
 }
 
 .visualisation {
 	grid-area: visualisation;
-	height: min-content;
-    transition: width 2s, height 4s;
+	margin-top: 10px;
+	transition: all .4s ease-in-out;
+	border: none;
+	background-color: white;
+	padding: 2em 2em 1em 1em;
+	resize: none;
+	box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
+.chart {
+	width: 10px;
+	height: 10px;
+}
 
-.visualisation .selectQuestionnaire{
+.selectQuestionnaire{
 	width: min-content;
 	width: -moz-min-content;
 }
 
+.visualisation:hover{
+	transform: scale(1.50);
+}
+
 .hint {
 	grid-area: hint;
-    border: none;
-    background-color: white;
-    height: 100%;
-    width: 100%;
+	transition: all .4s ease-in-out;
+	border: none;
+	display: inline-block;
+	background-color: white;
     padding: 2em 2em 1em 1em;
     margin-top: 10px;
-    resize: none;
     box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.hint:hover{
+	opacity: 0.8;
+	transform: scale(1.20);
 }
 
 .print {
@@ -76,11 +84,11 @@ html,body {
 button[type=submit]{
 	background-color: #66a5ad;
 	color: white;
-	padding: 14px 50px;
+	margin-top: 10px;
+	padding: 14px 30px;
 	border: none;
 	cursor: pointer;
-	margin-top: 10px;
-	margin-right: 1em;
+	width: 100%;
 }
 
 .fa-print{
@@ -89,7 +97,6 @@ button[type=submit]{
 
 .modal{
 	display: none;
-	position: absolute;
 }
 
 .modal-header {
