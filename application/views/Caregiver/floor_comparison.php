@@ -170,7 +170,7 @@
                 newData[f + q * floorAmount] = [];
                 let i = 0;
                 data.forEach(function (d) {
-                    if (d.floor == (f + 1) && d.questionType == (q + 1)) {
+                    if (d.floor === (f + 1) && d.questionType === (q + 1)) {
                         newData[f + q * floorAmount][i] = {};
                         newData[f + q * floorAmount][i].timestamp = d.timestamp;
                         newData[f + q * floorAmount][i].answers = +d.answers;
