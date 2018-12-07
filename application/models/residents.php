@@ -8,26 +8,28 @@
 
 class residents extends CI_Model
 {
-	function __construct()
-	{
-		$this->load->database('default');
-	}
+    function __construct()
+    {
+        $this->load->database('default');
+    }
 
-	function lookUp($params= array()){
-		//fetch data by conditions
-		if(array_key_exists("conditions",$params)){
-			$room = $params['conditions']["room_number"];
-			$sql = "SELECT * FROM a18ux02.Resident WHERE room = '$room'";
-			$result = $this->db->query($sql)->result();
-			return $result;
-		}
-		return 0;
-	}
+    function lookUp($params = array())
+    {
+        //fetch data by conditions
+        if (array_key_exists("conditions", $params)) {
+            $room = $params['conditions']["room_number"];
+            $sql = "SELECT * FROM a18ux02.Resident WHERE room = '$room'";
+            $result = $this->db->query($sql)->result();
+            return $result;
+        }
+        return 0;
+    }
 
     /*
     * Insert user information
     */
-    public function insert($data = array()) {
+    public function insert($data = array())
+    {
         $firstname = $data['firstname'];
         $lastname = $data['lastname'];
         $birthdate = $data['birthdate'];
@@ -50,11 +52,11 @@ class residents extends CI_Model
         $stmt = $this->db->conn_id->prepare($sql);
         $stmt->bindParam(':data', $blob, PDO::PARAM_LOB);
         $stmt->execute();
-        $pictureid =$this->db->insert_id();
+        $pictureid = $this->db->insert_id();
 
         $sql = "INSERT INTO a18ux02.ContactPerson (firstname, lastname, email, phonenumber) VALUES ('$cp_first_name','$cp_last_name','$cp_email','$cp_phone')";
         $this->db->query($sql);
-        $idcp =$this->db->insert_id();
+        $idcp = $this->db->insert_id();
 
 
         //insert resident in resident table
@@ -62,9 +64,9 @@ class residents extends CI_Model
         $insert = $this->db->query($sql);
 
         //return the status
-        if($insert){
+        if ($insert) {
             return $insert;
-        }else{
+        } else {
             return false;
         }
     }
@@ -76,19 +78,19 @@ class residents extends CI_Model
         return count($result);
     }
 
-}
 
-function updateContactPerson($data = array())
-{
-    $cp_contactperson_id = $data['cp_contactperson_id'];
-    $firstname = $data['firstname'];
-    $lastname = $data['lastname'];
-    $email = $data['email'];
-    $phonenumber = $data['phonenumber'];
+    public function updateContactPerson($data = array())
+    {
+        $cp_contactperson_id = $data['cp_contactperson_id'];
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+        $email = $data['email'];
+        $phonenumber = $data['phonenumber'];
 
-    $sql = "UPDATE a18ux02.ContactPerson 
+        $sql = "UPDATE a18ux02.ContactPerson 
                     SET firstname = '$firstname', lastname= '$lastname', email = '$email', phonenumber ='$phonenumber'
                     WHERE idContactInformation = 9";
-    $this->db->query($sql);
+        $this->db->query($sql);
 
+    }
 }

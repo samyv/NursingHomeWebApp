@@ -32,6 +32,7 @@
 
         <div id="info-contact" class="info-contact">
             <?php
+            //print_r($);
             echo "Contact person: " . $contactperson['firstname'].' '.$contactperson['lastname'];
             echo "<br>";
             echo "Email: " . $contactperson['email'];
@@ -40,7 +41,7 @@
             echo "<br>";
             ?>
         </div>
-
+        <form method="post" action="">
         <div id="info-contact-changed" style="display: none">
             <input type="text" placeholder="Enter firstname" class = "form-control" name="firstname" required=""
             value="<?php echo $contactperson['firstname']; ?>">
@@ -61,9 +62,10 @@
 
         <div class="modal-footer">
             <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info" readonly>
-            <input id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info" style="display: none" readonly>
+            <input type="submit" id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info" style="display: none" readonly>
 
         </div>
+        </form>
     </div>
 
 	<div class="info">
