@@ -8,6 +8,7 @@
           rel="stylesheet">
     <script src="http://d3js.org/d3.v4.js"></script>
 	<link rel="stylesheet" href="assets/css/transitions.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -18,40 +19,78 @@
     </div>
 
     <div class = "list">
-        <div class="floorbtn container">Floor 5
-            <i class="fas fa-check"></i>
-        </div>
-
-        <div class="floorbtn container">Floor 4
-            <i class="fas fa-check"></i>
-        </div>
-
-        <div class="floorbtn container">Floor 3
-            <i class="fas fa-check"></i>
-        </div>
-
-        <div class="floorbtn container">Floor 2
-            <i class="fas fa-check"></i>
-        </div>
-
-        <div class="floorbtn container">Floor 1
-            <i class="fas fa-check"></i>
-        </div>
     </div>
 
-    <div class = "graph">
+    <div class="tab">
+        <?php
+        $i=0;
+        foreach($categories as $category){ ?>
+            <button class="tablinks category<?php echo $i?>" onclick="openTab(event, '<?php echo $category["sectionType"]?>')"><?php echo $category['sectionType']?></button>
+            <?php $i++;} ?>
+    </div>
+    <div class="graph">
+    <?php
+        $i=0;
+        foreach($categories as $category){ ?>
+        <div class="tabcontent category<?php echo $i?>" id="<?php echo $category['sectionType']?>"></div>
+    <?php $i++;} ?>
     </div>
 </div>
 
 <script>
 
+    function openTab(evt, cityName) {
+        console.log(cityName);
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+
+    let notificationid = 0;
+    let amountOfCategories;
+
+    var floordata=[];
+    var list = $(".list");
+    var floorAmount = 0+<?php echo $maxFloors;?>;
+    for(var i = floorAmount; i >= 1;i--){
+        let a = document.createElement('div');
+        a.className = "floorbtn container";
+        a.innerHTML = "Floor "+i+" <i class=\"fas fa-check\"></i>";
+        a.id = i;
+        list.append(a);
+    };
+
     $(document).ready(function () {
-        $('.floorbtn').click(myFunction)
+        $('.floorbtn').click(myFunction);
+        $.ajax({
+            url: '<?=base_url()?>caregiver/getFloorData',
+            dataType: 'json',
+            success: function (data) {
+                floordata = data[0];
+                amountOfCategories = parseInt(data[1]);
+                draw(floordata);
+            }
+        });
     })
 
     function myFunction(event) {
         var x = event.target.getElementsByTagName('i');
-        console.log(x);
         if (x.length == [])
         {
             clickIcon(event);
@@ -59,8 +98,10 @@
         }
         if (x[0].style.display == "inline-grid") {
             x[0].style.display = "none";
+            hideLines(event);
         } else {
             x[0].style.display = "inline-grid";
+            showLines(event);
         }
     }
 
@@ -72,184 +113,129 @@
             x.style.display = "inline-grid";
         }
     }
+
+
+    function showLines(event) {
+        $x = '.floor'+$(event.target).attr("id");
+        $lines = $($x);
+        $lines.attr("display","inline");
+    }
+
+    function hideLines(event) {
+        $x = '.floor'+$(event.target).attr("id");
+        $lines = $($x);
+        $lines.attr("display","none");
+    }
+
+    /// CONFIG VARIABLES ///
+    var margin = {top: 20, right: 20, bottom: 30, left: 50},
+        width = 1000 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
+
+    var x = d3.scaleTime().range([0, width]);
+    var y = d3.scaleLinear().range([height, 0]);
+
+
+    // append the svg obgect to the body of the page
+    // appends a 'group' element to 'svg'
+    // moves the 'group' element to the top left margin
+
+
+
+    //// END OF CONFIG ////
+    function draw(data) {
+
+        for (q = 0; q < amountOfCategories; q++) {
+
+
+
+            var svg = d3.select("body").select("div.graph").select("div.tabcontent.category"+q).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+
+        data.forEach(function (d) {
+            d.timestamp = new Date(d.timestamp);
+            d.floor = +parseInt(d.floor);
+            d.questionType = +d.questionType;
+            d.answers = +d.answers;
+        });
+
+        let valuelines = [];
+        let newData = [];
+        for (let f = 0; f < floorAmount; f++) {
+                newData[f + q * floorAmount] = [];
+                let i = 0;
+                data.forEach(function (d) {
+                    if (d.floor == (f + 1) && d.questionType == (q + 1)) {
+                        newData[f + q * floorAmount][i] = {};
+                        newData[f + q * floorAmount][i].timestamp = d.timestamp;
+                        newData[f + q * floorAmount][i].answers = +d.answers;
+                        i++;
+                    }
+                })
+
+        }
+
+        var valueline = d3.line()
+            .x(function (d) {
+                return x(d.timestamp);
+            })
+            .y(function (d) {
+                return y(d.answers);
+            });
+
+        data.sort(function (a, b) {
+            return a["timestamp"] - b["timestamp"];
+        })
+
+        x.domain(d3.extent(data, function (d) {
+            return d.timestamp;
+        }));
+        y.domain([1, 5]);
+
+        var colorArray = ['#FF6633', '#00B3E6',
+            '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
+            '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
+            '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
+            '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
+            '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
+            '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
+            '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
+            '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
+            '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
+
+        const sectionsNames = ["Privacy", "Eten en maaltijden", "Veiligheid", "Zich prettig voelen", "Autonomie", "Respect", "Reageren door medewerkers op vragen", "Een band voelen met wie hier werkt", "Keuze aan activiteiten", "Persoonlijke omgang", " Informatie vanuit het woonzorgcentrum"];
+
+
+        for (let f = 0; f < floorAmount; f++) {
+
+                svg.append("path")
+                    .data([newData[f + q * floorAmount]])
+                    .attr("class", "line" + " floor" + (f + 1))
+                    .attr("d", valueline)
+                    .attr("id", sectionsNames[q])
+                    .attr("stroke", colorArray[f])
+                    .attr("display", "none");
+
+        }
+
+
+        // Add the X Axis
+        svg.append("g")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.axisBottom(x));
+
+        // Add the Y Axis
+        svg.append("g")
+            .call(d3.axisLeft(y));
+    }
+
+    }
+
 </script>
 </body>
 </html>
-
-<script>
-    /////////////////////////////////////////////////////////
-    //////              D3.JS GRAPH                     /////
-    /////////////////////////////////////////////////////////
-
-    /// CONFIG VARIABLES ///
-    let text_color = "white";
-    let brightness_of_colors = 70; // brightness in percentage
-    let color_on = "#66a5ad";
-    let color_off = increase_brightness(color_on,brightness_of_colors);
-    let notificationid = 0;
-    let amountOfFloors = 11;
-    //// END OF CONFIG ////
-
-    var collection = [];
-    for (var a = 0 ; a < amountOfFloors ; a++)
-    {
-        let data = [];
-        var offset = a;
-
-
-        for (let i = 0 ; i < 20 ; i++) {
-            // calculate offset
-            if (a === 0)
-            {
-                offset = 0;
-            }
-            else
-            {
-                let data = collection[a-1];
-                offset = data[i].value;
-            }
-            // push to array
-            data.push(
-                {
-                    date: new Date().getUTCDate() + i*1000*60*60*24, // add one day for each data point
-                    value: 2.5 + 0.5*Math.sin(i/3 + a) + 0.1*Math.sin(i/0.6 + a) + 0.9*Math.sin(i/4 - a/2) + 0.5*Math.sin(i/16 + a) + 0.5*Math.sin(i/19)
-                });
-        }
-        collection.push(data);
-    }
-
-    var container = d3.select("body").selectAll("div.graph");
-
-    var svgSelection = container.append("svg")
-                                    .attr("width", 50)
-                                    .attr("height", 50);
-
-    var svgWidth = 700, svgHeight = 400;
-    var margin = { top: 20, right: 20, bottom: 30, left: 30 };
-    var width = svgWidth - margin.left - margin.right;
-    var height = svgHeight - margin.top - margin.bottom;
-
-    let svg = container.append("svg")
-        .attr("width", svgWidth)
-        .attr("height", svgHeight);
-
-    var g = svg.append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")"
-        );
-
-    var x = d3.scaleTime().rangeRound([0, width]);
-    var y = d3.scaleLinear().rangeRound([height, 0]);
-
-    var line = d3.line()
-        .x(function(d) { return x(d.date)})
-        .y(function(d) { return y(d.value)})
-    x.domain(d3.extent(collection[0], function(d) { return d.date }));
-
-    let max = getMaximum(collection[amountOfFloors-1]);
-    y.domain([0, 5]);
-
-    g.append("g")
-        .attr("transform", "translate(0," + height + ")")
-        .call(d3.axisBottom(x))
-        .select(".domain")
-        .remove();
-
-    var area = d3.area()
-        .x(function(d) { return x(d.date); })
-        .y0(height)
-        .y1(function(d) { return y(d.value); });
-
-    for ( let i = amountOfFloors-1 ; i >= 0 ; i--)
-    {
-        g.append("path")
-            .datum(collection[i])
-            .attr("fill", "none")
-            .attr("stroke", color_off)
-            .attr("stroke-linejoin", "round")
-            .attr("stroke-linecap", "round")
-            .attr("stroke-width", 3)
-            .attr("d", line)
-            .on("mouseover", mouseEnter)
-            .on("mouseout", mouseLeave);
-
-
-    }
-
-    g.append("g")
-        .call(d3.axisLeft(y))
-        .append("text")
-        .attr("fill", text_color)
-        .attr("transform", "rotate(-90)")
-        .attr("y", 6)
-        .attr("dy", "0.71em")
-        .attr("text-anchor", "end")
-        .text("Value");
-
-
-
-
-    function mouseEnter(data,i)
-    {
-        notificationid++;
-        let x = event.clientX-width + 150;
-        let y = event.clientY-height/2;
-        d3.select(this)
-            .attr("stroke-width", 8)
-            .attr("stroke",color_on);
-
-            g.append("text")
-                .attr("id","t" +notificationid)
-                .attr("x",x)
-                .attr("y",y)
-                .attr("fill",color_on)
-                .text("Category : Date : Score");
-
-    }
-
-    function mouseLeave(data,i)
-    {
-        d3.select(this)
-            .attr("stroke-width", 3)
-            .attr("stroke",color_off);
-
-
-        d3.select("#t" +notificationid).remove();
-    }
-
-
-
-
-    function getMaximum(collection)
-    {
-        // calculate the maximum of a custom formatted data array
-        let array = [];
-        for (let i = 0 ; i < collection.length ; i++)
-        {
-            let val = collection[i].value;
-            array.push(val);
-        }
-        return 1.1 * Math.ceil(Math.max(...array)); // the ... notation is needed here
-    }
-
-    function increase_brightness(hex, percent) // generate brighter versions of the colors
-    {
-        // strip the leading # if it's there
-        hex = hex.replace(/^\s*#|\s*$/g, '');
-
-        // convert 3 char codes --> 6, e.g. `E0F` --> `EE00FF`
-        if(hex.length == 3){
-            hex = hex.replace(/(.)/g, '$1$1');
-        }
-
-        var r = parseInt(hex.substr(0, 2), 16),
-            g = parseInt(hex.substr(2, 2), 16),
-            b = parseInt(hex.substr(4, 2), 16);
-
-        return '#' +
-            ((0|(1<<8) + r + (256 - r) * percent / 100).toString(16)).substr(1) +
-            ((0|(1<<8) + g + (256 - g) * percent / 100).toString(16)).substr(1) +
-            ((0|(1<<8) + b + (256 - b) * percent / 100).toString(16)).substr(1);
-    }
-
-</script>
