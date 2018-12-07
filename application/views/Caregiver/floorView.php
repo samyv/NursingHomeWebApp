@@ -1,7 +1,12 @@
-<link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
-<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="assets/css/transitions.css">
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resident selection</title>
+    <link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="assets/css/transitions.css">
+</head>
 
 <body>
 <div class ="grid-container fade-in">

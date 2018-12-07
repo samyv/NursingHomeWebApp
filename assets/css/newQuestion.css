@@ -1,7 +1,14 @@
 *{
     font-family: Roboto, Merriweather;
 }
+
+html,body{
+    background-color: #F5FAFA;
+}
+
+
 .grid-container {
+    background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 5em 5em 1.2fr 5em 1.2fr 1.2fr;

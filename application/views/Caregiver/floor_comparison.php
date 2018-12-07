@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Database Searching</title>
+    <title>Floor comparison</title>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/floor_comparison.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
