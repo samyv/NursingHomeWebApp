@@ -69,6 +69,10 @@ html,body{
 }
 .line {
     fill: none;
-    stroke: steelblue;
     stroke-width: 2px;
+    opacity: 0.6;
+}
+
+.line:hover{
+    opacity: 1;
 }
