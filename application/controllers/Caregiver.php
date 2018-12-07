@@ -488,6 +488,15 @@ class Caregiver extends CI_Controller
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
 
+
+
+        $query="select sectionType from a18ux02.Section";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result=json_decode(json_encode($row->result()),true);
+            $data['categories']=$result;
+        }
+
+
         $maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()),true);
         $data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
 
@@ -649,6 +658,7 @@ class Caregiver extends CI_Controller
                         on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
                     INNER JOIN a18ux02.Question
                         on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    where  a18ux02.Questionnaires.Completed = '1'
                     GROUP BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
                     ORDER BY a18ux02.Resident.floor, a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType ASC";
         if($row = $this->caregivers->executeQuery($query)){
@@ -667,7 +677,6 @@ class Caregiver extends CI_Controller
         }
     }
     public function getFloorSpinData(){
-        $floor = $_GET['floor'];
         $query = "SELECT AVG(a18ux02.Answers.answer), a18ux02.Resident.floor , a18ux02.Question.questionType
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
@@ -676,9 +685,8 @@ class Caregiver extends CI_Controller
                         on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
                     INNER JOIN a18ux02.Question
                         on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
-                    WHERE a18ux02.Resident.floor = '$floor'
-                    GROUP BY a18ux02.Question.questionType
-                    ORDER BY a18ux02.Question.questionType ASC";
+                    GROUP BY a18ux02.Question.questionType, a18ux02.Resident.floor
+                    ORDER BY a18ux02.Question.questionType, a18ux02.Resident.floor ASC";
         if($row = $this->caregivers->executeQuery($query)){
             $result = $row->result();
             $result = json_decode(json_encode($result),true);

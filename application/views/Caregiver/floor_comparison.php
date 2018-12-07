@@ -12,7 +12,6 @@
 
 <body>
 <div class = "grid-container">
-
     <div class = "title">
         <p>Select floors to compare</p>
     </div>
@@ -20,17 +19,47 @@
     <div class = "list">
     </div>
 
-    <div class = "graph">
+    <div class="tab">
+        <?php
+        $i=0;
+        foreach($categories as $category){ ?>
+            <button class="tablinks category<?php echo $i?>" onclick="openTab(event, '<?php echo $category["sectionType"]?>')"><?php echo $category['sectionType']?></button>
+            <?php $i++;} ?>
+    </div>
+    <div class="graph">
+    <?php
+        $i=0;
+        foreach($categories as $category){ ?>
+        <div class="tabcontent category<?php echo $i?>" id="<?php echo $category['sectionType']?>"></div>
+    <?php $i++;} ?>
     </div>
 </div>
 
 <script>
 
-    let dataTest = [
-        {floor: "4", questionType: "1", timestamp: 1512573637000, answers: "3.5"},
-        {floor: "4", questionType: "1", timestamp: 1513503908000, answers: "3"},
-        {floor: "4", questionType: "1", timestamp: 1513717159000, answers: "1.5"},
-                ];
+    function openTab(evt, cityName) {
+        console.log(cityName);
+        // Declare all variables
+        var i, tabcontent, tablinks;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(cityName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+
     let notificationid = 0;
     let amountOfCategories;
 
@@ -43,7 +72,6 @@
         a.innerHTML = "Floor "+i+" <i class=\"fas fa-check\"></i>";
         a.id = i;
         list.append(a);
-
     };
 
     $(document).ready(function () {
@@ -54,8 +82,6 @@
             success: function (data) {
                 floordata = data[0];
                 amountOfCategories = parseInt(data[1]);
-                console.log(data[0]);
-                console.log(dataTest);
                 draw(floordata);
             }
         });
@@ -70,8 +96,10 @@
         }
         if (x[0].style.display == "inline-grid") {
             x[0].style.display = "none";
+            hideLines(event);
         } else {
             x[0].style.display = "inline-grid";
+            showLines(event);
         }
     }
 
@@ -84,10 +112,23 @@
         }
     }
 
+
+    function showLines(event) {
+        $x = '.floor'+$(event.target).attr("id");
+        $lines = $($x);
+        $lines.attr("display","inline");
+    }
+
+    function hideLines(event) {
+        $x = '.floor'+$(event.target).attr("id");
+        $lines = $($x);
+        $lines.attr("display","none");
+    }
+
     /// CONFIG VARIABLES ///
     var margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 960 - margin.left - margin.right,
-        height = 500 - margin.top - margin.bottom;
+        width = 1000 - margin.left - margin.right,
+        height = 600 - margin.top - margin.bottom;
 
     var x = d3.scaleTime().range([0, width]);
     var y = d3.scaleLinear().range([height, 0]);
@@ -96,54 +137,65 @@
     // append the svg obgect to the body of the page
     // appends a 'group' element to 'svg'
     // moves the 'group' element to the top left margin
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-        .append("g")
-        .attr("transform",
-            "translate(" + margin.left + "," + margin.top + ")");
+
 
 
     //// END OF CONFIG ////
     function draw(data) {
 
-        data.forEach(function(d) {
+        for (q = 0; q < amountOfCategories; q++) {
+
+
+
+            var svg = d3.select("body").select("div.graph").select("div.tabcontent.category"+q).append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform",
+                    "translate(" + margin.left + "," + margin.top + ")");
+
+
+        data.forEach(function (d) {
             d.timestamp = new Date(d.timestamp);
             d.floor = +parseInt(d.floor);
             d.questionType = +d.questionType;
             d.answers = +d.answers;
         });
 
-        let valuelines=[];
-        let newData=[];
-        for(let f = 0; f < floorAmount;f++){
-            for(let q = 0; q < amountOfCategories; q++){
-                newData[f+q*floorAmount]=[];
+        let valuelines = [];
+        let newData = [];
+        for (let f = 0; f < floorAmount; f++) {
+                newData[f + q * floorAmount] = [];
                 let i = 0;
                 data.forEach(function (d) {
-                    if (d.floor == (f+1) && d.questionType == (q+1)) {
-                        newData[f+q*floorAmount][i]={};
-                        newData[f+q*floorAmount][i].timestamp = d.timestamp;
-                        newData[f+q*floorAmount][i].answers = +d.answers;
+                    if (d.floor == (f + 1) && d.questionType == (q + 1)) {
+                        newData[f + q * floorAmount][i] = {};
+                        newData[f + q * floorAmount][i].timestamp = d.timestamp;
+                        newData[f + q * floorAmount][i].answers = +d.answers;
                         i++;
                     }
                 })
-            }
+
         }
-        console.log(newData);
 
         var valueline = d3.line()
-            .x(function(d) { return x(d.timestamp); })
-            .y(function(d) { return y(d.answers); });
+            .x(function (d) {
+                return x(d.timestamp);
+            })
+            .y(function (d) {
+                return y(d.answers);
+            });
 
-        data.sort(function(a, b){
-            return a["timestamp"]-b["timestamp"];
+        data.sort(function (a, b) {
+            return a["timestamp"] - b["timestamp"];
         })
 
-        x.domain(d3.extent(data, function(d) { return d.timestamp; }));
-        y.domain([0,5]);
+        x.domain(d3.extent(data, function (d) {
+            return d.timestamp;
+        }));
+        y.domain([1, 5]);
 
-        var colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
+        var colorArray = ['#FF6633', '#00B3E6',
             '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
             '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
             '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
@@ -154,21 +206,19 @@
             '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
             '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
-        const sectionsNames = ["Privacy", "Eten en maaltijden", "Veiligheid","Zich prettig voelen","Autonomie","Respect","Reageren door medewerkers op vragen","Een band voelen met wie hier werkt","Keuze aan activiteiten","Persoonlijke omgang"," Informatie vanuit het woonzorgcentrum"];
+        const sectionsNames = ["Privacy", "Eten en maaltijden", "Veiligheid", "Zich prettig voelen", "Autonomie", "Respect", "Reageren door medewerkers op vragen", "Een band voelen met wie hier werkt", "Keuze aan activiteiten", "Persoonlijke omgang", " Informatie vanuit het woonzorgcentrum"];
 
 
-        for (let f = 0; f<floorAmount;f++) {
-            for(let q = 0; q < amountOfCategories; q++) {
-                console.log(newData[f+q*floorAmount]);
+        for (let f = 0; f < floorAmount; f++) {
+
                 svg.append("path")
-                    .data([newData[f+q*floorAmount]])
-                    .attr("class", "line")
+                    .data([newData[f + q * floorAmount]])
+                    .attr("class", "line" + " floor" + (f + 1))
                     .attr("d", valueline)
-                    .attr("style", "stroke: " + colorArray[f])
                     .attr("id", sectionsNames[q])
-                    .attr("style", "opacity: 0.6")
-                    .attr("stroke", colorArray[f]);
-            }
+                    .attr("stroke", colorArray[f])
+                    .attr("display", "none");
+
         }
 
 
@@ -180,6 +230,7 @@
         // Add the Y Axis
         svg.append("g")
             .call(d3.axisLeft(y));
+    }
 
     }
 
