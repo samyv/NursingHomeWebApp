@@ -24,9 +24,10 @@
     </div>
 
     <div id="previous_btn">
-        <button id="previous">Previous</button>
+        <button id="previous" onclick="location.href = '<?=base_url();?>resident/questionpage/<?= $index?>'">Previous</button>
     </div>
 </div>
+
 
 </body>
 </html>

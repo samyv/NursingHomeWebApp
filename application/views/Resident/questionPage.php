@@ -53,10 +53,11 @@
 
     $(document).ready(function(){
         var awaitTime = 200;
-        var maxQuestionNr = 50;
         var index = <?= $index?>;
         var currentType = <?= $currentType?>;
         var nextType = <?= $nextType?>;
+        var previousQuestion = <?= $previousQuestion?>;
+        var nextQuestion = <?= $nextQuestion?>;
 
 
         function transOldAnswer() {
@@ -85,71 +86,86 @@
 
         $('#answer1').click(async function(){
             updateNewAns(index,1);
-            if(index+1 < maxQuestionNr) {
+            if(nextQuestion != -1) {
                 await sleep(awaitTime);
                 if(currentType != nextType){
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    index++;
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
             }
         });
 
         $('#answer2').click(async function(){
             updateNewAns(index,2);
-            if(index+1 < maxQuestionNr) {
+            if(nextQuestion != -1) {
                 await sleep(awaitTime);
                 if(currentType != nextType){
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    index++;
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
             }
         });
 
         $('#answer3').click(async function(){
             updateNewAns(index,3);
-            if(index+1 < maxQuestionNr) {
+            if(nextQuestion != -1) {
                 await sleep(awaitTime);
                 if(currentType != nextType){
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    index++;
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
             }
         });
 
         $('#answer4').click(async function(){
             updateNewAns(index,4);
-            if(index+1 < maxQuestionNr) {
+            if(nextQuestion != -1) {
                 await sleep(awaitTime);
                 if(currentType != nextType){
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    index++;
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
             }
         });
 
         $('#answer5').click(async function() {
             updateNewAns(index,5);
-            if(index+1 < maxQuestionNr) {
+            if(nextQuestion != -1) {
                 await sleep(awaitTime);
                 if(currentType != nextType){
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
                 } else {
-                    index++;
+                    index = nextQuestion;
                     window.location.href='<?=base_url();?>resident/questionpage/'+index;
                 }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
             }
         });
 
         $('#previous').click(async function(){
-            if(index > 1) index--;
+            if(index > 1) index=previousQuestion;
             window.location.href = '<?=base_url();?>resident/questionpage/'+index;
         });
     });

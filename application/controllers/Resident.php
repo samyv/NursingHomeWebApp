@@ -72,14 +72,27 @@ class Resident extends CI_Controller
 
     public function questionpage($index)
     {
+        if(!is_numeric($index)) return;
+
         $data['index'] = $index;
         $data['question'] = $this->QuestionModel->getQuestion($index);
         $totalNum = $this->QuestionModel->getNumofQuestionInThisSection($index);
         $data['totalNum'] = $totalNum;
-        $nextType = $this->QuestionModel->getQuestionType($index+1);
-        $data['nextType'] = $nextType;
         $currentType = $this->QuestionModel->getQuestionType($index);
         $data['currentType'] = $currentType;
+        $previousQuestion = $this->QuestionModel->previousQuestion($index);
+        $nextQuestion = $this->QuestionModel->nextQuestion($index);
+        if($nextQuestion != -1) {
+            $nextType = $this->QuestionModel->getQuestionType($index + 1);
+
+        } else {
+            $nextType = $currentType;
+        }
+        $data['nextType'] = $nextType;
+        $data['previousQuestion'] = $previousQuestion;
+        $data['nextQuestion'] = $nextQuestion;
+
+
 
         $residentID = $_SESSION['Resident']['residentID'];
         $questionnaireId = $this->QuestionModel->getQuestionnaireID($residentID);
@@ -166,7 +179,7 @@ class Resident extends CI_Controller
     public function section($sectionID, $questionID)
     {
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($sectionID);
-        $data['index'] = $questionID+1;
+        $data['index'] = $questionID;
         $data['image'] = $this->QuestionModel->getImage($sectionID);
         $this->parser->parse('Resident/sectionPage',$data);
     }
@@ -192,7 +205,10 @@ class Resident extends CI_Controller
     }
 
     public function finalPage(){
-        $data['resident'] = $_SESSION['Resident']['residentID'];
+        $index = $this->QuestionModel->getLastQuestion();
+        $data['resident'] = $_SESSION['Resident']['firstname'];
+        $data['index'] = $index;
+
         $this->parser->parse('Resident/finalpage',$data);
     }
 
@@ -200,8 +216,13 @@ class Resident extends CI_Controller
         $idResident = $_SESSION['Resident']['residentID'];
         $this->QuestionModel->createQuestionnaires($idResident);
         $currentQuestionIndex = $this->QuestionModel->getIndex($idResident);
-        $currentSectionIndex = $this->QuestionModel->getQuestionType($currentQuestionIndex+1);
-        $this->section($currentSectionIndex, $currentQuestionIndex);
+        $nextQuestionIndex = $this->QuestionModel->nextQuestion($currentQuestionIndex);
+        if($nextQuestionIndex == -1){
+            $this->finalPage();
+        } else {
+            $currentSectionIndex = $this->QuestionModel->getQuestionType($nextQuestionIndex);
+            $this->section($currentSectionIndex, $nextQuestionIndex);
+        }
     }
 
     public function checkIfLast(){

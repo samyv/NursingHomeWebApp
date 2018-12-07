@@ -211,4 +211,68 @@ class QuestionModel extends CI_Model
         return $pos;
     }
 
+    function getFirstQuestion(){
+        $query = $this->db->get_where('a18ux02.Question', array('previousQuestionId'=>'NULL'));
+
+        $row = $query->row_array();
+
+        $id = -1;
+
+        if(isset($row)){
+            $id = $row['idQuestion'];
+        }
+
+        return $id;
+    }
+
+    function getLastQuestion(){
+        $query = $this->db->get_where('a18ux02.Question', array('nextQuestionId'=>'NULL'));
+
+        $row = $query->row_array();
+
+        $id = -1;
+
+        if(isset($row)){
+            $id = $row['idQuestion'];
+        }
+
+        return $id;
+    }
+
+    function nextQuestion($index){
+        if($index==0) return $this->getFirstQuestion();
+
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$index));
+
+        $row = $query->row_array();
+
+        $next = -1;
+
+        if(isset($row)){
+            $next = $row['nextQuestionId'];
+        }
+
+        if($next == 'NULL') $next = -1;
+
+        return $next;
+    }
+
+    function previousQuestion($index){
+        if($index==0) return -1;
+
+        $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$index));
+
+        $row = $query->row_array();
+
+        $prev = -1;
+
+        if(isset($row)){
+            $prev = $row['previousQuestionId'];
+        }
+
+        if($prev == 'NULL') $prev = -1;
+
+        return $prev;
+    }
+
 }
