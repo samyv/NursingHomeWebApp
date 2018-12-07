@@ -22,6 +22,8 @@
         <?php if(isset($resident['picture'])){ ?>
 		<img src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
         <?php }?>
+        <?php echo $resident['firstname'].' '.$resident['lastname']; ?>
+
 	</div>
 
     <div class="modal-content" id="information-contactperson-modal-content">
@@ -68,8 +70,6 @@
 
 	<div class="info">
 		<?php
-		echo $resident['firstname'].' '.$resident['lastname'];
-		echo "<br>";
 		$dateOfBirth = $resident['birthdate'];
 		date_default_timezone_set("Europe/Brussels");
 		$today = date("Y-m-d");

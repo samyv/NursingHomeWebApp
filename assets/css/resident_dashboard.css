@@ -1,8 +1,5 @@
-
 body{
 	font-family: Roboto !important;
-	/*background-color: black;*/
-	margin: 0px;
 	background-color: #F5FAFA;
 }
 
@@ -13,9 +10,9 @@ body{
 	height: 100%;
 
 	grid-template-areas:
-	"picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
-	"info info info . visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
-	"hint hint hint hint hint hint hint hint hint hint hint print"
+	". picture picture picture . info info info visualisation visualisation visualisation visualisation"
+	". . . . . hint hint hint visualisation visualisation visualisation visualisation"
+	". . . . . . . . . . . print"
 }
 .picture {
 	grid-area: picture;
@@ -29,6 +26,7 @@ body{
 	grid-area: visualisation;
 	height: min-content;
 }
+
 
 .visualisation .selectQuestionnaire{
 	width: min-content;
@@ -104,7 +102,6 @@ button[type=submit]{
 
 #information-contactperson-modal-content{
 	display: none;
-
 	position: absolute;
 	top: 50%;
 	left: 50%;
