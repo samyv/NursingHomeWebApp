@@ -1,30 +1,54 @@
 body{
 	font-family: Roboto !important;
-	background-color: #F5FAFA;
+    margin: 0;
+    width: 100%;
+}
+html,body {
+    background-color: #f5fafa;
+    height: 100vh;
+    width: 100%
 }
 
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: min-content min-content auto;
-	height: 100%;
-
+	grid-template-rows: min-content min-content min-content auto;
 	grid-template-areas:
-	". picture picture picture . info info info visualisation visualisation visualisation visualisation"
-	". . . . . hint hint hint visualisation visualisation visualisation visualisation"
-	". . . . . . . . . . . print"
+    ". . . . . . . visualisation visualisation visualisation visualisation visualisation"
+	". picture picture picture v1 info info visualisation visualisation visualisation visualisation visualisation"
+	". picture picture picture v1 hint hint visualisation visualisation visualisation visualisation visualisation"
+	". name . . . . . . . . . print";
 }
 .picture {
 	grid-area: picture;
+    align-self: center;
 }
 
 .picture img{
 	width: 100%;
 }
 
+.name {
+    grid-area: name;
+    font-size: 30px;
+    text-align: center;
+}
+
+.info {
+    grid-area: info;
+    border: none;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding: 2em 2em 1em 1em;
+    resize: none;
+    box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
 .visualisation {
 	grid-area: visualisation;
 	height: min-content;
+    transition: width 2s, height 4s;
 }
 
 
@@ -35,6 +59,14 @@ body{
 
 .hint {
 	grid-area: hint;
+    border: none;
+    background-color: white;
+    height: 100%;
+    width: 100%;
+    padding: 2em 2em 1em 1em;
+    margin-top: 10px;
+    resize: none;
+    box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 }
 
 .print {
@@ -93,11 +125,6 @@ button[type=submit]{
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
-}
-
-.info {
-	grid-area: info;
-	padding-left: 1em;
 }
 
 #information-contactperson-modal-content{
