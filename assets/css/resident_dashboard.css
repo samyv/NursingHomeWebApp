@@ -1,4 +1,6 @@
+
 body{
+	font-family: Roboto !important;
 	/*background-color: black;*/
 	margin: 0px;
 	background-color: #F5FAFA;
@@ -11,9 +13,9 @@ body{
 	height: 100%;
 
 	grid-template-areas:
-	"picture picture picture visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
-	"info info info visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
-	"hint hint hint hint hint hint hint hint hint hint print print"
+	"picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
+	"info info info . visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation"
+	"hint hint hint hint hint hint hint hint hint hint hint print"
 }
 .picture {
 	grid-area: picture;
@@ -26,7 +28,6 @@ body{
 .visualisation {
 	grid-area: visualisation;
 	height: min-content;
-	padding: 1em 0 0 1em;
 }
 
 .visualisation .selectQuestionnaire{
@@ -36,26 +37,24 @@ body{
 
 .hint {
 	grid-area: hint;
-	background-color: lightseagreen;
-	border: 3px outset #000000;
-	border-radius: 5px;
 }
 
 .print {
 	grid-area: print;
-	background-color: blue;
 }
 
-.print_button{
-	/*margin: 10px;*/
-	position: relative;
-	/*display: bloc	k;*/
-	width: 100%;
-	height: 100%;
-	height: available;
+button[type=submit]{
+	background-color: #66a5ad;
+	color: white;
+	padding: 14px 50px;
 	border: none;
 	cursor: pointer;
-	text-align: center;
+	margin-top: 10px;
+	margin-right: 1em;
+}
+
+.fa-print{
+	display: inline;
 }
 
 .modal{

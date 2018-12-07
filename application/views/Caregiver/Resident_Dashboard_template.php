@@ -11,6 +11,7 @@
 	<title>{page_title}</title>
 	<link rel="stylesheet" href="assets/css/transitions.css">
 	<link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css' />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="http://d3js.org/d3.v4.js"></script>
 </head>
@@ -106,8 +107,8 @@
 		<text rows="4" cols="50">Jozef doesn't like the food, let's talk to him!!</text>
 	</div>
 	<div class="print">
-		<input type="submit" value="Print">
-	</div>
+		<button type="submit">Print<i class="fa fa-print"></i>
+    </div>
 </div>
 
 <script src="../javascript/rawdata.js"></script>
