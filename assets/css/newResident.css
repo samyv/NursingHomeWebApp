@@ -1,19 +1,46 @@
 *{
     font-family: Roboto, Merriweather;
 }
+
+html,body{
+    background-color: #F5FAFA;
+}
+
 .grid-container {
+    background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
+    grid-template-rows: 2fr 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
     grid-template-areas:
             "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-            ". .  . resident resident . . extra extra . . ."
-            ". . . firstname firstname_input  . . first_name first_name_input . . ."
-            ". . . lastname lastname_input . . last_name last_name_input . . ."
-            ". . . birthday birthday_input . .  email email_input . . ."
-            ". . . gender gender_input . . phone phone_input . . ."
-            ". . . floor floor_input . . buttons buttons . . ."
-            ". . . room room_input . . . . . . ."
+            ". . resident resident resident . . extra extra extra . ."
+            ". . form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors . ."
+            ". . firstname firstname_input firstname_input . . first_name first_name_input first_name_input . ."
+            ". . lastname lastname_input lastname_input . . last_name last_name_input last_name_input . ."
+            ". . birthday birthday_input birthday_input . .  email email_input email_input . ."
+            ". . gender gender_input gender_input . . phone phone_input phone_input . ."
+            ". . floor floor_input floor_input . . . . . . ."
+            ". . room room_input room_input . . . . . . ."
+            ". . picture picture picture . . buttons buttons buttons . ."
+}
+
+.picture_input{
+    grid-area: picture;
+}
+
+.form-errors{
+    grid-area: form_errors;
+    margin-bottom: 2em;
+}
+
+.form-errors span{
+    background: #d48478;
+    padding: 1em;
+}
+
+.form-errors .success{
+    background: #94b7a0;
+    padding: 1em;
 }
 
 .firstname { grid-area: firstname; }
@@ -88,9 +115,47 @@ input[type=submit]:hover,input[type=button]:hover{
     opacity: 0.8;
 }
 
-select option:hover,
-select option:focus,
-select option:active {
-    outline: none;
+.modal{
+	display: none;
+	position: absolute;
 }
 
+.modal-header {
+	display: block !important;
+	align-items: center !important;
+}
+
+.info-contact {
+	margin: 10px 20px 10px 20px;
+}
+
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+
+.close:hover, .close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.info {
+	grid-area: info;
+}
+
+#information-contactperson-modal-content{
+	display: none;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 50%;
+}
+
+.xbut{
+	display: none;
+}

@@ -11,7 +11,7 @@
 <div class="grid-container">
 
     <div id="names">
-        <div id="name">Grace Age</div><br>
+        <div id="name">GraceAge</div><br>
         <div id="subname">Providing better care</div>
     </div>
 

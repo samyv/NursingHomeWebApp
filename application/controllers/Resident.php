@@ -164,7 +164,6 @@ class Resident extends CI_Controller
             redirect('resident/index');
         }
         //load the view
-        print_r($_SESSION['Resident']['residentID']);
         $this->tutorialpage();
     }
 
@@ -181,7 +180,7 @@ class Resident extends CI_Controller
         $data['sectionDescription'] = $this->QuestionModel->getSectionDescription($sectionID);
         $data['index'] = $questionID;
         $data['image'] = $this->QuestionModel->getImage($sectionID);
-        $this->parser->parse('Resident/sectionPage',$data);
+        $this->load->view('Resident/sectionPage',$data);
     }
 
     public function getFirstQuestionIndex($id =1)
