@@ -81,10 +81,11 @@
     //////              D3.JS GRAPH                     /////
     /////////////////////////////////////////////////////////
 
+
     /// CONFIG VARIABLES ///
     let text_color = "white";
     let brightness_of_colors = 70; // brightness in percentage
-    let color_on = "#66a5ad";
+    let color_on = increase_brightness("#66a5ad",-50);
     let color_off = increase_brightness(color_on,brightness_of_colors);
     let notificationid = 0;
     let amountOfFloors = 11;
@@ -192,9 +193,10 @@
     function mouseEnter(data,i)
     {
         notificationid++;
-        let x = event.clientX-width + 150;
+        let x = event.clientX-width + 200;
         let y = event.clientY-height/2;
         d3.select(this)
+            .transition()
             .attr("stroke-width", 8)
             .attr("stroke",color_on);
 
@@ -210,6 +212,7 @@
     function mouseLeave(data,i)
     {
         d3.select(this)
+            .transition()
             .attr("stroke-width", 3)
             .attr("stroke",color_off);
 
