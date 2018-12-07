@@ -685,7 +685,7 @@ class Caregiver extends CI_Controller
     }
 
     public function getFloorData(){
-        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, a18ux02.Questionnaires.timestamp, AVG(a18ux02.Answers.answer) as answers  
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId

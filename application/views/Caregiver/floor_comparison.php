@@ -38,9 +38,9 @@
 </div>
 
 <script>
+    window.addEventListener("resize", draw);
 
     function openTab(evt, cityName) {
-        console.log(cityName);
         // Declare all variables
         var i, tabcontent, tablinks;
 
@@ -77,6 +77,8 @@
     };
 
     $(document).ready(function () {
+
+
         $('.floorbtn').click(myFunction);
         $.ajax({
             url: '<?=base_url()?>caregiver/getFloorData',
@@ -84,10 +86,10 @@
             success: function (data) {
                 floordata = data[0];
                 amountOfCategories = parseInt(data[1]);
-                draw(floordata);
+                draw();
             }
         });
-    })
+    });
 
     function myFunction(event) {
         var x = event.target.getElementsByTagName('i');
@@ -127,13 +129,12 @@
         $lines.attr("display","none");
     }
 
-    /// CONFIG VARIABLES ///
-    var margin = {top: 20, right: 20, bottom: 30, left: 50},
-        width = 1000 - margin.left - margin.right,
-        height = 600 - margin.top - margin.bottom;
 
-    var x = d3.scaleTime().range([0, width]);
-    var y = d3.scaleLinear().range([height, 0]);
+
+
+    /// CONFIG VARIABLES ///
+
+
 
 
     // append the svg obgect to the body of the page
@@ -143,9 +144,22 @@
 
 
     //// END OF CONFIG ////
-    function draw(data) {
+    function draw() {
 
+
+        var div = document.getElementsByClassName("graph")[0];
+        var margin = {top: 20, right: 20, bottom: 30, left: 50},
+            width = div.clientWidth - margin.left - margin.right,
+            height = div.clientHeight - margin.top - margin.bottom;
+
+        var x = d3.scaleTime().range([0, width]);
+        var y = d3.scaleLinear().range([height, 0]);
         for (q = 0; q < amountOfCategories; q++) {
+
+            $svg = $(".tabcontent.category"+q).children()
+            if($svg.length !== 0){
+                $svg.remove()
+            }
 
 
 
@@ -157,19 +171,20 @@
                     "translate(" + margin.left + "," + margin.top + ")");
 
 
-        data.forEach(function (d) {
+        floordata.forEach(function (d) {
             d.timestamp = new Date(d.timestamp);
             d.floor = +parseInt(d.floor);
             d.questionType = +d.questionType;
             d.answers = +d.answers;
         });
 
+
         let valuelines = [];
         let newData = [];
         for (let f = 0; f < floorAmount; f++) {
                 newData[f + q * floorAmount] = [];
                 let i = 0;
-                data.forEach(function (d) {
+                floordata.forEach(function (d) {
                     if (d.floor == (f + 1) && d.questionType == (q + 1)) {
                         newData[f + q * floorAmount][i] = {};
                         newData[f + q * floorAmount][i].timestamp = d.timestamp;
@@ -180,6 +195,7 @@
 
         }
 
+
         var valueline = d3.line()
             .x(function (d) {
                 return x(d.timestamp);
@@ -188,11 +204,11 @@
                 return y(d.answers);
             });
 
-        data.sort(function (a, b) {
+        floordata.sort(function (a, b) {
             return a["timestamp"] - b["timestamp"];
         })
 
-        x.domain(d3.extent(data, function (d) {
+        x.domain(d3.extent(floordata, function (d) {
             return d.timestamp;
         }));
         y.domain([1, 5]);
@@ -218,8 +234,13 @@
                     .attr("class", "line" + " floor" + (f + 1))
                     .attr("d", valueline)
                     .attr("id", sectionsNames[q])
-                    .attr("stroke", colorArray[f])
-                    .attr("display", "none");
+                    .attr("stroke", colorArray[f]);
+
+                $i = $("#"+(f+1)).children();
+                if($i.first().css("display") === "none"){
+                    svg.select("path").attr("display", "none");
+                }
+
 
         }
 
@@ -233,6 +254,7 @@
         svg.append("g")
             .call(d3.axisLeft(y));
     }
+
 
     }
 
