@@ -515,7 +515,7 @@ Class Caregivers extends CI_Model
     	////----caregiver wants to make a new section-----////
         if(!empty($newSection)){
         	//push new section in the section table
-            $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', NULL)";
+            $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', 'extra_questions.png')";
             $this->db->query($sql);
 			$id_section = $this->db->insert_id();
             //push new queston with new section
