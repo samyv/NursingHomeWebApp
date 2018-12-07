@@ -76,4 +76,5 @@ class residents extends CI_Model
         return count($result);
     }
 
+    //
 }
