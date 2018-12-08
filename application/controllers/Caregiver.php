@@ -445,6 +445,7 @@ class Caregiver extends CI_Controller
                     'phonenumber' => strip_tags($this->input->post('phonenumber')),
                 );
             }
+            print_r($dataContactperson);
             $this->residents->updateContactPerson($dataContactperson);
         }
 
