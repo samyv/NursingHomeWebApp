@@ -78,35 +78,36 @@ Class Caregivers extends CI_Model
     /*
      * Insert user information
      */
-    public function insert($data = array())
-    {
-        $firstname = $data['firstname'];
-        $lastname = $data['lastname'];
-        $email = $data['email'];
-        $password = $data['password'];
-        $nursingHomeID = $data['nursingHome'];
-        $key = $data['key'];
-		$presql = "SELECT * FROM a18ux02.NursingHome WHERE NursingHome.NursingHomeID =".$nursingHomeID." AND NursingHome.key = '$key';";
-		$check = json_decode(json_encode($this->db->query($presql)->result(),true));
-		print_r(json_decode(json_encode($check)),true);
-		//insert user data to users table
-		$insert = null;
-		if(sizeof(json_decode(json_encode($check),true)) >0){
-			$sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID)";
-			$insert = $this->db->query($sql);
-		}
-        //return the status
-		echo $insert;
-        if ($insert) {
-            return $insert;
-        } else {
-            return false;
-        }
-    }
+	public function insert($data = array())
+	{
+		$firstname = $data['firstname'];
+		$lastname = $data['lastname'];
+		$email = $data['email'];
+		$password = $data['password'];
+		$nursingHomeID = $data['nursingHome'];
+		$key = $data['key'];
+		$supervisor = $data['supervisor'];
+		$sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome,supervisor) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID,'$supervisor')";
+		echo "<br>";
+		echo "<br>";
+		echo $sql;
+		$this->db->query($sql);
+	}
 
-    public function checkKey($nursingHomeID,$key)
+	public function checkKey($nursingHomeID, $key)
 	{
 		$presql = "SELECT * FROM a18ux02.NursingHome WHERE NursingHome.NursingHomeID =" . $nursingHomeID . " AND NursingHome.key = '$key';";
+		$check = json_decode(json_encode($this->db->query($presql)->result(), true));
+		if (sizeof($check) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public function checkSupervisorKey($nursingHomeID,$key)
+	{
+		$presql = "SELECT * FROM a18ux02.NursingHome WHERE NursingHome.NursingHomeID =" . $nursingHomeID . " AND NursingHome.supervisorkey = '$key';";
+//		echo '<br>'.$presql;
 		$check = json_decode(json_encode($this->db->query($presql)->result(), true));
 		if(sizeof($check)> 0){
 			return true;
