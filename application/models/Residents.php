@@ -60,7 +60,11 @@ class residents extends CI_Model
         //insert resident in resident table
         $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender,FK_ContactPerson, pictureId) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender','$idcp','$pictureid')";
         $insert = $this->db->query($sql);
-
+        $id = $this->db->insert_id();
+        $qrstring = $this->generateRandomString();
+        $qrstring.=$id;
+        $sql2 = "UPDATE a18ux02.Resident SET qrCode ='$qrstring' WHERE residentID = '$id'";
+		$this->db->query($sql2);
         //return the status
         if($insert){
             return $insert;
@@ -69,6 +73,15 @@ class residents extends CI_Model
         }
     }
 
+	function generateRandomString($length = 50) {
+		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+		$charactersLength = strlen($characters);
+		$randomString = '';
+		for ($i = 0; $i < $length; $i++) {
+			$randomString .= $characters[rand(0, $charactersLength - 1)];
+		}
+		return $randomString;
+	}
     function lookUpEmail($params)
     {
         $sql = "SELECT * FROM a18ux02.ContactPerson WHERE email = '$params'";

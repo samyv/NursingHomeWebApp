@@ -75,7 +75,7 @@ Class Caregivers extends CI_Model
         }
     }
 
-    /*
+	/*
      * Insert user information
      */
 	public function insert($data = array())
