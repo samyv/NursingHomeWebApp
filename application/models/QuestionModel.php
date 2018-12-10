@@ -154,7 +154,7 @@ class QuestionModel extends CI_Model
             $now = new DateTime(date('Y-m-d H:i:s e'));
             $lastTime = new DateTime($row['timestamp']);
             $interval = $lastTime->diff($now);
-            if($interval->h > 24){
+            if($interval->d*24+$interval->h > 24){
                 $this->db->query("INSERT INTO a18ux02.Questionnaires (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 0)");
             }
         } else {

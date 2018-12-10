@@ -240,7 +240,7 @@ class Resident extends CI_Controller
     }
 
     public function noticePage(){
-
+        print_r("notice page");
     }
 
 
