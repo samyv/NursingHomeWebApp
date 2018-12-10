@@ -115,6 +115,7 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
+
     function getIndex($residentID){
         $query = $this->db->query("SELECT * FROM a18ux02.Questionnaires WHERE Resident_residentID = $residentID ORDER BY timestamp DESC LIMIT 1");
 
@@ -153,7 +154,7 @@ class QuestionModel extends CI_Model
             $now = new DateTime(date('Y-m-d H:i:s e'));
             $lastTime = new DateTime($row['timestamp']);
             $interval = $lastTime->diff($now);
-            if($interval->i > 4){
+            if($interval->h > 24){
                 $this->db->query("INSERT INTO a18ux02.Questionnaires (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 0)");
             }
         } else {
@@ -297,6 +298,20 @@ class QuestionModel extends CI_Model
         if(isset($row)){
             $this->db->query("UPDATE a18ux02.Questionnaires SET Completed = '1' WHERE idQuestionnaires = $questionnaireId");
         }
+    }
+
+    function getQuestionnaireCompleted($questionnaireId){
+        $query = $this->db->get_where('a18ux02.Questionnaires',array('idQuestionnaires'=>$questionnaireId));
+
+        $row = $query->row_array();
+
+        $completed = -1;
+
+        if(isset($row)){
+            $completed = $row['Completed'];
+        }
+
+        return $completed;
     }
 
 }
