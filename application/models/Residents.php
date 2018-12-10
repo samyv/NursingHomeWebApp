@@ -73,7 +73,7 @@ class residents extends CI_Model
         }
     }
 
-	function generateRandomString($length = 50) {
+	function generateRandomString($length = 30) {
 		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
 		$charactersLength = strlen($characters);
 		$randomString = '';
@@ -87,6 +87,12 @@ class residents extends CI_Model
         $sql = "SELECT * FROM a18ux02.ContactPerson WHERE email = '$params'";
         $result = $this->db->query($sql)->result();
         return count($result);
+    }
+    function checkQrCode($qrcode)
+    {
+    	$sql = "SELECT * FROM a18ux02.Resident WHERE qrCode = '$qrcode'";
+    	$result = json_decode(json_encode($this->db->query($sql)->result()),true);
+        return $result;
     }
 
     //

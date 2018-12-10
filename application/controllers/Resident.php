@@ -24,9 +24,9 @@ class Resident extends CI_Controller
     public function index(){
         $data['page_title'] = 'Login resident | GraceAge';
         $data['residentNames'] = array();
-        if($this->session->userdata('isUserLoggedIn')){
-            redirect('account');
-        }
+//        if($this->session->userdata('isUserLoggedIn')){
+//            redirect('account');
+//        }
 
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
@@ -233,6 +233,11 @@ class Resident extends CI_Controller
         $last = $this->QuestionModel->checkIfLast($index);
         if(is_numeric($last)) echo 0;
         else echo 1;
+    }
+
+    public function loginQr($contentt){
+    	$content =$this->residents->checkQrCode($contentt);
+    	print_r($content);
     }
 
 
