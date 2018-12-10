@@ -51,14 +51,14 @@
                 <a class="nav-link" href="#" id="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-language"></i>
                 </a>
-                    <div id="main_language" name ="main_language">
-                        <?php
-                        // set pathname from where we came from
-                        $pn=uri_string();  // the uri class is initialized automatically
-                        ?>
-                        <a href='languageSwitcher/switchLanguage/english?<?=$pn?>'>English</a>
-                        <a href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>Nederlands</a>
-                    </div>
+                <?php
+                // set pathname from where we came from
+                $pn=uri_string();  // the uri class is initialized automatically
+                ?>
+                <div class="dropdown-menu" ria-labelledby="navbarDropdown">
+                    <a class = dropdown-item href='languageSwitcher/switchLanguage/english?<?=$pn?>'>English</a>
+                    <a class = dropdown-item href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>Nederlands</a>
+                </div>
             </li>
 
             <li class="nav-item">
