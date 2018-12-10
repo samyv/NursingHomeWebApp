@@ -13,3 +13,4 @@ $lang['compare floor'] = 'Compare floor';
 $lang['select floor'] = 'Select floor';
 $lang['notes'] = 'Notes';
 $lang['calendar'] = 'Calendar';
+

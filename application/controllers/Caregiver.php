@@ -22,10 +22,7 @@ class Caregiver extends CI_Controller
 		$this->load->database('default');
 		$this->load->helper('security');
 		$this->load->model('Upload_model', 'upl');
-
-        $this->lang->load('information', 'Nederlands');
-
-    }
+	}
 
 	/**
      * User account information
