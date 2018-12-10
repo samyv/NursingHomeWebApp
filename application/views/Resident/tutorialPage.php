@@ -9,13 +9,15 @@
 <body>
 
 <div class="grid-container">
-
+<!--	--><?php
+//	print_r($_SESSION['Resident']);
+//	?>
     <div id="names">
         <div id="name">GraceAge</div><br>
         <div id="subname">Providing better care</div>
     </div>
 
-    <div id="note">Watch the tutorial video below to see how to log in</div>
+    <div id="note">Hi <?php echo $_SESSION['Resident']['firstname']?>! Watch the tutorial video below to see how to log in</div>
 
     <div id="video">
         <video src="<?=base_url();?>assets/videos/tutorial.mp4" controls="controls" autoplay="autoplay">The browser does not support the video.</video>

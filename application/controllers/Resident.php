@@ -236,9 +236,14 @@ class Resident extends CI_Controller
     }
 
     public function loginQr($contentt){
-    	$content =$this->residents->checkQrCode($contentt);
-    	print_r($content);
-    }
+		$residentInRoom =json_decode(json_encode($this->residents->checkQrCode($contentt)),true);
+		$residentInRoom = $residentInRoom[0];
+		if($residentInRoom){
+			$_SESSION['Resident']=$residentInRoom;
+			$_SESSION['isResidentLoggedIn'] = true;
+//			redirect('Resident/tutorial');
+		}
+	}
 
 
 }

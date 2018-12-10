@@ -90,9 +90,17 @@ class residents extends CI_Model
     }
     function checkQrCode($qrcode)
     {
-    	$sql = "SELECT * FROM a18ux02.Resident WHERE qrCode = '$qrcode'";
-    	$result = json_decode(json_encode($this->db->query($sql)->result()),true);
-        return $result;
+		$con['conditions'] = array(
+			'qrCode'=>$qrcode
+		);
+
+		if(array_key_exists("conditions",$con)){
+			$qrcode = $con['conditions']["qrCode"];
+			$sql = "SELECT * FROM a18ux02.Resident WHERE qrCode = '$qrcode'";
+			$result = $this->db->query($sql)->result();
+			return $result;
+		}
+		return 0;
     }
 
     //

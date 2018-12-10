@@ -85,8 +85,12 @@
 		$.ajax({
 			url: '<?=base_url()?>Resident/loginQr/' + $contentt,
 			success: function (content,error) {
-				console.log(content);
-				console.log(error);
+				let x = document.getElementById('camera-stream');
+				x.remove();
+				window.location.replace("Resident/tutorial");
+				// console.log(content)
+				// console.log(JSON.parse("["+content+"]")[0]);
+				// console.log(error);
 			}
 		});
 	})
