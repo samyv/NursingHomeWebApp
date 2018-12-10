@@ -78,6 +78,7 @@ $config['url_suffix'] = '';
 |
 */
 $config['language']	= 'english';
+$config['enable_hooks'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

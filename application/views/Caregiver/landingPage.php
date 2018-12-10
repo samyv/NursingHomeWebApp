@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
     <link href="<?php echo base_url(); ?>assets/css/landingPage.css" rel='stylesheet' type='text/css'/>
     <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/images/logo.png">
@@ -14,7 +13,9 @@
 <div class="grid-container fade-in">
 
     <div class="title">
-        <h1>Welcome <?php echo $_SESSION['firstname']; ?>!</h1>
+        <h1><?php
+            echo ($this->lang->line('welcome_message'));
+            echo $_SESSION['firstname']; ?>!</h1>
     </div>
 
     <div class="quote">
@@ -27,19 +28,23 @@
         </h5>
     </div>
         <div class="btn-group">
-            <input id="1" value="Search resident" type="button" class = "btn" onclick="location.href='residents'">
-            <input id="2" value="Compare floor" type="button" class = "btn" onclick="location.href='floorCompare'">
-            <input id="3" value="Select floor" type="button" class = "btn" onclick="location.href='floorSelect'">
+            <input id="1" type="button" class = "btn" onclick="location.href='residents'"
+                   value="<?php echo ($this->lang->line('search resident'))?>">
+            <input id="2" type="button" class = "btn" onclick="location.href='floorCompare'"
+                   value="<?php echo ($this->lang->line('compare floor'))?>">
+            <input id="3" type="button" class = "btn" onclick="location.href='floorSelect'"
+                   value="<?php echo ($this->lang->line('select floor'))?>">
+
         </div>
 
     <div class="noteheader">
-        <h2 class="noteheader">Notes</h2>
+        <h2 class="noteheader"><?php echo ($this->lang->line('notes'))?></h2>
         <div class="newNote" id="newNote">
             <i id="newNotebtn" class="fas fa-2x fa-plus-circle"></i>
         </div>
     </div>
     <div class="clndrheader">
-        <h2>Calendar</h2>
+        <h2><?php echo ($this->lang->line('calendar'))?></h2>
 
     </div>
     <div class="notes">

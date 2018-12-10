@@ -12,6 +12,7 @@
 </head>
 
 <body>
+
 		<div class="h1 fade-in">
 			<h1>GraceAge</h1>
 			<h2>Providing better care</h2>
@@ -23,7 +24,6 @@
 			</div>
 			<form action="" method="post" name="submitEmail">
 				<div class="modal-body">
-
 					<p>Please fill in your email so we can send you a link to reset your password.</p>
 					<div class="form-group">
 						<div class="input-group">

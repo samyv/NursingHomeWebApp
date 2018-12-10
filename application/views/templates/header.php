@@ -51,11 +51,8 @@
                 <a class="nav-link" href="#" id="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa fa-language"></i>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="language">
-                    <a href="English" class="language">
-                       <img src="http://i64.tinypic.com/fd60km.png"/> English
-                    </a>
-                </div>
+                <a href='<?php echo $base_url; ?>languageswitcher/switchLanguage/english'>English</a>
+                <a href='<?php echo $base_url; ?>languageswitcher/switchLanguage/Nederlands'>Nederlands</a>
             </li>
 
             <li class="nav-item">
