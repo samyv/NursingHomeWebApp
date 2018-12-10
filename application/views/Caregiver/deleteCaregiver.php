@@ -5,6 +5,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/deleteCaregiver.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/css/transitions.css">
     <!--    <script src="javascript/search.js"></script>-->
@@ -110,11 +111,9 @@
                 col2.innerHTML = element.floor;
                 row.appendChild(col2)
                 var col3 = document.createElement('td');
-                col3.innerHTML = "<button class='delete'><a href='#'class='delete' id='CIModal' >DELETE</a></button>\n";
+                col3.innerHTML = "<button><a href='#'class='delete' id='CIModal' >DELETE</a></button>\n";
                 let childs = col3.children
-                let a = childs[0]
                 let aa = childs[0].children[0]
-                a.setAttribute('value', element.id)
                 aa.setAttribute('value',element.id)
                 row.appendChild(col3)
                 tbody.appendChild(row);
@@ -133,21 +132,19 @@
 
 
     //Create global variable
-        var IDtoDelete = "global";
+        $IDtoDelete = "global";
 
     //On click of yes delete the caregiver with global ID
     //update table??
 
         $(document).ready(function () {
-            console.log("here");
             $('.delete').click(function(){
-               $('#information-modal-content').fadeIn('fast');
+               //$('#information-modal-content').fadeIn('fast');
+                $IDtoDelete = this.getAttribute('value');
+
+                Confirm('Delete caregiver?', 'Are you sure you want to delete this caregiver?', 'Yes', 'Cancel', $IDtoDelete);
 
                 //not correct! but get the id of the delete button and change the global variable
-
-                IDtoDelete = this.getAttribute('value');
-                //console.log(IDtoDelete)
-
 
 
             });
@@ -162,14 +159,57 @@
 
             $('#yesDelete').click(deleteCaregiver)
 
-            });
+        });
 
 
         function deleteCaregiver() {
-            console.log(IDtoDelete)
-            
-
         }
+
+        function Confirm(title, msg, $true, $false, $id) { /*change*/
+            var $content = "<div class='dialog-ovelay'>" +
+                "<div class='dialog'><header>" +
+                " <h3> " + title + " </h3> " +
+                "<i class='fa fa-close'></i>" +
+                "</header>" +
+                "<div class='dialog-msg'>" +
+                " <p> " + msg + " </p> " +
+                "</div>" +
+                "<footer>" +
+                "<div class='controls'>" +
+                " <button class='button button-danger doAction'>" + $true + "</button> " +
+                " <button class='button button-default cancelAction'>" + $false + "</button> " +
+                "</div>" +
+                "</footer>" +
+                "</div>" +
+                "</div>";
+            $('body').prepend($content);
+            $flag = false;
+            $('.doAction').click(function () {
+                $(this).parents('.dialog-ovelay').fadeOut(500, function () {
+                    $(this).remove();
+                    console.log($id);
+
+                    $.ajax({
+
+                        url: '<?=base_url()?>Caregiver/CaregiverDelete',
+                        method: 'post',
+                        dataType: 'json',
+                        data: {
+                            'idCaregiver': $id
+                        },
+                        success() {
+
+                        }
+                    });
+                });
+            });
+
+            $('.cancelAction, .fa-close').click(function () {
+                $(this).parents('.dialog-ovelay').fadeOut(500, function () {
+                    $(this).remove();
+                });
+            });
+        };
 
     </script>
 

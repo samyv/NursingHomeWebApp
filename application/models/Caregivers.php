@@ -582,5 +582,9 @@ Class Caregivers extends CI_Model
         return !empty($result)?$result:false;
     }
 
-
+    public function deleteCaregiverById($id)
+    {
+        $sql = "DELETE FROM a18ux02.Caregiver WHERE idCaregiver = '$id'";
+        $this->db->query($sql);
+    }
 }

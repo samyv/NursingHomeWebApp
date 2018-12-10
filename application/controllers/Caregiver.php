@@ -722,6 +722,19 @@ class Caregiver extends CI_Controller
         // parse
         $this->parser->parse('Caregiver/deleteResident', $data);
     }
+    public function CaregiverDelete()
+    {
+        $id = $_POST['idCaregiver'];
+
+        print_r($id);
+    }
+
+    public function ResidentDelete()
+    {
+        $id = $_POST['idCaregiver'];
+
+        print_r($id);
+    }
 
 }
 
