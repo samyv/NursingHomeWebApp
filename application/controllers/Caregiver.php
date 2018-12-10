@@ -494,17 +494,15 @@ class Caregiver extends CI_Controller
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
 
-
-
         $query="select sectionType from a18ux02.Section";
         if($row = $this->caregivers->executeQuery($query)){
             $result=json_decode(json_encode($row->result()),true);
             $data['categories']=$result;
         }
 
-
         $maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()),true);
         $data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
+        $data['spindata'] = json_encode($this->getFloorSpinData());
 
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floor_comparison', $data);
@@ -685,7 +683,7 @@ class Caregiver extends CI_Controller
     }
 
     public function getFloorData(){
-        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, a18ux02.Questionnaires.timestamp, AVG(a18ux02.Answers.answer) as answers  
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
@@ -712,7 +710,7 @@ class Caregiver extends CI_Controller
         }
     }
     public function getFloorSpinData(){
-        $query = "SELECT AVG(a18ux02.Answers.answer), a18ux02.Resident.floor , a18ux02.Question.questionType
+        $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId

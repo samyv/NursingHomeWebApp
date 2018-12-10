@@ -82,9 +82,14 @@ html,body{
 /* Style the tab content */
 .tabcontent {
     display: none;
-    padding: 6px 12px;
-    border: 1px solid #ccc;
     border-top: none;
+    position: relative;
+    left: 0px;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    height: 100%;
+    width: 100%;
 }
 
 .container:hover{
@@ -114,4 +119,19 @@ html,body{
 .line:hover{
     stroke-opacity: 1;
     stroke-width: 10px;
+}
+
+@media screen and (max-width: 1730px){
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 6em 8em 4fr 1fr;
+        grid-template-areas:
+                ". title title title title title title title title title title ."
+                ". list list  tab tab tab tab tab tab tab tab ."
+                ". list list  graph graph graph graph graph graph graph graph ."
+                "footer footer footer footer footer footer footer footer footer footer footer footer";
+
+    }
 }
