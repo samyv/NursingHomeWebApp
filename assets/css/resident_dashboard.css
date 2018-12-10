@@ -131,3 +131,18 @@ button[type=submit]{
 	transform: translate(-50%, -50%);
 	width: 25%;
 }
+
+
+@media print {
+	.modal{
+		display: block;
+	}
+	#information-contactperson-modal-content{
+		display: inline;
+		min-width: 500px;
+	}
+
+	.fa-print{
+		display: none;
+	}
+}
