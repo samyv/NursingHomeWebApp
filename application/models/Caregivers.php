@@ -238,8 +238,16 @@ Class Caregivers extends CI_Model
         $cg = $notes['idCaregiver'];
         $n = $notes['note'];
         $idn = $notes['idinput'];
-        $sql = "INSERT into a18ux02.Notes (idNotes, Note, idCaregiver,created, modified) values ('$idn', '$n','$cg', CURRENT_TIME , CURRENT_TIME )
+
+        if(!isset($notes['idResident'])){
+            $sql = "INSERT into a18ux02.Notes (idNotes, Note, idCaregiver,created, modified) values ('$idn', '$n','$cg', CURRENT_TIME , CURRENT_TIME )
+                  ON DUPLICATE KEY UPDATE Note = '$n', modified = CURRENT_TIME ";
+        }else{
+            $idRes = $notes['idResident'];
+            $sql = "INSERT into a18ux02.Notes (idNotes, Note, idCaregiver,created, modified,idResident) values ('$idn', '$n','$cg', CURRENT_TIME , CURRENT_TIME,'$idRes' )
                 ON DUPLICATE KEY UPDATE Note = '$n', modified = CURRENT_TIME ";
+        }
+
         $this->db->query($sql);
         $sql = "SELECT LAST_INSERT_ID()";
         $idNote = $this->db->query($sql);
@@ -248,9 +256,8 @@ Class Caregivers extends CI_Model
 
     public function deleteNote($notes)
     {
-        $cg = $notes['idCaregiver'];
         $id = $notes['idinput'];
-        $sql = "DELETE FROM a18ux02.Notes WHERE idCaregiver = '$cg' AND idNotes = '$id'";
+        $sql = "DELETE FROM a18ux02.Notes  AND idNotes = '$id'";
         $this->db->query($sql);
     }
 

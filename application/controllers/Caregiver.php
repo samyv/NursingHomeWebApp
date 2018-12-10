@@ -418,6 +418,10 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getResidentDashboardInfo($cond);
         $data['resident'] = $row[0];
 
+        if ($this->caregivers->getNotes($_GET['id']) != false) {
+            $data['notes'] = $this->caregivers->getNotes($_GET['id']);
+        }
+
         $cond['table'] = "a18ux02.ContactPerson";
         $cond['where'] = array('idContactInformation' => $row[0]['FK_ContactPerson'] );
         $row = $this->caregivers->getRows($cond);
@@ -532,6 +536,7 @@ class Caregiver extends CI_Controller
             'idinput' => $_POST['idinput'],
             'idCaregiver' => $_SESSION['idCaregiver']
         );
+        if(isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
         return $idNote;
     }
@@ -688,9 +693,9 @@ class Caregiver extends CI_Controller
     public function getQuestionnaireResults(){
         $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion";
         $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
-        $condit['select'] = "answer, questionType, positionNum";
+        $condit['select'] = "answer, questionType, positionNum, questionText";
         $condit['order'] = "ASC";
-        $condit['orderColumn'] = "questionTYpe, positionNum";
+        $condit['orderColumn'] = "questionType, positionNum";
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
