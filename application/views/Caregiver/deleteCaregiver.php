@@ -36,8 +36,8 @@
 
 
         <div class="modal-footer">
-            <input id="" class="btn btn-block btn-lg" value="YES" readonly>
-            <input id="" class="btn btn-block btn-lg" value="NO" readonly>
+            <input id="yesDelete" class="btn btn-block btn-lg" value="YES" >
+            <input id="notDelete" class="btn btn-block btn-lg" value="NO" readonly>
 
         </div>
     </div>
@@ -61,8 +61,6 @@
                 // console.log(list[i])
                 if(list[i] != undefined) {
                     name = list[i].getElementsByTagName("td")[1].innerHTML;
-                    // console.log(name);
-
                     if (name.toUpperCase().indexOf(filter) > -1) {
                         list[i].style.display = "";
                     } else {
@@ -112,9 +110,11 @@
                 col2.innerHTML = element.floor;
                 row.appendChild(col2)
                 var col3 = document.createElement('td');
-                col3.innerHTML = "<button class=\"delete\"><a href=\"#\"class='delete' id='CIModal'>DELETE</a></button>\n";
+                col3.innerHTML = "<button class='delete'><a href='#'class='delete' id='CIModal' >DELETE</a></button>\n";
                 let childs = col3.children
+                let a = childs[0]
                 let aa = childs[0].children[0]
+                a.setAttribute('value', element.id)
                 aa.setAttribute('value',element.id)
                 row.appendChild(col3)
                 tbody.appendChild(row);
@@ -130,48 +130,48 @@
             return element;
         }
 
-        function init() {
-            $('#myTable tbody').on('click', 'tr', function() {
-                var id_td = this.firstChild;
-                var test = id_td.innerHTML;
 
-                console.log(window.location.href);
-                window.location.href =  "http://localhost/a18ux02/searchRes"+"?uid="+test;
-                <?php
-                if(isset($_GET['uid'])){
-                    $id = $_GET['uid'];
-                    redirect('resDash/'."?id=".$id);
-                }
-                ?>
-            })
+
+    //Create global variable
+        var IDtoDelete = "global";
+
+    //On click of yes delete the caregiver with global ID
+    //update table??
+
+        $(document).ready(function () {
+            console.log("here");
+            $('.delete').click(function(){
+               $('#information-modal-content').fadeIn('fast');
+
+                //not correct! but get the id of the delete button and change the global variable
+
+                IDtoDelete = this.getAttribute('value');
+                //console.log(IDtoDelete)
+
+
+
+            });
+
+         //use this for no button
+            $('#closemodal').click(function () {
+                $('#information-modal-content').fadeOut('fast');
+             });
+            $('#notDelete').click(function () {
+                $('#information-modal-content').fadeOut('fast');
+            });
+
+            $('#yesDelete').click(deleteCaregiver)
+
+            });
+
+
+        function deleteCaregiver() {
+            console.log(IDtoDelete)
+            
+
         }
 
     </script>
-
-<script>
-
-    //Create global variable
-
-    //On click of yes or no delete the caregiver with global ID
-    //update table??
-
-    $(document).ready(function () {
-        console.log("here");
-        $('.delete').click(function(){
-            $('#information-modal-content').fadeIn('fast');
-
-            //not correct! but get the id of the delete button and change the global variable
-            console.log(this.getAttribute('value'));
-
-        });
-
-        // Use this for NO button
-        $('#closemodal').click(function () {
-            $('#information-modal-content').fadeOut('fast');
-        })
-
-    });
-</script>
 
 </body>
 </html>

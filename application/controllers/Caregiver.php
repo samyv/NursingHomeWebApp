@@ -702,6 +702,27 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/deleteCaregiver', $data);
     }
 
+    public function deleteResident()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Resident";
+        $this->load->database('default');
+        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteResident', $data);
+    }
+
 }
 
 
