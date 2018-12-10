@@ -7,10 +7,11 @@
     <title>Home | GraceAge</title>
     <script src="<?php echo base_url(); ?>assets/js/jquery-3.3.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+	<link rel="stylesheet" href="assets/css/transitions.css">
 
 </head>
 <body>
-<div class="grid-container">
+<div class="grid-container fade-in">
 
     <div class="title">
         <h1>Welcome <?php echo $_SESSION['firstname']; ?>!</h1>

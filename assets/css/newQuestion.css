@@ -1,0 +1,37 @@
+*{
+    font-family: Roboto, Merriweather;
+}
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 5em 5em 1.2fr 5em 1.2fr 1.2fr;
+    grid-template-areas:
+            "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+            ". . section section section section section section section section . ."
+            ". . section_input section_input section_input section_input section_input section_input section_input section_input . ."
+            ". . question question question question question question question question . ."
+            ". . question_input question_input question_input question_input question_input question_input question_input question_input . ."
+            ". . buttons buttons . . . . . . . ."
+
+}
+
+.header { grid-area: headerr; }
+
+.section{
+    grid-area: section;
+    align-self: center;
+}
+
+.section_input{ grid-area: section_input;}
+
+.question{
+    grid-area: question;
+    align-self: center;
+}
+
+.question_input{ grid-area: question_input;}
+
+.buttons{
+    grid-area: buttons;
+    align-self: center;
+}

@@ -6,13 +6,14 @@
 	<link rel="stylesheet" href="assets/css/searchForResident.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="assets/css/transitions.css">
 	<!--    <script src="javascript/search.js"></script>-->
 
 </head>
 
 <body>
 
-<div class="grid-container">
+<div class="grid-container fade-in	">
 <div class = "h1">
     <h1>Database searching</h1>
 </div>
@@ -27,10 +28,10 @@
 
 
 <script>
-	window.onload = function (ev) {
+	$(function() {
 		populate();
 		init();
-	};
+	});
 	var list,name;
 	function search() {
 		var input, filter, table, i;
@@ -53,8 +54,7 @@
 		}
 	}
 
-	function populate()
-	{
+	function populate() {
 		var database = "";
 		database = <?php echo json_encode($listCar)?>;
 		var table = document.getElementById("myTable");

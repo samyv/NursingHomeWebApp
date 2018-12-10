@@ -424,6 +424,27 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
+        /*
+         * change contact info
+         */
+        $dataContactperson = array();
+        if($this->input->post('saveInfo')) {
+            $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
+
+            if ($this->form_validation->run() == true) {
+                $dataContactperson = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'email' => strip_tags($this->input->post('email')),
+                    'phonenumber' => strip_tags($this->input->post('phonenumber')),
+                );
+            }
+            print_r($dataContactperson);
+            $this->residents->updateContactPerson($dataContactperson);
+        }
 
 
         /*
@@ -597,6 +618,35 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function newQuestion(){
+        $data = array();
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newQuestion');
+        $data['page_title']='New Question';
+
+        $cond = array();
+        $cond['table'] = "a18ux02.Section";
+        $row = $this->caregivers->getRows($cond)->result();
+        $result = json_decode(json_encode($row), true);
+        $data['sections'] = $result;
+
+        if($this->input->post('questionSubmit')){
+            //$this->form_validation->set_rules('section_input', 'Section', 'required');
+            $this->form_validation->set_rules('question', 'Question', 'required');
+
+            if($this->form_validation->run() == true){
+
+                    $newSection = strip_tags($this->input->post('section_input'));
+                    $question = strip_tags($this->input->post('question'));
+                    $sectionId = strip_tags($this->input->post('section'));
+
+                $this->caregivers->insertQuestion($question, $newSection, $sectionId);
+            }
+
+        }
+
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/newQuestion', $data);
+    }
 
     /*
      * This function checks if a phone number is in the correct format

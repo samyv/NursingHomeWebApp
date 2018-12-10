@@ -370,8 +370,40 @@ Class Caregivers extends CI_Model
         return $row['idNotes'];
     }
 
+    public function insertQuestion($question, $newSection, $sectionId){
 
-    public function getResidentDashboardInfo($conditions = array())
+    	$id_section = $sectionId;
+    	////----caregiver wants to make a new section-----////
+        if(!empty($newSection)){
+        	//push new section in the section table
+            $sql = "INSERT INTO a18ux02.Section(sectionId, sectionType, sectionText, sectionIcon) VALUES (NULL, '$newSection', 'New section', NULL)";
+            $this->db->query($sql);
+			$id_section = $this->db->insert_id();
+            //push new queston with new section
+			$sql2 = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', 1, NULL)";
+			$this->db->query($sql2);
+        } else {
+        	////----caregiver wants to add a question to a section----////
+
+        	// 1. GET positionNum of last question of the section
+            $sql = "SELECT MAX(positionNum) FROM a18ux02.Question WHERE questionType = '$sectionId'";
+            $max = json_decode(json_encode($this->db->query($sql)->result()),true);
+
+			$prevPos =$max[0]['MAX(positionNum)'];
+			//make variable that is one more => new positionNum
+            $currPos = $prevPos + 1;
+
+			//insert new question with this new positionNum and put nextQuestionID to NULL + get new ID
+            $sql = "INSERT INTO a18ux02.Question(idQuestion, questionText, questionType, positionNum, nextQuestionId) VALUES (NULL, '$question', '$id_section', '$currPos', NULL)";
+            $this->db->query($sql);
+
+			//UPDATE the old last question nextQuestionID to the id you got from the insert
+			$insertedID = $this->db->insert_id();
+            $sql = "UPDATE a18ux02.Question SET nextQuestionId = '$insertedID' WHERE positionNum = '$prevPos' AND questionType = '$sectionId'";
+            $this->db->query($sql);
+		}
+    }
+     public function getResidentDashboardInfo($conditions = array())
     {
 //		echo "init";
         $userTbl = $conditions["table"];

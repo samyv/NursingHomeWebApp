@@ -8,10 +8,12 @@
           rel="stylesheet">
     <script src="http://d3js.org/d3.v4.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="assets/css/transitions.css">
 </head>
 
 <body>
-<div class = "grid-container">
+<div class = "grid-container fade-in">
+
     <div class = "title">
         <p>Select floors to compare</p>
     </div>

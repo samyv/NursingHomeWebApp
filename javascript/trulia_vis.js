@@ -3,10 +3,10 @@
 ///////////////////////D3JS///////////////////////////
 //////////////////////////////////////////////////////
 
-const margin = { top: 30, right: 0, bottom: 100, left: 300 }
-const width = 960 - margin.left - margin.right
-const height = 650 - margin.top - margin.bottom
-const gridSize = Math.floor(width / 15.5)
+const margin = { top: 30, right: 0, bottom: 100, left: 120 }
+const width = 500 - margin.left - margin.right
+const height = 250 - margin.top - margin.bottom
+const gridSize = Math.floor(width / 17)
 const legendElementWidth = gridSize*2
 const buckets = 9
 const colors = ["#ff6666","#ffb366","#ffff66","#b3ff66","#66ff66"]
