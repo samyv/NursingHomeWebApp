@@ -80,7 +80,6 @@ class Resident extends CI_Controller
         $data['totalNum'] = $totalNum;
         $currentType = $this->QuestionModel->getQuestionType($index);
         $data['currentType'] = $currentType;
-        $data['sectionType'] = $this->QuestionModel->getSectionType($currentType);
         $previousQuestion = $this->QuestionModel->previousQuestion($index);
         $nextQuestion = $this->QuestionModel->nextQuestion($index);
         if($nextQuestion != -1) {
