@@ -298,6 +298,11 @@ class Caregiver extends CI_Controller
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
 
+        $cond = array();
+        $cond['table'] = 'a18ux02.ContactPerson';
+        $contactpersons = $this->caregivers->getRows($cond)->result();
+
+        $data['contactpersons'] = json_decode(json_encode($contactpersons),true);
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
@@ -764,6 +769,59 @@ class Caregiver extends CI_Controller
                 //print_r($result);
             }
         }
+    }
+    public function deleteCaregiver()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Caregiver";
+        $this->load->database('default');
+        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getCaregivers();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteCaregiver', $data);
+    }
+
+    public function deleteResident()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Resident";
+        $this->load->database('default');
+        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteResident', $data);
+    }
+    public function CaregiverDelete()
+    {
+        $id = $_POST['idCaregiver'];
+        $this->caregivers->deleteCaregiverById($id);
+    }
+
+
+    public function ResidentDelete()
+    {
+        $id = $_POST['idResident'];
+        $this->caregivers->deleteResidentById($id);
     }
 
 }
