@@ -27,20 +27,24 @@
     <div class="table">
         <table id="myTable"></table>
     </div>
+</div>
 
-    <div class="modal-content" id="information-modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Are you sure you want to delete?</h4>
+
+<div class='dialog-ovelay' role="alert">
+    <div class='dialog'>
+        <header>
+            <h3>Delete note?</h3>
+            <i class='fa fa-close'></i>
+        </header>
+        <div class='dialog-msg'>
+            <p>Are you sure you want to delete this resident?</p>
         </div>
-
-
-
-        <div class="modal-footer">
-            <input id="yesDelete" class="btn btn-block btn-lg" value="YES" >
-            <input id="notDelete" class="btn btn-block btn-lg" value="NO" readonly>
-
-        </div>
+        <footer>
+            <div class='controls'>
+                <button class='button button-danger doAction'>Yes</button>
+                <button class='button button-default cancelAction'>Cancel</button>
+            </div>
+        </footer>
     </div>
 </div>
 
@@ -137,78 +141,44 @@
     //On click of yes delete the caregiver with global ID
     //update table??
 
+
     $(document).ready(function () {
         $('.delete').click(function(){
             //$('#information-modal-content').fadeIn('fast');
-
             $IDtoDelete = this.getAttribute('value');
-            Confirm('Delete resident?', 'Are you sure you want to delete this resident?', 'Yes', 'Cancel', $IDtoDelete);
 
-            //console.log(IDtoDelete)
+            Confirm($IDtoDelete);
 
+            //not correct! but get the id of the delete button and change the global variable
 
 
         });
-
-        //use this for no button
-        $('#closemodal').click(function () {
-            $('#information-modal-content').fadeOut('fast');
-        });
-        $('#notDelete').click(function () {
-            $('#information-modal-content').fadeOut('fast');
-        });
-
-        $('#yesDelete').click(deleteResident)
 
     });
 
-
-    function deleteResident() {
-        console.log(IDtoDelete)
-
-    }
-
-    function Confirm(title, msg, $true, $false, $id) { /*change*/
-        var $content = "<div class='dialog-ovelay'>" +
-            "<div class='dialog'><header>" +
-            " <h3> " + title + " </h3> " +
-            "<i class='fa fa-close'></i>" +
-            "</header>" +
-            "<div class='dialog-msg'>" +
-            " <p> " + msg + " </p> " +
-            "</div>" +
-            "<footer>" +
-            "<div class='controls'>" +
-            " <button class='button button-danger doAction'>" + $true + "</button> " +
-            " <button class='button button-default cancelAction'>" + $false + "</button> " +
-            "</div>" +
-            "</footer>" +
-            "</div>" +
-            "</div>";
-        $('body').prepend($content);
-        $flag = false;
+    function Confirm($IDtoDelete) { /*change*/
+        $('.dialog-ovelay').css("display","block");
         $('.doAction').click(function () {
             $(this).parents('.dialog-ovelay').fadeOut(500, function () {
-                $(this).remove();
-                console.log($id);
-
+                $(this).parents('.dialog-ovelay').css("display","none");
                 $.ajax({
-                    url: '<?=base_url()?>Caregiver/ResidentDelete',
+                    url: window.origin+'/a18ux02/Caregiver/ResidentDelete',
                     method: 'post',
                     dataType: 'json',
                     data: {
-                        'idResident': $id
+                        'idResident': $IDtoDelete
                     },
                     success() {
 
                     }
                 });
+                $note.parent().remove();
             });
         });
 
         $('.cancelAction, .fa-close').click(function () {
-            $(this).parents('.dialog-ovelay').fadeOut(500, function () {
-                $(this).remove();
+            $('.dialog-ovelay').fadeOut(500, function () {
+                $('.dialog-ovelay').css("display","none");
             });
         });
     };
