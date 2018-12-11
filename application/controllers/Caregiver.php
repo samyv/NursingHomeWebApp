@@ -298,11 +298,6 @@ class Caregiver extends CI_Controller
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
 
-        $cond = array();
-        $cond['table'] = 'a18ux02.ContactPerson';
-        $contactpersons = $this->caregivers->getRows($cond)->result();
-
-        $data['contactpersons'] = json_decode(json_encode($contactpersons),true);
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
@@ -413,16 +408,24 @@ class Caregiver extends CI_Controller
 
     public function resDash()
     {
+
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-        $idResident = $_GET['id'];
         $data = array();
         $cond = array();
 		$cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
         $data['resident'] = $row[0];
+        $name = $row[0]['firstname'];
+        $name .= " ";
+        $name .= $row[0]['lastname'];
+        $data['page_title'] = "Resident overview | $name";
+
+        if ($this->residents->getNotes($_GET['id']) != false) {
+            $data['notes'] = $this->residents->getNotes($_GET['id']);
+        }
 
         $cond['table'] = "a18ux02.ContactPerson";
         $cond['where'] = array('idContactInformation' => $row[0]['FK_ContactPerson'] );
@@ -430,6 +433,27 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
+        /*
+         * change contact info
+         */
+        $dataContactperson = array();
+        if($this->input->post('saveInfo')) {
+            $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
+
+            if ($this->form_validation->run() == true) {
+                $dataContactperson = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'email' => strip_tags($this->input->post('email')),
+                    'phonenumber' => strip_tags($this->input->post('phonenumber')),
+                );
+            }
+            print_r($dataContactperson);
+            $this->residents->updateContactPerson($dataContactperson);
+        }
 
 
         /*
@@ -515,14 +539,12 @@ class Caregiver extends CI_Controller
             'idinput' => $_POST['idinput'],
             'idCaregiver' => $_SESSION['idCaregiver']
         );
+        if(isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
-        return $idNote;
+        print_r(json_encode($idNote->result()));
+        return json_encode($idNote->result());
     }
 
-    public function getIdLastNote($note){
-        $idNote = $this->caregivers->getIdNoteByText($note);
-        return $idNote;
-    }
 
     public function deleteNote()
     {
@@ -671,9 +693,9 @@ class Caregiver extends CI_Controller
     public function getQuestionnaireResults(){
         $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion";
         $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
-        $condit['select'] = "answer, questionType, positionNum";
+        $condit['select'] = "answer, questionType, positionNum, questionText";
         $condit['order'] = "ASC";
-        $condit['orderColumn'] = "questionTYpe, positionNum";
+        $condit['orderColumn'] = "questionType, positionNum";
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
