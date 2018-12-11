@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>{page_title}</title>
-    <link rel="stylesheet" href="assets/css/transitions.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/transitions.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
     <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
     <link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css'/>
@@ -185,18 +185,6 @@
 
     });
 
-        $(".selectQuestionnaire")
-            .change(function () {
-                $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-                $.ajax({
-                    url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
-                    dataType: 'json',
-                    success:function (array) {
-                        testdata = array;
-                        drawChart(testdata);
-                    }
-                });
-    });
 
     function changeInfo(event) {
         document.getElementById('info-contact').style.display = 'none';
@@ -248,11 +236,7 @@
             document.getElementById('changeInfo').value = "Change info";
         }
     }
-    $(".selectQuestionnaire")
-        .change(function () {
-            $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-            window.location.assign(window.location.pathname+"?id=<?php echo $_GET['id']; ?>"+"&idQuestionnaire="+$idQuestionnaire)
-        });
+
 </script>
 </html>
 

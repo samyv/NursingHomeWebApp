@@ -751,7 +751,7 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()),true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result,$max));
-                print_r($result);
+                //print_r($result);
             }
         }
     }

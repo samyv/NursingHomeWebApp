@@ -156,9 +156,13 @@ button[type=submit]{
 	.modal{
 		display: block;
 	}
+
+
 	#information-contactperson-modal-content{
 		display: inline;
-		min-width: 500px;
+		min-width: 400px;
+		left: 20%;
+		top: 60%
 	}
 
 	.fa-print{

@@ -6,7 +6,7 @@
  * Time: 12:37
  */
 
-class residents extends CI_Model
+class Residents extends CI_Model
 {
 	function __construct()
 	{
@@ -76,5 +76,35 @@ class residents extends CI_Model
         return count($result);
     }
 
-    //
+    public function updateContactPerson($data = array())
+    {
+        $firstname = $data['firstname'];
+        $lastname = $data['lastname'];
+        $email = $data['email'];
+        $phonenumber = $data['phonenumber'];
+
+        $sql = "UPDATE a18ux02.ContactPerson 
+                    SET firstname = '$firstname', lastname= '$lastname', email = '$email', phonenumber ='$phonenumber'
+                    WHERE idContactInformation = 9";
+        $this->db->query($sql);
+
+    }
+
+    public function getNotes($id)
+    {
+        $resNotes=[];
+        $sql = "SELECT * FROM a18ux02.Notes WHERE idResident= " . $id;
+        $result = $this->db->query($sql);
+        if (!empty($result)) {
+            $array = json_decode(json_encode($result->result()), true);
+            foreach ($array as $key => $value) {
+                $resNotes['note' . $key] = array('Note' => $value['Note'], 'noteid' => $value['idNotes']);
+            }
+
+            return $resNotes;
+        } else {
+            return false;
+        }
+    }
+
 }

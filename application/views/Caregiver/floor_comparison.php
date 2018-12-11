@@ -238,7 +238,7 @@
 
                 $i = $("#"+(f+1)).children();
                 if($i.first().css("display") === "none"){
-                    svg.select("path").attr("display", "none");
+                    svg.select(".floor"+(f+1)).attr("display", "none");
                 }
 
 
