@@ -153,6 +153,7 @@ Class Caregivers extends CI_Model
         return $result;
     }
 
+
     /*
     * Returns rows from the database based on the conditions
      * conditons:

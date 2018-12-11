@@ -621,6 +621,7 @@ class Caregiver extends CI_Controller
                 redirect('index.php');
             }
         }
+
     }
 
     public function newQuestion(){
