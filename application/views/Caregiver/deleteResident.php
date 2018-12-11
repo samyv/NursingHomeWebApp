@@ -193,12 +193,11 @@
                 console.log($id);
 
                 $.ajax({
-
                     url: '<?=base_url()?>Caregiver/ResidentDelete',
                     method: 'post',
                     dataType: 'json',
                     data: {
-                        'idCaregiver': $id
+                        'idResident': $id
                     },
                     success() {
 
