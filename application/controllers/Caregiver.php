@@ -725,15 +725,14 @@ class Caregiver extends CI_Controller
     public function CaregiverDelete()
     {
         $id = $_POST['idCaregiver'];
-
-        print_r($id);
+        $this->caregivers->deleteCaregiverById($id);
     }
+
 
     public function ResidentDelete()
     {
-        $id = $_POST['idCaregiver'];
-
-        print_r($id);
+        $id = $_POST['idResident'];
+        $this->caregivers->deleteResidentById($id);
     }
 
 }
