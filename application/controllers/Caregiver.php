@@ -222,19 +222,26 @@ class Caregiver extends CI_Controller
         }
     }
 
-    /**
-     * form validation function for the key
-     */
-
     public function key_check($key,$nursingHomeID)
     {
+    	$flag = false;
 		if ($this->caregivers->checkKey($nursingHomeID,$key)) {
-			return TRUE;
+			$flag = TRUE;
+		} else if ($this->caregivers->checkSupervisorKey($nursingHomeID,$key)) {
+			$flag = TRUE;
 		} else {
 			$this->form_validation->set_message('email_check', 'Key is incorrect');
-			return FALSE;
 		}
-		return;
+		return $flag;
+    }
+
+    public function supervisor_key_check($key,$nursingHomeID)
+    {
+		if ($this->caregivers->checkSupervisorKey($nursingHomeID,$key)) {
+			return 1;
+		} else {
+			return 0;
+		}
     }
 
     public function password_check($str, $id)
