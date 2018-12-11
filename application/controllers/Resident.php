@@ -130,10 +130,10 @@ class Resident extends CI_Controller
         }
 
         $this->QuestionModel->insertIndex($index,$questionnaireId);
-        if($answer != null) {
-            $this->QuestionModel->insertAnswer($questionnaireId, $index, $answer);
-            $this->QuestionModel->insertTimestamp($residentID);
-        }
+
+        $this->QuestionModel->insertAnswer($questionnaireId, $index, $answer);
+        $this->QuestionModel->insertQuestionnaireTimestamp($questionnaireId);
+
     }
 
     public function getOldAnswer(){
@@ -205,6 +205,9 @@ class Resident extends CI_Controller
     }
 
     public function finalPage(){
+        $idResident = $_SESSION['Resident']['residentID'];
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
+        $this->QuestionModel->setQuestionnaireCompleted($questionnaireId);
         $index = $this->QuestionModel->getLastQuestion();
         $data['resident'] = $_SESSION['Resident']['firstname'];
         $data['index'] = $index;
@@ -215,10 +218,14 @@ class Resident extends CI_Controller
     public function startQuestionnaire(){
         $idResident = $_SESSION['Resident']['residentID'];
         $this->QuestionModel->createQuestionnaires($idResident);
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
         $currentQuestionIndex = $this->QuestionModel->getIndex($idResident);
         $nextQuestionIndex = $this->QuestionModel->nextQuestion($currentQuestionIndex);
+
         if($nextQuestionIndex == -1){
-            $this->finalPage();
+            $completed = $this->QuestionModel->getQuestionnaireCompleted($questionnaireId);
+            if($completed == '0') $this->finalPage();
+            else $this->noticePage();
         } else {
             $currentSectionIndex = $this->QuestionModel->getQuestionType($nextQuestionIndex);
             $this->section($currentSectionIndex, $nextQuestionIndex);
@@ -230,6 +237,10 @@ class Resident extends CI_Controller
         $last = $this->QuestionModel->checkIfLast($index);
         if(is_numeric($last)) echo 0;
         else echo 1;
+    }
+
+    public function noticePage(){
+        print_r("notice page");
     }
 
 

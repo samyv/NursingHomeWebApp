@@ -11,28 +11,18 @@ html,body{
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 0.5fr 4fr 0.5fr 0.5fr;
+    grid-template-rows: 0.5fr min-content min-content 0.5fr;
     grid-template-areas:
-            ". .  title title title title title title title title . ."
+            ". .  . title title title title title title . . ."
             ". .  . list list list list list list . . ."
             ". . . . . . . . . . . . "
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 
 }
-
-.footer{
-    display  :grid;
-    grid-area: footer;
-    color:#003b46;
-    text-align: center;
-}
-
-
 .title{
-    display  :grid;
     grid-area: title;
     color: #003b46;
-    padding: 10px;
+    margin-top: 20px;
     font-size: 32px;
     background-color: #F5FAFA;
 }
@@ -45,7 +35,7 @@ html,body{
 .listRow1,.listRow2,.listRow3,.listRow4,.listRow5{
     border-style: solid;
     vertical-align:top;
-    line-height:100px;
+    line-height:70px;
     background-color: #66a5ad;
     color: white!important;
     padding: 10px;

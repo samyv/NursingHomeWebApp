@@ -43,7 +43,6 @@ body {
 }
 
 .register {
-
     grid-area: register;
 }
 
@@ -69,6 +68,16 @@ input[type=submit], input[type=button]{
 input[type=submit]:hover, input[type=button]:hover{
     background-color: #66a5ad;
     opacity: 0.8 !important;
+}
+
+.nursingHomes {
+    padding: 12px 20px;
+    margin: 8px 0;
+    width: 100%;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    cursor: pointer;
 }
 
 

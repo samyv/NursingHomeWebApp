@@ -413,16 +413,24 @@ class Caregiver extends CI_Controller
 
     public function resDash()
     {
+
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-        $idResident = $_GET['id'];
         $data = array();
         $cond = array();
 		$cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
         $data['resident'] = $row[0];
+        $name = $row[0]['firstname'];
+        $name .= " ";
+        $name .= $row[0]['lastname'];
+        $data['page_title'] = "Resident overview | $name";
+
+        if ($this->residents->getNotes($_GET['id']) != false) {
+            $data['notes'] = $this->residents->getNotes($_GET['id']);
+        }
 
         $cond['table'] = "a18ux02.ContactPerson";
         $cond['where'] = array('idContactInformation' => $row[0]['FK_ContactPerson'] );
@@ -430,6 +438,27 @@ class Caregiver extends CI_Controller
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
 
+        /*
+         * change contact info
+         */
+        $dataContactperson = array();
+        if($this->input->post('saveInfo')) {
+            $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
+            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
+
+            if ($this->form_validation->run() == true) {
+                $dataContactperson = array(
+                    'firstname' => strip_tags($this->input->post('firstname')),
+                    'lastname' => strip_tags($this->input->post('lastname')),
+                    'email' => strip_tags($this->input->post('email')),
+                    'phonenumber' => strip_tags($this->input->post('phonenumber')),
+                );
+            }
+            print_r($dataContactperson);
+            $this->residents->updateContactPerson($dataContactperson);
+        }
 
 
         /*
@@ -447,28 +476,6 @@ class Caregiver extends CI_Controller
             $result = json_decode(json_encode($result), true);
             $data['questionnaires'] = $result;
         }
-
-
-
-        /*
-         * get the answers from the selected questionnaire
-         */
-        if(isset($data['questionnaires'])) {
-            if (!isset($_GET['idQuestionnaire'])) {
-                redirect('resDash/?id=' . $idResident . '&idQuestionnaire=' . $result["0"]["idQuestionnaires"]);
-            } else {
-                $condit['table'] = "a18ux02.Answers";
-                $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
-                $condit['order'] = "ASC";
-                $condit['orderColumn'] = "questionId";
-                if ($row = $this->caregivers->getRows($condit)) {
-                    $result = $row->result();
-                    $result = json_decode(json_encode($result), true);
-                }
-            }
-        }
-
-
 
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('resident_dashboard');
         $this->parser->parse('templates/header',$data);
@@ -516,6 +523,16 @@ class Caregiver extends CI_Controller
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
 
+        $query="select sectionType from a18ux02.Section";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result=json_decode(json_encode($row->result()),true);
+            $data['categories']=$result;
+        }
+
+        $maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()),true);
+        $data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
+        $data['spindata'] = json_encode($this->getFloorSpinData());
+
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/floor_comparison', $data);
     }
@@ -527,14 +544,12 @@ class Caregiver extends CI_Controller
             'idinput' => $_POST['idinput'],
             'idCaregiver' => $_SESSION['idCaregiver']
         );
+        if(isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
-        return $idNote;
+        print_r(json_encode($idNote->result()));
+        return json_encode($idNote->result());
     }
 
-    public function getIdLastNote($note){
-        $idNote = $this->caregivers->getIdNoteByText($note);
-        return $idNote;
-    }
 
     public function deleteNote()
     {
@@ -729,12 +744,78 @@ class Caregiver extends CI_Controller
     }
 
 
+
+
     public function ResidentDelete()
     {
         $id = $_POST['idResident'];
         $this->caregivers->deleteResidentById($id);
     }
+    public function getQuestionnaireResults(){
+        $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion";
+        $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
+        $condit['select'] = "answer, questionType, positionNum, questionText";
+        $condit['order'] = "ASC";
+        $condit['orderColumn'] = "questionType, positionNum";
+        if ($row = $this->caregivers->getRows($condit)) {
+            $result = $row->result();
+            $result = json_encode($result);
+            print_r($result);
+            return $result;
+        }
+    }
 
+    public function getFloorData(){
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    where  a18ux02.Questionnaires.Completed = '1'
+                    GROUP BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
+                    ORDER BY a18ux02.Resident.floor, a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType ASC";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result),true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if($row2 = $this->caregivers->executeQuery($query))
+            {
+                $result2 = json_decode(json_encode($row2->result()),true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result,$max));
+                print_r($result);
+            }
+
+
+        }
+    }
+    public function getFloorSpinData(){
+        $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    GROUP BY a18ux02.Question.questionType, a18ux02.Resident.floor
+                    ORDER BY a18ux02.Question.questionType, a18ux02.Resident.floor ASC";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result),true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if($row2 = $this->caregivers->executeQuery($query))
+            {
+                $result2 = json_decode(json_encode($row2->result()),true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result,$max));
+                print_r($result);
+            }
+        }
+    }
 }
 
 
