@@ -102,6 +102,21 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
+
+    function getSectionType($id){
+        $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
+
+        $row = $query->row_array();
+
+        $text = '';
+
+        if (isset($row))
+        {
+            $text = $row['sectionType'];
+        }
+        return $text;
+    }
+
     function getImage($id){
         $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
 
