@@ -18,7 +18,7 @@
         </div>
     </div>
 
-    <div id="questionType">{sectionType} ({currentNum}/{totalNum})</div>
+    <div id="questionType">Question Type({currentNum}/{totalNum})</div>
 
     <div class="progress" id="progressbar">
         <div class="progress-bar progress-bar-striped active" role="progressbar"
@@ -183,13 +183,8 @@
         });
 
         $('#previous').click(async function(){
-            if(index > 1) {
-                index=previousQuestion;
-                window.location.href = '<?=base_url();?>resident/questionpage/'+index;
-            } else {
-                window.location.href = '<?=base_url();?>resident/tutorialpage'
-            }
-
+            if(index > 1) index=previousQuestion;
+            window.location.href = '<?=base_url();?>resident/questionpage/'+index;
         });
     });
 </script>
