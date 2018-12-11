@@ -41,7 +41,7 @@
 		</div>
 		<div class="grid-container fade-in">
 			<div class="image">
-				<img id="remyImg" src="<?=base_url();?>assets/images/edouard-remy.jpg" >
+				<img id="remyImg" src="<?=base_url();?>/assets/images/edouard-remy.jpg" >
 			</div>
 
 			<div class="login-form">

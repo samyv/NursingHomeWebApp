@@ -83,9 +83,9 @@ class QuestionModel extends CI_Model
     }
 
 
-    function insertQuestionnaireTimestamp($questionnaireId){
+    function insertTimestamp($residentID){
         $this->db->query(
-            "UPDATE a18ux02.Questionnaires SET timestamp = CURRENT_TIMESTAMP WHERE idQuestionnaires = $questionnaireId"
+            "UPDATE a18ux02.Questionnaires SET timestamp = CURRENT_TIMESTAMP WHERE Resident_residentID = $residentID"
         );
     }
 
@@ -102,21 +102,6 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
-
-    function getSectionType($id){
-        $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
-
-        $row = $query->row_array();
-
-        $text = '';
-
-        if (isset($row))
-        {
-            $text = $row['sectionType'];
-        }
-        return $text;
-    }
-
     function getImage($id){
         $query = $this->db->get_where('a18ux02.Section', array('sectionId'=>$id));
 
@@ -130,7 +115,6 @@ class QuestionModel extends CI_Model
         }
         return $text;
     }
-
     function getIndex($residentID){
         $query = $this->db->query("SELECT * FROM a18ux02.Questionnaires WHERE Resident_residentID = $residentID ORDER BY timestamp DESC LIMIT 1");
 
@@ -169,7 +153,7 @@ class QuestionModel extends CI_Model
             $now = new DateTime(date('Y-m-d H:i:s e'));
             $lastTime = new DateTime($row['timestamp']);
             $interval = $lastTime->diff($now);
-            if($interval->d*24+$interval->h > 24){
+            if($interval->format('%a') > 7){
                 $this->db->query("INSERT INTO a18ux02.Questionnaires (Resident_residentID, timestamp, numOfCurrentQuestion) VALUE ($residentID, CURRENT_TIMESTAMP , 0)");
             }
         } else {
@@ -303,30 +287,6 @@ class QuestionModel extends CI_Model
         if($prev == 'NULL') $prev = -1;
 
         return $prev;
-    }
-
-    function setQuestionnaireCompleted($questionnaireId){
-        $query = $this->db->get_where('a18ux02.Questionnaires',array('idQuestionnaires'=>$questionnaireId));
-
-        $row = $query->row_array();
-
-        if(isset($row)){
-            $this->db->query("UPDATE a18ux02.Questionnaires SET Completed = '1' WHERE idQuestionnaires = $questionnaireId");
-        }
-    }
-
-    function getQuestionnaireCompleted($questionnaireId){
-        $query = $this->db->get_where('a18ux02.Questionnaires',array('idQuestionnaires'=>$questionnaireId));
-
-        $row = $query->row_array();
-
-        $completed = -1;
-
-        if(isset($row)){
-            $completed = $row['Completed'];
-        }
-
-        return $completed;
     }
 
 }
