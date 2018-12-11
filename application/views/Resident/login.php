@@ -53,16 +53,16 @@
 						displayErrorMessage("There was an error with accessing the camera stream: " + err.name, err);
 					}
 				);
-
+					start_camera.addEventListener("click", function(e) {
+						e.preventDefault();
+						console.log("clicked"
+						)
+						// Start video playback manually.
+						video.play();
+						showVideo();
+					});
 			}
-			start_camera.addEventListener("click", function(e) {
-				e.preventDefault();
-				console.log("clicked"
-				)
-				// Start video playback manually.
-				video.play();
-				showVideo();
-			});
+
 
 			function showVideo() {
 				// Display the video stream and the controls.
@@ -75,7 +75,7 @@
 				start_camera.classList.remove("visible");
 				video.classList.remove("visible");
 			}
-		})
+
 	</script>
 <script>
 	let scanner = new Instascan.Scanner({ video: document.getElementById('camera-stream') });
