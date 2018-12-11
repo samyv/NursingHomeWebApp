@@ -3,11 +3,11 @@
 <head>
     <title>{page_title}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="assets/css/deleteCaregiver.css">
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/deleteCaregiver.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.css">
     <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="assets/css/transitions.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/transitions.css">
     <!--    <script src="javascript/search.js"></script>-->
 
 </head>
