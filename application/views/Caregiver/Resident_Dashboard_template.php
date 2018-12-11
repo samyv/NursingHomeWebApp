@@ -169,6 +169,7 @@
 
 </body>
 <script>
+
     var idResident = <?php echo $_GET['id']?>;
     console.log(idResident);
     $(document).ready(function () {
