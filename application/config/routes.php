@@ -71,6 +71,9 @@ $route['roomView'] = 'Caregiver/roomView';
 $route['newResident'] = 'Caregiver/newResident';
 $route['newQuestion'] = 'Caregiver/newQuestion';
 $route['notificationView'] = 'Caregiver/notificationView';
+$route['deleteResident'] = 'Caregiver/deleteResident';
+$route['deleteCaregiver'] = 'Caregiver/deleteCaregiver';
+
 
 
 //routes for Resident

@@ -19,7 +19,7 @@
 </div>
 
 <div class = "search">
-    <input type="text" id="myInput" class= "form-control" onkeyup="search()" placeholder="Search.." title="Type in a name">
+    <input type="text" id="myInput" onkeyup="search()" placeholder="Search.." title="Type in a name">
 </div>
 
 <div class="table">

@@ -35,7 +35,7 @@
     <div class="noteheader">
         <h2 class="noteheader">Notes</h2>
         <div class="newNote" id="newNote">
-            <i id="newNotebtn" class="fas fa-2x fa-plus-circle"></i>
+            <button id="newNotebtn" type="button" class="btn">New note</button>
         </div>
     </div>
     <div class="clndrheader">
@@ -182,13 +182,12 @@
 
     $(document).ready(function () {
         $('#newNotebtn').click(function () {
-            $new =("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
+            $('#newNote').parent().next().next().append("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
                 "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
                 "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +
                 "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\"></textarea>\n" +
                 "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" value=\"Save\" style=\"display:none\">\n" +
                 "            </form>");
-            $('#newNote').parent().next().next().prepend($new);
             /*$('#newNote').before("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
                 "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
                 "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +

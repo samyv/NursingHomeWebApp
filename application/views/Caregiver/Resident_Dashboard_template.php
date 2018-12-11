@@ -92,7 +92,7 @@
         <label>Select a questionnaire:</label>
         <select class="custom-select selectQuestionnaire" style="width: min-content">
             <?php foreach ($questionnaires as $questionnaire){?>
-                <option value="<?php echo $questionnaire['idQuestionnaires'];?>">
+                <option value="<?php echo $questionnaire['idQuestionnaires'];?>" <?php if($_GET['idQuestionnaire']==$questionnaire['idQuestionnaires']){?>selected<?php } ?>>
                     <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y')?>
                 </option>
             <?php }?>
@@ -144,29 +144,6 @@
 
     });
 
-        $(".selectQuestionnaire")
-            .change(function () {
-                $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-                $.ajax({
-                    url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
-                    dataType: 'json',
-                    success:function (array) {
-                        testdata = array;
-                        drawChart(testdata);
-                    }
-                });
-
-            });
-
-        $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-        $.ajax({
-            url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
-            dataType: 'json',
-            success:function (array) {
-                testdata = array;
-                drawChart(testdata);
-            }
-        });
 
     function changeInfo(event){
 
