@@ -587,11 +587,4 @@ Class Caregivers extends CI_Model
         $sql = "DELETE FROM a18ux02.Caregiver WHERE idCaregiver = '$id'";
         $this->db->query($sql);
     }
-
-    public function deleteResidentById($id)
-    {
-        $sql = "DELETE FROM a18ux02.Resident WHERE residentID = '$id'";
-        $this->db->query($sql);
-    }
-
 }

@@ -162,7 +162,7 @@
         });
 
 
-        function deleteCaregiver($id) {
+        function deleteCaregiver() {
         }
 
         function Confirm(title, msg, $true, $false, $id) { /*change*/
@@ -190,6 +190,7 @@
                     console.log($id);
 
                     $.ajax({
+
                         url: '<?=base_url()?>Caregiver/CaregiverDelete',
                         method: 'post',
                         dataType: 'json',
