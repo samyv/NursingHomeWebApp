@@ -154,7 +154,6 @@ class Caregiver extends CI_Controller
 		$userData = array();
 		$data['page_title'] = 'Register new caregiver | GraceAge';
 		$cond = array();
-
 		$cond["table"] = "a18ux02.NursingHome";
 		$result = json_decode(json_encode($this->caregivers->getRows($cond)->result(),true));
 		$data['nursingHomes'] = json_decode(json_encode($result),true);
@@ -167,14 +166,16 @@ class Caregiver extends CI_Controller
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check|xss_clean');
 			$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
 			$this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
-			$this->form_validation->set_rules('key', 'key', 'trim|required|callback_email_check['. strip_tags($this->input->post('nursingHome')) . ']');
+			$this->form_validation->set_rules('key', 'key', 'trim|callback_key_check['. strip_tags($this->input->post('nursingHome')) . ']');
 			if ($this->form_validation->run() == true) {
+				$supervisor = $this->supervisor_key_check(strip_tags($this->input->post('key')),strip_tags($this->input->post('nursingHome')));
 				$userData = array(
 					'firstname' => strip_tags($this->input->post('firstname')),
 					'lastname' => strip_tags($this->input->post('lastname')),
 					'email' => strip_tags($this->input->post('email')),
 					'password' => password_hash(trim($this->input->post('password')), PASSWORD_BCRYPT, array("cost" => 13)),
 					'key' => strip_tags($this->input->post('key')),
+					'supervisor' => $supervisor==1?1:0,
 					'nursingHome' =>  strip_tags($this->input->post('nursingHome'))
 				);
 				$insert = $this->caregivers->insert($userData);
@@ -228,13 +229,24 @@ class Caregiver extends CI_Controller
 
     public function key_check($key,$nursingHomeID)
     {
+    	$flag = false;
 		if ($this->caregivers->checkKey($nursingHomeID,$key)) {
-			return TRUE;
+			$flag = TRUE;
+		} else if ($this->caregivers->checkSupervisorKey($nursingHomeID,$key)) {
+			$flag = TRUE;
 		} else {
 			$this->form_validation->set_message('email_check', 'Key is incorrect');
-			return FALSE;
 		}
-		return;
+		return $flag;
+    }
+
+    public function supervisor_key_check($key,$nursingHomeID)
+    {
+		if ($this->caregivers->checkSupervisorKey($nursingHomeID,$key)) {
+			return 1;
+		} else {
+			return 0;
+		}
     }
 
     public function password_check($str, $id)
@@ -298,6 +310,11 @@ class Caregiver extends CI_Controller
         $data['page_title']='Register resident';
         $this->parser->parse('templates/header',$data);
 
+        $cond = array();
+        $cond['table'] = 'a18ux02.ContactPerson';
+        $contactpersons = $this->caregivers->getRows($cond)->result();
+
+        $data['contactpersons'] = json_decode(json_encode($contactpersons),true);
         if($this->input->post('saveSettings')){
             $this->form_validation->set_rules('firstname', 'Name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
@@ -408,10 +425,10 @@ class Caregiver extends CI_Controller
 
     public function resDash()
     {
-
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
+        $idResident = $_GET['id'];
         $data = array();
         $cond = array();
 		$cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
@@ -766,4 +783,57 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function deleteCaregiver()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Caregiver";
+        $this->load->database('default');
+        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getCaregivers();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteCaregiver', $data);
+    }
+
+    public function deleteResident()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Resident";
+        $this->load->database('default');
+        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteResident', $data);
+    }
+    public function CaregiverDelete()
+    {
+        $id = $_POST['idCaregiver'];
+        $this->caregivers->deleteCaregiverById($id);
+    }
+
+
+    public function ResidentDelete()
+    {
+        $id = $_POST['idResident'];
+        $this->caregivers->deleteResidentById($id);
+    }
 }

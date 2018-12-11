@@ -146,9 +146,16 @@ Class Caregivers extends CI_Model
         }
     }
 
-    public function getResidents()
+	public function getResidents()
+	{
+		$sql1 = "SELECT * FROM a18ux02.Resident";
+		$result = $this->db->query($sql1)->result();
+		return $result;
+	}
+
+    public function getCaregivers()
     {
-        $sql1 = "SELECT * FROM a18ux02.Resident";
+        $sql1 = "SELECT * FROM a18ux02.Caregiver";
         $result = $this->db->query($sql1)->result();
         return $result;
     }
@@ -590,5 +597,16 @@ Class Caregivers extends CI_Model
     }
 
 
+	public function deleteCaregiverById($id)
+	{
+		$sql = "DELETE FROM a18ux02.Caregiver WHERE idCaregiver = '$id'";
+		$this->db->query($sql);
+	}
+
+    public function deleteResidentById($id)
+    {
+        $sql = "DELETE FROM a18ux02.Resident WHERE residentID = '$id'";
+        $this->db->query($sql);
+    }
 
 }
