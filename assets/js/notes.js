@@ -15,24 +15,45 @@ function showSave(event) {
 function saveNote(event) {
     $noteid = $(event.target).attr("id");
     $note = $(event.target).prev().val();
-    $.ajax({
-        url: window.origin+'/Caregiver/saveNote',
-        method: 'post',
-        dataType: 'json',
-        data: {
-            'note': $note,
-            'idinput': $noteid
-        },
-        success: function() {
-            $.ajax({
-                url: window.origin+'/Caregiver/getIdLastNote/' + $note,
-                success: function(idNote){
-                    console.log(idNote);
-                    $(event.target).attr("id",idNote);
-                }
-            });
-        }
-    });
+
+    if(typeof(idResident) != "undefined" && idResident !== null){
+        console.log(idResident);
+        $.ajax({
+            url: window.origin+'/a18ux02/Caregiver/saveNote',
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'note': $note,
+                'idinput': $noteid,
+                'idResident' : idResident,
+            },
+            success: function(idNote) {
+                $(event.target).attr("id",idNote[0]['LAST_INSERT_ID()']);
+                console.log($(event.target).siblings(".deleteNote"))
+                $(event.target).siblings(".deleteNote").attr("id",idNote[0]['LAST_INSERT_ID()'])
+            }
+        });
+    }else {
+        $.ajax({
+            url: window.origin+'/a18ux02/Caregiver/saveNote',
+            method: 'post',
+            dataType: 'json',
+            data: {
+                'note': $note,
+                'idinput': $noteid,
+            },
+            success: function(idNote) {
+                $(event.target).attr("id",idNote[0]['LAST_INSERT_ID()']);
+                console.log($(event.target).siblings(".deleteNote"))
+                $(event.target).siblings(".deleteNote").attr("id",idNote[0]['LAST_INSERT_ID()'])
+            }
+        });
+    }
+
+
+
+
+
 
     $(event.target).before("<i class=\"fa fa-check\"></i>");
     $(event.target).prev().css({
@@ -54,35 +75,16 @@ function saveNote(event) {
 function deleteNote(event) {
     $note = $(event.target).parent();
     $noteid = $(event.target).attr("id");
-    Confirm('Delete note?', 'Are you sure you want to delete this note?', 'Yes', 'Cancel', $noteid, $note);
+    Confirm( $noteid, $note);
 };
 
-function Confirm(title, msg, $true, $false, $noteid, $note) { /*change*/
-    if($content==undefined) {
-        var $content = "<div class='dialog-ovelay'>" +
-            "<div class='dialog'><header>" +
-            " <h3> " + title + " </h3> " +
-            "<i class='fa fa-close'></i>" +
-            "</header>" +
-            "<div class='dialog-msg'>" +
-            " <p> " + msg + " </p> " +
-            "</div>" +
-            "<footer>" +
-            "<div class='controls'>" +
-            " <button class='button button-danger doAction'>" + $true + "</button> " +
-            " <button class='button button-default cancelAction'>" + $false + "</button> " +
-            "</div>" +
-            "</footer>" +
-            "</div>" +
-            "</div>";
-    }
-    $('body').prepend($content);
-    $flag = false;
+function Confirm($noteid, $note) { /*change*/
+    $('.dialog-ovelay').css("display","block");
     $('.doAction').click(function () {
         $(this).parents('.dialog-ovelay').fadeOut(500, function () {
-            $(this).remove();
+            $(this).parents('.dialog-ovelay').css("display","none");
             $.ajax({
-                url: window.origin+'/Caregiver/deleteNote',
+                url: window.origin+'/a18ux02/Caregiver/deleteNote',
                 method: 'post',
                 dataType: 'json',
                 data: {
@@ -97,8 +99,8 @@ function Confirm(title, msg, $true, $false, $noteid, $note) { /*change*/
     });
 
     $('.cancelAction, .fa-close').click(function () {
-        $(this).parents('.dialog-ovelay').fadeOut(500, function () {
-            $(this).remove();
+        $('.dialog-ovelay').fadeOut(500, function () {
+            $('.dialog-ovelay').css("display","none");
         });
     });
 };

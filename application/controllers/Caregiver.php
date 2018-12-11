@@ -407,19 +407,23 @@ class Caregiver extends CI_Controller
 
     public function resDash()
     {
+
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-        $idResident = $_GET['id'];
         $data = array();
         $cond = array();
 		$cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
         $data['resident'] = $row[0];
+        $name = $row[0]['firstname'];
+        $name .= " ";
+        $name .= $row[0]['lastname'];
+        $data['page_title'] = "Resident overview | $name";
 
-        if ($this->caregivers->getNotes($_GET['id']) != false) {
-            $data['notes'] = $this->caregivers->getNotes($_GET['id']);
+        if ($this->residents->getNotes($_GET['id']) != false) {
+            $data['notes'] = $this->residents->getNotes($_GET['id']);
         }
 
         $cond['table'] = "a18ux02.ContactPerson";
@@ -538,13 +542,10 @@ class Caregiver extends CI_Controller
         );
         if(isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
-        return $idNote;
+        print_r(json_encode($idNote->result()));
+        return json_encode($idNote->result());
     }
 
-    public function getIdLastNote($note){
-        $idNote = $this->caregivers->getIdNoteByText($note);
-        return $idNote;
-    }
 
     public function deleteNote()
     {

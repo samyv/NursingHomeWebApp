@@ -95,14 +95,16 @@ class residents extends CI_Model
 
     public function getNotes($id)
     {
+        $resNotes=[];
         $sql = "SELECT * FROM a18ux02.Notes WHERE idResident= " . $id;
         $result = $this->db->query($sql);
         if (!empty($result)) {
             $array = json_decode(json_encode($result->result()), true);
             foreach ($array as $key => $value) {
-                $this->notes['note' . $key] = array('Note' => $value['Note'], 'noteid' => $value['idNotes']);
+                $resNotes['note' . $key] = array('Note' => $value['Note'], 'noteid' => $value['idNotes']);
             }
-            return $this->notes;
+
+            return $resNotes;
         } else {
             return false;
         }

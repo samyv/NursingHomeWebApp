@@ -145,11 +145,32 @@
     </div>
 </div>
 
+<div class='dialog-ovelay' role="alert">
+    <div class='dialog'>
+        <header>
+            <h3>Delete note?</h3>
+            <i class='fa fa-close'></i>
+        </header>
+        <div class='dialog-msg'>
+            <p>Are you sure you want to delete this note?</p>
+        </div>
+        <footer>
+            <div class='controls'>
+                <button class='button button-danger doAction'>Yes</button>
+                <button class='button button-default cancelAction'>Cancel</button>
+            </div>
+        </footer>
+    </div>
+</div>
+
+
 <script src="../javascript/rawdata.js"></script>
 <script src="../javascript/trulia_vis.js"></script>
 
 </body>
 <script>
+    var idResident = <?php echo $_GET['id']?>;
+    console.log(idResident);
     $(document).ready(function () {
         $('#CIModal').click(function () {
             $('#information-contactperson-modal-content').fadeIn('fast');
@@ -163,6 +184,9 @@
         $('#saveInfo').click(saveInfo)
 
         console.log(window.location.search.arguments)
+
+
+
     });
 
     function changeInfo(event) {

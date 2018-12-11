@@ -251,13 +251,13 @@ Class Caregivers extends CI_Model
         $this->db->query($sql);
         $sql = "SELECT LAST_INSERT_ID()";
         $idNote = $this->db->query($sql);
-        return $idNote;
+        return !empty($idNote)?$idNote:false;
     }
 
     public function deleteNote($notes)
     {
         $id = $notes['idinput'];
-        $sql = "DELETE FROM a18ux02.Notes  AND idNotes = '$id'";
+        $sql = "DELETE FROM a18ux02.Notes where idNotes = '$id'";
         $this->db->query($sql);
     }
 

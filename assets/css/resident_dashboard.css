@@ -11,13 +11,12 @@ html,body {
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: min-content min-content min-content min-content;
+	grid-template-rows: min-content min-content min-content 10em;
 	grid-template-areas:
     ". picture picture picture	. visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation ."
-	". . . . . noteheader noteheader . . . . ."
-	". info info info . hint hint hint hint hint hint ."
-	". . . . . . . . . . print ."
+	". . . . . noteheader noteheader . . . print ."
+	". info info info . hint hint hint . . . ."
 }
 .picture {
 	grid-area: picture;

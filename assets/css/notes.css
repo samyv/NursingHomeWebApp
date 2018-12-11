@@ -28,6 +28,7 @@
 .newNote i{
     margin-left: 10px;
     color: #003b46;
+    margin-top: 10px;
 }
 .newNote i:hover{
     cursor: pointer;
@@ -47,4 +48,5 @@
      grid-area: noteheader;
      display: flex;
      flex-direction: row;
+    margin-top: 10px;
  }
