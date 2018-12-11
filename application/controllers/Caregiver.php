@@ -99,7 +99,7 @@ class Caregiver extends CI_Controller
 		$data = array();
 		$data['page_title'] = 'Login caregiver | GraceAge';
 		if ($this->session->userdata('isUserLoggedIn')) {
-			redirect('account');
+			redirect('landingpage');
 		}
 
 		if ($this->session->userdata('success_msg')) {
@@ -123,7 +123,10 @@ class Caregiver extends CI_Controller
 				$checkLogin = $this->caregivers->lookUp($con);
 				if ($checkLogin == 3) {
 					$data['error_msg'] = "Please make sure you have activated your account, check your email and spam folder.";
-				} elseif ($checkLogin) {
+				} elseif($checkLogin ==2){
+                    $data['error_msg'] = 'Wrong email or password, please try again.';
+                }
+				elseif ($checkLogin) {
 					if (password_verify(trim($this->input->post('password')), $checkLogin['0']->password)) {
 						$this->session->set_userdata('isUserLoggedIn', TRUE);
 						$this->session->set_userdata('idCaregiver', $checkLogin['0']->idCaregiver);
@@ -138,8 +141,6 @@ class Caregiver extends CI_Controller
 				}
 			}
 		}
-
-
 		$this->parser->parse('Caregiver/login', $data);
 
 	}
@@ -159,7 +160,6 @@ class Caregiver extends CI_Controller
 		$data['nursingHomes'] = json_decode(json_encode($result),true);
 
 		if ($this->input->post('regisSubmit')) {
-//			print_r($this->input->post());
 			$key = strip_tags($this->input->post('key'));
 			$nursingHomeID = strip_tags($this->input->post('nursingHome'));
 			$this->form_validation->set_rules('firstname', 'Name', 'trim|required');
@@ -303,7 +303,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('lastname', 'Name', 'trim|required|xss_clean');
             $this->form_validation->set_rules('birthdate','Date','trim|required|callback_date_valid|xss_clean');
             $this->form_validation->set_rules('floor', 'Number', 'trim|required|required|is_natural|xss_clean');
-            $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean');
+            $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean|callback_room_check');
             $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
@@ -673,6 +673,16 @@ class Caregiver extends CI_Controller
         $checkEmail = $this->residents->lookUpEmail($str);
         if ($checkEmail > 0) {
             $this->form_validation->set_message('cp_check', 'There is already a contact person with that email, please select it from the list.');
+            return FALSE;
+        } else {
+            return TRUE;
+        }
+    }
+    public function room_check($str){
+
+        $checkEmail = $this->residents->lookUp($str);
+        if (count($checkEmail )> 1) {
+            $this->form_validation->set_message('cp_check', 'There are already 2 residents in that room');
             return FALSE;
         } else {
             return TRUE;

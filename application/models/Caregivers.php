@@ -35,6 +35,7 @@ Class Caregivers extends CI_Model
             $sql = "SELECT * FROM a18ux02.Caregiver WHERE email = '$email'";
             $result = $this->db->query($sql);
             $row = $result->row();
+            if(empty($row)) return 2;
             if ((string)$row->activated == 0) return 3;
             else return $result->result();
         }
