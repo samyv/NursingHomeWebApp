@@ -14,7 +14,10 @@
 <!-- TODO: Get the floors from the database -->
 
 	<div class = "title">
-		<p>Please select the desired floor</p>
+		<p>
+            <?php
+            echo ($this->lang->line('title buidlingView'));?>
+        </p>
 	</div>
 		<div class="list"></div>
 </div>
@@ -26,7 +29,9 @@
 	for(var i = floorAmount; i >= 1;i--){
 		let a = document.createElement('a');
 		a.className = "listRow"+i;
-		a.innerText = "Floor "+i;
+		a.innerText = "<?php
+            echo ($this->lang->line('floor'));?>"
+            + " " + i;
 		a.href = "floorView?"+"id="+a.innerText.slice(-1);
 		a.addEventListener("click",function(e) {
 			sessionStorage.setItem("floorSelected",this.innerText.slice(-1))
@@ -34,9 +39,6 @@
 		list.append(a);
 
 	};
-
-
-
 
 </script>
 </html>

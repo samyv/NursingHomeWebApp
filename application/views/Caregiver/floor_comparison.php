@@ -15,7 +15,7 @@
 <div class = "grid-container fade-in">
 
     <div class = "title">
-        <p>Select floors to compare</p>
+        <p><?php echo($this->lang->line('title floor compare'));?></p>
     </div>
 
     <div class = "list">
@@ -71,7 +71,7 @@
     for(var i = floorAmount; i >= 1;i--){
         let a = document.createElement('div');
         a.className = "floorbtn container";
-        a.innerHTML = "Floor "+i+" <i class=\"fas fa-check\"></i>";
+        a.innerHTML = "<?php echo($this->lang->line('floor'));?>" + " " +i+" <i class=\"fas fa-check\"></i>";
         a.id = i;
         list.append(a);
     };

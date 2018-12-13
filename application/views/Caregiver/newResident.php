@@ -16,11 +16,11 @@
 <div class="modal modal-content" id="information-contactperson-modal-content">
 	<div class="modal-header">
 		<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo ($this->lang->line('title contact information'))?></h4>
 	</div>
 	<div class="info-contact">
 		<div class = "search">
-			<input type="text" id="myInput" onkeyup="search()" placeholder="Search.." title="Type in a name">
+			<input type="text" id="myInput" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'))?>" title="Type in a name">
 		</div>
 		<div class="table">
 			<table id="myTable"></table>
@@ -48,18 +48,20 @@
             <?php echo form_error('room','<span class="help-block">','</span>'); ?>
         </div>
         <div class = "resident">
-            <h3>Resident information</h3>
+            <h3>
+                <?php echo ($this->lang->line('title resident information'))?>
+            </h3>
         </div>
 
         <div class="firstname">
-            <b>First name: </b>
+            <b><?php echo ($this->lang->line('firstname'))?></b>
         </div>
         <div class="firstname_input">
             <input type="text" placeholder="Enter first name" class = "form-control" name="firstname" required=""
                    value="<?php echo (isset($_POST['firstname']) ? $_POST['firstname'] : ''); ?>">
         </div>
         <div class="lastname">
-            <b>Last name: </b>
+            <b><?php echo ($this->lang->line('lastname'))?></b>
             <br>
         </div>
         <div class="lastname_input">
@@ -67,7 +69,7 @@
                    value="<?php echo (isset($_POST['lastname']) ? $_POST['lastname'] : ''); ?>">
         </div>
         <div class="birthday">
-            <b>Birthday: </b>
+            <b><?php echo ($this->lang->line('birthday'))?></b>
             <br>
         </div>
         <div class="birthday_input">
@@ -76,17 +78,17 @@
 
         </div>
         <div class="gender">
-            <b>Gender: </b>
+            <b><?php echo ($this->lang->line('gender'))?></b>
             <br>
         </div>
         <div class="gender_input" name="gender"  required="">
             <select name="gender" class = "form-control">
-                <option value="male">male</option>
-                <option value="female">female</option>
+                <option value="male"><?php echo ($this->lang->line('genderM'))?></option>
+                <option value="female"><?php echo ($this->lang->line('genderF'))?></option>
             </select>
         </div>
         <div class="floor">
-            <b>Floor: </b>
+            <b><?php echo ($this->lang->line('floor'))?></b>
             <br>
         </div>
         <div class="floor_input">
@@ -94,7 +96,7 @@
                    value="<?php echo (isset($_POST['floor']) ? $_POST['floor'] : ''); ?>">
         </div>
         <div class="room">
-            <b>Room: </b>
+            <b><?php echo ($this->lang->line('room'))?></b>
             <br>
         </div>
         <div class="room_input">
@@ -104,17 +106,19 @@
         </div>
         <div class="picture_input">
             <div class="form-group">
-                <b>Upload resident picture</b>
+                <b><?php echo ($this->lang->line('upload resident picture'))?></b>
                 <input type="file" name="imageURL"  size="20">
             </div>
         </div>
 
         <div class = "extra">
-            <h3>Contact information</h3>
+            <h3>
+                <?php echo ($this->lang->line('title contact information'))?>
+            </h3>
         </div>
 
         <div class="contact_first_name">
-            <b>First name: </b>
+            <b><?php echo ($this->lang->line('firstname'))?></b>
         </div>
         <div class="cp_first_name_input">
             <input type="text" name="cp_first_name"  class = "contact form-control" placeholder="Enter first name" required=""
@@ -122,7 +126,7 @@
             <br>
         </div>
         <div class="contact_last_name">
-            <b>Last name: </b>
+            <b><?php echo ($this->lang->line('lastname'))?></b>
         </div>
         <div class="cp_last_name_input">
             <input type="text" name="cp_last_name"  class = "contact form-control" placeholder="Enter first name" required=""
@@ -130,7 +134,7 @@
             <br>
         </div>
         <div class="email">
-            <b>Email: </b>
+            <b><?php echo ($this->lang->line('email'))?></b>
         </div>
         <div class="email_input">
             <input type="text" name="cp_email" class = "contact form-control" placeholder="example@example.com"
@@ -138,18 +142,18 @@
             <br>
         </div>
         <div class="phone">
-            <b>Phone nr: </b>
+            <b><?php echo ($this->lang->line('phonenumber'))?></b>
         </div>
         <div class="phone_input">
             <input type="tel" name="cp_phone" class = "contact form-control" placeholder="+32 123 456 789"
                    value="<?php echo (isset($_POST['cp_phone']) ? $_POST['cp_phone'] : ''); ?>">
-			<span class="infcon"><a href="#" id="CIModal">Add existing Contactperson</a></span>
+			<span class="infcon"><a href="#" id="CIModal"><?php echo ($this->lang->line('add contact span'))?></a></span>
 			<button type="button" class="xbut">X</button>
 
 		</div>
         <div class="buttons">
-            <input type="submit" value="Add resident" name="saveSettings"/>
-            <input type="button" value="Cancel" onclick="location.href='landingPage'"/>
+            <input type="submit" value="<?php echo ($this->lang->line('add'))?>" name="saveSettings"/>
+            <input type="button" value="<?php echo ($this->lang->line('cancel'))?>" onclick="location.href='landingPage'"/>
         </div>
         </div>
 </form>
@@ -223,10 +227,10 @@
 		id.innerHTML = "ID";
 		row.appendChild(id);
 		var col1 = document.createElement('th');
-		col1.innerHTML = "Name";
+		col1.innerHTML = "<?php echo ($this->lang->line('name'))?>";
 		row.appendChild(col1)
 		var col2 = document.createElement('th');
-		col2.innerHTML = "Email";
+		col2.innerHTML = "<?php echo ($this->lang->line('email'))?>";
 		row.appendChild(col2)
 		tbody.appendChild(row);
 		return tbody;

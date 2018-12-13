@@ -21,7 +21,8 @@
 	<div class="grid-container">
 		<div class="header">
 			<h3><?php
-                echo ($this->lang->line('account settings'));?></h3>
+                echo ($this->lang->line('title account'));?>
+            </h3>
 		</div>
 		<div class="firstname">
 			<b> <?php
@@ -68,7 +69,8 @@
             </b>
 		</div>
 		<div class="old_pass_input">
-			<input type="password" name="old_password" class = "form-control" placeholder="Enter old password" required="">
+			<input type="password" name="old_password" class = "form-control" required=""
+                   placeholder="<?php echo ($this->lang->line('ph old password'));?>">
 			<?php echo form_error('old_password','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -78,7 +80,8 @@
             </b>
 		</div>
 		<div class="new_pass_input">
-			<input type="password" name="new_password" class = "form-control" placeholder="Enter new password">
+			<input type="password" name="new_password" class = "form-control"
+                   placeholder="<?php echo ($this->lang->line('ph new password'));?>">
 			<?php echo form_error('new_password','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
@@ -88,12 +91,17 @@
             </b>
 		</div>
 		<div class="conf_pass_input">
-			<input type="password" name="conf_password"  class = "form-control" placeholder="Confirm new password">
+			<input type="password" name="conf_password"  class = "form-control"
+                   placeholder="<?php echo ($this->lang->line('ph confirm password'));?>">
 			<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 		</div>
         <div class="buttons">
-            <input type="submit" value="Save changes" name="saveSettings"/>
-            <input type="button" value="Cancel" onclick="location.href='account'"/>
+            <input type="submit" name="saveSettings"
+                   value=<?php
+                   echo ($this->lang->line('save'));?> />
+            <input type="button" onclick="location.href='account'"
+                   value=<?php
+                   echo ($this->lang->line('cancel'));?> />
         </div>
 	</div>
 

@@ -55,12 +55,14 @@
                 <form name="submitNotes" class="existing form" action="">
                     <input type="number" name="id" id="idinput" class="idinput form-group" style="display:none;"
                            value="<?php echo $note['noteid']; ?>">
-                    <a class="btn deleteNote" name="close"><i id="<?php echo $note['noteid']; ?>"
-                                                              class="fa fa-trash-alt"></i></a>
+                    <a class="btn deleteNote" name="close">
+                        <i id="<?php echo $note['noteid']; ?>"
+                           class="fa fa-trash-alt"></i></a>
                     <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes"
                               name="note"><?php echo $note['Note']; ?></textarea>
-                    <input id="<?php echo $note['noteid']; ?>" class="savebtn btn form-group" type="button" value="Save"
-                           style="display:none">
+                    <input id="<?php echo $note['noteid']; ?>" class="savebtn btn form-group" type="button" style="display:none"
+                           value= <?php echo ($this->lang->line('save'))?>
+                    >
                 </form>
             <?php }
         } ?>
@@ -82,7 +84,7 @@
         $(event.target).next().css("display", "block");
         $(event.target).next(".fa").remove();
         $(event.target).next(".savebtn").css("left", "3px");
-        $(event.target).next(".savebtn").val("Save");
+        $(event.target).next(".savebtn").attr("value", "<?php echo ($this->lang->line('save'))?>");
     }
 
     function saveNote(event) {
@@ -120,14 +122,18 @@
         $(event.target).prev().css("height", $(event.target).css("height"));
         $(event.target).prev().css("padding-top", "11px");
         $(event.target).css("left", "19px")
-        $(event.target).val("Saved");
+        $(event.target).attr("value", "<?php echo ($this->lang->line('saved'))?>");
 
     }
 
     function deleteNote(event) {
         $note = $(event.target).parent();
         $noteid = $(event.target).attr("id");
-        Confirm('Delete note?', 'Are you sure you want to delete this note?', 'Yes', 'Cancel', $noteid, $note);
+        Confirm('<?php echo ($this->lang->line('header delete note'))?>',
+            '<?php echo ($this->lang->line('text delete note'))?>',
+            '<?php echo ($this->lang->line('yes'))?>',
+            '<?php echo ($this->lang->line('cancel'))?>',
+            $noteid, $note);
     };
 
     function Confirm(title, msg, $true, $false, $noteid, $note) { /*change*/
@@ -187,12 +193,15 @@
 
     $(document).ready(function () {
         $('#newNotebtn').click(function () {
+            var Save = <?php echo ($this->lang->line('save'))?>
+
             $new =("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
                 "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
                 "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +
                 "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\"></textarea>\n" +
-                "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" value=\"Save\" style=\"display:none\">\n" +
+                "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" style=\"display:none\">\n" +
                 "            </form>");
+           // $new.children(".savebtn").attr("value",Save);
             $('#newNote').parent().next().next().prepend($new);
             /*$('#newNote').before("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
                 "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
