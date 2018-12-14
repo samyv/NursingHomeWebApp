@@ -22,6 +22,8 @@ $lang['room'] = 'Kamer';
 $lang['birthday'] = 'Geboortedatum';
 $lang['phonenumber'] = 'Gsm nummer';
 $lang['password'] = 'Wachtwoord';
+$lang['title contact information'] = 'Contact informatie';
+
 
 
 //header
@@ -75,7 +77,6 @@ $lang['title floor compare'] = 'Selecteer verdiepingen om te vergelijken';
 $lang['title floor view'] = 'Kies de gewenste bewoner';
 
 //newResident
-$lang['title contact information'] = 'Contact informatie';
 $lang['title resident information'] = 'Bewoner informatie';
 $lang['gender'] = 'Geslacht';
 $lang['genderM'] = 'Man';
@@ -119,6 +120,14 @@ $lang['key'] = 'Sleutel';
 $lang['ph key'] = 'Vul sleutel in';
 $lang['ph password'] = 'Vul wachtwoord in';
 $lang['ph conf password'] = 'Herhaal wachtwoord';
+
+//resident dashboard
+$lang['select questionnaire'] ='Kies een vragenlijst';
+
+//delete resident
+$lang['title delete resident'] ='Verwijder bewoner';
+
+
 
 
 

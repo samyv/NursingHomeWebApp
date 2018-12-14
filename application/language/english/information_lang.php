@@ -24,6 +24,7 @@ $lang['phonenumber'] = 'phonenumber';
 $lang['email'] = 'Email';
 $lang['ph email'] = 'example@example.com';
 $lang['password'] = 'Password';
+$lang['title contact information'] = 'Contact information';
 
 
 //header
@@ -74,7 +75,6 @@ $lang['title floor compare'] = 'Select floors to compare';
 $lang['title floor view'] = 'Please select the desired resident';
 
 //newResident
-$lang['title contact information'] = 'Contact information';
 $lang['title resident information'] = 'Resident information';
 $lang['gender'] = 'Male';
 $lang['genderM'] = 'Male';
@@ -117,6 +117,14 @@ $lang['key'] = 'Key';
 $lang['ph key'] = 'Enter key';
 $lang['ph password'] = 'Enter password';
 $lang['ph conf password'] = 'Confirm password';
+
+//resident dashboard
+$lang['select questionnaire'] ='Select a questionnaire';
+
+//delete resident
+$lang['title delete resident'] ='Delete resident';
+
+
 
 
 
