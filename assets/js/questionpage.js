@@ -39,7 +39,7 @@ function getParameters(index, callback){
 
 
 $(document).ready(function () {
-    let awaitTime = 100;
+    let awaitTime = 50;
     let index = document.getElementById("index").innerText;
 
 
