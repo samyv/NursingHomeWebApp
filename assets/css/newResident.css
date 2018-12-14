@@ -159,3 +159,52 @@ input[type=submit]:hover,input[type=button]:hover{
 .xbut{
 	display: none;
 }
+
+@media screen and (max-width: 1000px) {
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 2fr 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1fr;
+        grid-template-areas:
+                "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+                ". resident resident resident resident . . extra extra extra extra ."
+                ". form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors ."
+                ". firstname firstname_input firstname_input firstname_input . . first_name first_name_input first_name_input first_name_input ."
+                ". lastname lastname_input lastname_input lastname_input . . last_name last_name_input last_name_input last_name_input ."
+                ". birthday birthday_input birthday_input birthday_input . .  email email_input email_input email_input ."
+                ". gender gender_input gender_input gender_input . . phone phone_input phone_input phone_input ."
+                ". floor floor_input floor_input floor_input . . . . . . ."
+                ". room room_input room_input room_input . . . . . . ."
+                ". picture picture picture picture . . buttons buttons buttons buttons ."
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 0.5fr 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr;
+        grid-template-areas:
+                "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+                ". resident resident resident resident . . . . . . ."
+                ". form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors ."
+                ". firstname firstname firstname firstname_input firstname_input firstname_input firstname_input firstname_input firstname_input firstname_input ."
+                ". lastname lastname lastname lastname_input lastname_input lastname_input lastname_input lastname_input lastname_input lastname_input ."
+                ". birthday birthday birthday birthday_input birthday_input birthday_input birthday_input birthday_input birthday_input birthday_input ."
+                ". gender gender gender gender_input gender_input gender_input gender_input gender_input gender_input gender_input ."
+                ". floor floor floor floor_input floor_input floor_input floor_input floor_input floor_input floor_input ."
+                ". room room room room_input room_input room_input room_input room_input room_input room_input ."
+                ". extra extra extra extra extra extra extra extra extra extra ."
+                ". first_name first_name first_name first_name_input first_name_input first_name_input first_name_input first_name_input first_name_input first_name_input ."
+                ". last_name last_name last_name last_name_input last_name_input last_name_input last_name_input last_name_input last_name_input last_name_input ."
+                ". email email email email_input email_input email_input email_input email_input email_input email_input ."
+                ". phone phone phone phone_input phone_input phone_input phone_input phone_input phone_input phone_input ."
+                ". picture picture picture picture picture picture picture picture picture picture ."
+                ". buttons buttons buttons buttons buttons buttons buttons buttons buttons buttons ."
+    }
+
+}
+
+

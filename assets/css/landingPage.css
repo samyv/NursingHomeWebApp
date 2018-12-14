@@ -137,30 +137,26 @@ body {
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 8em 8em 3em 3em 3em 2em 15em 2em 15em 1fr;
-        grid-template-areas:                    ". . title title title title title title title title . ."
-        ". . quote quote quote quote quote quote quote quote . ."
-        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
-        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
-        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
-        ". . clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr . ."
-        ". . clndr clndr clndr clndr clndr clndr clndr clndr . ."
-        ". . noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader . ."
-        ". . notes notes notes notes notes notes notes notes . ."
+        grid-template-rows:  0.5fr 2em 15em 2em 8em 1fr;
+        grid-template-areas:
+                "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr" ". clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr ."
+        ". clndr clndr clndr clndr clndr clndr clndr clndr clndr clndr ."
+        ". noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader ."
+        ". notes notes notes notes notes notes notes notes notes notes ."
         "footer footer footer footer footer footer footer footer footer footer footer footer";
         grid-gap: 1em;
     }
 
     .btn-group{
-        grid-area: btngrp;
-        display: grid;
-        grid-template-rows: 3em 3em 3em;
-        grid-template-columns: auto;
-        grid-template-areas: "1" "2" "3";
-        grid-gap: 1em;
-        height: 100%;
-        max-width: 100%;
+        display: none;
     }
+    .quote{
+        display: none;
+    }
+    .title{
+        display: none;
+    }
+
 }
 
 

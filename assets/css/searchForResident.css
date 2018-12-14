@@ -77,10 +77,11 @@ footer {
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 8em 22em 1fr;
+        grid-template-rows: 8em 4em 22em 1fr;
         grid-template-areas:
                 ". Header Header Header Header Header Header Header Header Header Header ."
-                ". search search search table table table table table table table ."
+                ". search search search search search search search search search search ."
+                ". table table table table table table table table table table ."
                 "footer footer footer footer footer footer footer footer footer footer footer footer";
     }
 }
