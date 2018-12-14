@@ -36,6 +36,11 @@ div.tooltip {
     color: white;
 }
 
+.scores_per_category{
+	grid-area: cat;
+	margin-top: 1em;
+}
+
 .picture img{
 	width: 100%;
 }
@@ -54,14 +59,40 @@ div.tooltip {
 	margin-top: 10px;
 	border: none;
 	background-color: white;
-	padding: 2em 2em 1em 1em;
+	padding: 1em 2em 1em 1em;
 	resize: none;
 	box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+	grid-template-rows: 3em 3em auto ;
+	grid-template-areas: "select select select . . ."
+					     "total total total total . ."
+							"graph graph graph graph . cat"
+}
+
+.total_score{
+	grid-area: total;
+}
+
+.score_per_category{
+	margin: 0;
+}
+
+.selectQuestionnaires{
+	grid-area: select;
+}
+
+#total_score_bar,#total_score_label{
+	grid-area: total;
 }
 
 .chart {
 	width: 10px;
 	height: 10px;
+}
+
+#chart{
+	grid-area: graph;
 }
 
 .selectQuestionnaire{

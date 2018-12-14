@@ -102,16 +102,28 @@
     </div>
     <div class="back_start"></div>
     <div class="visualisation">
+        <div class="selectQuestionnaires">
+            <label id="select_questionnaire">Select a questionnaire:</label>
+            <select class="custom-select selectQuestionnaire" style="width: min-content">
+                <?php foreach ($questionnaires as $questionnaire) { ?>
+                    <option value="<?php echo $questionnaire['idQuestionnaires']; ?>">
+                        <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y') ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <br>
+        <div class="total_score">
+            <label id="total_score_label"></label>
+            <progress id="total_score_bar" max="265" style="display: none"></progress>
+        </div>
+
         <div id="chart" name="chart">
         </div>
-        <label><br>Select a questionnaire:</label>
-        <select class="custom-select selectQuestionnaire" style="width: min-content">
-            <?php foreach ($questionnaires as $questionnaire) { ?>
-                <option value="<?php echo $questionnaire['idQuestionnaires']; ?>">
-                    <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y') ?>
-                </option>
-            <?php } ?>
-        </select>
+        <div class="scores_per_category">
+
+        </div>
+
     </div>
     <div class="noteheader">
         <h2 class="noteheader">Notes</h2>
@@ -203,6 +215,28 @@
     $(".selectQuestionnaire")
         .change(function () {
             $idQuestionnaire = $(".selectQuestionnaire option:selected").val();
+
+            $.ajax({
+                url:'<?php echo base_url();?>caregiver/getTotalScore/?idQuestionnaire='+$idQuestionnaire,
+                dataType: 'json',
+                success: function (totalscore) {
+                    console.log(totalscore);
+                    $('#total_score_label').html("Total score: " + totalscore[0].total_score+"/265");
+                    $('#total_score_bar').attr("value", totalscore[0].total_score)
+                                        .css("display", "inline");
+                }
+            });
+
+            $.ajax({
+                url:'<?php echo base_url();?>caregiver/getTotalScorePerCategory/?idQuestionnaire='+$idQuestionnaire,
+                dataType: 'json',
+                success: function (totalscorepercat) {
+                    console.log(totalscorepercat);
+                }
+            });
+
+
+
             $.ajax({
                 url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire=' + $idQuestionnaire,
                 dataType: 'json',
@@ -215,6 +249,27 @@
         });
 
         $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
+        $.ajax({
+            url:'<?php echo base_url();?>caregiver/getTotalScore/?idQuestionnaire='+$idQuestionnaire,
+            dataType: 'json',
+            success: function (totalscore) {
+
+                console.log(totalscore);
+                $('#total_score_label').html("Total score: " + totalscore[0].total_score+"/265");
+                $('#total_score_bar').attr("value", totalscore[0].total_score)
+                    .css("display", "inline");
+            }
+        });
+    $.ajax({
+        url:'<?php echo base_url();?>caregiver/getTotalScorePerCategory/?idQuestionnaire='+$idQuestionnaire,
+        dataType: 'json',
+        success: function (totalscorepercat) {
+            totalscorepercat.forEach(function(element){
+                $(".scores_per_category").append('<label id="category'+element.questionType+'" class="score_per_category">score: '+element.score_per_category + '</label><br>');
+            });
+
+        }
+    });
         $.ajax({
             url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
             dataType: 'json',

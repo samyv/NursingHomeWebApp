@@ -261,7 +261,6 @@ class Caregiver extends CI_Controller
 
     public function landingPage()
     {
-        print_r($_SESSION);
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -425,6 +424,7 @@ class Caregiver extends CI_Controller
 
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
+
         }
         $data = array();
         $cond = array();
@@ -714,7 +714,42 @@ class Caregiver extends CI_Controller
         return base64_encode($row[0]['picture']);
     }
 
+    public function getTotalScore(){
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+        $condit['table'] = "a18ux02.Answers";
+        $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
+        $condit['select'] = "SUM(answer) as total_score";
+        if ($row = $this->caregivers->getRows($condit)) {
+            $result = $row->result();
+            $result = json_encode($result);
+            print_r($result);
+            return $result;
+        }
+    }
+
+    public function getTotalScorePerCategory(){
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+        $id = $_GET['idQuestionnaire'];
+        $query = "SELECT SUM(a18ux02.Answers.answer) as score_per_category, a18ux02.Question.questionType
+                    from a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                  where a18ux02.Answers.questionnairesId = '$id'
+                  GROUP BY a18ux02.Question.questionType";
+        if ($row = $this->caregivers->executeQuery($query)) {
+            $result = $row->result();
+            $result = json_encode($result);
+            print_r($result);
+            return $result;
+        }
+    }
+
     public function getQuestionnaireResults(){
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
         $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion";
         $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
         $condit['select'] = "answer, questionType, positionNum, questionText";

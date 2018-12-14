@@ -55,7 +55,7 @@
                 <a class="nav-link" href="<?=base_url()?>account"><i class="fas fa-cog"></i> Settings</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
+                <a class="nav-link" id="logoutButton" href="<?=base_url()?>logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
             </li>
         </ul>
     </div>
