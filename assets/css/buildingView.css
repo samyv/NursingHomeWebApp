@@ -30,6 +30,7 @@ html,body{
 .listRow1:hover,.listRow2:hover,.listRow3:hover,.listRow4:hover,.listRow5:hover{
     opacity: 0.8;
     transform: scale(1.05);
+    border-color: #F5FAFA;
 }
 
 .listRow1,.listRow2,.listRow3,.listRow4,.listRow5{
@@ -39,6 +40,7 @@ html,body{
     background-color: #66a5ad;
     color: white!important;
     padding: 10px;
+    border-color: #F5FAFA;
     font-size: 32px;
     text-align: center;
     text-decoration: none!important;
