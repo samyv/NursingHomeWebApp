@@ -117,10 +117,6 @@ class Resident extends CI_Controller
         echo $data;
     }
 
-    public function tutorialpage(){
-        $data['resident'] = $_SESSION['Resident']['residentID'];
-        $this->parser->parse("Resident/tutorialPage",$data);
-    }
 
     public function faceRecognition()
     {
@@ -184,7 +180,7 @@ class Resident extends CI_Controller
             redirect('resident/index');
         }
         //load the view
-        $this->tutorialpage();
+        $this->load->view("Resident/tutorialPage");
     }
 
 
