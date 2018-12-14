@@ -13,60 +13,60 @@
 <body>
 <div class="h1 fade-in">
 	<h1>GraceAge</h1>
-	<h2>Providing better care</h2>
+	<h2><?php echo ($this->lang->line('subtitle header'))?></h2>
 </div>
 <main>
 	<div class="grid-container fade-in">
 		<div class="h2">
-			<h1>Register</h1>
+			<h1> <?php echo ($this->lang->line('register'))?></h1>
 		</div>
 		<div class="register">
 			<form action="" method="POST">
-				<label for="nursinghome"><b>Nursing Home:</b></label>
+				<label for="nursinghome"><b> <?php echo ($this->lang->line('nursing home'))?></b></label>
 				<div class="form-group">
 					<select name="nursingHome" class="nursingHomes">
 
 					</select>
 					<?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
 				</div>
-				<label for="surname"><b>Surname:</b></label>
+				<label for="surname"><b> <?php echo ($this->lang->line('firstname'))?></b></label>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Enter first name" name="firstname" required="" value="<?php echo !empty($caregiver['firstname'])?$caregiver['firstname']:''; ?>">
+					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph firstname'))?>" name="firstname" required="" value="<?php echo !empty($caregiver['firstname'])?$caregiver['firstname']:''; ?>">
 					<?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
 				</div>
-				<label for="name"><b>Name:</b></label>
+				<label for="name"><b> <?php echo ($this->lang->line('lastname'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="Enter last name" name="lastname" required="" value="<?php echo !empty($caregiver['lastname'])?$caregiver['lastname']:''; ?>">
+					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph lastname'))?>" name="lastname" required="" value="<?php echo !empty($caregiver['lastname'])?$caregiver['lastname']:''; ?>">
 					<?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
 				</div>
-				<label for="email"><b>Email:</b></label>
+				<label for="email"><b> <?php echo ($this->lang->line('email'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="email" class="form-control" autocomplete="username" placeholder="Enter email" name="email" required="" value="<?php echo !empty($caregiver['email'])?$caregiver['email']:''; ?>">
+					<input type="email" class="form-control" autocomplete="username" placeholder=" <?php echo ($this->lang->line('ph email'))?>" name="email" required="" value="<?php echo !empty($caregiver['email'])?$caregiver['email']:''; ?>">
 					<?php echo form_error('email','<span class="help-block">','</span>'); ?>
 				</div>
-				<label for="psw"><b>Password:</b></label>
+				<label for="psw"><b><?php echo ($this->lang->line('password'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="password" class="form-control" placeholder="Enter password" name="password" required="">
+					<input type="password" class="form-control" placeholder=" <?php echo ($this->lang->line('ph password'))?>" name="password" required="">
 					<?php echo form_error('password','<span class="help-block">','</span>'); ?>
 				</div>
-				<label for="psw"><b>Confirm Password:</b></label>
+				<label for="psw"><b> <?php echo ($this->lang->line('confirm password'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="password" class="form-control" autocomplete="current-password" placeholder="Confirm password" name="conf_password" required="">
+					<input type="password" class="form-control" autocomplete="current-password" placeholder=" <?php echo ($this->lang->line('ph confirm password'))?>" name="conf_password" required="">
 					<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 				</div>
-				<label for="psw"><b>Key:</b></label>
+				<label for="psw"><b> <?php echo ($this->lang->line('key'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder="key" name="key" required="">
+					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph key'))?>" name="key" required="">
 					<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 				</div>
 				<div class="form-group" id="submitButtons">
-					<input type="submit" name="regisSubmit" class="btn-primary" value="Register"/>
-					<input type="button" onclick="location.href='index.php'" value="Go back">
+					<input type="submit" name="regisSubmit" class="btn-primary" value=" <?php echo ($this->lang->line('register'))?>"/>
+					<input type="button" onclick="location.href='index.php'" value=" <?php echo ($this->lang->line('cancel'))?>">
 				</div>
 			</form>
 		</div>

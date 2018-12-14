@@ -14,27 +14,35 @@
 <body>
 
 		<div class="h1 fade-in">
-			<h1>GraceAge</h1>
-			<h2>Providing better care</h2>
+            <h1>GraceAge</h1>
+			<h2> <?php echo ($this->lang->line('subtitle header'))?></h2>
+                <?php
+                // set pathname from where we came from
+                $pn=uri_string();  // the uri class is initialized automatically
+                ?>
+                    <a class = dropdown-item href='languageSwitcher/switchLanguage/english?<?=$pn?>'>
+                        <?php echo ($this->lang->line('english'))?></a>
+                    <a class = dropdown-item href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>
+                        <?php echo ($this->lang->line('dutch'))?></a>
 		</div>
 		<div class="modal-content" id="forgot-password-modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Recover Password</h4>
+				<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span> <?php echo ($this->lang->line('title forgot pass'))?></h4>
 			</div>
 			<form action="" method="post" name="submitEmail">
 				<div class="modal-body">
-					<p>Please fill in your email so we can send you a link to reset your password.</p>
+					<p> <?php echo ($this->lang->line('text forgot pass'))?></p>
 					<div class="form-group">
 						<div class="input-group">
 							<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-							<input name="email" id="email" type="email" class="form-control input-lg" placeholder="Enter Email">
+							<input name="email" id="email" type="email" class="form-control input-lg" placeholder=" <?php echo ($this->lang->line('ph email'))?>">
 						</div>
 					</div>
 
 				</div>
 				<div class="modal-footer">
-					<input type="submit" id="submitEmail" name="submitEmail" class="btn btn-block btn-lg" value="Submit">
+					<input type="submit" id="submitEmail" name="submitEmail" class="btn btn-block btn-lg" value=" <?php echo ($this->lang->line('send'))?>">
 				</div>
 			</form>
 
@@ -53,24 +61,24 @@
 				}
 				?>
 				<form action="" method="POST">
-					<label for="email"><b>Email</b></label>
+					<label for="email"><b> <?php echo ($this->lang->line('email'))?></b></label>
 					<br>
 					<div class="form-group has-feedback">
-						<input id="emailField" class="form-control" type="email" placeholder="Enter email" name="email" required="" value="">
+						<input id="emailField" class="form-control" type="email" placeholder=" <?php echo ($this->lang->line('ph email'))?>" name="email" required="" value="">
 						<?php echo form_error('email','<span class="help-block">','</span>'); ?>
 					</div>
 					<br>
-					<label for="psw"><b>Password</b></label>
+					<label for="psw"><b> <?php echo ($this->lang->line('password'))?></b></label>
 					<br>
 					<div class="form-group">
-						<input type="password" class="form-control" placeholder="Enter Password" name="password" required="">
+						<input type="password" class="form-control" placeholder="<?php echo ($this->lang->line('ph password'))?>" name="password" required="">
 						<?php echo form_error('password','<span class="help-block">','</span>'); ?>
 					</div>
 					<br>
-					<span class="psw"><a href="#" id="FPModal">Forgot password?</a></span>
+					<span class="psw"><a href="#" id="FPModal"> <?php echo ($this->lang->line('forgot password'))?></a></span>
 					<div class="form-group" id="submitButtons">
-						<input type="submit" name="loginSubmit" value="Login"/>
-						<input type="button" value="Register" onclick="location.href='register'"/>
+						<input type="submit" name="loginSubmit" value=" <?php echo ($this->lang->line('login'))?>"/>
+						<input type="button" value=" <?php echo ($this->lang->line('register'))?>" onclick="location.href='register'"/>
 					</div>
 				</form>
 			</div>
@@ -112,7 +120,7 @@
 
 		$form.remove();
 		$button.remove();
-		$modalBody.append("<p>A link to reset your password has been sent to " + $email + ".</p>");
+		$modalBody.append("<p> <?php echo ($this->lang->line('link'))?> " + $email + ".</p>");
 
 	}
 

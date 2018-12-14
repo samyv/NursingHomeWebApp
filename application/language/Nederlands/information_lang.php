@@ -12,6 +12,8 @@ $lang['cancel'] = 'Annuleer';
 $lang['yes'] = 'Ja';
 $lang['add'] = 'Voeg toe';
 $lang['search'] = 'Zoeken..';
+$lang['submit'] = 'Dien in';
+
 $lang['firstname'] = 'Voornaam';
 $lang['lastname'] = 'Achternaam';
 $lang['email'] = 'Email';
@@ -19,7 +21,21 @@ $lang['floor'] = 'Verdieping';
 $lang['room'] = 'Kamer';
 $lang['birthday'] = 'Geboortedatum';
 $lang['phonenumber'] = 'Gsm nummer';
+$lang['password'] = 'Wachtwoord';
 
+
+//header
+$lang['goto'] = 'Ga naar';
+$lang['settings'] = 'Instellingen';
+$lang['home'] = 'Startscherm';
+$lang['logout'] = 'Afmelden';
+$lang['resident overview'] = 'Overzicht bewoner';
+$lang['floor selection'] = 'Keuze verdieping';
+$lang['floor comparison'] = 'Vergelijking verdieping';
+$lang['add resident'] = 'Voeg bewoner toe';
+$lang['add question'] = 'Voeg vraag toe';
+$lang['dutch'] = 'Nederlands';
+$lang['english'] = 'English';
 
 //landing page
 $lang['welcome_message'] = 'Welkom ';
@@ -68,6 +84,41 @@ $lang['title picture'] = 'Upload bewoner afbeelding';
 $lang['choose file'] = 'Bestand kiezen';
 $lang['no chosen file'] = 'Geen bestand gekozen';
 $lang['add contact span'] = 'Voeg bestaande contactpersoon toe';
+$lang['ph firstname'] = 'Vul voornaam in';
+$lang['ph lastname'] = 'Vul achternaam in';
+$lang['ph floornr'] = 'Vul verdieping in';
+$lang['ph roomnr'] = 'Vul kamer nummer in';
+$lang['ph email'] = 'voorbeeld@voorbeeld.com';
+
+//new question
+$lang['title section'] = 'Kies een sectie of maak een nieuwe';
+$lang['title question'] = 'Vraag';
+$lang['section'] = 'Section';
+$lang['new section'] = 'Nieuwe sectie';
+$lang['ph section'] = 'Vul nieuwe sectie in';
+$lang['ph newquestion'] = 'Vul nieuwe vraag in';
+
+//header before logged in
+$lang['subtitle header'] = 'Zorgt voor betere zorg';
+
+//login
+$lang['forgot password'] = 'Wachtwoord vergeten?';
+$lang['register'] = 'Registreer';
+$lang['login'] = 'Meld aan';
+
+//forgot password
+$lang['title forgot pass'] = 'Wachtwoord vergeten?';
+$lang['text forgot pass'] = 'Vul uw email in zodat we jou een link kunnen sturen om het wachtwoord opnieuw in te stellen.';
+$lang['send'] = 'Verstuur email';
+$lang['link'] = 'Een link om jouw wachtwoord opnieuw in te stellen is verzonder naar ';
+
+
+//register
+$lang['nursing home'] = 'Verzorgingstehuis';
+$lang['key'] = 'Sleutel';
+$lang['ph key'] = 'Vul sleutel in';
+$lang['ph password'] = 'Vul wachtwoord in';
+$lang['ph conf password'] = 'Herhaal wachtwoord';
 
 
 

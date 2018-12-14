@@ -57,7 +57,7 @@
             <b><?php echo ($this->lang->line('firstname'))?></b>
         </div>
         <div class="firstname_input">
-            <input type="text" placeholder="Enter first name" class = "form-control" name="firstname" required=""
+            <input type="text" placeholder="<?php echo ($this->lang->line('ph firstname'))?>" class = "form-control" name="firstname" required=""
                    value="<?php echo (isset($_POST['firstname']) ? $_POST['firstname'] : ''); ?>">
         </div>
         <div class="lastname">
@@ -65,7 +65,7 @@
             <br>
         </div>
         <div class="lastname_input">
-            <input type="text" placeholder="Enter last name" class = "form-control" name="lastname" required=""
+            <input type="text" placeholder="<?php echo ($this->lang->line('ph lastname'))?>" class = "form-control" name="lastname" required=""
                    value="<?php echo (isset($_POST['lastname']) ? $_POST['lastname'] : ''); ?>">
         </div>
         <div class="birthday">
@@ -92,7 +92,7 @@
             <br>
         </div>
         <div class="floor_input">
-            <input type="number" name="floor" class = "form-control" placeholder="Enter floor number" min="0" required=""
+            <input type="number" name="floor" class = "form-control" placeholder="<?php echo ($this->lang->line('ph floornr'))?>" min="0" required=""
                    value="<?php echo (isset($_POST['floor']) ? $_POST['floor'] : ''); ?>">
         </div>
         <div class="room">
@@ -100,13 +100,13 @@
             <br>
         </div>
         <div class="room_input">
-            <input type="number" name="room" class = "form-control" placeholder="Enter room number" min="1"required=""
+            <input type="number" name="room" class = "form-control" placeholder="<?php echo ($this->lang->line('ph roomnr'))?>" min="1"required=""
                    value="<?php echo (isset($_POST['room']) ? $_POST['room'] : ''); ?>">
 
         </div>
         <div class="picture_input">
             <div class="form-group">
-                <b><?php echo ($this->lang->line('upload resident picture'))?></b>
+                <b>Upload resident picture</b>
                 <input type="file" name="imageURL"  size="20">
             </div>
         </div>
@@ -121,7 +121,7 @@
             <b><?php echo ($this->lang->line('firstname'))?></b>
         </div>
         <div class="cp_first_name_input">
-            <input type="text" name="cp_first_name"  class = "contact form-control" placeholder="Enter first name" required=""
+            <input type="text" name="cp_first_name"  class = "contact form-control" placeholder="<?php echo ($this->lang->line('firstname'))?>" required=""
                    value="<?php echo (isset($_POST['cp_first_name']) ? $_POST['cp_first_name'] : ''); ?>">
             <br>
         </div>
@@ -129,7 +129,7 @@
             <b><?php echo ($this->lang->line('lastname'))?></b>
         </div>
         <div class="cp_last_name_input">
-            <input type="text" name="cp_last_name"  class = "contact form-control" placeholder="Enter first name" required=""
+            <input type="text" name="cp_last_name"  class = "contact form-control" placeholder="<?php echo ($this->lang->line('lastname'))?>" required=""
                    value="<?php echo (isset($_POST['cp_last_name']) ? $_POST['cp_last_name'] : ''); ?>">
             <br>
         </div>
@@ -137,7 +137,7 @@
             <b><?php echo ($this->lang->line('email'))?></b>
         </div>
         <div class="email_input">
-            <input type="text" name="cp_email" class = "contact form-control" placeholder="example@example.com"
+            <input type="text" name="cp_email" class = "contact form-control" placeholder="<?php echo ($this->lang->line('ph email'))?>"
                    value="<?php echo (isset($_POST['cp_email']) ? $_POST['cp_email'] : ''); ?>">
             <br>
         </div>

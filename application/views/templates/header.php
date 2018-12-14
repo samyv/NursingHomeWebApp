@@ -22,13 +22,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="<?=base_url()?>landingpage"><i class="fas fa-home"></i> Home</a>
+                <a class="nav-link" href="<?=base_url()?>landingpage"><i class="fas fa-home"></i>
+                    <?php echo ($this->lang->line('home'))?></a>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Go to
-                </a>
+                    <?php echo ($this->lang->line('goto'))?></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     {dropdown_menu_items}
                     <a href="<?=base_url();?>{link}" class="{className}">{name}</a>
@@ -55,17 +55,21 @@
                 // set pathname from where we came from
                 $pn=uri_string();  // the uri class is initialized automatically
                 ?>
-                <div class="dropdown-menu" ria-labelledby="navbarDropdown">
-                    <a class = dropdown-item href='languageSwitcher/switchLanguage/english?<?=$pn?>'>English</a>
-                    <a class = dropdown-item href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>Nederlands</a>
+                <div class="dropdown-menu" ria-labelledby="navbarDropdowns">
+                    <a class = dropdown-item href='languageSwitcher/switchLanguage/english?<?=$pn?>'>
+                        <?php echo ($this->lang->line('english'))?></a>
+                    <a class = dropdown-item href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>
+                        <?php echo ($this->lang->line('dutch'))?></a>
                 </div>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link" href="<?=base_url()?>account"><i class="fas fa-cog"></i> Settings</a>
+                <a class="nav-link" href="<?=base_url()?>account"><i class="fas fa-cog"></i>
+                    <?php echo ($this->lang->line('settings'))?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
+                <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i>
+                    <?php echo ($this->lang->line('logout'))?></a>
             </li>
 
     </ul>
