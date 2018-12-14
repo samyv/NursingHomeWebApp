@@ -16,67 +16,6 @@
 	<div id="subtitle">Providing better care</div>
 </div>
 <video id="camera-stream" autoplay></video>
-	<script>
-		$(function () {
-			var video = document.querySelector('#camera-stream');
-			start_camera = document.querySelector('#start-camera');
-			navigator.getMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
-
-			if (!navigator.getMedia)
-			{
-				displayErrorMessage("Your browser doesn't have support for the navigator.getUserMedia interface.");
-			}
-			else
-				{
-
-				// Request the camera.
-				navigator.getMedia(
-					{
-						video: true
-					},
-					// Success Callback
-					function(stream){
-
-						// Create an object URL for the video stream and
-						// set it as src of our HTLM video element.
-						video.src = window.URL.createObjectURL(stream);
-
-						// Play the video element to start the stream.
-						video.play();
-						video.onplay = function() {
-							showVideo();
-						};
-
-					},
-					// Error Callback
-					function(err){
-						displayErrorMessage("There was an error with accessing the camera stream: " + err.name, err);
-					}
-				);
-					start_camera.addEventListener("click", function(e) {
-						e.preventDefault();
-						console.log("clicked"
-						)
-						// Start video playback manually.
-						video.play();
-						showVideo();
-					});
-			}
-
-
-			function showVideo() {
-				// Display the video stream and the controls.
-				hideUI();
-				video.classList.add("visible");
-			}
-
-			function hideUI() {
-				// Helper function for clearing the app UI.
-				start_camera.classList.remove("visible");
-				video.classList.remove("visible");
-			}
-
-	</script>
 <script>
 	let scanner = new Instascan.Scanner({ video: document.getElementById('camera-stream') });
 	scanner.addListener('scan', function (content) {
