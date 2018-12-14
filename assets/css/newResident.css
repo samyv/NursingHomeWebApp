@@ -185,7 +185,7 @@ input[type=submit]:hover,input[type=button]:hover{
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 0.5fr 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr;
+        grid-template-rows: 5em 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr;
         grid-template-areas:
                 "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
                 ". resident resident resident resident . . . . . . ."
