@@ -15,16 +15,18 @@ class Resident extends CI_Controller
         $this->load->helper('url');
         $this->load->library('form_validation');
         $this->load->model('residents');
-		$this->load->model('QuestionModel');
+        $this->load->model('caregivers');
+        $this->load->model('QuestionModel');
         $this->load->library('session');
         $this->load->database('default');
     }
 
 
-    public function index(){
+    public function index()
+    {
         $data['page_title'] = 'Login resident | GraceAge';
         $data['residentNames'] = array();
-        if($this->session->userdata('isUserLoggedIn')){
+        if ($this->session->userdata('isUserLoggedIn')) {
             redirect('account');
         }
 
@@ -32,14 +34,16 @@ class Resident extends CI_Controller
         if($this->input->post('loginResident')){
             $this->form_validation->set_rules('room_number', 'Room number', 'required');
             if ($this->form_validation->run() == true) {
-                $con['conditions'] = array(
-                    'room_number'=>$this->input->post('room_number')
-                );
-                $residentsInRoom = $this->residents->lookUp($con);
-                if($residentsInRoom){
-                    foreach ($residentsInRoom as $key => $value){
-                        $residentArray[$key] = (array) $value;
-                        $_SESSION['Resident'.$key]=(array)$value;
+//
+
+                $cond = array();
+                $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
+                $cond['where'] = array('Resident.room' => $this->input->post('room_number'));
+                $residentsInRoom = $this->caregivers->getResidentDashboardInfo($cond);
+                if ($residentsInRoom) {
+                    foreach ($residentsInRoom as $key => $value) {
+                        $residentArray[$key] = (array)$value;
+                        $_SESSION['Resident' . $key] = (array)$value;
                     }
                     $data['residentNames'] = $residentArray;
                 }else{
@@ -120,8 +124,20 @@ class Resident extends CI_Controller
         $this->parser->parse("Resident/tutorialPage",$data);
     }
 
-    public function update(){
-        $index = $this ->input->post('index');
+    public function faceRecognition()
+    {
+        $data['resident'] = 0;
+        $this->parser->parse("Resident/faceRecognition", $data);
+    }
+    public function faceRecognition2()
+    {
+        $data['resident'] = 0;
+        $this->parser->parse("Resident/faceRecognition2", $data);
+    }
+
+    public function update()
+    {
+        $index = $this->input->post('index');
         $answer = $this->input->post('answer');
 
         $residentID = $_SESSION['Resident']['residentID'];
@@ -147,21 +163,26 @@ class Resident extends CI_Controller
         $data = $this->QuestionModel->getAnswer($questionnaireID, $index);
         echo $data;
     }
-    public function getNextQuestionType(){
-        $index = $this ->input->post('index');
-        $data = $this->QuestionModel->getQuestionType($index+1);
+
+    public function getNextQuestionType()
+    {
+        $index = $this->input->post('index');
+        $data = $this->QuestionModel->getQuestionType($index + 1);
         echo $data;
     }
-    public function getCurrentQuestionType(){
-        $index = $this ->input->post('index');
+
+    public function getCurrentQuestionType()
+    {
+        $index = $this->input->post('index');
         $data = $this->QuestionModel->getQuestionType($index);
         echo $data;
     }
 
 
-    public function tutorial(){
+    public function tutorial()
+    {
         //checks if a resident is logged in, else go to the login page
-        if(!isset($_SESSION['isResidentLoggedIn'])){
+        if (!isset($_SESSION['isResidentLoggedIn'])) {
             redirect('resident/index');
         }
         //load the view
@@ -169,7 +190,8 @@ class Resident extends CI_Controller
     }
 
 
-    public function logout(){
+    public function logout()
+    {
         $this->session->unset_userdata('isResidentLoggedIn');
         unset($_SESSION['Resident']);
         $this->session->sess_destroy();
@@ -185,12 +207,10 @@ class Resident extends CI_Controller
         $this->load->view('Resident/sectionPage',$data);
     }
 
-    public function getFirstQuestionIndex($id =1)
+    public function getFirstQuestionIndex($id = 1)
     {
-        for($i =1; $i<50;$i++)
-        {
-            if($this->QuestionModel->getQuestionType($i) == $id)
-            {
+        for ($i = 1; $i < 50; $i++) {
+            if ($this->QuestionModel->getQuestionType($i) == $id) {
                 return $i;
             }
 
@@ -216,7 +236,8 @@ class Resident extends CI_Controller
         $this->parser->parse('Resident/finalpage',$data);
     }
 
-    public function startQuestionnaire(){
+    public function startQuestionnaire()
+    {
         $idResident = $_SESSION['Resident']['residentID'];
         $this->QuestionModel->createQuestionnaires($idResident);
         $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
@@ -233,10 +254,11 @@ class Resident extends CI_Controller
         }
     }
 
-    public function checkIfLast(){
+    public function checkIfLast()
+    {
         $index = $this->input->post('index');
         $last = $this->QuestionModel->checkIfLast($index);
-        if(is_numeric($last)) echo 0;
+        if (is_numeric($last)) echo 0;
         else echo 1;
     }
 

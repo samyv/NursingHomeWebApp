@@ -21,12 +21,12 @@
      <div class="form">
         <form action="" method="POST">
             <div class="form-group">
-                <label for="roomField" id = "roomNum"><b>Room number </b></label>
-                <input class=inputController type="number" min="0" placeholder="Enter room number" name="room_number" required="">
+                <label for="roomField" id = "roomNum"><b>Kamernummer </b></label>
+                <input class=inputController type="number" min="0" placeholder="Vul je kamernummer in" name="room_number" required="">
                 <?php echo form_error('room_number','<span class="help-block">','</span>'); ?>
             </div>
             <div class="form-group">
-                <input id="loginButton" name="loginResident" type="submit" value="Login">
+                <input id="loginButton" name="loginResident" type="submit" value="Inloggen">
             </div>
         </form>
      </div>
@@ -34,18 +34,28 @@
       <div class="ResidentButton">
       <?php
       $i = 1;
+      if($residentNames){
       foreach ($residentNames as $resident){?>
           <div>
-              <div>
-              <img src="<?=base_url();?>assets/images/tutorial.jpg">
-              </div>
+
+
           <form method="post">
-              <input type="submit" name="selectResident<?php echo $i?>" class="ResidentButton" value="<?php echo $resident['firstname'], " ", $resident['lastname'] ?>">
+
+              <button type="submit" name="selectResident<?php echo $i?>" class="ResidentButton" value="<?php echo $resident['firstname'], " ", $resident['lastname'] ?>">
+
+                  <?php if(isset($resident['picture'])){ ?>
+                      <img type="submit" src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
+                  <?php }?>
+              <p><?php echo $resident['firstname'], " ", $resident['lastname'] ?></p></button>
           </form>
           </div>
           <?php $i++;
+      }}else if(isset($error_msg)){?>
+              <p id="error"><?php echo $error_msg ?></p>
+          <?php
       }?>
       </div>
+
      <div id="footer">
           <footer>
               <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
@@ -53,9 +63,5 @@
           </footer>
      </div>
 </div>
-
-
-
-
 </body>
 </html>

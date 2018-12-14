@@ -5,7 +5,7 @@
  * Date: 12/10/2018
  * Time: 14:59
  */
-
+date_default_timezone_set('Europe/Brussels');
 class Caregiver extends CI_Controller
 {
 	public function __construct()

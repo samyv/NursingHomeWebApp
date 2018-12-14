@@ -54,7 +54,7 @@
         </div>
     </div>
     <div id="previous">
-        <button id="previousbtn">Previous</button>
+        <button id="previousbtn">Vorige</button>
     </div>
     <div id="footer">
         <footer>
