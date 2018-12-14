@@ -16,7 +16,9 @@
 <div class="grid-container fade-in">
 
     <div class="title">
-        <h1>Welcome <?php echo $_SESSION['firstname']; ?>!</h1>
+        <h1><?php
+            echo ($this->lang->line('welcome_message'));
+            echo $_SESSION['firstname']; ?>!</h1>
     </div>
 
     <div class="quote">
@@ -29,19 +31,23 @@
         </h5>
     </div>
         <div class="btn-group">
-            <input id="1" value="Search resident" type="button" class = "btn" onclick="location.href='residents'">
-            <input id="2" value="Compare floor" type="button" class = "btn" onclick="location.href='floorCompare'">
-            <input id="3" value="Select floor" type="button" class = "btn" onclick="location.href='floorSelect'">
+            <input id="1" type="button" class = "btn" onclick="location.href='residents'"
+                   value="<?php echo ($this->lang->line('search resident'))?>">
+            <input id="2" type="button" class = "btn" onclick="location.href='floorCompare'"
+                   value="<?php echo ($this->lang->line('compare floor'))?>">
+            <input id="3" type="button" class = "btn" onclick="location.href='floorSelect'"
+                   value="<?php echo ($this->lang->line('select floor'))?>">
+
         </div>
 
     <div class="noteheader">
-        <h2 class="noteheader">Notes</h2>
+        <h2 class="noteheader"><?php echo ($this->lang->line('notes'))?></h2>
         <div class="newNote" id="newNote">
             <i id="newNotebtn" class="fas fa-2x fa-plus-circle"></i>
         </div>
     </div>
     <div class="clndrheader">
-        <h2>Calendar</h2>
+        <h2><?php echo ($this->lang->line('calendar'))?></h2>
 
     </div>
     <div class="notes">
@@ -52,12 +58,14 @@
                 <form name="submitNotes" class="existing form" action="">
                     <input type="number" name="id" id="idinput" class="idinput form-group" style="display:none;"
                            value="<?php echo $note['noteid']; ?>">
-                    <a class="btn deleteNote" name="close"><i id="<?php echo $note['noteid']; ?>"
-                                                              class="fa fa-trash-alt"></i></a>
+                    <a class="btn deleteNote" name="close">
+                        <i id="<?php echo $note['noteid']; ?>"
+                           class="fa fa-trash-alt"></i></a>
                     <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes"
                               name="note"><?php echo $note['Note']; ?></textarea>
-                    <input id="<?php echo $note['noteid']; ?>" class="savebtn btn form-group" type="button" value="Save"
-                           style="display:none">
+                    <input id="<?php echo $note['noteid']; ?>" class="savebtn btn form-group" type="button" style="display:none"
+                           value= <?php echo ($this->lang->line('save'))?>
+                    >
                 </form>
             <?php }
         } ?>
@@ -88,7 +96,29 @@
 </div>
 
 
+    $(document).ready(function () {
+        $('#newNotebtn').click(function () {
+            $new =("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
+                "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
+                "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +
+                "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\"></textarea>\n" +
+                "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" value=\"Save\" style=\"display:none\">\n" +
+                "            </form>");
+            $('#newNote').parent().next().next().prepend($new);
+            /*$('#newNote').before("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
+                "                <input type=\"number\" name=\"id\" id=\"idinput\" class=\"idinput form-group\" style=\"display:none;\" value=\"\">\n" +
+                "                <a class=\"btn deleteNote\" name=\"close\"><i id=\"\" class=\"fa fa-trash-alt\"></i></a>\n" +
+                "                <textarea id=\"notearea\"  class=\"note form-group\" wrap=\"hard\" maxlength=\"1000\" form=\"submitNotes\" name=\"note\"></textarea>\n" +
+                "                <input id=\"\" class=\"savebtn btn form-group\" type=\"button\" value=\"Save\" style=\"display:none\">\n" +
+                "            </form>");*/
+            $('.note').focus(showSave);
+            $('.deleteNote').click(deleteNote);
+            $('.savebtn').click(saveNote);
+        });
 
+    });
+
+</script>
 
 <script>
     var GoogleAuth; // Google Auth object.

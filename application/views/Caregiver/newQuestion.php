@@ -13,36 +13,36 @@
 <form action="" method="post">
     <div class="grid-container">
         <div class="section">
-            <h3>Choose a section or create a new one </h3>
+            <h3><?php echo ($this->lang->line('title section'))?> </h3>
         </div>
 
         <div class="section_input">
             <select name="section" onchange='checkChoice(this.value);' class="form-control" required="">
-                <option>Sections</option>
+                <option><?php echo ($this->lang->line('title section'))?></option>
                 <?php
                 foreach($sections as $section) {?>
                     <option value="<?php echo $section['sectionId'];?>"><?php echo $section['sectionType'] ;?></option>
                 <?php }?>
-                <option value="new">New Section</option>
+                <option value="new"><?php echo ($this->lang->line('new section'))?></option>
             </select>
-            <input type="text" name="section_input" id="section_input" style='display:none;' class="form-control" placeholder="Section name"/>
+            <input type="text" name="section_input" id="section_input" style='display:none;' class="form-control" placeholder="<?php echo ($this->lang->line('ph section'))?>"/>
             <?php echo form_error('section','<span class="help-block">','</span>'); ?>
             <br>
         </div>
 
         <div class="question">
-            <h3>Question</h3>
+            <h3><?php echo ($this->lang->line('title question'))?></h3>
         </div>
 
         <div class="question_input">
-            <input type="text" name="question" class = "form-control" placeholder="Type new question here">
+            <input type="text" name="question" class = "form-control" placeholder="<?php echo ($this->lang->line('ph newquestion'))?>">
             <?php echo form_error('question','<span class="help-block">','</span>'); ?>
             <br>
         </div>
 
         <div class="buttons">
-            <input type="submit" value="Submit" name="questionSubmit"/>
-            <input type="button" value="Cancel" onclick="location.href='landingPage'"/>
+            <input type="submit" value="<?php echo ($this->lang->line('add'))?>" name="questionSubmit"/>
+            <input type="button" value="<?php echo ($this->lang->line('cancel'))?>" onclick="location.href='landingPage'"/>
         </div>
 
 

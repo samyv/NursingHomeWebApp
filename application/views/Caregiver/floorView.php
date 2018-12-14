@@ -11,7 +11,9 @@
 <body>
 <div class ="grid-container fade-in">
 	<div class = "title">
-		<p>Please select the desired resident</p>
+		<p>
+            <?php echo($this->lang->line('title floor view'));?>
+        </p>
 	</div>
 </div>
 </body>

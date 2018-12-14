@@ -17,6 +17,7 @@ nav {
     background-color: #66a5ad !important;
 }
 
+
 .p1[data-count]:after{
     position:absolute;
     right:10%;

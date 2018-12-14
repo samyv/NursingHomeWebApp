@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 </head>
 <body>
 
@@ -54,7 +55,7 @@
         </div>
     </div>
     <div id="previous">
-        <button id="previousbtn">Previous</button>
+        <button id="previousbtn">Vorige</button>
     </div>
     <div id="footer">
         <footer>
@@ -65,9 +66,116 @@
 </div>
 
 
-<script src="<?=base_url();?>assets/js/questionpage.js">
+<script>
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+
+    $(document).ready(function () {
+        let awaitTime = 200;
+        let index = <?= $index?>;
+        let currentType = <?= $currentType?>;
+        let nextType = <?= $nextType?>;
+        let previousQuestion = <?= $previousQuestion?>;
+        let nextQuestion = <?= $nextQuestion?>;
+
+
+		// responsiveVoice.speak(question);
+		var string = "{question}";
+		responsiveVoice.speak(string,"Dutch Female");
+
+
+		function transOldAnswer() {
+            $.ajax({
+                url: '<?=base_url();?>Resident/getOldAnswer',
+                method: "POST",
+                data: {index: index},
+                success: function (answer) {
+                    $('#answer' + answer).prop('checked', true);
+                }
+            });
+        }
+
+        transOldAnswer();
+
+        function updateNewAns($index, $answer) {
+            $.ajax({
+                url: '<?=base_url();?>Resident/update',
+                method: "POST",
+                data: {
+                    index: $index,
+                    answer: $answer,
+                }
+            });
+        }
+
+
+        $('#answer1').click(async function(){
+            updateNewAns(index,1);
+            if(nextQuestion != -1) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
+            }
+        });
+
+        $('#answer2').click(async function(){
+            updateNewAns(index,2);
+            if(nextQuestion != -1) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
+            }
+        });
+
+        $('#answer3').click(async function(){
+            updateNewAns(index,3);
+            if(nextQuestion != -1) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
+            }
+        });
+
+        $('#answer4').click(async function(){
+            updateNewAns(index,4);
+            if(nextQuestion != -1) {
+                await sleep(awaitTime);
+                if(currentType != nextType){
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
+                } else {
+                    index = nextQuestion;
+                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
+                }
+            } else {
+                window.location.href = '<?=base_url();?>resident/finalpage';
+            }
+        });
+
 
 </script>
-
+<script src="<?=base_url();?>assets/js/questionpage.js">
 </body>
 </html>

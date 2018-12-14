@@ -20,10 +20,14 @@
 	?>
 	<div class="grid-container">
 		<div class="header">
-			<h3>Change Account Settings</h3>
+			<h3><?php
+                echo ($this->lang->line('title account'));?>
+            </h3>
 		</div>
 		<div class="firstname">
-			<b>First name: </b>
+			<b> <?php
+                echo ($this->lang->line('firstname'));?>
+            </b>
 		</div>
 		<div class="firstname_input">
 			<input type="text" value="<?php echo $caregiver['firstname']; ?>" class = "form-control" name="firstname" required="">
@@ -31,7 +35,9 @@
 			<br>
 		</div>
 		<div class="lastname">
-			<b>Last name: </b>
+			<b><?php
+                echo ($this->lang->line('lastname'));?>
+            </b>
 		</div>
 		<div class="lastname_input">
 			<input type="text" value="<?php echo $caregiver['lastname']; ?>"  class = "form-control"name="lastname" required="">
@@ -39,14 +45,18 @@
 			<br>
 		</div>
 		<div class="floor">
-			<b>Floor: </b>
+			<b><?php
+                echo ($this->lang->line('floor'));?>
+            </b>
 		</div>
 		<div class="floor_input">
 			<input type="number" min="0" value="<?php echo $caregiver['floor']; ?>"  class = "form-control" name="floor" required="">
 			<?php echo form_error('floor','<span class="help-block">','</span>'); ?>
 		</div>
 		<div class="email">
-			<b>Email: </b>
+			<b><?php
+                echo ($this->lang->line('email'));?>
+            </b>
 		</div>
 		<div class="email_input">
 			<input type="email" value="<?php echo $caregiver['email']; ?>"  class = "form-control" name="email" required="">
@@ -54,31 +64,44 @@
 			<br>
 		</div>
 		<div class="old_pass">
-			<b>Old password: </b>
+			<b><?php
+                echo ($this->lang->line('old password'));?>
+            </b>
 		</div>
 		<div class="old_pass_input">
-			<input type="password" name="old_password" class = "form-control" placeholder="Enter old password" required="">
+			<input type="password" name="old_password" class = "form-control" required=""
+                   placeholder="<?php echo ($this->lang->line('ph old password'));?>">
 			<?php echo form_error('old_password','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
 		<div class="new_pass">
-			<b>New password: </b>
+			<b><?php
+                echo ($this->lang->line('new password'));?>
+            </b>
 		</div>
 		<div class="new_pass_input">
-			<input type="password" name="new_password" class = "form-control" placeholder="Enter new password">
+			<input type="password" name="new_password" class = "form-control"
+                   placeholder="<?php echo ($this->lang->line('ph new password'));?>">
 			<?php echo form_error('new_password','<span class="help-block">','</span>'); ?>
 			<br>
 		</div>
 		<div class="conf_pass">
-			<b>Confirm password: </b>
+			<b><?php
+                echo ($this->lang->line('confirm password'));?>
+            </b>
 		</div>
 		<div class="conf_pass_input">
-			<input type="password" name="conf_password"  class = "form-control" placeholder="Confirm new password">
+			<input type="password" name="conf_password"  class = "form-control"
+                   placeholder="<?php echo ($this->lang->line('ph confirm password'));?>">
 			<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 		</div>
         <div class="buttons">
-            <input type="submit" value="Save changes" name="saveSettings"/>
-            <input type="button" value="Cancel" onclick="location.href='account'"/>
+            <input type="submit" name="saveSettings"
+                   value=<?php
+                   echo ($this->lang->line('save'));?> />
+            <input type="button" onclick="location.href='account'"
+                   value=<?php
+                   echo ($this->lang->line('cancel'));?> />
         </div>
 	</div>
 

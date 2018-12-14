@@ -8,15 +8,16 @@
 ?>
 <html>
 <head>
-    <title>{page_title}</title>
-    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/transitions.css">
-    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
-    <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
-    <link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css'/>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://d3js.org/d3.v4.js"></script>
-    <script src="<?php echo base_url();?>assets/js/notes.js"></script>
+	<title>{page_title}</title>
+	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/transitions.css">
+	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
+	<link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
+	<link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css'/>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="http://d3js.org/d3.v4.js"></script>
+	<script src="<?php echo base_url();?>assets/js/notes.js"></script>
+	<script src="../javascript/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -31,7 +32,7 @@
         <div class="modal-header">
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo($this->lang->line('title contact information'));?></h4>
 
         </div>
 
@@ -99,7 +100,10 @@
             <i class="fa fa-info-circle" style="color: #0c5460"></i>
             <a href="#" id="CIModal" style="color: #0c5460"> Info contactperson</a>
         </span>
-    </div>
+		<br>
+		<span class="qrcode"><a href="#" id="qrcodeModal">Generate Qr Code</a></span>
+
+	</div>
     <div class="back_start"></div>
     <div class="visualisation">
         <div id="chart" name="chart">
@@ -144,7 +148,16 @@
         </button>
     </div>
 </div>
-
+<div class="modal-content" id="qr-modal-content">
+	<div class="modal-header">
+		<button type="button" class="close" id="qrclose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Qrcode</h4>
+	</div>
+	<div class="info-contact">
+		<div id="qrcode"></div>
+		<button onclick="printQrcode()">Download Qrcode</button>
+	</div>
+</div>
 <div class='dialog-ovelay' role="alert">
     <div class='dialog'>
         <header>
@@ -180,6 +193,14 @@
             $('#information-contactperson-modal-content').fadeOut('fast');
         })
 
+		$('#qrcodeModal').click(function(){
+            $('#qr-modal-content').fadeIn('fast');
+        });
+
+        $('#qrclose').click(function () {
+            $('#qr-modal-content').fadeOut('fast');
+        })
+
         $('#changeInfo').click(changeInfo)
         $('#saveInfo').click(saveInfo)
 
@@ -211,6 +232,29 @@
                     drawChart(testdata);
                 }
             });
+	let qrstring = "<?php echo $resident['qrCode'];?>"
+	new QRCode(document.getElementById("qrcode"), qrstring);
+	function printQrcode() {
+		let img = $('#qrcode').children('img')[0];
+		let src = img.getAttribute('src');
+		var a = $("<a>")
+			.attr("href", src)
+			.attr("download", "<?php echo $resident['firstname'].'-'.$resident['lastname']?>-qrcode.png")
+		a[0].click();
+		a.remove();
+	}
+
+        $(".selectQuestionnaire")
+            .change(function () {
+                $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
+                $.ajax({
+                    url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
+                    dataType: 'json',
+                    success:function (array) {
+                        testdata = array;
+                        drawChart(testdata);
+                    }
+                });
 
         });
 

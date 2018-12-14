@@ -17,11 +17,11 @@
 <div class="grid-container fade-in	">
 
     <div class = "h1">
-        <h1>Delete Resident</h1>
+        <h1><?php echo ($this->lang->line('title delete resident'));?></h1>
     </div>
 
     <div class = "search">
-        <input type="text" id="myInput" onkeyup="search()" placeholder="Search.." title="Type in a name">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'));?>" title="Type in a name">
     </div>
 
     <div class="table">
@@ -37,12 +37,12 @@
             <i class='fa fa-close'></i>
         </header>
         <div class='dialog-msg'>
-            <p>Are you sure you want to delete this resident?</p>
+            <p><?php echo ($this->lang->line('text delete resident'));?></p>
         </div>
         <footer>
             <div class='controls'>
-                <button class='button button-danger doAction'>Yes</button>
-                <button class='button button-default cancelAction'>Cancel</button>
+                <button class='button button-danger doAction'><?php echo ($this->lang->line('yes'));?></button>
+                <button class='button button-default cancelAction'><?php echo ($this->lang->line('cancel'));?></button>
             </div>
         </footer>
     </div>
@@ -87,10 +87,10 @@
         row.appendChild(id);
 
         var col1 = document.createElement('th');
-        col1.innerHTML = "Name";
+        col1.innerHTML = "<?php echo ($this->lang->line('name'));?>";
         row.appendChild(col1)
         var col2 = document.createElement('th');
-        col2.innerHTML = "Floor";
+        col2.innerHTML = "<?php echo ($this->lang->line('floor'));?>";
         row.appendChild(col2)
         var col3 = document.createElement('th');
         col3.innerHTML = ""; //or nothing
