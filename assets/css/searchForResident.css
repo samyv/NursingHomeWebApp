@@ -56,3 +56,32 @@ footer {
     align-self: end;
     text-align: center;
 }
+
+@media screen and (max-width: 950px) {
+
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 22em 1fr;
+        grid-template-areas:
+                ". Header Header Header Header Header Header Header Header Header Header ."
+                ". search search table table table table table table table table ."
+                "footer footer footer footer footer footer footer footer footer footer footer footer";
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 4em 22em 1fr;
+        grid-template-areas:
+                ". Header Header Header Header Header Header Header Header Header Header ."
+                ". search search search search search search search search search search ."
+                ". table table table table table table table table table table ."
+                "footer footer footer footer footer footer footer footer footer footer footer footer";
+    }
+}

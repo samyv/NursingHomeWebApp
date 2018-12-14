@@ -122,7 +122,7 @@ html,body{
     stroke-width: 10px;
 }
 
-@media screen and (max-width: 1730px){
+/*@media screen and (max-width: 1730px){
     .grid-container {
         background-color: #F5FAFA;
         display: grid;
@@ -130,10 +130,11 @@ html,body{
         grid-template-rows: 6em 8em 4fr 4fr 1fr;
         grid-template-areas:
                 ". title title title title title title title title title title ."
-                ". list list  tab tab tab tab tab tab tab tab ."
-                ". list list  graph graph graph graph graph graph graph graph ."
-                ". . . graph graph graph graph graph graph graph graph ."
+                ". list list  list list list list list list list list ."
+                ". graph graph  graph graph graph graph graph graph graph graph ."
+                ". tab tab tab tab tab tab tab tab tab tab ."
                 "footer footer footer footer footer footer footer footer footer footer footer footer";
 
     }
-}
+
+}*/
