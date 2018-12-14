@@ -63,8 +63,7 @@
                     <?php echo ($this->lang->line('settings'))?></a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" id="logoutButton" href="logout"><i class="fa fa-sign-out-alt"></i>
-                    <?php echo ($this->lang->line('logout'))?></a>
+                <a class="nav-link" id="logoutButton" href="<?=base_url()?>logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
             </li>
 
     </ul>
