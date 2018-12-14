@@ -15,17 +15,19 @@
 
 <div class="grid-container fade-in	">
 <div class = "h1">
-    <h1>Database searching</h1>
+    <h1>
+        <?php echo ($this->lang->line('title database search'));?>
+    </h1>
 </div>
 
 <div class = "search">
-    <input type="text" id="myInput" class= "form-control" onkeyup="search()" placeholder="Search.." title="Type in a name">
+    <input type="text" id="myInput" class= "form-control" onkeyup="search()" title="Type in a name"
+           placeholder=<?php echo ($this->lang->line('search'));?> >
 </div>
 
 <div class="table">
 	<table id="myTable"></table>
 </div>
-
 
 <script>
 	$(function() {
@@ -40,11 +42,8 @@
 		table = document.getElementById("myTable");
 		list = document.getElementsByTagName('tr');
 		for (i = 1; i <= list.length; i++) {
-			// console.log(list[i])
 			if(list[i] != undefined) {
 				name = list[i].getElementsByTagName("td")[1].innerHTML;
-				// console.log(name);
-
 				if (name.toUpperCase().indexOf(filter) > -1) {
 					list[i].style.display = "";
 				} else {
@@ -66,13 +65,13 @@
 		row.appendChild(id);
 
 		var col1 = document.createElement('th');
-		col1.innerHTML = "Name";
+		col1.innerHTML ="<?php echo($this->lang->line('name'));?>";
 		row.appendChild(col1)
 		var col2 = document.createElement('th');
-		col2.innerHTML = "Floor";
+		col2.innerHTML ="<?php echo($this->lang->line('floor'));?>";
 		row.appendChild(col2)
 		var col3 = document.createElement('th');
-		col3.innerHTML = "Age";
+		col3.innerHTML ="<?php echo($this->lang->line('age'));?>";
 		row.appendChild(col3)
 		tbody.appendChild(row)
 		var elements = [];
