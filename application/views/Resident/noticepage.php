@@ -21,7 +21,7 @@
 
 
     <div id="home_btn">
-        <button id="home" onclick="location.href='index'">Startscherm</button>
+        <button id="home" onclick="location.href='<?=base_url();?>resident'">Startscherm</button>
     </div>
 
     <div id="previous_btn">
