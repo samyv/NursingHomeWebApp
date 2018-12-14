@@ -34,18 +34,27 @@
       <div class="ResidentButton">
       <?php
       $i = 1;
+      if($residentNames){
       foreach ($residentNames as $resident){?>
           <div>
-              <div>
-              <img src="<?=base_url();?>assets/images/tutorial.jpg">
-              </div>
+
           <form method="post">
-              <input type="submit" name="selectResident<?php echo $i?>" class="ResidentButton" value="<?php echo $resident['firstname'], " ", $resident['lastname'] ?>">
+
+              <button type="submit" name="selectResident<?php echo $i?>" class="ResidentButton" value="<?php echo $resident['firstname'], " ", $resident['lastname'] ?>">
+
+                  <?php if(isset($resident['picture'])){ ?>
+                      <img type="submit" src="data:image/jpg;base64, <?php echo base64_encode($resident['picture']);?>"/>
+                  <?php }?>
+              <p><?php echo $resident['firstname'], " ", $resident['lastname'] ?></p></button>
           </form>
           </div>
           <?php $i++;
+      }}else if(isset($error_msg)){?>
+              <p id="error"><?php echo $error_msg ?></p>
+          <?php
       }?>
       </div>
+
      <div id="footer">
           <footer>
               <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
