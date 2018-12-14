@@ -144,7 +144,7 @@ $(document).ready(function () {
             index=previousQuestion;
             window.location.href = ''+index;
         } else {
-            window.location.href = '../tutorialpage'
+            window.location.href = '../tutorial'
         }
     });
 
