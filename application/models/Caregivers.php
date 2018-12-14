@@ -86,9 +86,15 @@ Class Caregivers extends CI_Model
 		$email = $data['email'];
 		$password = $data['password'];
 		$nursingHomeID = $data['nursingHome'];
-        $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID)";
+
+		$key = $data[key];
+
+		if($this->checkSupervisorKey($nursingHomeID,$key)){
+            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome,supervisor) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID,'1')";
+        }else{
+            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID)";
+        }
         $insert = $this->db->query($sql);
-        return true;
         if($insert){
             return $insert;
         }else{
