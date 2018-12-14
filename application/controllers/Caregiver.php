@@ -134,6 +134,7 @@ class Caregiver extends CI_Controller
 						$this->session->set_userdata('lastname', $checkLogin['0']->lastname);
 						$this->session->set_userdata('floor', $checkLogin['0']->floor);
 						$this->session->set_userdata('email', $checkLogin['0']->email);
+						if($checkLogin['0']->supervisor == 1) $this->session->set_userdata('supervisor', $checkLogin['0']->supervisor);
 						redirect('landingPage');
 					} else {
 						$data['error_msg'] = 'Wrong email or password, please try again.';
@@ -260,6 +261,7 @@ class Caregiver extends CI_Controller
 
     public function landingPage()
     {
+        print_r($_SESSION);
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -786,7 +788,7 @@ class Caregiver extends CI_Controller
         $data = array();
         $data['page_title'] = "Delete Caregiver";
         $this->load->database('default');
-        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregiver');
         $this->parser->parse('templates/header', $data);
 
 
@@ -807,7 +809,7 @@ class Caregiver extends CI_Controller
         $data = array();
         $data['page_title'] = "Delete Resident";
         $this->load->database('default');
-        //$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregivers');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteResident');
         $this->parser->parse('templates/header', $data);
 
 

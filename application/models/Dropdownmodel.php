@@ -14,14 +14,26 @@ class dropdownmodel extends CI_Model
     {
         parent::__construct();
         // <a href="link" title="title" class="className">name</a>
-        $this->dropdown_menu_items = array (
-            array('name'=>'Resident overview', 'link'=>'residents', 'className'=>'dropdown-item active'),
-            array('name'=>'Floor selection', 'link'=>'floorSelect', 'className'=>'dropdown-item inactive'),
-            array('name'=>'Floor comparison', 'link'=>'floorCompare', 'className'=>'dropdown-item inactive'),
-            array('name'=>'New resident', 'link'=>'newResident', 'className'=>'dropdown-item inactive'),
-            array('name'=>'New Question', 'link'=>'newQuestion', 'className'=>'dropdown-item inactive'),
-
-        );
+        if($this->session->userdata('supervisor')) {
+            $this->dropdown_menu_items = array(
+                array('name' => 'Resident overview', 'link' => 'residents', 'className' => 'dropdown-item active'),
+                array('name' => 'Floor selection', 'link' => 'floorSelect', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Floor comparison', 'link' => 'floorCompare', 'className' => 'dropdown-item inactive'),
+                array('name' => 'New resident', 'link' => 'newResident', 'className' => 'dropdown-item inactive'),
+                array('name' => 'New Question', 'link' => 'newQuestion', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Delete Resident', 'link' => 'deleteResident', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Delete Caregiver', 'link' => 'deleteCaregiver', 'className' => 'dropdown-item inactive'),
+            );
+        }
+        else{
+            $this->dropdown_menu_items = array(
+                array('name' => 'Resident overview', 'link' => 'residents', 'className' => 'dropdown-item active'),
+                array('name' => 'Floor selection', 'link' => 'floorSelect', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Floor comparison', 'link' => 'floorCompare', 'className' => 'dropdown-item inactive'),
+                array('name' => 'New resident', 'link' => 'newResident', 'className' => 'dropdown-item inactive'),
+                array('name' => 'New Question', 'link' => 'newQuestion', 'className' => 'dropdown-item inactive'),
+            );
+        }
     }
 
     function set_active($menutitle) {
