@@ -21,12 +21,12 @@
      <div class="form">
         <form action="" method="POST">
             <div class="form-group">
-                <label for="roomField" id = "roomNum"><b>Room number </b></label>
-                <input class=inputController type="number" min="0" placeholder="Enter room number" name="room_number" required="">
+                <label for="roomField" id = "roomNum"><b>Kamernummer </b></label>
+                <input class=inputController type="number" min="0" placeholder="Vul je kamernummer in" name="room_number" required="">
                 <?php echo form_error('room_number','<span class="help-block">','</span>'); ?>
             </div>
             <div class="form-group">
-                <input id="loginButton" name="loginResident" type="submit" value="Login">
+                <input id="loginButton" name="loginResident" type="submit" value="Inloggen">
             </div>
         </form>
      </div>
@@ -37,6 +37,7 @@
       if($residentNames){
       foreach ($residentNames as $resident){?>
           <div>
+
 
           <form method="post">
 
@@ -62,9 +63,5 @@
           </footer>
      </div>
 </div>
-
-
-
-
 </body>
 </html>

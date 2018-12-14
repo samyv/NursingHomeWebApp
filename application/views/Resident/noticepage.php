@@ -12,26 +12,21 @@
     <div id="name">Grace Age</div><br>
 
     <div id="praise">
-        You already answered all the questions!<br>
-        Come back tomorrow.<br>
-        Thank you!
+        Je hebt de vragen al beantwoord!<br>
+        Kom morgen terug.<br>
+        Dankjewel!
     </div>
 
-    <div id="note">Press the button below to go to the home screen.</div>
+    <div id="note">Druk op de knop beneden om terug te keren.</div>
 
 
     <div id="home_btn">
-        <button id="home" onclick="location.href='index'">Home</button>
+        <button id="home" onclick="location.href='index'">Startscherm</button>
     </div>
 
     <div id="previous_btn">
-        <button id="previous" onclick="location.href = '<?=base_url();?>resident/tutorialpage'">Previous</button>
+        <button id="previous" onclick="location.href = '<?=base_url();?>resident/tutorialpage'">Vorige</button>
     </div>
-    <div id="footer">
-        <footer>
-            <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-            </p>
-        </footer>
     </div>
 </div>
 
