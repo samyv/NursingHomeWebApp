@@ -36,20 +36,15 @@
                 </div>
             </li>
 
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-bell"></i><span class="badge badge-warning">2</span>
+            <li class="nav-item">
+                <a class="nav-link" href="#" id="notification" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i><span class="badge badge-warning">2</span>
                 </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {dropdown_menu_items}
-                    <a href="{link}" class="{className}">{name}</a>
-                    {/dropdown_menu_items}
-                </div>
             </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="fa fa-language"></i>
+                    <i class="fa-2x fas fa-language"></i>
                 </a>
                 <?php
                 // set pathname from where we came from
