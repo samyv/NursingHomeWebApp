@@ -6,7 +6,8 @@
     <link href="<?= base_url() ?>assets/css/sectionPage.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
 <div class="grid-container">
     <div id="header">
         <div id="title">GraceAge</div>
@@ -37,5 +38,13 @@
 
 
 </div>
+<script>
+	$(document).ready(function () {
 
+		// responsiveVoice.speak(question);
+		var string = "klapklapklapklapklap";
+		responsiveVoice.speak(string, "Dutch Female");
+	});
+
+</script>
 </body>

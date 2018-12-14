@@ -219,6 +219,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_message('email_check', 'The given email already exists.');
             return FALSE;
         } else {
+
             return TRUE;
         }
     }
@@ -261,7 +262,6 @@ class Caregiver extends CI_Controller
 
     public function landingPage()
     {
-        print_r($_SESSION);
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -324,6 +324,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if($this->form_validation->run() == true){
+            	echo "form validation correct";
                 $dataResident = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
                     'lastname' => strip_tags($this->input->post('lastname')),
@@ -337,7 +338,6 @@ class Caregiver extends CI_Controller
                     'cp_phone' =>strip_tags($this->input->post('cp_phone')),
                 );
                 // Define file rules
-
                 $config['upload_path']          = './upload/';
                 $config['allowed_types']        = 'jpg|jpeg';
                 $config['max_size']             = 100;
@@ -465,7 +465,7 @@ class Caregiver extends CI_Controller
                     'phonenumber' => strip_tags($this->input->post('phonenumber')),
                 );
             }
-            print_r($dataContactperson);
+            //print_r($dataContactperson);
             $this->residents->updateContactPerson($dataContactperson);
         }
 
@@ -555,7 +555,7 @@ class Caregiver extends CI_Controller
         );
         if(isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
-        print_r(json_encode($idNote->result()));
+        //print_r(json_encode($idNote->result()));
         return json_encode($idNote->result());
     }
 
@@ -710,7 +710,7 @@ class Caregiver extends CI_Controller
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
-        print_r(base64_encode($row[0]['picture']));
+        //print_r(base64_encode($row[0]['picture']));
         return base64_encode($row[0]['picture']);
     }
 
@@ -723,7 +723,7 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
+            //print_r($result);
             return $result;
         }
     }
@@ -749,7 +749,7 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()),true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result,$max));
-                print_r($result);
+                //print_r($result);
             }
 
 

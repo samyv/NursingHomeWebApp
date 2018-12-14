@@ -26,16 +26,14 @@ class Resident extends CI_Controller
     {
         $data['page_title'] = 'Login resident | GraceAge';
         $data['residentNames'] = array();
-        if ($this->session->userdata('isUserLoggedIn')) {
-            redirect('account');
-        }
+//        if($this->session->userdata('isUserLoggedIn')){
+//            redirect('account');
+//        }
 
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
             $this->form_validation->set_rules('room_number', 'Room number', 'required');
             if ($this->form_validation->run() == true) {
-//
-
                 $cond = array();
                 $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
                 $cond['where'] = array('Resident.room' => $this->input->post('room_number'));
@@ -282,5 +280,15 @@ class Resident extends CI_Controller
 
         echo json_encode($data);
     }
+    public function loginQr($contentt){
+		$residentInRoom =json_decode(json_encode($this->residents->checkQrCode($contentt)),true);
+		$residentInRoom = $residentInRoom[0];
+		if($residentInRoom){
+			$_SESSION['Resident']=$residentInRoom;
+			$_SESSION['isResidentLoggedIn'] = true;
+//			redirect('Resident/tutorial');
+		}
+	}
+
 
 }

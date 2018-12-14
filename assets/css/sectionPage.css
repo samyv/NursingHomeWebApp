@@ -1,6 +1,7 @@
 body {
     margin:0;
     font-family: Verdana;
+    background-color: #FBFFF9;
 }
 
 .grid-container{
@@ -97,10 +98,23 @@ body {
 #continuebtn{
     height: 1.5em;
     color: black;
-    /*background-color: #A5DC86;*/
-    /*box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);*/
     font-size: 2em;
-    align-text: center;
+
+    display: inline-block;
+    margin-bottom: 0.5em;
+    width: 4.5em;
+    background-color: #e4e4e4;
+    color: rgba(0, 0, 0, 0.6);
+    font-weight: normal;
+    text-align: center;
+    text-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition:    all 0.1s ease-in-out;
+    -o-transition:      all 0.1s ease-in-out;
+    transition:         all 0.1s ease-in-out;
 }
 #footer{
     grid-area: footer;

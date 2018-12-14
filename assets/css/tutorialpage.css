@@ -1,16 +1,15 @@
 body{
     margin : 0;
     font-family: Verdana;
+    background-color: #FBFFF9;
 }
 
 
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 0.7fr 4.3fr 1fr;
+    grid-template-rows: 4.3fr 1fr;
     grid-template-areas:
-            "names names names names names names names names names names names names"
-            ". . note note note note note note note note . ."
             "img img img img img img img img img img img img"
             ". . . btn btn btn btn btn btn . . .";
     width: 100vw;
@@ -61,7 +60,7 @@ body{
 }
 
 video{
-    width: 90%;
+    width: 92%;
 }
 
 

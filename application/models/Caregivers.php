@@ -89,7 +89,7 @@ Class Caregivers extends CI_Model
 		$key = $data['key'];
 		$presql = "SELECT * FROM a18ux02.NursingHome WHERE NursingHome.NursingHomeID =".$nursingHomeID." AND NursingHome.key = '$key';";
 		$check = json_decode(json_encode($this->db->query($presql)->result(),true));
-		print_r(json_decode(json_encode($check)),true);
+		//print_r(json_decode(json_encode($check)),true);
 		//insert user data to users table
 		$insert = null;
 		if(sizeof(json_decode(json_encode($check),true)) >0){
@@ -446,7 +446,7 @@ Class Caregivers extends CI_Model
 		$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
 		$result = $this->db->query($sql);
 		$row = $result->row();
-		print_r($row);
+		//print_r($row);
 		$email_code = md5((string)$row->created);
 
 		$this->email->set_mailtype('html');
