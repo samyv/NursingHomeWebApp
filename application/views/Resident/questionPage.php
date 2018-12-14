@@ -28,6 +28,8 @@
         </div>
     </div>
 
+    <div id="index">{index}</div>
+
     <div id="question">{question}</div>
 
     <div id="answers">
@@ -53,7 +55,7 @@
         </div>
     </div>
     <div id="previous">
-        <button id="previousbtn">Previous</button>
+        <button id="previousbtn">Vorige</button>
     </div>
     <div id="footer">
         <footer>
@@ -172,33 +174,8 @@
             }
         });
 
-        $('#answer5').click(async function() {
-            updateNewAns(index,5);
-            if(nextQuestion != -1) {
-                await sleep(awaitTime);
-                if(currentType != nextType){
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
-                } else {
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
-                }
-            } else {
-                window.location.href = '<?=base_url();?>resident/finalpage';
-            }
-        });
 
-        $('#previous').click(async function(){
-            if(index > 1) {
-                index=previousQuestion;
-                window.location.href = '<?=base_url();?>resident/questionpage/'+index;
-            } else {
-                window.location.href = '<?=base_url();?>resident/tutorialpage'
-            }
-
-        });
-    });
 </script>
-
+<script src="<?=base_url();?>assets/js/questionpage.js">
 </body>
 </html>

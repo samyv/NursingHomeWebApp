@@ -32,7 +32,7 @@
         <div class="modal-header">
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Contact information</h4>
+            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo($this->lang->line('title contact information'));?></h4>
 
         </div>
 

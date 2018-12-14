@@ -19,9 +19,9 @@
     <div id="subtitle">
         <?php
         if ($sectionID == 1) {
-            echo "Let's Start!";
+            echo "Laten we beginnen!";
         } else {
-            echo "Good Job!";
+            echo "Goed gedaan!";
         }
         ?></div>
 
@@ -35,12 +35,7 @@
         <button id="continuebtn" onclick="location.href='<?= base_url(); ?>resident/questionpage/<?= $index ?>'">Continue
         </button>
     </div>
-    <div id="footer">
-        <footer>
-            <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-            </p>
-        </footer>
-    </div>
+
 
 </div>
 <script>
