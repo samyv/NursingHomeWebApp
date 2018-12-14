@@ -15,7 +15,7 @@
         <div id="subname">Providing better care</div>
     </div>
 
-    <div id="note">Watch the tutorial video below to see how to log in</div>
+    <div id="note">Bij vragen of onduidelijkheid, bekijk onderstaande video</div>
 
     <div id="video">
         <video src="<?=base_url();?>assets/videos/tutorial.mp4" controls="controls" autoplay="autoplay">The browser does not support the video.</video>
@@ -23,7 +23,7 @@
 
 
     <div id="btn">
-        <button id="startQuestionnaire" onclick="location.href='<?=base_url();?>Resident/startQuestionnaire'">Skip tutorial</button>
+        <button id="startQuestionnaire" onclick="location.href='<?=base_url();?>Resident/startQuestionnaire'">Start vragenlijst</button>
     </div>
 </div>
 

@@ -244,5 +244,21 @@ class Resident extends CI_Controller
         $this->load->view('Resident/noticepage');
     }
 
+    public function getParameters($index){
+
+        $data = array();
+
+        $data['currentType'] = $this->QuestionModel->getQuestionType($index);
+        $data['previousQuestion'] = $this->QuestionModel->previousQuestion($index);
+        $data['nextQuestion'] = $this->QuestionModel->nextQuestion($index);
+        if($data['nextQuestion'] != -1) {
+            $data['nextType'] = $this->QuestionModel->getQuestionType($index + 1);
+
+        } else {
+            $data['nextType'] = $data['currentType'];
+        }
+
+        echo json_encode($data);
+    }
 
 }

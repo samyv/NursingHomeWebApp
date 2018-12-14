@@ -27,6 +27,8 @@
         </div>
     </div>
 
+    <div id="index">{index}</div>
+
     <div id="question">{question}</div>
 
     <div id="answers">
@@ -63,135 +65,8 @@
 </div>
 
 
-<script>
-    function sleep(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms))
-    }
+<script src="<?=base_url();?>assets/js/questionpage.js">
 
-    $(document).ready(function () {
-        let awaitTime = 200;
-        let index = <?= $index?>;
-        let currentType = <?= $currentType?>;
-        let nextType = <?= $nextType?>;
-        let previousQuestion = <?= $previousQuestion?>;
-        let nextQuestion = <?= $nextQuestion?>;
-
-
-        function transOldAnswer() {
-            $.ajax({
-                url: '<?=base_url();?>Resident/getOldAnswer',
-                method: "POST",
-                data: {index: index},
-                success: function (answer) {
-                    $('#answer' + answer).prop('checked', true);
-                }
-            });
-        }
-
-        transOldAnswer();
-
-        function updateNewAns($index, $answer) {
-            $.ajax({
-                url: '<?=base_url();?>Resident/update',
-                method: "POST",
-                data: {
-                    index: $index,
-                    answer: $answer,
-                }
-            });
-        }
-
-
-        $('#answer1').click(async function(){
-            updateNewAns(index,1);
-            if(nextQuestion != -1) {
-                await sleep(awaitTime);
-                if(currentType != nextType){
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
-                } else {
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
-                }
-            } else {
-                window.location.href = '<?=base_url();?>resident/finalpage';
-            }
-        });
-
-        $('#answer2').click(async function(){
-            updateNewAns(index,2);
-            if(nextQuestion != -1) {
-                await sleep(awaitTime);
-                if(currentType != nextType){
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
-                } else {
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
-                }
-            } else {
-                window.location.href = '<?=base_url();?>resident/finalpage';
-            }
-        });
-
-        $('#answer3').click(async function(){
-            updateNewAns(index,3);
-            if(nextQuestion != -1) {
-                await sleep(awaitTime);
-                if(currentType != nextType){
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
-                } else {
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
-                }
-            } else {
-                window.location.href = '<?=base_url();?>resident/finalpage';
-            }
-        });
-
-        $('#answer4').click(async function(){
-            updateNewAns(index,4);
-            if(nextQuestion != -1) {
-                await sleep(awaitTime);
-                if(currentType != nextType){
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
-                } else {
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
-                }
-            } else {
-                window.location.href = '<?=base_url();?>resident/finalpage';
-            }
-        });
-
-        $('#answer5').click(async function() {
-            updateNewAns(index,5);
-            if(nextQuestion != -1) {
-                await sleep(awaitTime);
-                if(currentType != nextType){
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/section/'+nextType+'/'+index;
-                } else {
-                    index = nextQuestion;
-                    window.location.href='<?=base_url();?>resident/questionpage/'+index;
-                }
-            } else {
-                window.location.href = '<?=base_url();?>resident/finalpage';
-            }
-        });
-
-        $('#previous').click(async function(){
-            if(index > 1) {
-                index=previousQuestion;
-                window.location.href = '<?=base_url();?>resident/questionpage/'+index;
-            } else {
-                window.location.href = '<?=base_url();?>resident/tutorialpage'
-            }
-
-        });
-    });
 </script>
 
 </body>

@@ -170,3 +170,27 @@ button[type=submit]{
 	}
 }
 
+@media screen and (max-width: 1000px){
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: min-content min-content min-content;
+        grid-template-areas:
+                ". picture picture picture picture picture . info info info info ."
+                ". picture picture picture picture picture . info info info info ."
+                ". visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation ."
+                ". noteheader noteheader noteheader noteheader . . . . . print ."
+                ". hint hint hint hint . . . . . print ."
+
+    }
+
+    #information-contactperson-modal-content{
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+    }
+}
