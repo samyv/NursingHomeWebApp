@@ -95,7 +95,7 @@
     </div>
 </div>
 
-
+<script>
     $(document).ready(function () {
         $('#newNotebtn').click(function () {
             $new =("<form name=\"submitNotes\" class=\"existing form\" action=\"\">\n" +
