@@ -168,7 +168,7 @@ class Caregiver extends CI_Controller
 			$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|callback_email_check|xss_clean');
 			$this->form_validation->set_rules('password', 'password', 'trim|required|min_length[8]|max_length[50]');
 			$this->form_validation->set_rules('conf_password', 'confirm password', 'trim|required|matches[password]');
-			$this->form_validation->set_rules('key', 'key', 'trim|required|callback_email_check['. strip_tags($this->input->post('nursingHome')) . ']');
+			$this->form_validation->set_rules('key', 'key', 'trim|required|callback_key_check['. strip_tags($this->input->post('nursingHome')) . ']');
 			if ($this->form_validation->run() == true) {
 				$userData = array(
 					'firstname' => strip_tags($this->input->post('firstname')),
@@ -179,8 +179,8 @@ class Caregiver extends CI_Controller
 					'nursingHome' =>  strip_tags($this->input->post('nursingHome'))
 				);
 				$insert = $this->caregivers->insert($userData);
-				$this->caregivers->send_validation_email($userData);
 				if ($insert) {
+                    $this->caregivers->send_validation_email($userData);
 					$this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
 					redirect('index.php');
 				} else {
@@ -231,7 +231,7 @@ class Caregiver extends CI_Controller
 		} else if ($this->caregivers->checkSupervisorKey($nursingHomeID,$key)) {
 			$flag = TRUE;
 		} else {
-			$this->form_validation->set_message('email_check', 'Key is incorrect');
+			$this->form_validation->set_message('key_check', 'Key is incorrect.');
 		}
 		return $flag;
     }
@@ -323,6 +323,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if($this->form_validation->run() == true){
+
                 $dataResident = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
                     'lastname' => strip_tags($this->input->post('lastname')),
@@ -346,8 +347,7 @@ class Caregiver extends CI_Controller
                 $this->load->library('upload',$config);
                 $imagename = 'no-img.jpg';
                 if (!$this->upload->do_upload('imageURL')) {
-                    $error = array('error' => $this->upload->display_errors());
-                    echo $this->upload->display_errors();
+                    $data['error'] = array('error' => $this->upload->display_errors('<span>','</span>'));
                 } else {
                     $data = $this->upload->data();
                     $dataResident['filepath'] = $data['full_path'];
@@ -363,6 +363,7 @@ class Caregiver extends CI_Controller
                 }
             }
         }
+
         $data['resident'] = $dataResident;
         //load the view
         $this->parser->parse('Caregiver/newResident', $data);
@@ -696,7 +697,7 @@ class Caregiver extends CI_Controller
 
         $checkEmail = $this->residents->lookUp($str);
         if (count($checkEmail )> 1) {
-            $this->form_validation->set_message('cp_check', 'There are already 2 residents in that room');
+            $this->form_validation->set_message('room_check', 'There are already 2 residents in that room.');
             return FALSE;
         } else {
             return TRUE;

@@ -115,7 +115,7 @@
         <br>
         <div class="total_score">
             <label id="total_score_label"></label>
-            <progress id="total_score_bar" max="265" style="display: none"></progress>
+            <div class="progress-bar" role="progressbar" id="total_score_bar" aria-valuemax="265" style="display: none"></div>
         </div>
 
         <div id="chart" name="chart">

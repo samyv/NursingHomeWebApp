@@ -46,6 +46,11 @@
             <?php echo form_error('cp_phone','<span class="help-block">','</span>'); ?>
             <?php echo form_error('cp_first_name','<span class="help-block">','</span>'); ?>
             <?php echo form_error('room','<span class="help-block">','</span>'); ?>
+            <?php if(isset($error)){
+                foreach ($error as $err){
+                    echo $err;
+                }
+            }?>
         </div>
         <div class = "resident">
             <h3>Resident information</h3>
@@ -105,7 +110,9 @@
         <div class="picture_input">
             <div class="form-group">
                 <b>Upload resident picture</b>
-                <input type="file" name="imageURL"  size="20">
+                <label class="file-upload"> choose a file
+                </label>
+                <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
             </div>
         </div>
 
@@ -162,6 +169,11 @@
 		init();
 
 	});
+
+    function getFile(){
+        document.getElementById("upfile").click();
+    }
+
     function checkChoice(val){
         var element=document.getElementById('relation');
         if(val=='Choose your relation'||val=='other')
@@ -265,6 +277,14 @@
 			$('[name="phone"]').val("");
 		})
 	}
+
+    function sub(obj){
+        var file = obj.value;
+        var fileName = file.split("\\");
+        document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
+        document.myForm.submit();
+        event.preventDefault();
+    }
 	$(document).ready(function () {
 		$('#CIModal').click(function(){
 			$('#information-contactperson-modal-content').fadeIn('fast');
@@ -273,6 +293,12 @@
 		$('#closemodal').click(function () {
 			$('#information-contactperson-modal-content').fadeOut('fast');
 		})
+
+        $('.file-upload').click(function () {
+            $('#file_upload').click();
+        })
+
+
 	});
 
 </script>

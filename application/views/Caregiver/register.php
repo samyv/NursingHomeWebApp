@@ -21,6 +21,13 @@
 			<h1>Register</h1>
 		</div>
 		<div class="register">
+            <?php
+            if(!empty($success_msg)){
+                echo '<p class="statusMsg">'.$success_msg.'</p>';
+            }elseif(!empty($error_msg)){
+                echo '<p class="statusMsg">'.$error_msg.'</p>';
+            }
+            ?>
 			<form action="" method="POST">
 				<label for="nursinghome"><b>Nursing Home:</b></label>
 				<div class="form-group">
@@ -62,7 +69,7 @@
 				<br>
 				<div class="form-group">
 					<input type="text" class="form-control" placeholder="key" name="key" required="">
-					<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
+					<?php echo form_error('key','<span class="help-block">','</span>'); ?>
 				</div>
 				<div class="form-group" id="submitButtons">
 					<input type="submit" name="regisSubmit" class="btn-primary" value="Register"/>
