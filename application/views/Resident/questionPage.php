@@ -69,12 +69,12 @@
     }
 
     $(document).ready(function () {
-        var awaitTime = 200;
-        var index = <?= $index?>;
-        var currentType = <?= $currentType?>;
-        var nextType = <?= $nextType?>;
-        var previousQuestion = <?= $previousQuestion?>;
-        var nextQuestion = <?= $nextQuestion?>;
+        let awaitTime = 200;
+        let index = <?= $index?>;
+        let currentType = <?= $currentType?>;
+        let nextType = <?= $nextType?>;
+        let previousQuestion = <?= $previousQuestion?>;
+        let nextQuestion = <?= $nextQuestion?>;
 
 
         function transOldAnswer() {
