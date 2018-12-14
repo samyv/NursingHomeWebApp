@@ -42,3 +42,20 @@ html,body{
     grid-area: buttons;
     align-self: center;
 }
+
+@media screen and (max-width: 700px) {
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 0.5fr 5em 1.2fr 5em 1.2fr 1.2fr;
+        grid-template-areas:
+                "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+                ". section section section section section section section section section section ."
+                ". section_input section_input section_input section_input section_input section_input section_input section_input section_input section_input ."
+                ". question question question question question question question question question question ."
+                ". question_input question_input question_input question_input question_input question_input question_input question_input question_input question_input ."
+                ". buttons buttons buttons . . . . . . . ."
+
+    }
+}

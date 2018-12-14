@@ -324,9 +324,9 @@ html,body{
     cursor: pointer;
 }
 
-@media screen and (max-width: 1600px) {
+@media screen and (max-width: 1000px) {
     .room{
-        width: 33%;
+        width: 50%;
     }
 
     .roomContainer{
@@ -337,9 +337,20 @@ html,body{
     }
 }
 
-@media screen and (max-width: 1100px){
+@media screen and (max-width: 700px){
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 10em 1fr;
+        grid-template-areas:
+                ". title title title title title title title title title title ."
+        ". rooms rooms rooms rooms rooms rooms rooms rooms rooms rooms .";
+
+    }
+
     .room{
-        width: 50%;
+        width: 100%;
     }
 
     .roomContainer{
