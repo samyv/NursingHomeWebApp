@@ -24,9 +24,9 @@ class Resident extends CI_Controller
     public function index(){
         $data['page_title'] = 'Login resident | GraceAge';
         $data['residentNames'] = array();
-        if($this->session->userdata('isUserLoggedIn')){
-            redirect('account');
-        }
+//        if($this->session->userdata('isUserLoggedIn')){
+//            redirect('account');
+//        }
 
         //get the data from the residents from a certain room, put it in 2 session variables.
         if($this->input->post('loginResident')){
@@ -243,6 +243,16 @@ class Resident extends CI_Controller
     public function noticePage(){
         $this->load->view('Resident/noticepage');
     }
+
+    public function loginQr($contentt){
+		$residentInRoom =json_decode(json_encode($this->residents->checkQrCode($contentt)),true);
+		$residentInRoom = $residentInRoom[0];
+		if($residentInRoom){
+			$_SESSION['Resident']=$residentInRoom;
+			$_SESSION['isResidentLoggedIn'] = true;
+//			redirect('Resident/tutorial');
+		}
+	}
 
 
 }

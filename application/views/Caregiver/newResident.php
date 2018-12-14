@@ -247,10 +247,10 @@
 			var contact = database.filter(e => e.idContactInformation == test)[0];
 			console.log(contact)
 			$('#information-contactperson-modal-content').fadeOut('fast');
-			$('[name="cp_first_name"]').val(contact.firstname);
-			$('[name="cp_last_name"]').val(contact.lastname);
-			$('[name="cp_email"]').val(contact.email);
-			$('[name="cp_phone"]').val(contact.phonenumber);
+			$('[name="cp_first_name"]').setAttribute("value",contact.firstname);
+			$('[name="cp_last_name"]').setAttribute("value",contact.lastname);
+			$('[name="cp_email"]').setAttribute("value",contact.email);
+			$('[name="cp_phone"]').setAttribute("value",contact.phonenumber);
 			$('.xbut').toggle();
 			$('#CIModal').hide();
 		})

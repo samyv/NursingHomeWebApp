@@ -219,6 +219,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_message('email_check', 'The given email already exists.');
             return FALSE;
         } else {
+
             return TRUE;
         }
     }
@@ -324,6 +325,7 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if($this->form_validation->run() == true){
+            	echo "form validation correct";
                 $dataResident = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
                     'lastname' => strip_tags($this->input->post('lastname')),
@@ -337,7 +339,6 @@ class Caregiver extends CI_Controller
                     'cp_phone' =>strip_tags($this->input->post('cp_phone')),
                 );
                 // Define file rules
-
                 $config['upload_path']          = './upload/';
                 $config['allowed_types']        = 'jpg|jpeg';
                 $config['max_size']             = 100;
