@@ -119,7 +119,7 @@ class Residents extends CI_Model
 
     public function getNotes($id)
     {
-        $resNotes=array();
+        $resNotes=[];
         $sql = "SELECT * FROM a18ux02.Notes WHERE idResident= " . $id;
         $result = $this->db->query($sql);
         if (!empty($result)) {
