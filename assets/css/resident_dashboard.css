@@ -3,10 +3,12 @@ body{
     margin: 0;
     width: 100%;
 }
+
 html,body {
     background-color: #f5fafa;
-
 }
+
+/*************GRID CSS + VISUALISATION*************/
 
 .grid-container {
 	display: grid;
@@ -18,22 +20,27 @@ html,body {
 	". . . . . noteheader noteheader . . . print ."
 	". info info info . hint hint hint . . . ."
 }
+
 .picture {
 	grid-area: picture;
 	margin-top: 10px;
 }
 
-div.tooltip {
-    position: absolute;
-    text-align: center;
-    width: 200px;
-    height: min-content;
-    padding: 2px;
-    font: 12px;
-    background: #66a5ad;
-    border: 0px;
-    pointer-events: none;
-    color: white;
+.picture img{
+	width: 100%;
+}
+
+.name {
+	font-weight: bold;
+	font-size: x-large;
+}
+
+.info {
+	grid-area: info;
+}
+
+.total_score{
+	grid-area: total;
 }
 
 .scores_per_category{
@@ -41,17 +48,21 @@ div.tooltip {
 	margin-top: 1em;
 }
 
-.picture img{
+.selectQuestionnaires{
+	grid-area: select;
+}
+
+#total_score_bar,#total_score_label{
+	grid-area: total;
+}
+
+.notes{
+	grid-area: hint;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	height: 100%;
 	width: 100%;
-}
-
-.info {
-	grid-area: info;
-}
-
-.name {
-	font-weight: bold;
-	font-size: x-large;
 }
 
 .visualisation {
@@ -70,20 +81,16 @@ div.tooltip {
 							"graph graph graph graph . cat"
 }
 
-.total_score{
-	grid-area: total;
+#chart{
+	grid-area: graph;
+}
+
+.print {
+	grid-area: print;
 }
 
 .score_per_category{
 	margin: 0;
-}
-
-.selectQuestionnaires{
-	grid-area: select;
-}
-
-#total_score_bar,#total_score_label{
-	grid-area: total;
 }
 
 .chart {
@@ -91,33 +98,18 @@ div.tooltip {
 	height: 10px;
 }
 
-#chart{
-	grid-area: graph;
-}
-
 .selectQuestionnaire{
 	width: min-content;
 	width: -moz-min-content;
 }
 
-.notes{
-	grid-area: hint;
-	display: flex;
-	flex-wrap: wrap;
-	flex-direction: row;
-	height: 100%;
-	width: 100%;
-}
+/***********BUTTONS + PRINT************/
 .btn{
 	width: 100%;
 	background-color: #003B46;
 	color: white;
 	border-radius: 0;
 	margin: 0 1em 0 0;
-}
-
-.print {
-	grid-area: print;
 }
 
 button[type=submit]{
@@ -134,6 +126,8 @@ button[type=submit]{
 	display: inline;
 }
 
+
+/*****MODALS******/
 .modal{
 	display: none;
 }
@@ -141,6 +135,16 @@ button[type=submit]{
 .modal-header {
 	display: block !important;
 	align-items: center !important;
+}
+
+#modal-content{
+	display: none;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 25%;
 }
 
 .modal-footer {
@@ -182,7 +186,28 @@ button[type=submit]{
 	width: 25%;
 }
 
+#information-contactperson-modal-content{
+	display: none;
 
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 25%;
+
+}
+
+#qr-modal-content{
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 25%;
+}
+
+
+/*OTHER SCREENS**/
 @media print {
 	.modal{
 		display: block;
@@ -225,3 +250,4 @@ button[type=submit]{
         width: 40%;
     }
 }
+
