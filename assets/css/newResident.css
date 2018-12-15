@@ -156,6 +156,10 @@ input[type=submit]:hover,input[type=button]:hover{
 	width: 50%;
 }
 
+#existingCP{
+    display: none;
+}
+
 .xbut{
 	display: none;
 }
