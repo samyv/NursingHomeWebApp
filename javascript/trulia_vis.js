@@ -13,11 +13,7 @@ const buckets = 9
 const colors = ["#ff6666","#ffb366","#ffff66","#b3ff66","#66ff66"]
 const times = [1,2,3,4,5,6,7,8,9,10,11]
 
-const svg = d3.select("#chart").append("svg")
-	.attr("width", width + margin.left + margin.right)
-	.attr("height", height + margin.top + margin.bottom)
-	.append("g")
-	.attr("transform", "translate("+ (margin.left) + "," + margin.top + ")");
+
 
 
 
@@ -32,6 +28,17 @@ Array.prototype.min = function() {
 /****/
 const heatmapChart = function(p_data, sections){
 
+
+    $svg = $("#chart").children()
+    if($svg.length !== 0){
+        $svg.remove()
+    }
+
+    const svg = d3.select("#chart").append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+        .append("g")
+        .attr("transform", "translate("+ (margin.left) + "," + margin.top + ")");
 
     p_data.forEach(function (d) {
     	d.answer = parseInt(d.answer);
