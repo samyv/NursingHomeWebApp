@@ -86,23 +86,20 @@ Class Caregivers extends CI_Model
 		$email = $data['email'];
 		$password = $data['password'];
 		$nursingHomeID = $data['nursingHome'];
-		$key = $data['key'];
-		$presql = "SELECT * FROM a18ux02.NursingHome WHERE NursingHome.NursingHomeID =".$nursingHomeID." AND NursingHome.key = '$key';";
-		$check = json_decode(json_encode($this->db->query($presql)->result(),true));
-		print_r(json_decode(json_encode($check)),true);
-		//insert user data to users table
-		$insert = null;
-		if(sizeof(json_decode(json_encode($check),true)) >0){
-			$sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID)";
-			$insert = $this->db->query($sql);
-		}
-		//return the status
-		echo $insert;
-		if ($insert) {
-			return $insert;
-		} else {
-			return false;
-		}
+
+		$key = $data[key];
+
+		if($this->checkSupervisorKey($nursingHomeID,$key)){
+            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome,supervisor) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID,'1')";
+        }else{
+            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID)";
+        }
+        $insert = $this->db->query($sql);
+        if($insert){
+            return $insert;
+        }else{
+            return true;
+        }
 	}
 
 	public function checkKey($nursingHomeID,$key)
@@ -115,6 +112,17 @@ Class Caregivers extends CI_Model
 			return false;
 		}
 	}
+
+    public function checkSupervisorKey($nursingHomeID,$key)
+    {
+        $presql = "SELECT * FROM a18ux02.NursingHome WHERE NursingHome.NursingHomeID =" . $nursingHomeID . " AND NursingHome.supervisorkey = '$key';";
+        $check = json_decode(json_encode($this->db->query($presql)->result(), true));
+        if(sizeof($check)> 0){
+            return true;
+        } else {
+            return false;
+        }
+    }
 	public function modify($data = array())
 	{
 		$idCaregiver = $data['idCaregiver'];
@@ -446,7 +454,7 @@ Class Caregivers extends CI_Model
 		$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
 		$result = $this->db->query($sql);
 		$row = $result->row();
-		print_r($row);
+		//print_r($row);
 		$email_code = md5((string)$row->created);
 
 		$this->email->set_mailtype('html');
@@ -456,7 +464,7 @@ Class Caregivers extends CI_Model
 		$this->email->subject('Activate your account');
 
 		$message = '<p> Dear ' . $name . ',</p>';
-		$message .= '<p><a href="' . base_url() . 'Caregiver/verifyEmail/' . $name . '/' . $email_code . '">click here</a> to verify your email address</p>';
+		$message .= '<p><a href="' . base_url() . 'Caregiver/verifyEmail/' . $name . '/' . $email_code . '">Click here</a> to verify your email address.</p>';
 		$message .= '<p> Thanks</p>';
 
 		$this->email->message($message);

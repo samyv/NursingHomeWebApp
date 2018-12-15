@@ -101,7 +101,7 @@ html,body{
     grid-area: buttons;
 }
 
-input[type=submit],input[type=button]{
+input[type=submit],input[type=button], .file-upload{
     float: left;
     background-color: #66a5ad;
     color: white;

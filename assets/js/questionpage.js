@@ -39,7 +39,7 @@ function getParameters(index, callback){
 
 
 $(document).ready(function () {
-    let awaitTime = 100;
+    let awaitTime = 50;
     let index = document.getElementById("index").innerText;
 
 
@@ -144,7 +144,7 @@ $(document).ready(function () {
             index=previousQuestion;
             window.location.href = ''+index;
         } else {
-            window.location.href = '../tutorialpage'
+            window.location.href = '../tutorial'
         }
     });
 

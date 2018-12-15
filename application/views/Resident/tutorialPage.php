@@ -10,13 +10,6 @@
 
 <div class="grid-container">
 
-    <div id="names">
-        <div id="name">GraceAge</div><br>
-        <div id="subname">Providing better care</div>
-    </div>
-
-    <div id="note">Bij vragen of onduidelijkheid, bekijk onderstaande video</div>
-
     <div id="video">
         <video src="<?=base_url();?>assets/videos/tutorial.mp4" controls="controls" autoplay="autoplay">The browser does not support the video.</video>
     </div>

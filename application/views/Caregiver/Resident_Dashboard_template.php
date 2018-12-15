@@ -8,16 +8,16 @@
 ?>
 <html>
 <head>
-	<title>{page_title}</title>
-	<link rel="stylesheet" href="<?php echo base_url()?>assets/css/transitions.css">
-	<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
-	<link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
-	<link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css'/>
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="http://d3js.org/d3.v4.js"></script>
-	<script src="<?php echo base_url();?>assets/js/notes.js"></script>
-	<script src="../javascript/qrcode.min.js"></script>
+    <title>{page_title}</title>
+    <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/transitions.css">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
+    <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
+    <link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css'/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="http://d3js.org/d3.v4.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/notes.js"></script>
+    <script src="../javascript/qrcode.min.js"></script>
 </head>
 <body>
 
@@ -32,7 +32,9 @@
         <div class="modal-header">
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo($this->lang->line('title contact information'));?></h4>
+            <h4 class="modal-title"><span
+                        class="glyphicon glyphicon-lock"></span><?php echo($this->lang->line('title contact information')); ?>
+            </h4>
 
         </div>
 
@@ -100,22 +102,35 @@
             <i class="fa fa-info-circle" style="color: #0c5460"></i>
             <a href="#" id="CIModal" style="color: #0c5460"> Info contactperson</a>
         </span>
-		<br>
-		<span class="qrcode"><a href="#" id="qrcodeModal">Generate Qr Code</a></span>
+        <br>
+        <span class="qrcode"><a href="#" id="qrcodeModal">Generate Qr Code</a></span>
 
-	</div>
+    </div>
     <div class="back_start"></div>
     <div class="visualisation">
+        <div class="selectQuestionnaires">
+            <label id="select_questionnaire">Select a questionnaire:</label>
+            <select class="custom-select selectQuestionnaire" style="width: min-content">
+                <?php foreach ($questionnaires as $questionnaire) { ?>
+                    <option value="<?php echo $questionnaire['idQuestionnaires']; ?>">
+                        <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y') ?>
+                    </option>
+                <?php } ?>
+            </select>
+        </div>
+        <br>
+        <div class="total_score">
+            <label id="total_score_label"></label>
+            <div class="progress-bar" role="progressbar" id="total_score_bar" aria-valuemax="265"
+                 style="display: none"></div>
+        </div>
+
         <div id="chart" name="chart">
         </div>
-        <label><br>Select a questionnaire:</label>
-        <select class="custom-select selectQuestionnaire" style="width: min-content">
-            <?php foreach ($questionnaires as $questionnaire) { ?>
-                <option value="<?php echo $questionnaire['idQuestionnaires']; ?>">
-                    <?php echo date_format(DateTime::createFromFormat('Y-m-d H:i:s.u', $questionnaire['timestamp']), 'd/m/Y') ?>
-                </option>
-            <?php } ?>
-        </select>
+        <div class="scores_per_category">
+
+        </div>
+
     </div>
     <div class="noteheader">
         <h2 class="noteheader">Notes</h2>
@@ -149,14 +164,15 @@
     </div>
 </div>
 <div class="modal-content" id="qr-modal-content">
-	<div class="modal-header">
-		<button type="button" class="close" id="qrclose" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Qrcode</h4>
-	</div>
-	<div class="info-contact">
-		<div id="qrcode"></div>
-		<button onclick="printQrcode()">Download Qrcode</button>
-	</div>
+    <div class="modal-header">
+        <button type="button" class="close" id="qrclose" data-dismiss="modal" aria-label="Close"><span
+                    aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Qrcode</h4>
+    </div>
+    <div class="info-contact">
+        <div id="qrcode"></div>
+        <button onclick="printQrcode()">Download Qrcode</button>
+    </div>
 </div>
 <div class='dialog-ovelay' role="alert">
     <div class='dialog'>
@@ -193,13 +209,13 @@
             $('#information-contactperson-modal-content').fadeOut('fast');
         })
 
-		$('#qrcodeModal').click(function(){
+        $('#qrcodeModal').click(function () {
             $('#qr-modal-content').fadeIn('fast');
         });
 
         $('#qrclose').click(function () {
             $('#qr-modal-content').fadeOut('fast');
-        })
+        });
 
         $('#changeInfo').click(changeInfo)
         $('#saveInfo').click(saveInfo)
@@ -224,6 +240,27 @@
     $(".selectQuestionnaire")
         .change(function () {
             $idQuestionnaire = $(".selectQuestionnaire option:selected").val();
+
+            $.ajax({
+                url: '<?php echo base_url();?>caregiver/getTotalScore/?idQuestionnaire=' + $idQuestionnaire,
+                dataType: 'json',
+                success: function (totalscore) {
+                    console.log(totalscore);
+                    $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
+                    $('#total_score_bar').attr("value", totalscore[0].total_score)
+                        .css("display", "inline");
+                }
+            });
+
+            $.ajax({
+                url: '<?php echo base_url();?>caregiver/getTotalScorePerCategory/?idQuestionnaire=' + $idQuestionnaire,
+                dataType: 'json',
+                success: function (totalscorepercat) {
+                    console.log(totalscorepercat);
+                }
+            });
+
+
             $.ajax({
                 url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire=' + $idQuestionnaire,
                 dataType: 'json',
@@ -232,54 +269,64 @@
                     drawChart(testdata);
                 }
             });
-	let qrstring = "<?php echo $resident['qrCode'];?>"
-	new QRCode(document.getElementById("qrcode"), qrstring);
-	function printQrcode() {
-		let img = $('#qrcode').children('img')[0];
-		let src = img.getAttribute('src');
-		var a = $("<a>")
-			.attr("href", src)
-			.attr("download", "<?php echo $resident['firstname'].'-'.$resident['lastname']?>-qrcode.png")
-		a[0].click();
-		a.remove();
-	}
+        });
+            let qrstring = "<?php echo $resident['qrCode'];?>"
+            new QRCode(document.getElementById("qrcode"), qrstring);
 
-        $(".selectQuestionnaire")
-            .change(function () {
-                $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-                $.ajax({
-                    url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
-                    dataType: 'json',
-                    success:function (array) {
-                        testdata = array;
-                        drawChart(testdata);
-                    }
+            function printQrcode() {
+                let img = $('#qrcode').children('img')[0];
+                let src = img.getAttribute('src');
+                var a = $("<a>")
+                    .attr("href", src)
+                    .attr("download", "<?php echo $resident['firstname'] . '-' . $resident['lastname']?>-qrcode.png")
+                a[0].click();
+                a.remove();
+            }
+
+            $(".selectQuestionnaire")
+                .change(function () {
+                    $idQuestionnaire = $(".selectQuestionnaire option:selected").val();
+                    $.ajax({
+                        url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire=' + $idQuestionnaire,
+                        dataType: 'json',
+                        success: function (array) {
+                            testdata = array;
+                            drawChart(testdata);
+                        }
+                    });
+
                 });
 
-        });
+            $idQuestionnaire = $(".selectQuestionnaire option:selected").val();
+            $.ajax({
+                url: '<?php echo base_url();?>caregiver/getTotalScore/?idQuestionnaire=' + $idQuestionnaire,
+                dataType: 'json',
+                success: function (totalscore) {
 
-        $idQuestionnaire = $( ".selectQuestionnaire option:selected" ).val();
-        $.ajax({
-            url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire='+$idQuestionnaire,
-            dataType: 'json',
-            success:function (array) {
-                testdata = array;
-                drawChart(testdata);
-            }
-        });
+                    console.log(totalscore);
+                    $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
+                    $('#total_score_bar').attr("value", totalscore[0].total_score)
+                        .css("display", "inline");
+                }
+            });
+            $.ajax({
+                url: '<?php echo base_url();?>caregiver/getTotalScorePerCategory/?idQuestionnaire=' + $idQuestionnaire,
+                dataType: 'json',
+                success: function (totalscorepercat) {
+                    totalscorepercat.forEach(function (element) {
+                        $(".scores_per_category").append('<label id="category' + element.questionType + '" class="score_per_category">score: ' + element.score_per_category + '</label><br>');
+                    });
 
-    function changeInfo(event){
-
-        if (document.getElementById('changeInfo').value == "Change info") {
-            document.getElementById('info-contact').style.display='none';
-            document.getElementById('info-contact-changed').style.display='block';
-            document.getElementById('changeInfo').value = "Save info";
-        } else {
-            document.getElementById('info-contact').style.display='block';
-            document.getElementById('info-contact-changed').style.display='none';
-            document.getElementById('changeInfo').value = "Change info";
-        }
-    }
+                }
+            });
+            $.ajax({
+                url: '<?php echo base_url(); ?>caregiver/getQuestionnaireResults/?idQuestionnaire=' + $idQuestionnaire,
+                dataType: 'json',
+                success: function (array) {
+                    testdata = array;
+                    drawChart(testdata);
+                }
+            });
 
 </script>
 </html>
