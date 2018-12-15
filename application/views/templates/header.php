@@ -21,11 +21,14 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ml-auto">
+
+	 		<!--HOME-->
             <li class="nav-item">
                 <a class="nav-link" href="<?=base_url()?>landingpage"><i class="fas fa-home"></i>
                     <?php echo ($this->lang->line('home'))?></a>
             </li>
 
+			<!--GO TO-->
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo ($this->lang->line('goto'))?></a>
@@ -36,12 +39,14 @@
                 </div>
             </li>
 
+			<!--NOTIFICATIONS-->
             <li class="nav-item">
-                <a class="nav-link" href="#" id="notification" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell"></i><span class="badge badge-warning">2</span>
+                <a class="nav-link" href="#" id="notification" href="<?=base_url()?>notificationView" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i><span class="badge badge-warning">5</span>
                 </a>
             </li>
 
+			<!--LANGUAGE-->
             <li class="nav-item dropdown">
                 <a class="nav-link" href="#" id="language" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <i class="fa-2x fas fa-language"></i>
@@ -58,10 +63,13 @@
                 </div>
             </li>
 
+			<!--SETTINGS-->
             <li class="nav-item">
                 <a class="nav-link" href="<?=base_url()?>account"><i class="fas fa-cog"></i>
                     <?php echo ($this->lang->line('settings'))?></a>
             </li>
+
+			<!--LOGOUT-->
             <li class="nav-item">
                 <a class="nav-link" id="logoutButton" href="<?=base_url()?>logout"><i class="fa fa-sign-out-alt"></i> Log out</a>
             </li>

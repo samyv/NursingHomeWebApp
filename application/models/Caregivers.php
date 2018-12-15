@@ -426,10 +426,23 @@ Class Caregivers extends CI_Model
 		$result = $this->db->query($sql)->result();
 		$resultarray = json_decode(json_encode($result),true);
 		$floorrow = $resultarray[0]['FK_Floorselect'];
-		// FIND FLOOR PREFERENCES
+
+		//FIND FLOOR PREFERENCES
 		$sql2 = "SELECT * FROM a18ux02.FloorNotification
 				 WHERE FloorNotificationID =".$floorrow.";";
 		$result2 = json_decode(json_encode($this->db->query($sql2)->result()),true);
+
+		//FIND NOTIFCATIONID's  THAT CAREGIVER HAS ALREADY SEEN
+		$sql = "SELECT FK_Notification FROM a18ux02.Caregiver_notifications WHERE FK_Caregiver =".$_SESSION['idCaregiver'].";";
+		echo $_SESSION['idCaregiver']."<br>";
+
+		$alreadySeenIdsArray = json_decode(json_encode($this->db->query($sql)->result()), true);
+		$alreadySeenIds = array();
+		foreach ($alreadySeenIdsArray as $item) {
+			array_push($alreadySeenIds,$item['FK_Notification']);
+		}
+
+		$whereSql = $this->generateWhereForNots($alreadySeenIds);
 		//FIND NOTIFICATIONS FOR EACH FLOOR
 		$floorNotifications = array();
 		$index = 0;
@@ -437,7 +450,8 @@ Class Caregivers extends CI_Model
 			if($key != 'FloorNotificationID') {
 				$index++;
 				if ($value == 1) {
-					$sql = "SELECT * FROM a18ux02.Notifications WHERE FK_FloorID =" . $index . ";";
+					$sql = "SELECT * FROM a18ux02.Notifications WHERE FK_FloorID =" . $index.$whereSql.";";
+					echo $sql;
 					$result2 = json_decode(json_encode($this->db->query($sql)->result()), true);
 					$floorNotifications[$key] = $result2;
 				}
@@ -446,6 +460,16 @@ Class Caregivers extends CI_Model
 		return $floorNotifications;
 	}
 
+	public function generateWhereForNots($alreadySeenIds){
+		$sql = '';
+			foreach($alreadySeenIds as $key){
+				$pre =' AND ';
+				$sql .= $pre;
+				$sql .="NotificationID"." != '".$key."'";
+
+			}
+			return $sql;
+	}
 	public function send_validation_email($data){
 		$this->load->library('email');
 		$email = $data['email'];
