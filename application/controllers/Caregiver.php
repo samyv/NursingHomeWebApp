@@ -319,7 +319,11 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean|callback_room_check');
             $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
-            $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            if($this->input->post('cp_existing')) {
+                $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            }else{
+                $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean');
+            }
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if($this->form_validation->run() == true){

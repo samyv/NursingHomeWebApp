@@ -11,7 +11,6 @@
 </head>
 
 <body>
-<form class ="fade-in" action="" method="post">
 <?php echo form_open_multipart('Caregiver/newResident');?>
 <div class="modal modal-content" id="information-contactperson-modal-content">
 	<div class="modal-header">
@@ -27,7 +26,7 @@
 		</div>
 	</div>
 </div>
-<form action="" method="post">
+<form action="" method="post" enctype=multipart/form-data>
     <div class="grid-container">
         <div class="form-errors">
             <?php if(isset($error_msg)){ ?>
@@ -128,7 +127,7 @@
             <b><?php echo ($this->lang->line('firstname'))?></b>
         </div>
         <div class="cp_first_name_input">
-            <input type="text" name="cp_first_name"  class = "contact form-control" placeholder="<?php echo ($this->lang->line('firstname'))?>" required=""
+            <input type="text" id="firstnameInputCP" name="cp_first_name"  class = "contact form-control" placeholder="<?php echo ($this->lang->line('firstname'))?>" required=""
                    value="<?php echo (isset($_POST['cp_first_name']) ? $_POST['cp_first_name'] : ''); ?>">
             <br>
         </div>
@@ -136,7 +135,7 @@
             <b><?php echo ($this->lang->line('lastname'))?></b>
         </div>
         <div class="cp_last_name_input">
-            <input type="text" name="cp_last_name"  class = "contact form-control" placeholder="<?php echo ($this->lang->line('lastname'))?>" required=""
+            <input type="text" id="lastnameInputCP" name="cp_last_name"  class = "contact form-control" placeholder="<?php echo ($this->lang->line('lastname'))?>" required=""
                    value="<?php echo (isset($_POST['cp_last_name']) ? $_POST['cp_last_name'] : ''); ?>">
             <br>
         </div>
@@ -144,7 +143,7 @@
             <b><?php echo ($this->lang->line('email'))?></b>
         </div>
         <div class="email_input">
-            <input type="text" name="cp_email" class = "contact form-control" placeholder="<?php echo ($this->lang->line('ph email'))?>"
+            <input type="text" id="emailInputCP" name="cp_email" class = "contact form-control" placeholder="<?php echo ($this->lang->line('ph email'))?>"
                    value="<?php echo (isset($_POST['cp_email']) ? $_POST['cp_email'] : ''); ?>">
             <br>
         </div>
@@ -152,12 +151,18 @@
             <b><?php echo ($this->lang->line('phonenumber'))?></b>
         </div>
         <div class="phone_input">
-            <input type="tel" name="cp_phone" class = "contact form-control" placeholder="+32 123 456 789"
+            <input type="tel" id="phoneInputCP" name="cp_phone" class = "contact form-control" placeholder="+32 123 456 789"
                    value="<?php echo (isset($_POST['cp_phone']) ? $_POST['cp_phone'] : ''); ?>">
 			<span class="infcon"><a href="#" id="CIModal"><?php echo ($this->lang->line('add contact span'))?></a></span>
 			<button type="button" class="xbut">X</button>
 
 		</div>
+        <div>
+            <input type="checkbox" name="cp_existing" id="existingCP" class="form-control"
+                   value="<?php echo (isset($_POST['cp_existing']) ? $_POST['cp_existing'] : ''); ?>">
+        </div>
+
+
         <div class="buttons">
             <input type="submit" value="<?php echo ($this->lang->line('add'))?>" name="saveSettings"/>
             <input type="button" value="<?php echo ($this->lang->line('cancel'))?>" onclick="location.href='landingPage'"/>
@@ -257,22 +262,18 @@
 
 	function init() {
 		$('#myTable tbody').on('click', 'tr', function() {
-			$(".contact").prop('disabled', true);
 			var id_td = this.firstChild;
 			var test = id_td.innerHTML;
 			var contact = database.filter(e => e.idContactInformation == test)[0];
-			console.log(contact)
 			$('#information-contactperson-modal-content').fadeOut('fast');
-			$('[name="cp_first_name"]').setAttribute("value",contact.firstname);
-			$('[name="cp_last_name"]').setAttribute("value",contact.lastname);
-			$('[name="cp_email"]').setAttribute("value",contact.email);
-			$('[name="cp_phone"]').setAttribute("value",contact.phonenumber);
-			$('.xbut').toggle();
-			$('#CIModal').hide();
+			document.getElementById("firstnameInputCP").value=contact.firstname;
+			document.getElementById("lastnameInputCP").value=contact.lastname;
+			document.getElementById("emailInputCP").value=contact.email;
+			document.getElementById("phoneInputCP").value=contact.phonenumber;
+			document.getElementById("existingCP").checked=true;
 		})
 
 		$('.xbut').on('click',function () {
-			$('.xbut').toggle();
 			$('#CIModal').show();
 			$(".contact").prop('disabled', false);
 			$('[name="first_name"]').val("");
@@ -302,6 +303,10 @@
             $('#file_upload').click();
         })
 
+        $(".contact").on("change", function () {
+            console.log("hurray");
+            document.getElementById("existingCP").checked=false;
+        })
 
 	});
 
