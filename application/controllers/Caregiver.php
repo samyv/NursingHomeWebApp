@@ -732,13 +732,29 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function getSections(){
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+        $condit['table'] = "a18ux02.Section";
+        $condit['select'] = "sectionType";
+        if ($row = $this->caregivers->getRows($condit)) {
+            $result = $row->result();
+            $result = json_encode($result);
+            print_r($result);
+            return $result;
+        }
+    }
+
+
     public function getTotalScorePerCategory(){
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
         $id = $_GET['idQuestionnaire'];
-        $query = "SELECT SUM(a18ux02.Answers.answer) as score_per_category, a18ux02.Question.questionType
+        $query = "SELECT SUM(a18ux02.Answers.answer) as score_per_category, a18ux02.Question.questionType, a18ux02.Section.sectionType
                     from a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                  INNER JOIN a18ux02.Section on a18ux02.Question.questionType = a18ux02.Section.sectionId
                   where a18ux02.Answers.questionnairesId = '$id'
                   GROUP BY a18ux02.Question.questionType";
         if ($row = $this->caregivers->executeQuery($query)) {
@@ -753,9 +769,9 @@ class Caregiver extends CI_Controller
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-        $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion";
+        $condit['table'] = "a18ux02.Answers INNER JOIN a18ux02.Question ON a18ux02.Answers.questionId = a18ux02.Question.idQuestion INNER JOIN a18ux02.Section ON a18ux02.Question.questionType = a18ux02.Section.sectionId";
         $condit['where'] = array('questionnairesId' => $_GET['idQuestionnaire']);
-        $condit['select'] = "answer, questionType, positionNum, questionText";
+        $condit['select'] = "answer, questionType, positionNum, questionText, sectionType";
         $condit['order'] = "ASC";
         $condit['orderColumn'] = "questionType, positionNum";
         if ($row = $this->caregivers->getRows($condit)) {
@@ -767,7 +783,7 @@ class Caregiver extends CI_Controller
     }
 
     public function getFloorData(){
-        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
@@ -776,8 +792,8 @@ class Caregiver extends CI_Controller
                     INNER JOIN a18ux02.Question
                         on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
                     where  a18ux02.Questionnaires.Completed = '1'
-                    GROUP BY a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
-                    ORDER BY a18ux02.Resident.floor, a18ux02.Questionnaires.timestamp, a18ux02.Question.questionType ASC";
+                    GROUP BY timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
+                    ORDER BY a18ux02.Resident.floor, timestamp, a18ux02.Question.questionType ASC";
         if($row = $this->caregivers->executeQuery($query)){
             $result = $row->result();
             $result = json_decode(json_encode($result),true);
@@ -789,10 +805,64 @@ class Caregiver extends CI_Controller
                 $result = json_encode(array($result,$max));
                 print_r($result);
             }
-
-
         }
     }
+
+    public function getFloorDataLastMonth(){
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    where  a18ux02.Questionnaires.Completed = '1' and month(a18ux02.Questionnaires.timestamp) = month(now()-interval 0 month) and year(a18ux02.Questionnaires.timestamp) = year(now()-interval 0 month)
+                    GROUP BY timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
+                    ORDER BY a18ux02.Resident.floor, timestamp, a18ux02.Question.questionType ASC";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result),true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if($row2 = $this->caregivers->executeQuery($query))
+            {
+                $result2 = json_decode(json_encode($row2->result()),true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result,$max));
+                print_r($result);
+            }
+        }
+    }
+
+
+    public function getFloorDataLastWeek(){
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    where  a18ux02.Questionnaires.Completed = '1' and YEARWEEK(a18ux02.Questionnaires.timestamp) = yearweek(now()-interval 0 week)
+                    GROUP BY timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
+                    ORDER BY a18ux02.Resident.floor, timestamp, a18ux02.Question.questionType ASC";
+        if($row = $this->caregivers->executeQuery($query)){
+            $result = $row->result();
+            $result = json_decode(json_encode($result),true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if($row2 = $this->caregivers->executeQuery($query))
+            {
+                $result2 = json_decode(json_encode($row2->result()),true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result,$max));
+                print_r($result);
+            }
+        }
+    }
+
+
+
     public function getFloorSpinData(){
         $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
                     from a18ux02.Questionnaires 

@@ -70,6 +70,9 @@ $lang['age'] = 'Age';
 
 //floor comparison
 $lang['title floor compare'] = 'Select floors to compare';
+$lang['last year'] = 'last year';
+$lang['last month'] = 'last month';
+$lang['last week'] = 'last week';
 
 //floor view
 $lang['title floor view'] = 'Please select the desired resident';
