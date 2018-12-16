@@ -16,11 +16,6 @@ class QuestionModel extends CI_Model
 
     }
 
-    function sendNotification(){
-    	$text = $_SESSION['Resident']['residentID']." filled in a Questionnairy!";
-    	$sql = "INSERT INTO Notifications (text,FK_ResidentID,date) VALUES ($text,".$_SESSION['Resident']['residentID'].",CURRENT_TIMESTAMP);";
-    	$this->db->query($sql);
-	}
     function getQuestion($questionID){
         $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$questionID));
 

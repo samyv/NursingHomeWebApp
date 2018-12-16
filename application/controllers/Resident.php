@@ -221,7 +221,7 @@ class Resident extends CI_Controller
 
     public function finalPage(){
         $idResident = $_SESSION['Resident']['residentID'];
-        $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
+        $questionnaireId = $this->residents->getQuestionnaireID($idResident);
         $this->QuestionModel->setQuestionnaireCompleted($questionnaireId);
         $this->QuestionModel->sendNotification();
         $index = $this->QuestionModel->getLastQuestion();

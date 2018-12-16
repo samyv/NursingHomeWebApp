@@ -102,6 +102,12 @@ class Residents extends CI_Model
 		return 0;
     }
 
+	function sendNotification(){
+		$text = $_SESSION['Resident']['residentID']." filled in a Questionnairy!";
+		$sql = "INSERT INTO Notifications (text,FK_ResidentID,date) VALUES ($text,".$_SESSION['Resident']['residentID'].",CURRENT_TIMESTAMP);";
+		$this->db->query($sql);
+	}
+
     public function updateContactPerson($data = array())
     {
         $firstname = $data['firstname'];

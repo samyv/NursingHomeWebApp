@@ -250,8 +250,9 @@ Class Caregivers extends CI_Model
 	}
 	public function sendEmails(){
 //		$this->caregivers->checkWeekly();
-		$this->caregivers->sendWeekly();
+//		$this->caregivers->sendWeekly();
 		$this->caregivers->checkMonthly();
+
 	}
 
 	public function checkWeekly(){
