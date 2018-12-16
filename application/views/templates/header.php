@@ -41,8 +41,8 @@
 
 			<!--NOTIFICATIONS-->
             <li class="nav-item">
-                <a class="nav-link" href="#" id="notification" href="<?=base_url()?>notificationView" role="button" aria-haspopup="true" aria-expanded="false">
-                    <i class="fas fa-bell"></i><span class="badge badge-warning">5</span>
+                <a class="nav-link" id="notification" href="<?=base_url()?>notificationView" role="button" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-bell"></i><span class="badge badge-warning">!</span>
                 </a>
             </li>
 
