@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="http://code.responsivevoice.org/1.5.7/responsivevoice.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
@@ -16,6 +17,8 @@
         <div id="title">GraceAge</div>
         <div id="logout">
             <button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
+			<br>
+            <button class="material-icons music" id="soundButton" type="submit" onclick="toggleAudio()">music_note</button>
         </div>
     </div>
 
@@ -65,7 +68,26 @@
     </div>
 </div>
 
+<script>
+	$(document).ready(function () {
+		$('.autoB').click();
+		// responsiveVoice.speak(question);
+	});
 
+	function toggleAudio()
+	{
+			var string = '{question}';
+			setTimeout(responsiveVoice.speak(string, "Dutch Female"),1500);
+			$('#soundButton').text("music_note")
+	}
+
+	function onPageLoadAudio() {
+		var string = '{question}';
+		setTimeout(responsiveVoice.speak(string, "Dutch Female"),1500);
+		$('#soundButton').text("music_note")
+	}
+
+</script>
 <script src="<?=base_url();?>assets/js/questionpage.js"></script>
 
 </body>

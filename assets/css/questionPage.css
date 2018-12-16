@@ -53,7 +53,7 @@ body{
     padding-right:0.5em;
 
 }
-#logout>button{
+#logoutbtn{
     height: 1.8em;
     color: white;
     background-color: #d48478;
@@ -61,9 +61,15 @@ body{
     font-size: 1em;
 }
 
-#logout>button:hover{
+#logoutbtn:hover{
     background-color: indianred;
     cursor: pointer;
+}
+
+#music{
+	color: white;
+	background-color: black; !important;
+	font-size: 48px;
 }
 
 #questionType{

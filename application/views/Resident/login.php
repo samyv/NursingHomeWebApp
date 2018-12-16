@@ -16,6 +16,7 @@
 	<div id="subtitle">Providing better care</div>
 </div>
 <video id="camera-stream" autoplay></video>
+<button onclick=autoLogin()></button>
 <script>
 	let scanner = new Instascan.Scanner({ video: document.getElementById('camera-stream') });
 	scanner.addListener('scan', function (content) {
@@ -42,6 +43,20 @@
 		}).catch(function (e) {
 			console.error(e);
 		});
+
+	function autoLogin(){
+		$.ajax({
+			url: '<?=base_url()?>Resident/loginQr/' + "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHI",
+			success: function (content,error) {
+				let x = document.getElementById('camera-stream');
+				x.remove();
+				window.location.replace("Resident/tutorial");
+				// console.log(content)
+				// console.log(JSON.parse("["+content+"]")[0]);
+				// console.log(error);
+			}
+		});
+	}
 
 </script>
 </body>
