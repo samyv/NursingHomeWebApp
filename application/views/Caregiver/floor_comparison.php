@@ -59,8 +59,6 @@
 
         let times = document.getElementsByClassName("tablinksdate active");
         time = times[0].id;
-        console.log(time);
-
 
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -84,7 +82,6 @@
 
         let categories = document.getElementsByClassName("tablinks active");
         category = categories[0].id;
-        console.log(category);
 
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
