@@ -236,7 +236,7 @@ Class Caregivers extends CI_Model
 
 	public function getNotes($id)
 	{
-		$sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= " . $id;
+		$sql = "SELECT * FROM a18ux02.Notes WHERE idCaregiver= '$id' and idResident IS NULL";
 		$result = $this->db->query($sql)->result();
 		if (!empty($result)) {
 			$array = json_decode(json_encode($result), true);
