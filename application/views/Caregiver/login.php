@@ -16,14 +16,7 @@
 		<div class="h1 fade-in">
             <h1>GraceAge</h1>
 			<h2> <?php echo ($this->lang->line('subtitle header'))?></h2>
-                <?php
-                // set pathname from where we came from
-                $pn=uri_string();  // the uri class is initialized automatically
-                ?>
-                    <a class = dropdown-item href='languageSwitcher/switchLanguage/english?<?=$pn?>'>
-                        <?php echo ($this->lang->line('english'))?></a>
-                    <a class = dropdown-item href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>
-                        <?php echo ($this->lang->line('dutch'))?></a>
+
 		</div>
 		<div class="modal-content" id="forgot-password-modal-content">
 			<div class="modal-header">

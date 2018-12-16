@@ -271,7 +271,8 @@ class Caregiver extends CI_Controller
         }
 
         $dataHeader['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
-
+        //$cond = array();
+        //$dataHeader['CountNotifications'] = $this->caregivers->getRows($cond);
         $this->parser->parse('templates/header', $dataHeader);
         $this->load->view('Caregiver/landingPage', $data);
 
@@ -391,10 +392,16 @@ class Caregiver extends CI_Controller
     public function notificationView(){
         $data = array();
 		$data['floorNotifications'] = $this->caregivers->getNotifications();
+		$this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
+//		print_r($data["floorNotifications"]);
+//		print_r(json_encode($data['floorNotifications']));
 //		print_r($data['floorNotifications']);
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/notificationView', $data);
 
+    }
+    public function deleteDuplicates(){
+       $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
     }
 
     public function buildingView(){
@@ -421,6 +428,10 @@ class Caregiver extends CI_Controller
 		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
 		$this->parser->parse('templates/header',$data);
 		$this->parser->parse('Caregiver/floorView', $data);
+	}
+
+	public function setNotifSeen($notID){
+    	$this->caregivers->updateNotifSeens($notID);
 	}
 
     public function resDash()
@@ -844,7 +855,7 @@ class Caregiver extends CI_Controller
                         on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
                     INNER JOIN a18ux02.Question
                         on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
-                    where  a18ux02.Questionnaires.Completed = '1' and YEARWEEK(a18ux02.Questionnaires.timestamp) = yearweek(now()-interval 0 week)
+                    where  a18ux02.Questionnaires.Completed = '1' and YEARWEEK(a18ux02.Questionnaires.timestamp) = yearweek(now()-interval 1 week)
                     GROUP BY timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
                     ORDER BY a18ux02.Resident.floor, timestamp, a18ux02.Question.questionType ASC";
         if($row = $this->caregivers->executeQuery($query)){

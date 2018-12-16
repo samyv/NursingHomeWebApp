@@ -84,7 +84,7 @@ function Confirm($noteid, $note) { /*change*/
         $(this).parents('.dialog-ovelay').fadeOut(500, function () {
             $(this).parents('.dialog-ovelay').css("display","none");
             $.ajax({
-                url: window.origin+'<?php echo base_url();?>/a18ux02/Caregiver/deleteNote',
+                url: window.origin+'/a18ux02/Caregiver/deleteNote',
                 method: 'post',
                 dataType: 'json',
                 data: {
