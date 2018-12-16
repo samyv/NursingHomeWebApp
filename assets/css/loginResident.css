@@ -66,6 +66,15 @@ body {
     font-size: 5em;
 }
 
+
+.wrapper{
+	text-align: center;
+}
+
+.center{
+	display: inline-block;
+}
+
 #subtitle {
     font-size: 2.5em;
 }

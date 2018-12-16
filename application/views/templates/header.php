@@ -56,9 +56,9 @@
                 $pn=uri_string();  // the uri class is initialized automatically
                 ?>
                 <div class="dropdown-menu" ria-labelledby="navbarDropdowns">
-                    <a class = dropdown-item href='languageSwitcher/switchLanguage/english?<?=$pn?>'>
+                    <a class = dropdown-item href='<?php echo base_url()?>languageSwitcher/switchLanguage/english?<?=$pn?>'>
                         <?php echo ($this->lang->line('english'))?></a>
-                    <a class = dropdown-item href='languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>
+                    <a class = dropdown-item href='<?php echo base_url()?>languageSwitcher/switchLanguage/Nederlands?<?=$pn?>'>
                         <?php echo ($this->lang->line('dutch'))?></a>
                 </div>
             </li>

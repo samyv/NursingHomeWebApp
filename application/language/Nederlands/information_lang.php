@@ -72,6 +72,9 @@ $lang['age'] = 'Leeftijd';
 
 //floor comparison
 $lang['title floor compare'] = 'Selecteer verdiepingen om te vergelijken';
+$lang['last year'] = '1 jaar';
+$lang['last month'] = '1 maand';
+$lang['last week'] = '1 week';
 
 //floorview
 $lang['title floor view'] = 'Kies de gewenste bewoner';

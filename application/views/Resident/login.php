@@ -15,7 +15,14 @@
 	<div id="title">GraceAge</div><br>
 	<div id="subtitle">Providing better care</div>
 </div>
-<video id="camera-stream" autoplay></video>
+<div class="wrapper">
+	<h1 style="font-size: 60px">Log je in met je persoonlijke QR code!</h1>
+</div>
+<div class="wrapper">
+	<div class="center">
+		<video id="camera-stream" autoplay></video>
+	</div>
+</div>
 <script>
 	let scanner = new Instascan.Scanner({ video: document.getElementById('camera-stream') });
 	scanner.addListener('scan', function (content) {
@@ -27,9 +34,6 @@
 				let x = document.getElementById('camera-stream');
 				x.remove();
 				window.location.replace("Resident/tutorial");
-				// console.log(content)
-				// console.log(JSON.parse("["+content+"]")[0]);
-				// console.log(error);
 			}
 		});
 	})

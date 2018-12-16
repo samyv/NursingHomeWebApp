@@ -6,7 +6,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
           rel="stylesheet">
-    <script src="http://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
 	<link rel="stylesheet" href="assets/css/transitions.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
@@ -22,28 +22,43 @@
     <div class = "list">
     </div>
 
-    <div class="tab">
+    <div class="tab categories">
         <?php
         $i=0;
         foreach($categories as $category){ ?>
-            <button class="tablinks category<?php echo $i?>" onclick="openTab(event, '<?php echo $category["sectionType"]?>')"><?php echo $category['sectionType']?></button>
+            <button class="tablinks category<?php echo $i?>" id="<?php echo $category['sectionType']?>" onclick="openTab(event, '<?php echo $category["sectionType"]?>')"><?php echo $category['sectionType']?></button>
             <?php $i++;} ?>
     </div>
+
+    <div class="tab date">
+        <button class="tablinksdate active year" id="year" onclick="openDateTab(event, 'year')"><?php echo($this->lang->line('last year'));?></button>
+        <button class="tablinksdate month" id="month" onclick="openDateTab(event, 'month')"><?php echo($this->lang->line('last month'));?></button>
+        <button class="tablinksdate week" id="week" onclick="openDateTab(event, 'week')"><?php echo($this->lang->line('last week'));?></button>
+    </div>
+
+
     <div class="graph">
     <?php
         $i=0;
         foreach($categories as $category){ ?>
-        <div class="tabcontent category<?php echo $i?>" id="<?php echo $category['sectionType']?>"></div>
+        <div class="tabcontent category<?php echo $i?>year" id="<?php echo $category['sectionType']?>year"></div>
+        <div class="tabcontent category<?php echo $i?>month" id="<?php echo $category['sectionType']?>month"></div>
+        <div class="tabcontent category<?php echo $i?>week" id="<?php echo $category['sectionType']?>week"></div>
     <?php $i++;} ?>
     </div>
 </div>
 
 <script>
-    window.addEventListener("resize", draw);
 
-    function openTab(evt, cityName) {
+
+    window.addEventListener("resize", redraw);
+
+    function openTab(evt, category) {
         // Declare all variables
-        var i, tabcontent, tablinks;
+        var i, tabcontent, tablinks, time;
+
+        let times = document.getElementsByClassName("tablinksdate active");
+        time = times[0].id;
 
         // Get all elements with class="tabcontent" and hide them
         tabcontent = document.getElementsByClassName("tabcontent");
@@ -58,11 +73,38 @@
         }
 
         // Show the current tab, and add an "active" class to the button that opened the tab
-        document.getElementById(cityName).style.display = "block";
+        document.getElementById(category+time).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+    function openDateTab(evt, time) {
+        // Declare all variables
+        var i, tabcontent, tablinks, category;
+
+        let categories = document.getElementsByClassName("tablinks active");
+        category = categories[0].id;
+
+        // Get all elements with class="tabcontent" and hide them
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        // Get all elements with class="tablinks" and remove the class "active"
+        tablinks = document.getElementsByClassName("tablinksdate");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        // Show the current tab, and add an "active" class to the button that opened the tab
+        document.getElementById(category+time).style.display = "block";
         evt.currentTarget.className += " active";
     }
 
-
+    function redraw(){
+        let times = document.getElementsByClassName("tablinksdate active");
+        time = times[0].id;
+        draw(time);
+    }
     let notificationid = 0;
     let amountOfCategories;
 
@@ -81,15 +123,41 @@
 
 
         $('.floorbtn').click(myFunction);
+
+
+
         $.ajax({
             url: '<?=base_url()?>caregiver/getFloorData',
             dataType: 'json',
             success: function (data) {
                 floordata = data[0];
                 amountOfCategories = parseInt(data[1]);
-                draw();
+                draw("year")
+                document.getElementsByClassName("tablinks")[0].click();
             }
         });
+
+        $.ajax({
+            url: '<?=base_url()?>caregiver/getFloorDataLastWeek',
+            dataType: 'json',
+            success: function (data) {
+                floordata = data[0];
+                draw("week")
+                amountOfCategories = parseInt(data[1]);
+            }
+        });
+
+        $.ajax({
+            url: '<?=base_url()?>caregiver/getFloorDataLastMonth',
+            dataType: 'json',
+            success: function (data) {
+                floordata = data[0];
+                draw("month")
+                amountOfCategories = parseInt(data[1]);
+            }
+        });
+
+
     });
 
     function myFunction(event) {
@@ -127,6 +195,7 @@
     function hideLines(event) {
         $x = '.floor'+$(event.target).attr("id");
         $lines = $($x);
+        console.log($lines);
         $lines.attr("display","none");
     }
 
@@ -145,7 +214,7 @@
 
 
     //// END OF CONFIG ////
-    function draw() {
+    function draw(time) {
 
 
         var div = document.getElementsByClassName("graph")[0];
@@ -157,14 +226,14 @@
         var y = d3.scaleLinear().range([height, 0]);
         for (q = 0; q < amountOfCategories; q++) {
 
-            $svg = $(".tabcontent.category"+q).children()
+            $svg = $(".tabcontent.category"+q+time).children()
             if($svg.length !== 0){
                 $svg.remove()
             }
 
 
 
-            var svg = d3.select("body").select("div.graph").select("div.tabcontent.category"+q).append("svg")
+            var svg = d3.select("body").select("div.graph").select("div.tabcontent.category"+q+time).append("svg")
                 .attr("width", width + margin.left + margin.right)
                 .attr("height", height + margin.top + margin.bottom)
                 .append("g")
@@ -234,7 +303,7 @@
                     .data([newData[f + q * floorAmount]])
                     .attr("class", "line" + " floor" + (f + 1))
                     .attr("d", valueline)
-                    .attr("id", sectionsNames[q])
+                    .attr("id", sectionsNames[q]+time)
                     .attr("stroke", colorArray[f])
                     .attr("data-legend","floor " + (f+1));
 
