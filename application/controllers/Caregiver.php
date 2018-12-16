@@ -392,11 +392,16 @@ class Caregiver extends CI_Controller
     public function notificationView(){
         $data = array();
 		$data['floorNotifications'] = $this->caregivers->getNotifications();
+		$this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
+//		print_r($data["floorNotifications"]);
 //		print_r(json_encode($data['floorNotifications']));
 //		print_r($data['floorNotifications']);
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/notificationView', $data);
 
+    }
+    public function deleteDuplicates(){
+       $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
     }
 
     public function buildingView(){

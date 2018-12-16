@@ -24,10 +24,12 @@
 			<!-- Tab content -->
 			<div id="floorsTab" class="nots">
 				<h3>Floors</h3>
+				<button onclick="seeAllFloorNots()">seen all</button>
 				<div class = Floorlist></div>
 			</div>
 			<div id="residentsTab" class="nots">
 				<h3>Residents</h3>
+				<button onclick="seeAllFloorNots()">seen all</button>
 				<div class = Residentlist></div>
 			</div>
 		</div>
@@ -37,6 +39,33 @@
 </html>
 
 <script>
+
+	function seeAllFloorNots() {
+		let x = notifications.floors;
+		let y = notifications.residents;
+		let nots_to_be_seen = [];
+		for (var floorID in x) {
+			let floor = x[floorID];
+			for (let i = 0; i < floor.length; i++) {
+				nots_to_be_seen.push(floor[i]["NotificationID"])
+			}
+		}
+		for(var i = 0; i < y.length;i++) {
+			let resident = y[i]
+			nots_to_be_seen.push(resident["NotificationID"])
+		}
+		console.log(nots_to_be_seen);
+		for(let i = 0; i < nots_to_be_seen.length;i++){
+			$.ajax({
+				url: '<?=base_url()?>Caregiver/setNotifSeen/' + nots_to_be_seen[i],
+				success: function (error) {
+					notifs_seen.push(nots_to_be_seen[i]);
+					// i_icon.innerHTML = "check_circle";
+					// console.log(i_icon)
+				}
+			});
+		}
+	}
 	function openNots(evt, nots) {
 		// Declare all variables
 		var i, tabcontent, tablinks;
@@ -58,15 +87,18 @@
 		evt.currentTarget.className += " active";
 	}
 	let notifs_seen = [];
+	var notifications;
 	$(function () {
-		var notifications;
+
 		window.onload = populate();
 		document.getElementById("defaultOpen").click();
 		$(".notif_container").hover(function () {
+			console.log($(this).children())
 			$notID = $(this).children()[0].getAttribute("id");
 			let notif = $(this).children()[0];
 			let p_read = ($(this).children().find("p").last()[0]);
 			let i_icon = p_read.getElementsByTagName("i")[0];
+			console.log("NOTID: "+$notID);
 			// let notif_childs = notif.children();
 			if(!(notifs_seen.find(k => k==$notID))){
 				$.ajax({
@@ -77,17 +109,21 @@
 						notifs_seen.push($notID);
 						i_icon.innerHTML = "check_circle";
 						console.log(i_icon)
+						$.ajax({
+							url: '<?=base_url()?>Caregiver/deleteDuplicates',
+							success: function (error) {
+								console.log("duplicates deleted")
+							}
+						});
 					}
 				});
 			}
 		})
 		function populate() {
-			//  Populates the notification list with the right
-			//  messages.
-
+			//  Populates the notification list with the right messages.
 			notifications = <?php echo json_encode($floorNotifications);?>;
 			console.log(notifications);
-			notificationsFloor = notifications.floors;
+			let notificationsFloor = notifications.floors;
 			//loop every floor
 			for (var floorID in notificationsFloor) {
 				let floor = notificationsFloor[floorID];
@@ -156,6 +192,7 @@
 				let notification = document.createElement("div");
 				notification.className = "notification";
 				container.className = "notif_container";
+				notification.id =resident.NotificationID
 				// notification.setAttribute("type","button")
 				//
 				// Clock Icon

@@ -471,6 +471,7 @@ Class Caregivers extends CI_Model
 				$index++;
 				if ($value == 1) {
 					$sql = "SELECT * FROM a18ux02.Notifications WHERE FK_FloorID =" . $index.$whereSql.";";
+//					$sql = "SELECT * FROM a18ux02.Notifications WHERE AND FK_FloorID =" . $index;
 					$nots = json_decode(json_encode($this->db->query($sql)->result()), true);
 					$floorNotifications[$key] = $nots;
 				}
@@ -497,8 +498,7 @@ Class Caregivers extends CI_Model
 		$orSql = $this->generateWhereForOrs($resIDs);
 		//FIND NOTIFICATIONS FOR EACH RESIDENT
 		$residentNotifications = array();
-		$sql = "SELECT * FROM a18ux02.Notifications WHERE " .$orSql.";";
-//		echo $sql;
+		$sql = "SELECT * FROM a18ux02.Notifications WHERE " .$orSql.$whereSql.";";
 		$nots = json_decode(json_encode($this->db->query($sql)->result()), true);
 //		$residentNotifications[$key] = $nots;
 		$notifs = array();
@@ -521,10 +521,12 @@ Class Caregivers extends CI_Model
 		$sql = '';
 		$i = 0;
 			foreach($cars as $key){
-				$pre = ($i > 0)?' OR ':'';
 				$i++;
+				$pre = '(NOT ';
 				$sql .= $pre;
 				$sql .="FK_ResidentID"." = '".$key."'";
+				$sql .= ") ";
+				$sql .= ($i<sizeof($cars))?"AND ":"";
 			}
 			return $sql;
 	}
@@ -532,6 +534,12 @@ Class Caregivers extends CI_Model
 	public function updateNotifSeens($notID){
 		$sql = "INSERT INTO a18ux02.Caregiver_notifications (FK_Caregiver,FK_Notification) VALUES (".$_SESSION['idCaregiver'].",".$notID.");";
 		$this->db->query($sql);
+	}
+	public function deleteDuplicates($table){
+//		$sql = "DELETE e1 FROM ".$table."e1 INNER JOIN ".$table." e2 WHERE e1.idCaregiver_notifications > e2.idCaregiver_notifications AND e1.FK_Caregiver = e2.FK_Caregiver AND e1.FK_Notification = e2.FK_Notification;";
+		$sql = "DELETE e1 FROM a18ux02.Caregiver_notifications e1 INNER JOIN a18ux02.Caregiver_notifications e2 WHERE e1.idCaregiver_notifications > e2.idCaregiver_notifications AND e1.FK_Caregiver = e2.FK_Caregiver AND e1.FK_Notification = e2.FK_Notification;";
+//		echo $sql;
+//		$this->db->query($sql);
 	}
 	public function send_validation_email($data){
 		$this->load->library('email');
