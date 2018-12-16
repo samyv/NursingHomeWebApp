@@ -4,8 +4,8 @@
 //////////////////////////////////////////////////////
 
 
-const margin = { top: 30, right: 0, bottom: 100, left: 400 }
-const width = 600 - margin.left - margin.right
+const margin = { top: 30, right: 0, bottom: 100, left: 320 }
+const width = 520 - margin.left - margin.right
 const height = 400 - margin.top - margin.bottom
 const gridSize = Math.floor(width / 7)
 const legendElementWidth = gridSize
@@ -124,6 +124,7 @@ const heatmapChart = function(p_data, sections){
 
     var legendTile = svg.selectAll(".legendTile")
     legendTile.append("rect")
+		.attr("class", "mono")
         .attr("x", function(d, i) { return (legendElementWidth * i); })
         .attr("y", height+50)
         .attr("width", legendElementWidth)
