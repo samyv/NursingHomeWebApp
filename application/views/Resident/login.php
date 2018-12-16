@@ -17,10 +17,15 @@
 </div>
 <video id="camera-stream" autoplay></video>
 <button onclick=autoLogin()></button>
+<img class = qrpicture src= "../a18ux02/assets/images/qrcode2.png" alt="QR-code">
+<img class = qrmarker src= "../a18ux02/assets/images/marker.png" alt="QR-code">
+<p class = explanation>Hou je QR-code in het groene vierkant</p>
 <script>
+
+
 	let scanner = new Instascan.Scanner({ video: document.getElementById('camera-stream') });
-	scanner.addListener('scan', function (content) {
-		console.log(content);
+	scanner.addListener('scan', function (content)
+    {
 		$contentt = content;
 		$.ajax({
 			url: '<?=base_url()?>Resident/loginQr/' + $contentt,
@@ -30,8 +35,19 @@
 				window.location.replace("Resident/tutorial");
 			}
 		});
-	})
-		Instascan.Camera.getCameras().then(function (cameras) {
+	});
+
+    scanner.addListener('active', stylescanner);
+
+    function stylescanner()
+    {
+        // TODO: style the scanner in this function
+        let cam = document.getElementById('camera-stream');
+        let s = cam.style;
+        s["width"] = "100%";
+    }
+
+    Instascan.Camera.getCameras().then(function (cameras) {
 			if (cameras.length > 0) {
 				scanner.start(cameras[0]);
 			} else {

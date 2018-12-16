@@ -9,7 +9,6 @@
 Class Caregivers extends CI_Model
 {
 
-
 	private $notes;
 
 	function __construct()

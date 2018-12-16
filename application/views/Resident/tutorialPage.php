@@ -19,11 +19,5 @@
         <button id="startQuestionnaire" onclick="location.href='<?=base_url();?>Resident/startQuestionnaire'">Start vragenlijst</button>
     </div>
 </div>
-
-<script>
-
-</script>
-
-
 </body>
 </html>
