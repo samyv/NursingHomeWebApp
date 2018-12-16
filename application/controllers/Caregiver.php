@@ -271,7 +271,8 @@ class Caregiver extends CI_Controller
         }
 
         $dataHeader['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
-
+        //$cond = array();
+        //$dataHeader['CountNotifications'] = $this->caregivers->getRows($cond);
         $this->parser->parse('templates/header', $dataHeader);
         $this->load->view('Caregiver/landingPage', $data);
 
@@ -391,10 +392,16 @@ class Caregiver extends CI_Controller
     public function notificationView(){
         $data = array();
 		$data['floorNotifications'] = $this->caregivers->getNotifications();
+		$this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
+//		print_r($data["floorNotifications"]);
+//		print_r(json_encode($data['floorNotifications']));
 //		print_r($data['floorNotifications']);
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/notificationView', $data);
 
+    }
+    public function deleteDuplicates(){
+       $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
     }
 
     public function buildingView(){
@@ -421,6 +428,10 @@ class Caregiver extends CI_Controller
 		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
 		$this->parser->parse('templates/header',$data);
 		$this->parser->parse('Caregiver/floorView', $data);
+	}
+
+	public function setNotifSeen($notID){
+    	$this->caregivers->updateNotifSeens($notID);
 	}
 
     public function resDash()

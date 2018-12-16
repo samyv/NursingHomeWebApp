@@ -249,9 +249,10 @@ Class Caregivers extends CI_Model
 		}
 	}
 	public function sendEmails(){
-//		$this->caregivers->checkWeekly();
+		$this->caregivers->checkWeekly();
 		$this->caregivers->sendWeekly();
 		$this->caregivers->checkMonthly();
+
 	}
 
 	public function checkWeekly(){
@@ -260,10 +261,12 @@ Class Caregivers extends CI_Model
 		$prev_monday = new DateTime(date('Y-m-d', strtotime("previous monday", strtotime($now->format("Y-m-d")))));
 
 		$sql = "SELECT lastEmailSendWeekly FROM a18ux02.GLOBAL WHERE FK_NURSINGHOME = 1";
+
 		$result = json_decode(json_encode($this->db->query($sql)->result()),true);
 
 		$lastEmailSendWeekly_raw = $result[0]['lastEmailSendWeekly'];
 		$lastEmailSendWeekly = new DateTime(date("Y-m-d",strtotime($lastEmailSendWeekly_raw)));
+//		print_r($lastEmailSendWeekly);
 		//chech if today is monday
 		if(date('l') == "Monday"){
 			//YES: check if we already send emails today:
@@ -293,19 +296,19 @@ Class Caregivers extends CI_Model
 				JOIN a18ux02.NotificationPreferences ON Caregiver.FK_NotificationPref = NotificationPreferences.NotificationPreferencesID
                 WHERE NotificationPreferences.Cycle = 'weekly'";
 
-
 		$result = $this->db->query($sql)->result();
 		$array = (json_decode(json_encode($result),true));
+		$this->sendWeeklyNots();
 		//STEP 2: loop every caregiver
 		$caregivers = array();
 
 		foreach($array as $caregiver){
+
 			$this->load->library('email');
 			$email = $caregiver['email'];
 			$name = $caregiver['firstname'];
-			$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
-			$result = $this->db->query($sql);
-			$row = $result->row();
+
+
 			$this->email->set_mailtype('html');
 			$this->email->from('a18ux02@gmail.com');
 			$this->email->to($email);
@@ -318,6 +321,10 @@ Class Caregivers extends CI_Model
 
 			$this->email->message($message);
 //			$this->email->send();
+
+			//UPDATE timestamp
+			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendWeekly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
+//			$this->db->query($sql);
 		}
 
 	}
@@ -384,8 +391,23 @@ Class Caregivers extends CI_Model
 
 			$this->email->message($message);
 //			$this->email->send();
+
+			//UPDATE timestamp
+			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendMonthly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
+//			$this->db->query($sql);
 		}
 
+	}
+
+	public function sendWeeklyNots(){
+		//get number of floors
+		$sql = "SELECT COUNT(*) FROM a18ux02.Floors;";
+		$number = json_decode(json_encode($this->db->query($sql)->result()[0]),true)['COUNT(*)'];
+		for($i = 1;$i <= $number;$i++){
+			//INSERT NOTIFICATION FOR EVERY FLOOR
+			$floorsql = "INSERT INTO a18ux02.Notifications (text,FK_FloorID,date) VALUES ('weekly update of Floor ".$i." are available',".$i.",".'CURRENT_TIME'.");";
+			$this->db->query($floorsql);
+		}
 	}
 
     public function updateNote($notes)
@@ -421,15 +443,26 @@ Class Caregivers extends CI_Model
 		//FIND FLOOR SELECTION ID
 		$sql = "SELECT * FROM a18ux02.Caregiver
 				RIGHT JOIN a18ux02.NotificationPreferences ON a18ux02.Caregiver.FK_NotificationPref = a18ux02.NotificationPreferences.NotificationPreferencesID
-				WHERE a18ux02.Caregiver.idCaregiver = ".$_SESSION['idCaregiver'].";";
+					WHERE a18ux02.Caregiver.idCaregiver = ".$_SESSION['idCaregiver'].";";
 
 		$result = $this->db->query($sql)->result();
 		$resultarray = json_decode(json_encode($result),true);
 		$floorrow = $resultarray[0]['FK_Floorselect'];
-		// FIND FLOOR PREFERENCES
+
+		//FIND FLOOR PREFERENCES
 		$sql2 = "SELECT * FROM a18ux02.FloorNotification
 				 WHERE FloorNotificationID =".$floorrow.";";
 		$result2 = json_decode(json_encode($this->db->query($sql2)->result()),true);
+
+		//FIND NOTIFCATIONID's  THAT CAREGIVER HAS ALREADY SEEN
+		$sql = "SELECT FK_Notification FROM a18ux02.Caregiver_notifications WHERE FK_Caregiver =".$_SESSION['idCaregiver'].";";
+		$alreadySeenIdsArray = json_decode(json_encode($this->db->query($sql)->result()), true);
+		$alreadySeenIds = array();
+		foreach ($alreadySeenIdsArray as $item) {
+			array_push($alreadySeenIds,$item['FK_Notification']);
+		}
+		$whereSql = $this->generateWhereForNots($alreadySeenIds);
+
 		//FIND NOTIFICATIONS FOR EACH FLOOR
 		$floorNotifications = array();
 		$index = 0;
@@ -437,15 +470,77 @@ Class Caregivers extends CI_Model
 			if($key != 'FloorNotificationID') {
 				$index++;
 				if ($value == 1) {
-					$sql = "SELECT * FROM a18ux02.Notifications WHERE FK_FloorID =" . $index . ";";
-					$result2 = json_decode(json_encode($this->db->query($sql)->result()), true);
-					$floorNotifications[$key] = $result2;
+					$sql = "SELECT * FROM a18ux02.Notifications WHERE FK_FloorID =" . $index.$whereSql.";";
+//					$sql = "SELECT * FROM a18ux02.Notifications WHERE AND FK_FloorID =" . $index;
+					$nots = json_decode(json_encode($this->db->query($sql)->result()), true);
+					$floorNotifications[$key] = $nots;
 				}
 			}
 		}
-		return $floorNotifications;
+		//FIND ID's OF EACH RESIDENT OF EACH FLOOR
+		$resIDs_arr = array();
+		foreach($result2[0] as $key => $value){
+//			echo $value;
+			if($key != 'FloorNotificationID') {
+				if ($value == 1) {
+					$sql = "SELECT residentID FROM a18ux02.Resident WHERE floor =" .substr($key, -1).";";
+					$res = json_decode(json_encode($this->db->query($sql)->result()), true);
+					array_push($resIDs_arr,$res);
+				}
+			}
+		}
+		$resIDs = array();
+		foreach ($resIDs_arr as $item) {
+			foreach ($item as $car)
+			array_push($resIDs,$car['residentID']);
+		}
+
+		$orSql = $this->generateWhereForOrs($resIDs);
+		//FIND NOTIFICATIONS FOR EACH RESIDENT
+		$residentNotifications = array();
+		$sql = "SELECT * FROM a18ux02.Notifications WHERE " .$orSql.$whereSql.";";
+		$nots = json_decode(json_encode($this->db->query($sql)->result()), true);
+//		$residentNotifications[$key] = $nots;
+		$notifs = array();
+		$notifs['floors'] = $floorNotifications;
+		$notifs['residents'] = $nots;
+		return $notifs;
 	}
 
+	public function generateWhereForNots($alreadySeenIds){
+		$sql = '';
+			foreach($alreadySeenIds as $key){
+				$pre =' AND ';
+				$sql .= $pre;
+				$sql .="NotificationID"." != '".$key."'";
+
+			}
+			return $sql;
+	}
+	public function generateWhereForOrs($cars){
+		$sql = '';
+		$i = 0;
+			foreach($cars as $key){
+				$i++;
+				$pre = '(NOT ';
+				$sql .= $pre;
+				$sql .="FK_ResidentID"." = '".$key."'";
+				$sql .= ") ";
+				$sql .= ($i<sizeof($cars))?"AND ":"";
+			}
+			return $sql;
+	}
+
+	public function updateNotifSeens($notID){
+		$sql = "INSERT INTO a18ux02.Caregiver_notifications (FK_Caregiver,FK_Notification) VALUES (".$_SESSION['idCaregiver'].",".$notID.");";
+		$this->db->query($sql);
+	}
+	public function deleteDuplicates($table){
+//		$sql = "DELETE e1 FROM ".$table."e1 INNER JOIN ".$table." e2 WHERE e1.idCaregiver_notifications > e2.idCaregiver_notifications AND e1.FK_Caregiver = e2.FK_Caregiver AND e1.FK_Notification = e2.FK_Notification;";
+		$sql = "DELETE e1 FROM a18ux02.Caregiver_notifications e1 INNER JOIN a18ux02.Caregiver_notifications e2 WHERE e1.idCaregiver_notifications > e2.idCaregiver_notifications AND e1.FK_Caregiver = e2.FK_Caregiver AND e1.FK_Notification = e2.FK_Notification;";
+//		echo $sql;
+//		$this->db->query($sql);
+	}
 	public function send_validation_email($data){
 		$this->load->library('email');
 		$email = $data['email'];
