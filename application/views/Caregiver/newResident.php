@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <link href="<?php echo base_url(); ?>assets/css/newResident.css" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/transitions.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/css/transitions.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>{page_title}</title>
 </head>
@@ -109,9 +109,10 @@
 
         </div>
         <div class="picture_input">
+            <b>Upload resident picture</b>
             <div class="form-group">
-                <b>Upload resident picture</b>
-                <label class="file-upload"> choose a file
+
+                <label class="file-upload">Choose a file
                 </label>
                 <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
             </div>
@@ -178,18 +179,6 @@
 		init();
 
 	});
-
-    function getFile(){
-        document.getElementById("upfile").click();
-    }
-
-    function checkChoice(val){
-        var element=document.getElementById('relation');
-        if(val=='Choose your relation'||val=='other')
-            element.style.display='block';
-        else
-            element.style.display='none';
-    }
 
 	function search() {
 		var input, filter, table, i;
@@ -283,13 +272,6 @@
 		})
 	}
 
-    function sub(obj){
-        var file = obj.value;
-        var fileName = file.split("\\");
-        document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
-        document.myForm.submit();
-        event.preventDefault();
-    }
 	$(document).ready(function () {
 		$('#CIModal').click(function(){
 			$('#information-contactperson-modal-content').fadeIn('fast');
