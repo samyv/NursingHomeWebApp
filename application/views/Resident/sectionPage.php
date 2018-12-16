@@ -7,7 +7,7 @@
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+<script src="http://code.responsivevoice.org/1.4/responsivevoice.js"></script>
 <div class="grid-container">
     <div id="header">
         <div id="title">GraceAge</div>
@@ -18,10 +18,15 @@
 
     <div id="subtitle">
         <?php
+		$string = "";
+		$start = "Laten we beginnen!";
+		$end = "Goed gedaan!";
         if ($sectionID == 1) {
-            echo "Laten we beginnen!";
+            echo $start;
+            $string.= $start;
         } else {
-            echo "Goed gedaan!";
+            echo $end;
+            $string.=$end;
         }
         ?></div>
 
@@ -42,7 +47,7 @@
 	$(document).ready(function () {
 
 		// responsiveVoice.speak(question);
-		var string = "klapklapklapklapklap";
+		var string = '<?php echo $string.$sectionDescription;?>'
 		responsiveVoice.speak(string, "Dutch Female");
 	});
 

@@ -17,10 +17,9 @@
     <div id="header">
         <div id="title">GraceAge</div>
         <div id="logout">
-            <button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
-			<br>
-            <button class="material-icons music" id="soundButton" type="submit" onclick="toggleAudio()">music_note</button>
-        </div>
+			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
+			<button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
+			</div>
     </div>
 
     <div id="questionType">{sectionType} ({currentNum}/{totalNum})</div>
@@ -68,20 +67,15 @@
 	$(document).ready(function () {
 		$('.autoB').click();
 		// responsiveVoice.speak(question);
-	});
 
+	});
 	function toggleAudio()
 	{
-			var string = '{question}';
-			setTimeout(responsiveVoice.speak(string, "Dutch Female"),1500);
-			$('#soundButton').text("music_note")
+		var string = '{question}';
+		responsiveVoice.speak(string, "Dutch Female")
 	}
 
-	function onPageLoadAudio() {
-		var string = '{question}';
-		setTimeout(responsiveVoice.speak(string, "Dutch Female"),1500);
-		$('#soundButton').text("music_note")
-	}
+
 
 </script>
 <script src="<?=base_url();?>assets/js/questionpage.js"></script>
