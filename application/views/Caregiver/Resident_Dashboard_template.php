@@ -159,7 +159,7 @@
         } ?>
     </div>
     <div class="print">
-        <button type="submit">
+        <button id="printbtn" type="submit" onclick="window.print()">
             <i class="fa fa-print"></i>
         </button>
     </div>
@@ -219,7 +219,6 @@
 
         $('#changeInfo').click(changeInfo)
         $('#saveInfo').click(saveInfo)
-
     });
 
 

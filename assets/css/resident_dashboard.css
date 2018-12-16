@@ -43,6 +43,12 @@ html,body {
 	grid-area: total;
 }
 
+.tooltip{
+	background-color: #66a5ad;
+	color: white;
+	padding: 1em
+}
+
 .scores_per_category{
 	grid-area: cat;
 	margin-top: 1em;
@@ -76,7 +82,7 @@ html,body {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
 	grid-template-rows: 3em 3em auto ;
-	grid-template-areas: "select select select . . ."
+	grid-template-areas: "select select select select select select"
 					     "total total total total . ."
 							"graph graph graph graph . cat"
 }
@@ -218,11 +224,18 @@ button[type=submit]{
 		display: inline;
 		min-width: 400px;
 		left: 20%;
-		top: 60%
+		top: 72%
 	}
 
 	.fa-print{
 		display: none;
+	}
+
+	#qr-modal-content{
+		display: inline;
+		position: absolute;
+		left: 20%;
+		min-width: 400px;
 	}
 }
 
@@ -249,5 +262,44 @@ button[type=submit]{
         transform: translate(-50%, -50%);
         width: 40%;
     }
+}
+
+
+@media screen and (max-width: 420px){
+	.sectionLabel{
+		display: none;
+	}
+
+	svg{
+		transform: translateX(-300px);
+	}
+
+	#select_questionnaire{
+		display: none;
+	}
+
+	.mono{
+		transform: translateX(60px);
+	}
+
+	#information-contactperson-modal-content{
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 80%;
+		z-index: 99;
+	}
+
+	#qr-modal-content{
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 80%;
+	}
+
 }
 
