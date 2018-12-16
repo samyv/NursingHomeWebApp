@@ -223,6 +223,7 @@ class Resident extends CI_Controller
         $idResident = $_SESSION['Resident']['residentID'];
         $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
         $this->QuestionModel->setQuestionnaireCompleted($questionnaireId);
+        $this->QuestionModel->sendNotification();
         $index = $this->QuestionModel->getLastQuestion();
         $data['resident'] = $_SESSION['Resident']['firstname'];
         $data['index'] = $index;

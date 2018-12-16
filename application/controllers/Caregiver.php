@@ -392,6 +392,7 @@ class Caregiver extends CI_Controller
     public function notificationView(){
         $data = array();
 		$data['floorNotifications'] = $this->caregivers->getNotifications();
+//		print_r(json_encode($data['floorNotifications']));
 //		print_r($data['floorNotifications']);
         $this->parser->parse('templates/header',$data);
         $this->parser->parse('Caregiver/notificationView', $data);
@@ -422,6 +423,10 @@ class Caregiver extends CI_Controller
 		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorSelect');
 		$this->parser->parse('templates/header',$data);
 		$this->parser->parse('Caregiver/floorView', $data);
+	}
+
+	public function setNotifSeen($notID){
+    	$this->caregivers->updateNotifSeens($notID);
 	}
 
     public function resDash()
