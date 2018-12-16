@@ -15,24 +15,23 @@
         <p>Notifications</p>
     </div>
 		<!-- Tab links -->
-		<div class="tab-container">
-			<div class=tab_header"">
+	<div class="tab-container">
+		<div class="tab">
 				<button class="tablinks" id="defaultOpen" onclick="openNots(event, 'floorsTab')">floors</button>
 				<button class="tablinks" onclick="openNots(event, 'residentsTab')">residents</button>
+		</div>
+		<div class=tab_content"">
+			<!-- Tab content -->
+			<div id="floorsTab" class="nots">
+				<h3>Floors</h3>
+				<div class = Floorlist></div>
 			</div>
-			<div class=tab_content"">
-				<!-- Tab content -->
-				<div id="floorsTab" class="tabcontent">
-					<h3>Floors</h3>
-					<div class = Floorlist></div>
-				</div>
-				<div id="residentsTab" class="tabcontent">
-					<h3>Residents</h3>
-					<div class = Residentlist></div>
-				</div>
+			<div id="residentsTab" class="nots">
+				<h3>Residents</h3>
+				<div class = Residentlist></div>
 			</div>
 		</div>
-    </div>
+	</div>
 </div>
 </body>
 </html>
@@ -43,7 +42,7 @@
 		var i, tabcontent, tablinks;
 
 		// Get all elements with class="tabcontent" and hide them
-		tabcontent = document.getElementsByClassName("tabcontent");
+		tabcontent = document.getElementsByClassName("nots");
 		for (i = 0; i < tabcontent.length; i++) {
 			tabcontent[i].style.display = "none";
 		}
@@ -65,14 +64,19 @@
 		document.getElementById("defaultOpen").click();
 		$(".notif_container").hover(function () {
 			$notID = $(this).children()[0].getAttribute("id");
-			console.log($notID)
-			if(!notifs_seen.find(k => k==$notID)){
+			let notif = $(this).children()[0];
+			let p_read = ($(this).children().find("p").last()[0]);
+			let i_icon = p_read.getElementsByTagName("i")[0];
+			// let notif_childs = notif.children();
+			if(!(notifs_seen.find(k => k==$notID))){
 				$.ajax({
 					url: '<?=base_url()?>Caregiver/setNotifSeen/' + $notID,
 					success: function (error) {
-						console.log(error)
+						console.log($(this).children[0])
 						console.log("notID: "+$notID+" set seen")
 						notifs_seen.push($notID);
+						i_icon.innerHTML = "check_circle";
+						console.log(i_icon)
 					}
 				});
 			}

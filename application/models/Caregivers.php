@@ -249,8 +249,8 @@ Class Caregivers extends CI_Model
 		}
 	}
 	public function sendEmails(){
-//		$this->caregivers->checkWeekly();
-//		$this->caregivers->sendWeekly();
+		$this->caregivers->checkWeekly();
+		$this->caregivers->sendWeekly();
 		$this->caregivers->checkMonthly();
 
 	}
@@ -261,10 +261,12 @@ Class Caregivers extends CI_Model
 		$prev_monday = new DateTime(date('Y-m-d', strtotime("previous monday", strtotime($now->format("Y-m-d")))));
 
 		$sql = "SELECT lastEmailSendWeekly FROM a18ux02.GLOBAL WHERE FK_NURSINGHOME = 1";
+
 		$result = json_decode(json_encode($this->db->query($sql)->result()),true);
 
 		$lastEmailSendWeekly_raw = $result[0]['lastEmailSendWeekly'];
 		$lastEmailSendWeekly = new DateTime(date("Y-m-d",strtotime($lastEmailSendWeekly_raw)));
+//		print_r($lastEmailSendWeekly);
 		//chech if today is monday
 		if(date('l') == "Monday"){
 			//YES: check if we already send emails today:
@@ -294,19 +296,19 @@ Class Caregivers extends CI_Model
 				JOIN a18ux02.NotificationPreferences ON Caregiver.FK_NotificationPref = NotificationPreferences.NotificationPreferencesID
                 WHERE NotificationPreferences.Cycle = 'weekly'";
 
-
 		$result = $this->db->query($sql)->result();
 		$array = (json_decode(json_encode($result),true));
+		$this->sendWeeklyNots();
 		//STEP 2: loop every caregiver
 		$caregivers = array();
 
 		foreach($array as $caregiver){
+
 			$this->load->library('email');
 			$email = $caregiver['email'];
 			$name = $caregiver['firstname'];
-			$sql = "SELECT idCaregiver, created FROM a18ux02.Caregiver where email = '$email'";
-			$result = $this->db->query($sql);
-			$row = $result->row();
+
+
 			$this->email->set_mailtype('html');
 			$this->email->from('a18ux02@gmail.com');
 			$this->email->to($email);
@@ -319,6 +321,10 @@ Class Caregivers extends CI_Model
 
 			$this->email->message($message);
 //			$this->email->send();
+
+			//UPDATE timestamp
+			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendWeekly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
+//			$this->db->query($sql);
 		}
 
 	}
@@ -385,8 +391,23 @@ Class Caregivers extends CI_Model
 
 			$this->email->message($message);
 //			$this->email->send();
+
+			//UPDATE timestamp
+			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendMonthly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
+//			$this->db->query($sql);
 		}
 
+	}
+
+	public function sendWeeklyNots(){
+		//get number of floors
+		$sql = "SELECT COUNT(*) FROM a18ux02.Floors;";
+		$number = json_decode(json_encode($this->db->query($sql)->result()[0]),true)['COUNT(*)'];
+		for($i = 1;$i <= $number;$i++){
+			//INSERT NOTIFICATION FOR EVERY FLOOR
+			$floorsql = "INSERT INTO a18ux02.Notifications (text,FK_FloorID,date) VALUES ('weekly update of Floor ".$i." are available',".$i.",".'CURRENT_TIME'.");";
+			$this->db->query($floorsql);
+		}
 	}
 
     public function updateNote($notes)
