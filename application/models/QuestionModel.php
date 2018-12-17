@@ -327,8 +327,4 @@ class QuestionModel extends CI_Model
 
         return $completed;
     }
-
-    function sendNotification(){
-
-    }
 }
