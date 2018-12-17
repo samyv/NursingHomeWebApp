@@ -17,8 +17,8 @@
 </div>
 <video id="camera-stream" autoplay></video>
 <button onclick=autoLogin()></button>
-<img class = qrpicture src= "../a18ux02/assets/images/qrcode2.png" alt="QR-code">
-<img class = qrmarker src= "../a18ux02/assets/images/marker.png" alt="QR-code">
+<img id = qrpicture class = qrpicture src= "../a18ux02/assets/images/qrcode2.png" alt="QR-code">
+<img id = qrmarker class = qrmarker src= "../a18ux02/assets/images/marker.png" alt="QR-code">
 <p class = explanation>Hou je QR-code in het groene vierkant</p>
 <script>
 
@@ -41,10 +41,19 @@
 
     function stylescanner()
     {
-        // TODO: style the scanner in this function
+        // Style the scanner window
         let cam = document.getElementById('camera-stream');
         let s = cam.style;
         s["width"] = "100%";
+
+        // only make the qr code and marker visible when the scanner is loaded
+        let marker = document.getElementById('qrmarker');
+        s = marker.style;
+        s["display"] = "inline-block";
+
+        let qrcode = document.getElementById('qrpicture');
+        s = qrcode.style;
+        s["display"] = "inline-block";
     }
 
     Instascan.Camera.getCameras().then(function (cameras) {

@@ -211,6 +211,7 @@ span.psw {
 }
 
 .qrpicture{
+    display: none;
     z-index: 1;
     position: absolute;
     opacity: 0.3;
@@ -244,6 +245,7 @@ span.psw {
 }
 
 .qrmarker{
+    display: none;
     z-index: 1;
     position: absolute;
     top: 250px;
