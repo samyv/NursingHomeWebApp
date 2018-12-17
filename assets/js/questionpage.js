@@ -56,7 +56,6 @@ $(document).ready(function () {
         nextQuestion = data.nextQuestion;
     });
 
-
     transOldAnswer(index);
 
     $('#answer1').click(async function(){

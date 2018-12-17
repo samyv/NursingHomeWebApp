@@ -221,7 +221,7 @@ class Resident extends CI_Controller
 
     public function finalPage(){
         $idResident = $_SESSION['Resident']['residentID'];
-        $questionnaireId = $this->residents->getQuestionnaireID($idResident);
+        $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
         $this->QuestionModel->setQuestionnaireCompleted($questionnaireId);
         $this->QuestionModel->sendNotification();
         $index = $this->QuestionModel->getLastQuestion();
@@ -269,8 +269,7 @@ class Resident extends CI_Controller
         $data['previousQuestion'] = $this->QuestionModel->previousQuestion($index);
         $data['nextQuestion'] = $this->QuestionModel->nextQuestion($index);
         if($data['nextQuestion'] != -1) {
-            $data['nextType'] = $this->QuestionModel->getQuestionType($index + 1);
-
+            $data['nextType'] = $this->QuestionModel->getQuestionType($data['nextQuestion']);
         } else {
             $data['nextType'] = $data['currentType'];
         }
