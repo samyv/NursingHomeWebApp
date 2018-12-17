@@ -37,7 +37,7 @@
         <img id="logoImg" src="http://localhost/a18ux02/assets/images/<?= $image ?>">
     </div>
     <div id="continue">
-        <button id="continuebtn" onclick="location.href='<?= base_url(); ?>resident/questionpage/<?= $index ?>'">Continue
+        <button id="continuebtn" onclick="location.href='<?= base_url(); ?>resident/questionpage/<?= $index ?>'">Volgende
         </button>
     </div>
 
