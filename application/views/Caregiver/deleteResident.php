@@ -33,7 +33,7 @@
 <div class='dialog-ovelay' role="alert">
     <div class='dialog'>
         <header>
-            <h3>Delete note?</h3>
+            <h3><?php echo ($this->lang->line('title delete resident'));?></h3>
             <i class='fa fa-close'></i>
         </header>
         <div class='dialog-msg'>

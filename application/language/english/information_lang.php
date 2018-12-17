@@ -126,8 +126,13 @@ $lang['select questionnaire'] ='Select a questionnaire';
 
 //delete resident
 $lang['title delete resident'] ='Delete resident';
+$lang['text delete resident'] ='Are you sure you want to delete this resident?';
+$lang['delete'] ='DELETE';
+$lang['title modal delete'] ='Delete';
 
-
+//delete caregiver
+$lang['title delete caregiver'] ='Delete caregiver';
+$lang['text delete caregiver'] ='Are you sure you want to delete this caregiver?';
 
 
 

@@ -129,6 +129,13 @@ $lang['select questionnaire'] ='Kies een vragenlijst';
 
 //delete resident
 $lang['title delete resident'] ='Verwijder bewoner';
+$lang['text delete resident'] ='Bent u zeker dat u deze bewonder wil verwijderen?';
+$lang['delete'] ='VERWIJDER';
+$lang['title modal delete'] ='Verwijderen';
+
+//delete caregiver
+$lang['title delete caregiver'] ='Verwijder verzorger';
+$lang['text delete caregiver'] ='Bent u zeker dat u deze verzorger wilt verwijderen?';
 
 
 
