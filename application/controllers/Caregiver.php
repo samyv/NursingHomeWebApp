@@ -763,6 +763,30 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function getTotalScoreTime(){
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+        $id = $_GET['idResident'];
+        $query = "SELECT DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, SUM(a18ux02.Answers.answer) as total  
+                    from a18ux02.Questionnaires 
+                    INNER JOIN a18ux02.Answers 
+                        on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
+                    INNER JOIN a18ux02.Resident
+                        on a18ux02.Questionnaires.Resident_residentID = a18ux02.Resident.residentID
+                    INNER JOIN a18ux02.Question
+                        on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
+                    where  a18ux02.Questionnaires.Completed = '1' and a18ux02.Resident.residentID = '$id'
+                    GROUP BY timestamp
+                    ORDER BY timestamp ASC";
+        if ($row = $this->caregivers->executeQuery($query)) {
+            $result = $row->result();
+            $result = json_encode($result);
+            print_r($result);
+            return $result;
+        }
+    }
+
     public function getSections(){
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');

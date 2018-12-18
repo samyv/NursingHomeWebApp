@@ -17,7 +17,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/notes.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/timeGraphResident.js"></script>
     <script src="../javascript/qrcode.min.js"></script>
+
 </head>
 <body>
 
@@ -128,7 +130,8 @@
 
         <div id="chart" name="chart">
         </div>
-        <div class="scores_per_category">
+
+        <div class="timeChart">
 
         </div>
 
@@ -219,6 +222,16 @@
 
         $('#changeInfo').click(changeInfo)
         $('#saveInfo').click(saveInfo)
+        
+        $.ajax({
+            url: '<?php echo base_url();?>caregiver/getTotalScoreTime/?idResident=' + idResident,
+            dataType: 'json',
+            success: function (totalScoreTime) {
+                drawTimeResident(totalScoreTime);
+            }
+        })
+        
+        
     });
 
 
