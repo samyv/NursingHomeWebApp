@@ -301,6 +301,9 @@ class Caregiver extends CI_Controller
 
     public function newResident()
     {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
         $data = array();
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newResident');
         $dataResident = array();
@@ -320,15 +323,14 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('room', 'Number', 'trim|required|is_natural_no_zero|xss_clean|callback_room_check');
             $this->form_validation->set_rules('cp_first_name', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('cp_last_name', 'Contact Last Name', 'required|trim|xss_clean');
-            if($this->input->post('cp_existing')) {
-                $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
-            }else{
+            if($this->input->post('cp_existing')&& $_POST['cp_existing']==1) {
                 $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean');
+            }else{
+                $this->form_validation->set_rules('cp_email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
             }
             $this->form_validation->set_rules('cp_phone', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if($this->form_validation->run() == true){
-
                 $dataResident = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
                     'lastname' => strip_tags($this->input->post('lastname')),
@@ -340,6 +342,7 @@ class Caregiver extends CI_Controller
                     'cp_last_name' =>strip_tags($this->input->post('cp_last_name')),
                     'cp_email' =>strip_tags($this->input->post('cp_email')),
                     'cp_phone' =>strip_tags($this->input->post('cp_phone')),
+                    'cp_exists' =>$this->input->post('cp_existing'),
                 );
                 // Define file rules
                 $config['upload_path']          = './upload/';
@@ -358,8 +361,8 @@ class Caregiver extends CI_Controller
                     $dataResident['mime'] = $data['file_type'];
                     if($this->residents->insert($dataResident)) {
                         unlink($data['full_path']);
-                        $data['success_msg'] = "The new resident is registered successful.";
-                        unset($_POST);
+                        $this->session->set_userdata('success_msg', 'The new resident is registered successful.');
+                        redirect('residentAdded');
                     }else
                     {
                         $data['error_msg'] = "Something went wrong, please try again.";
@@ -371,6 +374,23 @@ class Caregiver extends CI_Controller
         $data['resident'] = $dataResident;
         //load the view
         $this->parser->parse('Caregiver/newResident', $data);
+    }
+
+    public function residentAdded(){
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        if ($this->session->userdata('success_msg')) {
+            $data['success_msg'] = $this->session->userdata('success_msg');
+            $this->session->unset_userdata('success_msg');
+        }else{
+            redirect('index.php');
+        }
+
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residentAdded');
+        $this->parser->parse('templates/header',$data);
+        $this->parser->parse('Caregiver/residentAdded',$data);
     }
 
     /*

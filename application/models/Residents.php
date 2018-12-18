@@ -38,6 +38,7 @@ class Residents extends CI_Model
         $cp_email = $data['cp_email'];
         $cp_phone = $data['cp_phone'];
         $mime = $data['mime'];
+        $exists = $data['cp_exists'];
 
         $blob = fopen($data['filepath'], 'rb');
 
@@ -51,9 +52,16 @@ class Residents extends CI_Model
         $stmt->execute();
         $pictureid =$this->db->insert_id();
 
-        $sql = "INSERT INTO a18ux02.ContactPerson (firstname, lastname, email, phonenumber) VALUES ('$cp_first_name','$cp_last_name','$cp_email','$cp_phone')";
-        $this->db->query($sql);
-        $idcp =$this->db->insert_id();
+        if($exists != 1) {
+            $sql = "INSERT INTO a18ux02.ContactPerson (firstname, lastname, email, phonenumber) VALUES ('$cp_first_name','$cp_last_name','$cp_email','$cp_phone')";
+            $this->db->query($sql);
+            $idcp = $this->db->insert_id();
+        }else{
+            $sql = "SELECT idContactInformation from a18ux02.ContactPerson where email = '$cp_email'";
+            $result = $this->db->query($sql);
+            $row = $result->result();
+            $idcp = $row[0]->idContactInformation;
+        }
 
 
         //insert resident in resident table

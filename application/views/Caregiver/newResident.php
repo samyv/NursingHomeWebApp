@@ -160,10 +160,8 @@
 		</div>
         <div>
             <input type="checkbox" name="cp_existing" id="existingCP" class="form-control"
-                   value="<?php echo (isset($_POST['cp_existing']) ? $_POST['cp_existing'] : ''); ?>">
+                   value="1" checked="<?php echo ((isset($_POST['cp_existing']) && $_POST['cp_existing'] == 1) ? true : false); ?>">
         </div>
-
-
         <div class="buttons">
             <input type="submit" value="<?php echo ($this->lang->line('add'))?>" name="saveSettings"/>
             <input type="button" value="<?php echo ($this->lang->line('cancel'))?>" onclick="location.href='landingPage'"/>
