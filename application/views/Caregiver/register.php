@@ -38,19 +38,19 @@
 				</div>
 				<label for="surname"><b> <?php echo ($this->lang->line('firstname'))?></b></label>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph firstname'))?>" name="firstname" required="" value="<?php echo !empty($caregiver['firstname'])?$caregiver['firstname']:''; ?>">
+					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph firstname'))?>" name="firstname" required="" value="<?php echo (isset($_POST['firstname']) ? $_POST['firstname'] : ''); ?>">
 					<?php echo form_error('firstname','<span class="help-block">','</span>'); ?>
 				</div>
 				<label for="name"><b> <?php echo ($this->lang->line('lastname'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph lastname'))?>" name="lastname" required="" value="<?php echo !empty($caregiver['lastname'])?$caregiver['lastname']:''; ?>">
+					<input type="text" class="form-control" placeholder=" <?php echo ($this->lang->line('ph lastname'))?>" name="lastname" required="" value="<?php echo (isset($_POST['lastname']) ? $_POST['lastname'] : ''); ?>">
 					<?php echo form_error('lastname','<span class="help-block">','</span>'); ?>
 				</div>
 				<label for="email"><b> <?php echo ($this->lang->line('email'))?></b></label>
 				<br>
 				<div class="form-group">
-					<input type="email" class="form-control" autocomplete="username" placeholder=" <?php echo ($this->lang->line('ph email'))?>" name="email" required="" value="<?php echo !empty($caregiver['email'])?$caregiver['email']:''; ?>">
+					<input type="email" class="form-control" autocomplete="username" placeholder=" <?php echo ($this->lang->line('ph email'))?>" name="email" required="" value="<?php echo (isset($_POST['email']) ? $_POST['email'] : ''); ?>">
 					<?php echo form_error('email','<span class="help-block">','</span>'); ?>
 				</div>
 				<label for="psw"><b><?php echo ($this->lang->line('password'))?></b></label>
