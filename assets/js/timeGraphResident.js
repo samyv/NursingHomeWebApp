@@ -1,4 +1,4 @@
-function drawTimeResident(data,nrofQuestions) {
+function drawTimeResident(data) {
 
 
     data.forEach(function (d) {
@@ -19,12 +19,13 @@ function drawTimeResident(data,nrofQuestions) {
         }))
         .range([0, width]);
     var y = d3.scaleLinear()
-        .domain([0,nrofQuestions*5])
+        .domain([0, d3.max(data, function (d, i) {
+            return d.total+10
+        })])
         .range([height, 0]);
 
     let xAxis = d3.axisBottom(x)
         .ticks(d3.max(data, function (d, i) {
-            console.log(i)
             return (2 + i)
         }));
 
@@ -53,15 +54,6 @@ function drawTimeResident(data,nrofQuestions) {
         return a["timestamp"] - b["timestamp"];
     })
 
-    // var lineFunction = d3.svg.line()
-    //     .x(function (d) {
-    //         return d.timestamp;
-    //     })
-    //     .y(function (d) {
-    //         return d.total;
-    //     })
-    //     .interpolate("linear");
-    console.log(data);
 
     svg.append("path")
         .datum(data)

@@ -320,7 +320,6 @@
         dataType: 'json',
         success: function (totalscore) {
 
-            console.log(totalscore);
             $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
             $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
                 .attr("aria-valuemax", totalscore[0].nrOfQuestions*5)

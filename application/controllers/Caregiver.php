@@ -875,12 +875,11 @@ class Caregiver extends CI_Controller
             print_r($result);
         }
     }
-}
 
-public
-function getFloorDataLastMonth()
-{
-    $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
+
+    public function getFloorDataLastMonth()
+    {
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
@@ -891,24 +890,24 @@ function getFloorDataLastMonth()
                     where  a18ux02.Questionnaires.Completed = '1' and month(a18ux02.Questionnaires.timestamp) = month(now()-interval 0 month) and year(a18ux02.Questionnaires.timestamp) = year(now()-interval 0 month)
                     GROUP BY timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
                     ORDER BY a18ux02.Resident.floor, timestamp, a18ux02.Question.questionType ASC";
-    if ($row = $this->caregivers->executeQuery($query)) {
-        $result = $row->result();
-        $result = json_decode(json_encode($result), true);
-        $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
-        if ($row2 = $this->caregivers->executeQuery($query)) {
-            $result2 = json_decode(json_encode($row2->result()), true);
-            $max = $result2[0]['max'];
-            $result = json_encode(array($result, $max));
-            print_r($result);
+        if ($row = $this->caregivers->executeQuery($query)) {
+            $result = $row->result();
+            $result = json_decode(json_encode($result), true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if ($row2 = $this->caregivers->executeQuery($query)) {
+                $result2 = json_decode(json_encode($row2->result()), true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result, $max));
+                print_r($result);
+            }
         }
     }
-}
 
 
-public
-function getFloorDataLastWeek()
-{
-    $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
+    public
+    function getFloorDataLastWeek()
+    {
+        $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
@@ -919,24 +918,24 @@ function getFloorDataLastWeek()
                     where  a18ux02.Questionnaires.Completed = '1' and YEARWEEK(a18ux02.Questionnaires.timestamp) = yearweek(now()-interval 1 week)
                     GROUP BY timestamp, a18ux02.Question.questionType, a18ux02.Resident.floor 
                     ORDER BY a18ux02.Resident.floor, timestamp, a18ux02.Question.questionType ASC";
-    if ($row = $this->caregivers->executeQuery($query)) {
-        $result = $row->result();
-        $result = json_decode(json_encode($result), true);
-        $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
-        if ($row2 = $this->caregivers->executeQuery($query)) {
-            $result2 = json_decode(json_encode($row2->result()), true);
-            $max = $result2[0]['max'];
-            $result = json_encode(array($result, $max));
-            print_r($result);
+        if ($row = $this->caregivers->executeQuery($query)) {
+            $result = $row->result();
+            $result = json_decode(json_encode($result), true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if ($row2 = $this->caregivers->executeQuery($query)) {
+                $result2 = json_decode(json_encode($row2->result()), true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result, $max));
+                print_r($result);
+            }
         }
     }
-}
 
 
-public
-function getFloorSpinData()
-{
-    $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
+    public
+    function getFloorSpinData()
+    {
+        $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
                     from a18ux02.Questionnaires 
                     INNER JOIN a18ux02.Answers 
                         on a18ux02.Questionnaires.idQuestionnaires = a18ux02.Answers.questionnairesId
@@ -946,76 +945,76 @@ function getFloorSpinData()
                         on a18ux02.Answers.questionId = a18ux02.Question.idQuestion
                     GROUP BY a18ux02.Question.questionType, a18ux02.Resident.floor
                     ORDER BY a18ux02.Question.questionType, a18ux02.Resident.floor ASC";
-    if ($row = $this->caregivers->executeQuery($query)) {
-        $result = $row->result();
-        $result = json_decode(json_encode($result), true);
-        $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
-        if ($row2 = $this->caregivers->executeQuery($query)) {
-            $result2 = json_decode(json_encode($row2->result()), true);
-            $max = $result2[0]['max'];
-            $result = json_encode(array($result, $max));
-            //print_r($result);
+        if ($row = $this->caregivers->executeQuery($query)) {
+            $result = $row->result();
+            $result = json_decode(json_encode($result), true);
+            $query = "select MAX(a18ux02.Question.questionType) as 'max' FROM a18ux02.Question";
+            if ($row2 = $this->caregivers->executeQuery($query)) {
+                $result2 = json_decode(json_encode($row2->result()), true);
+                $max = $result2[0]['max'];
+                $result = json_encode(array($result, $max));
+                //print_r($result);
+            }
         }
     }
-}
 
-public
-function deleteCaregiver()
-{
-    if (!$this->session->userdata('isUserLoggedIn')) {
-        redirect('index.php');
+    public
+    function deleteCaregiver()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Caregiver";
+        $this->load->database('default');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregiver');
+        $this->parser->parse('templates/header', $data);
+
+
+        // get names out of database
+        $result = $this->caregivers->getCaregivers();
+        $data['listCar'] = $result;
+
+        // parse
+        $this->parser->parse('Caregiver/deleteCaregiver', $data);
     }
 
-    $data = array();
-    $data['page_title'] = "Delete Caregiver";
-    $this->load->database('default');
-    $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteCaregiver');
-    $this->parser->parse('templates/header', $data);
+    public
+    function deleteResident()
+    {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
+
+        $data = array();
+        $data['page_title'] = "Delete Resident";
+        $this->load->database('default');
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteResident');
+        $this->parser->parse('templates/header', $data);
 
 
-    // get names out of database
-    $result = $this->caregivers->getCaregivers();
-    $data['listCar'] = $result;
+        // get names out of database
+        $result = $this->caregivers->getResidents();
+        $data['listCar'] = $result;
 
-    // parse
-    $this->parser->parse('Caregiver/deleteCaregiver', $data);
-}
-
-public
-function deleteResident()
-{
-    if (!$this->session->userdata('isUserLoggedIn')) {
-        redirect('index.php');
+        // parse
+        $this->parser->parse('Caregiver/deleteResident', $data);
     }
 
-    $data = array();
-    $data['page_title'] = "Delete Resident";
-    $this->load->database('default');
-    $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('deleteResident');
-    $this->parser->parse('templates/header', $data);
+    public
+    function CaregiverDelete()
+    {
+        $id = $_POST['idCaregiver'];
+        $this->caregivers->deleteCaregiverById($id);
+    }
 
 
-    // get names out of database
-    $result = $this->caregivers->getResidents();
-    $data['listCar'] = $result;
-
-    // parse
-    $this->parser->parse('Caregiver/deleteResident', $data);
-}
-
-public
-function CaregiverDelete()
-{
-    $id = $_POST['idCaregiver'];
-    $this->caregivers->deleteCaregiverById($id);
-}
-
-
-public
-function ResidentDelete()
-{
-    $id = $_POST['idResident'];
-    $this->caregivers->deleteResidentById($id);
-}
+    public
+    function ResidentDelete()
+    {
+        $id = $_POST['idResident'];
+        $this->caregivers->deleteResidentById($id);
+    }
 
 }
