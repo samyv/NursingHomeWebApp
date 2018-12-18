@@ -35,6 +35,7 @@ const heatmapChart = function(p_data, sections){
     }
 
     const svg = d3.select("#chart").append("svg")
+		.attr("id", "heatmap")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")

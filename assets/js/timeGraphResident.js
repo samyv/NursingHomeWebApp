@@ -35,6 +35,7 @@ function drawTimeResident(data) {
         .ticks(4);
 
     var svg = d3.select("body").select("div.visualisation").select("div.timeChart").append("svg")
+        .attr("id", "timechart")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
         .append("g")
