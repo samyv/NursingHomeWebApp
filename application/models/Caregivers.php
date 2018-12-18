@@ -89,9 +89,9 @@ Class Caregivers extends CI_Model
 		$key = $data[key];
 
 		if($this->checkSupervisorKey($nursingHomeID,$key)){
-            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome,supervisor) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID,'1')";
+            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome,supervisor,FK_NotificationPref) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID,'1','5')";
         }else{
-            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID)";
+            $sql = "INSERT INTO a18ux02.Caregiver (idCaregiver, firstname, lastname, email, floor, password, hash, created, modified, activated,FK_NursingHome,FK_NotificationPref) VALUES (NULL,'$firstname','$lastname','$email','1','$password', '',CURRENT_TIME ,CURRENT_TIME,'0',$nursingHomeID,'5')";
         }
         $insert = $this->db->query($sql);
         if($insert){
@@ -249,9 +249,7 @@ Class Caregivers extends CI_Model
 	}
 	public function sendEmails(){
 		$this->caregivers->checkWeekly();
-		$this->caregivers->sendWeekly();
 		$this->caregivers->checkMonthly();
-
 	}
 
 	public function checkWeekly(){

@@ -121,7 +121,7 @@
 			var test = id_td.innerHTML;
 
 			console.log(window.location.href);
-			window.location.href =  "http://localhost/a18ux02/searchRes"+"?uid="+test;
+			window.location.href =  "<?php base_url()?>searchRes"+"?uid="+test;
 			<?php
 			if(isset($_GET['uid'])){
 				$id = $_GET['uid'];
