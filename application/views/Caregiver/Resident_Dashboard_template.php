@@ -124,7 +124,7 @@
         <div class="total_score">
             <label id="total_score_label"></label>
             <div class="progress">
-            <div class="progress-bar" role="progressbar" id="total_score_bar" aria-valuemax="265" aria-valuenow="0" aria-valuemin="0" style="display: none"></div>
+            <div class="progress-bar" role="progressbar" id="total_score_bar" aria-valuenow="0" aria-valuemin="0" style="display: none"></div>
             </div>
         </div>
 
@@ -259,6 +259,7 @@
                 success: function (totalscore) {
                     $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
                     $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
+                        .attr("aria-valuemax", totalscore[0].nr*5)
                         .css("display", "inline")
                         .css("width", (totalscore[0].total_score/265*100)+"%");
                     switch (Math.floor(totalscore[0].total_score/265*100/20)) {
@@ -322,6 +323,7 @@
             console.log(totalscore);
             $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
             $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
+                .attr("aria-valuemax", totalscore[0].nrOfQuestions*5)
                 .css("width", (totalscore[0].total_score/265*100)+"%")
                 .css("display", "inline");
 

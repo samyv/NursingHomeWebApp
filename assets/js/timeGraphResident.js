@@ -1,4 +1,4 @@
-function drawTimeResident(data) {
+function drawTimeResident(data,nrofQuestions) {
 
 
     data.forEach(function (d) {
@@ -19,9 +19,7 @@ function drawTimeResident(data) {
         }))
         .range([0, width]);
     var y = d3.scaleLinear()
-        .domain([0, d3.max(data, function (d, i) {
-            return d.total+10
-        })])
+        .domain([0,nrofQuestions*5])
         .range([height, 0]);
 
     let xAxis = d3.axisBottom(x)
