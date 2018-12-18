@@ -17,7 +17,6 @@ class Caregiver extends CI_Controller
 		$this->load->model('caregivers');
 		$this->load->model('residents');
 		$this->load->library('session');
-
 		$this->load->model('dropdownmodel');
 		$this->load->database('default');
 		$this->load->helper('security');
@@ -446,14 +445,18 @@ class Caregiver extends CI_Controller
 
         $cond['table'] = "a18ux02.ContactPerson";
         $cond['where'] = array('idContactInformation' => $row[0]['FK_ContactPerson'] );
-        $row = $this->caregivers->getRows($cond);
-        $result = json_decode(json_encode($row), true);
+        $row2 = $this->caregivers->getRows($cond);
+        $result = json_decode(json_encode($row2), true);
         $data['contactperson'] = $result['result_object'][0];
+        //print_r($data['contactperson']);
 
         /*
          * change contact info
          */
+
         $dataContactperson = array();
+
+
         if($this->input->post('saveInfo')) {
             $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
@@ -466,9 +469,10 @@ class Caregiver extends CI_Controller
                     'lastname' => strip_tags($this->input->post('lastname')),
                     'email' => strip_tags($this->input->post('email')),
                     'phonenumber' => strip_tags($this->input->post('phonenumber')),
+                    'id' => $row[0]['FK_ContactPerson'],
                 );
             }
-            //print_r($dataContactperson);
+            print_r($dataContactperson);
             $this->residents->updateContactPerson($dataContactperson);
         }
 
