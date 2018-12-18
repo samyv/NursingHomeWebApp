@@ -85,7 +85,7 @@ html,body {
 	grid-template-rows: 3em 3em auto 200px ;
 	grid-template-areas: "select select select select select select"
 					     "total total total total . ."
-							"graph graph graph graph . ."
+							"graph graph graph graph graph graph"
 						"time time time time time time"
 }
 
