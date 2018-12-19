@@ -1,3 +1,9 @@
+html,body{
+    height: 100%;
+    width: 100%;
+    margin: 0;
+}
+
 body{
     font-family: Verdana;
     margin: 0;
@@ -22,6 +28,7 @@ body{
             ". . footer footer footer footer footer footer footer footer . .";
     width: 100vw;
     height: 100vh;
+    margin: 0;
 }
 
 #header{
