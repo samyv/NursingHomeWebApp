@@ -104,8 +104,7 @@ class Resident extends CI_Controller
         }
         $answer = $this->QuestionModel->getAnswer($questionnaireId,$index);
         $pos = $this->QuestionModel->getQuestionPosition($index);
-        if($answer == 0) $currentNum = $pos-1;
-        else $currentNum = $pos;
+        $currentNum = $pos;
         $data['currentNum'] = $currentNum;
         $data['percentage'] = sprintf("%01.0f", ($currentNum/$totalNum)*100).'%';
         $this->parser->parse('Resident/questionPage', $data);
