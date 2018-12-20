@@ -34,17 +34,22 @@
 		populate();
 		init();
 	});
-	var list,name;
+	var list,name,room;
 	function search() {
 		var input, filter, table, i;
 		input = document.getElementById("myInput");
 		filter = input.value.toUpperCase();
+		console.log(filter)
 		table = document.getElementById("myTable");
 		list = document.getElementsByTagName('tr');
 		for (i = 1; i <= list.length; i++) {
 			if(list[i] != undefined) {
 				name = list[i].getElementsByTagName("td")[1].innerHTML;
-				if (name.toUpperCase().indexOf(filter) > -1) {
+				room = list[i].getElementsByTagName("td")[3].innerHTML;
+				console.log("room: "+room);
+				console.log("filter: "+filter);
+				console.log(room.indexOf(filter));
+				if ((name.toUpperCase().indexOf(filter) > -1) || (room.indexOf(filter) > -1))  {
 					list[i].style.display = "";
 				} else {
 					list[i].style.display = "none";
@@ -58,6 +63,7 @@
 		database = <?php echo json_encode($listCar)?>;
 		var table = document.getElementById("myTable");
 		var tbody = document.createElement("tbody");
+		var tbodyH = document.createElement("tbody");
 		var row = document.createElement('tr');
 		var id = document.createElement('th');
 		// id.style.display = "block";
@@ -71,13 +77,14 @@
 		col2.innerHTML ="<?php echo($this->lang->line('floor'));?>";
 		row.appendChild(col2)
 		var col3 = document.createElement('th');
-		col3.innerHTML ="<?php echo($this->lang->line('age'));?>";
+		col3.innerHTML ="<?php echo($this->lang->line('room'));?>";
 		row.appendChild(col3)
 		tbody.appendChild(row)
 		var elements = [];
 		for (var i = 0 ; i < database.length ; i++)
 		{
 			var element = getElements(database[i]);
+			console.log(element)
 			elements.push(element);
 
 			var row = document.createElement('tr');
@@ -93,7 +100,7 @@
 			col2.innerHTML = element.floor;
 			row.appendChild(col2)
 			var col3 = document.createElement('td');
-			col3.innerHTML = element.age;
+			col3.innerHTML = element.room;
 			row.appendChild(col3)
 			tbody.appendChild(row);
 		}
@@ -106,7 +113,7 @@
 		element.name = db_element['firstname'] +" " + db_element['lastname'];
 		element.floor = db_element['floor'];
 		var date = db_element['birthdate'].split("-");
-		element.age  = calculate_age(new Date(date[0],date[1],date[2]));
+		element.room  = db_element['room'];
 		return element;
 	}
 	function calculate_age(date) {

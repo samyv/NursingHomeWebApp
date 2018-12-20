@@ -11,10 +11,6 @@
 	<script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<div class="h1 fade-in">
-	<h1>GraceAge</h1>
-	<h2><?php echo ($this->lang->line('subtitle header'))?></h2>
-</div>
 <main>
 	<div class="grid-container fade-in">
 		<div class="h2">

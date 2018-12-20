@@ -8,7 +8,7 @@
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="http://code.responsivevoice.org/1.4/responsivevoice.js"></script>
+<script src="https://code.responsivevoice.org/1.4/responsivevoice.js"></script>
 <div class="grid-container">
     <div id="header">
         <div id="title">GraceAge</div>
