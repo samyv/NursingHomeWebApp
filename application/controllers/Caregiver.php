@@ -1008,6 +1008,7 @@ class Caregiver extends CI_Controller
     {
         $id = $_POST['idCaregiver'];
         $this->caregivers->deleteCaregiverById($id);
+        header("Refresh:0");
     }
 
 
@@ -1016,6 +1017,8 @@ class Caregiver extends CI_Controller
     {
         $id = $_POST['idResident'];
         $this->caregivers->deleteResidentById($id);
+        header("Refresh:0");
+
     }
 
 }
