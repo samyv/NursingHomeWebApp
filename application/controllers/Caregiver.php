@@ -678,6 +678,10 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function updateQuestionnairie(){
+
+	}
+
     public function newQuestion()
     {
         $data = array();

@@ -12,16 +12,87 @@
 <body>
     <div class="grid-container">
 		<div class="sectionTable">
-			<table id="sTable"></table>
+			<table id="sTable">
+				<thead>
+				<th>#</th>
+				<th>Section</th>
+				<th>
+					<button id="addSection">+</button>
+				</th>
+				</thead>
+			</table>
 		</div>
 		<div class="questionTable">
-			<table id="qTable"></table>
+			<table id="qTable">
+				<thead>
+				<th>#</th>
+				<th>Question</th>
+				<th>
+					<button id="addQuestion">+</button>
+				</th>
+				</thead>
+			</table>
+		</div>
+		<div class="save">
+			<button id="save">SAVE</button>
 		</div>
 	</div>
 <script type="text/javascript">
 	$(function () {
 		populateSections();
 		init();
+
+		$('#addQuestion').on('click',function () {
+			var table = document.getElementById("qTable");
+			var tbody = table.children[1];
+			let amountOfQuestions = tbody.children.length;
+// Create an empty <tr> element and add it to the 1st position of the table:
+			var row = table.insertRow(amountOfQuestions+1);
+
+// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+
+// Add some text to the new cells:
+			cell1.innerHTML = amountOfQuestions+1;
+			cell2.innerHTML = "New Question";
+			cell2.setAttribute("colspan",2);
+			cell2.setAttribute("contenteditable",'true');
+
+		})
+		$('#addSection').on('click',function () {
+			var table = document.getElementById("sTable");
+			var tbody = table.children[1];
+			let amountOfQuestions = tbody.children.length;
+// Create an empty <tr> element and add it to the 1st position of the table:
+			var row = table.insertRow(amountOfQuestions+1);
+
+// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
+			var cell1 = row.insertCell(0);
+			var cell2 = row.insertCell(1);
+
+// Add some text to the new cells:
+			cell1.innerHTML = amountOfQuestions+1;
+			cell2.innerHTML = "New Section";
+			cell2.setAttribute("colspan",2);
+			cell2.setAttribute("contenteditable",'true');
+		})
+		$('#addSection').on('click',function () {
+			console.log("clickedS!")
+		})
+		$('#save').on('click',function () {
+			$.ajax({
+				url: window.origin+'/a18ux02/Caregiver/updateQuestionnairie',
+				method: 'post',
+				dataType: 'json',
+				data: {
+					//DATA
+				},
+				success: function(idNote) {
+					//NOTI CG
+				}
+			});
+		})
 	})
 
 
@@ -32,18 +103,6 @@
 		sections = <?php echo json_encode($sections)?>;
 		var table = document.getElementById("sTable");
 		var tbody = document.createElement("tbody");
-		var row = document.createElement('tr');
-
-		var col1 = document.createElement('th');
-		col1.innerHTML = "#";
-		row.appendChild(col1)
-		var col1 = document.createElement('th');
-		col1.innerHTML = "Section";
-		row.appendChild(col1)
-		// var col2 = document.createElement('th');
-		// col2.innerHTML = "#Questions";
-		// row.appendChild(col2)
-		tbody.appendChild(row)
 
 		var elements = [];
 		for (var i = 0 ; i < sections.length ; i++)
@@ -59,6 +118,7 @@
 			row.appendChild(col1)
 			var col2 = document.createElement('td');
 			col2.innerHTML = sectionName
+			col2.setAttribute("colspan",2)
 			row.appendChild(col2)
 
 			tbody.appendChild(row);
@@ -69,15 +129,6 @@
 		let questionsSections1 = questionsDB.filter(e => e.questionType == 1);
 		var table2 = document.getElementById("qTable");
 		var tbody = document.createElement("tbody");
-		var row = document.createElement('tr');
-
-		var col1 = document.createElement('th');
-		col1.innerHTML = "Question";
-		row.appendChild(col1)
-		// var col2 = document.createElement('th');
-		// col2.innerHTML = "#Questions";
-		// row.appendChild(col2)
-		tbody.appendChild(row)
 
 		var elements = [];
 		//CREATE ROW FOR EVERY Question of first section
@@ -86,8 +137,12 @@
 			var questionName = questionsSections1[i]["questionText"];
 			var row = document.createElement('tr');
 			var col1 = document.createElement('td');
-			col1.innerHTML = questionName
+			col1.innerHTML = i+1
 			row.appendChild(col1)
+			var col2 = document.createElement('td');
+			col2.setAttribute("colspan",2);
+			col2.innerHTML = questionName
+			row.appendChild(col2)
 			tbody.appendChild(row);
 		}
 		table2.appendChild(tbody)
@@ -105,17 +160,8 @@
 	function setQuestionTable(id){
 		let questionsSections1 = questionsDB.filter(e => e.questionType == id);
 		var table2 = document.getElementById("qTable");
-		var old_tbody =table2.firstChild;
+		var old_tbody =table2.children[1];
 		var tbody = document.createElement("tbody");
-		var row = document.createElement('tr');
-
-		var col1 = document.createElement('th');
-		col1.innerHTML = "Question";
-		row.appendChild(col1)
-		// var col2 = document.createElement('th');
-		// col2.innerHTML = "#Questions";
-		// row.appendChild(col2)
-		tbody.appendChild(row)
 
 		var elements = [];
 		//CREATE ROW FOR EVERY Question of first section
@@ -124,8 +170,12 @@
 			var questionName = questionsSections1[i]["questionText"];
 			var row = document.createElement('tr');
 			var col1 = document.createElement('td');
-			col1.innerHTML = questionName
+			col1.innerHTML = i+1
 			row.appendChild(col1)
+			var col2 = document.createElement('td');
+			col2.innerHTML = questionName
+			col2.setAttribute("colspan",2);
+			row.appendChild(col2)
 			tbody.appendChild(row);
 		}
 		old_tbody.parentNode.replaceChild(tbody, old_tbody)
