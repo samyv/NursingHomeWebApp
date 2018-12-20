@@ -16,11 +16,12 @@
 
 <div class="grid-container">
     <div id="header">
-        <div id="title">GraceAge</div>
         <div id="logout">
 			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
-			<button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
-			</div>
+        </div>
+        <div id="music">
+            <button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
+        </div>
     </div>
 
     <div id="questionType">{sectionType} ({currentNum}/{totalNum})</div>
@@ -65,15 +66,17 @@
 </div>
 
 <script>
-	$(document).ready(function () {
-		$('.autoB').click();
-		// responsiveVoice.speak(question);
+    let audio = true;
 
+	$(document).ready(function () {
+        if(audio){
+            let string = '{question}';
+            responsiveVoice.speak(string, "Dutch Female")
+        }
 	});
 	function toggleAudio()
 	{
-		var string = '{question}';
-		responsiveVoice.speak(string, "Dutch Female")
+		audio = !audio;
 	}
 
 
