@@ -1,3 +1,9 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
 body {
     margin:0;
     font-family: Verdana;
@@ -7,7 +13,7 @@ body {
 .grid-container{
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 2fr 0.8fr 1fr 3.6fr 0.7fr 0.5fr;
+    grid-template-rows: 1fr 0.8fr 1fr 3.6fr 0.7fr 0.5fr;
     grid-template-areas:
             "header header header header header header header header header header header header"
             ". subtitle subtitle subtitle subtitle subtitle subtitle subtitle subtitle subtitle subtitle ."
@@ -17,52 +23,47 @@ body {
             ". . footer footer footer footer footer footer footer footer . .";
     width: 100vw;
     height: 100vh;
+    margin: 0;
 }
 
 #header{
     grid-area: header;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: ". . . title title title title title title logout logout logout";
+    grid-template-areas: "music music music music . . . . . logout logout logout";
     width: 100vw;
     background-color: #94b7a0;
-    font-size: 1.5em;
     /*padding-right: 1em;*/
-}
-
-#title{
-    padding-top: 0.7em;
-    padding-bottom: 0.7em;
-    align-content: center;
-    grid-area: title;
-    font-size: 4em;
-    text-align: center;
 }
 
 #logout{
     padding-top: 0.5em;
     background-color: #94b7a0;
     grid-area: logout;
-    font-size: 2em;
-    text-align: right;
-    padding-right:0.5em;
-
+    text-align: center;
+}
+#music{
+    padding-top: 0.5em;
+    background-color: #94b7a0;
+    grid-area: music;
+    text-align: center;
 }
 #logoutbtn{
-    height: 1.8em;
+    height:45px;
     color: white;
     background-color: #d48478;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    font-size: 1em;
+    font-size: 30px;
 }
-
-#logout>button:hover{
-    background-color: indianred;
-    cursor: pointer;
+#musicbtn{
+    height:45px;
+    color: white;
+    background-color: #d48478;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+    font-size: 30px;
 }
 
 #subtitle{
-    padding-top: 0.5em;
     grid-area: subtitle;
     font-size: 4em;
     text-align: center;
@@ -83,7 +84,6 @@ body {
     width:100%;
     height: 100%;
     overflow: hidden;
-
 }
 
 #continue{
