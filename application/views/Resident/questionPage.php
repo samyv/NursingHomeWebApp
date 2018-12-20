@@ -69,6 +69,7 @@
     let audio = true;
 
 	$(document).ready(function () {
+	    alert(<?=$index?>);
         if(audio){
             let string = '{question}';
             responsiveVoice.speak(string, "Dutch Female")
@@ -78,8 +79,6 @@
 	{
 		audio = !audio;
 	}
-
-
 
 </script>
 <script src="<?=base_url();?>assets/js/questionpage.js"></script>

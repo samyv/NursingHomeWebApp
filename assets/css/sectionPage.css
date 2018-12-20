@@ -19,7 +19,7 @@ body {
             ". subtitle subtitle subtitle subtitle subtitle subtitle subtitle subtitle subtitle subtitle ."
             ". description description description description description description description description description description ."
             ". . . logoimg logoimg logoimg logoimg logoimg logoimg . . ."
-            ". . . . continue_btn continue_btn continue_btn continue_btn . . . ."
+            ". . . continue_btn continue_btn continue_btn continue_btn continue_btn continue_btn . . ."
             ". . footer footer footer footer footer footer footer footer . .";
     width: 100vw;
     height: 100vh;
@@ -89,32 +89,20 @@ body {
 
 #continue{
     grid-area: continue_btn;
-    align-content: center;
+    text-align: center;
     padding-top: 1em;
     font-size: 2em;
     margin-left:auto;
     margin-right:auto;
 }
 #continuebtn{
-    height: 1.5em;
-    color: black;
-    font-size: 2em;
-
-    display: inline-block;
-    margin-bottom: 0.5em;
-    width: 4.5em;
     background-color: #e4e4e4;
     color: rgba(0, 0, 0, 0.6);
+    font-size: 2em;
     font-weight: normal;
-    text-align: center;
-    text-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition:    all 0.1s ease-in-out;
-    -o-transition:      all 0.1s ease-in-out;
-    transition:         all 0.1s ease-in-out;
 }
 #footer{
     grid-area: footer;
