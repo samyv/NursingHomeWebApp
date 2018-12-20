@@ -32,6 +32,7 @@ body{
 }
 
 #header{
+    height:100px;
     grid-area: header;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
