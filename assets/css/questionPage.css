@@ -35,61 +35,41 @@ body{
     grid-area: header;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-areas: ". . . title title title title title title logout logout logout";
+    grid-template-areas: "music music music music . . . . . logout logout logout";
     width: 100vw;
     background-color: #94b7a0;
-    font-size: 1.5em;
     /*padding-right: 1em;*/
-}
-
-#title{
-    padding-top: 0.7em;
-    padding-bottom: 0.7em;
-    align-content: center;
-    grid-area: title;
-    font-size: 4em;
-    text-align: center;
 }
 
 #logout{
     padding-top: 0.5em;
     background-color: #94b7a0;
     grid-area: logout;
-    font-size: 2em;
-    text-align: right;
-    padding-right:0.5em;
-
+    text-align: center;
+}
+#music{
+    padding-top: 0.5em;
+    background-color: #94b7a0;
+    grid-area: music;
+    text-align: center;
 }
 #logoutbtn{
-    height: 1.8em;
+    height:45px;
     color: white;
     background-color: #d48478;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    font-size: 1em;
+    font-size: 30px;
 }
 #musicbtn{
-    height: auto;
+    height:45px;
     color: white;
     background-color: #d48478;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    font-size: 1em;
+    font-size: 30px
 }
 
-#logoutbtn:hover{
-    background-color: indianred;
-    cursor: pointer;
-}
-
-#music{
-	height: 1.8em;
-	color: white;
-	background-color: black;
-	box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-	font-size: 1em;
-}
 
 #questionType{
-    padding-top: 0.3em;
     grid-area: questiontype;
     font-size: 3.5em;
 }
