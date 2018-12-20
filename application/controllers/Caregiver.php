@@ -460,7 +460,7 @@ class Caregiver extends CI_Controller
         if($this->input->post('saveInfo')) {
             $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
-            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
+            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean');
             $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
 
             if ($this->form_validation->run() == true) {
@@ -472,8 +472,8 @@ class Caregiver extends CI_Controller
                     'id' => $row[0]['FK_ContactPerson'],
                 );
             }
-            print_r($dataContactperson);
             $this->residents->updateContactPerson($dataContactperson);
+            header("Refresh:0");
         }
 
 

@@ -110,6 +110,8 @@ class Residents extends CI_Model
         $phonenumber = $data['phonenumber'];
         $ContactId = $data['id'];
 
+
+
         $sql = "UPDATE a18ux02.ContactPerson 
                     SET firstname = '$firstname', lastname= '$lastname', email = '$email', phonenumber ='$phonenumber'
                     WHERE idContactInformation = '$ContactId'";
