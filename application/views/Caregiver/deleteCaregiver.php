@@ -17,7 +17,7 @@
 <div class="grid-container fade-in	">
 
     <div class = "h1">
-        <h1>Delete Caregiver</h1>
+        <h1><?php echo ($this->lang->line('title delete caregiver'));?></h1>
     </div>
 
     <div class = "search">

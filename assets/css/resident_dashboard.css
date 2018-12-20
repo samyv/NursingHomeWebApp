@@ -17,14 +17,14 @@ html,body {
 	grid-template-areas:
     ". picture picture picture	. visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation ."
-	". . . . . visualisation visualisation visualisation visualisation visualisation visualisation ."
+	". info info info . visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". info info info . noteheader noteheader . . . print ."
 	". info info info . hint hint hint . . . ."
 }
 
 .picture {
 	grid-area: picture;
-	margin-top: 10px;
+	margin-top: 100px;
 }
 
 .picture img{
@@ -38,6 +38,10 @@ html,body {
 
 .info {
 	grid-area: info;
+}
+
+#CIModal, #qrcodeModal, .fa-info-circle, .fa-qrcode  {
+	color: #0c5460;
 }
 
 .total_score{
@@ -74,7 +78,7 @@ html,body {
 
 .visualisation {
 	grid-area: visualisation;
-	margin-top: 10px;
+	margin-top: 100px;
 	border: none;
 	background-color: white;
 	padding: 1em 2em 1em 1em;

@@ -99,13 +99,17 @@
         echo "<br>";
         echo "Kamer: " . $resident['room'];
         echo "<br>";
+        echo "<br>";
+
         ?>
         <span class="infcon">
-            <i class="fa fa-info-circle" style="color: #0c5460"></i>
-            <a href="#" id="CIModal" style="color: #0c5460"> Info contactperson</a>
+            <i class="fa fa-info-circle" ></i>
+            <a href="#" id="CIModal">Info contactperson</a>
         </span>
         <br>
-        <span class="qrcode"><a href="#" id="qrcodeModal">Generate Qr Code</a></span>
+        <span class="qrcode">
+            <i class="fa fa-qrcode" ></i>
+            <a href="#" id="qrcodeModal">Generate Qr Code</a></span>
 
     </div>
     <div class="back_start"></div>
