@@ -108,13 +108,12 @@ class Residents extends CI_Model
         $lastname = $data['lastname'];
         $email = $data['email'];
         $phonenumber = $data['phonenumber'];
-        $ContactId = $data['id'];
-
-
+        $idCaregiver = $data['id'];
 
         $sql = "UPDATE a18ux02.ContactPerson 
                     SET firstname = '$firstname', lastname= '$lastname', email = '$email', phonenumber ='$phonenumber'
-                    WHERE idContactInformation = '$ContactId'";
+                    WHERE idContactInformation = '$idCaregiver'";
+
         $this->db->query($sql);
 
     }
