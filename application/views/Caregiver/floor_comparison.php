@@ -185,7 +185,6 @@
 		}
 	}
 
-
 	function showLines(event) {
 		$x = '.floor'+$(event.target).attr("id");
 		$lines = $($x);
@@ -199,12 +198,7 @@
 		$lines.attr("display","none");
 	}
 
-
-
-
 	/// CONFIG VARIABLES ///
-
-
 
 
 	// append the svg obgect to the body of the page
@@ -215,8 +209,6 @@
 
 	//// END OF CONFIG ////
 	function draw(time) {
-
-
 		var div = document.getElementsByClassName("graph")[0];
 		var margin = {top: 20, right: 20, bottom: 30, left: 50},
 			width = div.clientWidth - margin.left - margin.right,
@@ -225,13 +217,10 @@
 		var x = d3.scaleTime().range([0, width]);
 		var y = d3.scaleLinear().range([height, 0]);
 		for (q = 0; q < amountOfCategories; q++) {
-
 			$svg = $(".tabcontent.category"+q+time).children()
 			if($svg.length !== 0){
 				$svg.remove()
 			}
-
-
 
 			var svg = d3.select("body").select("div.graph").select("div.tabcontent.category"+q+time).append("svg")
 				.attr("width", width + margin.left + margin.right)
@@ -240,14 +229,12 @@
 				.attr("transform",
 					"translate(" + margin.left + "," + margin.top + ")");
 
-
 			floordata.forEach(function (d) {
 				d.timestamp = new Date(d.timestamp);
 				d.floor = +parseInt(d.floor);
 				d.questionType = +d.questionType;
 				d.answers = +d.answers;
 			});
-
 
 			let valuelines = [];
 			let newData = [];
@@ -337,13 +324,8 @@
 			// Add the Y Axis
 			svg.append("g")
 				.call(d3.axisLeft(y));
-
-
 		}
-
-
 	}
-
 </script>
 </body>
 </html>

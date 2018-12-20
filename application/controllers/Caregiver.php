@@ -689,6 +689,10 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond)->result();
         $result = json_decode(json_encode($row), true);
         $data['sections'] = $result;
+		$cond['table'] = "a18ux02.Question";
+		$row = $this->caregivers->getRows($cond)->result();
+		$result = json_decode(json_encode($row), true);
+		$data['questions'] = $result;
 
         if ($this->input->post('questionSubmit')) {
             //$this->form_validation->set_rules('section_input', 'Section', 'required');
