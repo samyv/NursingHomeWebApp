@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="grid-container">
-    <div id="name">Grace Age</div><br>
+    <div id="name"></div><br>
 
     <div id="praise">Proficiat {resident}!<br>
         Je hebt alle vragen beantwoord!<br>
@@ -17,12 +17,12 @@
     <div id="note">Klik op de knop om terug te gaan</div>
 
 
-    <div id="home_btn">
-        <button id="home" onclick="location.href='<?=base_url();?>resident'">Home</button>
+    <div id="home">
+        <button id="home_btn" onclick="location.href='<?=base_url();?>resident'">Home</button>
     </div>
 
-    <div id="previous_btn">
-        <button id="previous" onclick="location.href = '<?=base_url();?>resident/questionpage/<?= $index?>'">Vorige</button>
+    <div id="previous">
+        <button id="previous_btn" onclick="location.href = '<?=base_url();?>resident/questionpage/<?= $index?>'">Vorige</button>
     </div>
 </div>
 

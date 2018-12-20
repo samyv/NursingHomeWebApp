@@ -10,7 +10,7 @@
 <div class="grid-container">
 
 
-    <div id="name">Grace Age</div><br>
+    <div id="name"></div><br>
 
     <div id="praise">
         Je hebt de vragen al beantwoord!<br>
@@ -21,12 +21,12 @@
     <div id="note">Druk op de knop beneden om terug te keren.</div>
 
 
-    <div id="home_btn">
-        <button id="home" onclick="location.href='<?=base_url();?>resident'">Startscherm</button>
+    <div id="home">
+        <button id="home_btn" onclick="location.href='<?=base_url();?>resident'">Startscherm</button>
     </div>
 
-    <div id="previous_btn">
-        <button id="previous" onclick="location.href = '<?=base_url();?>resident/tutorial'">Vorige</button>
+    <div id="previous">
+        <button id="previous_btn" onclick="location.href = '<?=base_url();?>resident/tutorial'">Vorige</button>
     </div>
     </div>
 </div>

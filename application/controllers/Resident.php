@@ -87,7 +87,6 @@ class Resident extends CI_Controller
         $nextQuestion = $this->QuestionModel->nextQuestion($index);
         if($nextQuestion != -1) {
             $nextType = $this->QuestionModel->getQuestionType($index + 1);
-
         } else {
             $nextType = $currentType;
         }
