@@ -17,12 +17,12 @@
 		<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo ($this->lang->line('title contact information'))?></h4>
 	</div>
-	<div class="info-contact">
-		<div class = "search">
-			<input type="text" id="myInput" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'))?>" title="Type in a name">
-		</div>
+    <div class = "search">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'))?>">
+    </div>
+    <div class = "modal-body">
 		<div class="table">
-			<table id="myTable"></table>
+			<table id="myTable"> </table>
 		</div>
 	</div>
 </div>
@@ -108,14 +108,13 @@
                    value="<?php echo (isset($_POST['room']) ? $_POST['room'] : ''); ?>">
 
         </div>
-        <div class="picture_input">
-            <b>Upload resident picture</b>
-            <div class="form-group">
-
-                <label class="file-upload">Choose a file
-                </label>
-                <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
-            </div>
+        <div class="picture">
+            <b> <?php echo ($this->lang->line('title picture'))?></b>
+        </div>
+        <div class="form-group">
+            <label class="file-upload"><?php echo ($this->lang->line('choose file'))?>
+            </label>
+            <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
         </div>
 
         <div class = "extra">
@@ -132,6 +131,7 @@
                    value="<?php echo (isset($_POST['cp_first_name']) ? $_POST['cp_first_name'] : ''); ?>">
             <br>
         </div>
+
         <div class="contact_last_name">
             <b><?php echo ($this->lang->line('lastname'))?></b>
         </div>
@@ -249,6 +249,7 @@
 
 	function init() {
 		$('#myTable tbody').on('click', 'tr', function() {
+		    if (this.firstChild.innerHTML != "ID") {
 			var id_td = this.firstChild;
 			var test = id_td.innerHTML;
 			var contact = database.filter(e => e.idContactInformation == test)[0];
@@ -258,7 +259,7 @@
 			document.getElementById("emailInputCP").value=contact.email;
 			document.getElementById("phoneInputCP").value=contact.phonenumber;
 			document.getElementById("existingCP").checked=true;
-		})
+		}})
 
 		$('.xbut').on('click',function () {
 			$('#CIModal').show();

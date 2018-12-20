@@ -22,7 +22,7 @@ $lang['room'] = 'Kamer';
 $lang['birthday'] = 'Geboortedatum';
 $lang['phonenumber'] = 'Gsm nummer';
 $lang['password'] = 'Wachtwoord';
-$lang['title contact information'] = 'Contact informatie';
+$lang['title contact information'] = 'Contactpersoon informatie';
 
 
 

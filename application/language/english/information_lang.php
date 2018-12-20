@@ -20,11 +20,11 @@ $lang['email'] = 'Email';
 $lang['floor'] = 'Floor';
 $lang['room'] = 'Room';
 $lang['birthday'] = 'Birthday';
-$lang['phonenumber'] = 'phonenumber';
+$lang['phonenumber'] = 'Phonenumber';
 $lang['email'] = 'Email';
 $lang['ph email'] = 'example@example.com';
 $lang['password'] = 'Password';
-$lang['title contact information'] = 'Contact information';
+$lang['title contact information'] = 'Contactperson information';
 
 
 //header

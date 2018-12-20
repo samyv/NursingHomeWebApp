@@ -21,11 +21,15 @@ html,body{
             ". . gender gender_input gender_input . . phone phone_input phone_input . ."
             ". . floor floor_input floor_input . . . . . . ."
             ". . room room_input room_input . . . . . . ."
-            ". . picture picture picture . . buttons buttons buttons . ."
+            ". . picture picture_input picture_input . . buttons buttons buttons . ."
 }
 
-.picture_input{
+.picture{
     grid-area: picture;
+}
+
+.form-group {
+    grid-area: picture_input;
 }
 
 .form-errors{
@@ -55,12 +59,9 @@ html,body{
 
 .room {grid-area: room;}
 
-.contact_first_name {
-    grid-area: first_name;
-}
-.contact_last_name {
-    grid-area: last_name;
-}
+.contact_first_name { grid-area: first_name;}
+
+.contact_last_name { grid-area: last_name;}
 
 .email { grid-area: email; }
 
@@ -84,22 +85,15 @@ html,body{
 
 .room_input { grid-area: room_input; }
 
-.cp_first_name_input{
-    grid-area: first_name_input;
-    width: 190px;
-}
-.cp_last_name_input{
-     grid-area: last_name_input;
-     width: 190px;
- }
+.cp_first_name_input{ grid-area: first_name_input;}
+
+.cp_last_name_input{ grid-area: last_name_input;}
 
 .email_input { grid-area: email_input; }
 
 .phone_input { grid-area: phone_input; }
 
-.buttons {
-    grid-area: buttons;
-}
+.buttons {grid-area: buttons;}
 
 input[type=submit],input[type=button], .file-upload{
     float: left;
@@ -111,7 +105,7 @@ input[type=submit],input[type=button], .file-upload{
     margin: 4px 2px;
 }
 
-input[type=submit]:hover,input[type=button]:hover {
+input[type=submit]:hover,input[type=button]:hover, .file-upload:hover {
     opacity: 0.8;
 }
 
@@ -129,8 +123,10 @@ input[type=file]{
 	align-items: center !important;
 }
 
-.info-contact {
+.modal-body {
 	margin: 10px 20px 10px 20px;
+    overflow-y: auto;
+    height: 250px;
 }
 
 .close {
@@ -146,18 +142,28 @@ input[type=file]{
 	cursor: pointer;
 }
 
-.info {
-	grid-area: info;
+.search {
+    margin: 10px 35px 10px 35px;
+    width: min-content;
+}
+
+#myInput {
+    border:none;
+
+}
+
+table {
+    cursor:pointer;
 }
 
 #information-contactperson-modal-content{
 	display: none;
-
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 50%;
+	width: 40%;
+    height: 50%;
 }
 
 #existingCP{
@@ -184,7 +190,7 @@ input[type=file]{
                 ". gender gender_input gender_input gender_input . . phone phone_input phone_input phone_input ."
                 ". floor floor_input floor_input floor_input . . . . . . ."
                 ". room room_input room_input room_input . . . . . . ."
-                ". picture picture picture picture . . buttons buttons buttons buttons ."
+                ". picture picture_input picture_input picture_input . . buttons buttons buttons buttons ."
     }
 }
 
@@ -196,7 +202,7 @@ input[type=file]{
         grid-template-rows: 5em 5em min-content 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 5em 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr 1.2fr;
         grid-template-areas:
                 "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-                ". resident resident resident resident . . . . . . ."
+                ". resident resident resident resident resident resident resident resident resident resident ."
                 ". form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors form_errors ."
                 ". firstname firstname firstname firstname_input firstname_input firstname_input firstname_input firstname_input firstname_input firstname_input ."
                 ". lastname lastname lastname lastname_input lastname_input lastname_input lastname_input lastname_input lastname_input lastname_input ."
@@ -209,7 +215,7 @@ input[type=file]{
                 ". last_name last_name last_name last_name_input last_name_input last_name_input last_name_input last_name_input last_name_input last_name_input ."
                 ". email email email email_input email_input email_input email_input email_input email_input email_input ."
                 ". phone phone phone phone_input phone_input phone_input phone_input phone_input phone_input phone_input ."
-                ". picture picture picture picture picture picture picture picture picture picture ."
+                ". picture picture picture picture_input picture_input picture_input picture_input picture_input picture_input picture_input ."
                 ". buttons buttons buttons buttons buttons buttons buttons buttons buttons buttons ."
     }
 
