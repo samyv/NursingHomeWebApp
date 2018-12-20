@@ -32,7 +32,7 @@ class Caregiver extends CI_Controller
     {
         $data = array();
         $userData = array();
-        $data['page_title'] = 'Account overview | GraceAge';
+        $data['page_title'] = 'Account overview';
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
 
         if ($this->session->userdata('success_msg')) {
@@ -98,7 +98,7 @@ class Caregiver extends CI_Controller
     {
         $this->caregivers->sendEmails();
         $data = array();
-        $data['page_title'] = 'Login caregiver | GraceAge';
+        $data['page_title'] = 'Login | GraceAge';
         if ($this->session->userdata('isUserLoggedIn')) {
             redirect('landingpage');
         }
@@ -153,7 +153,7 @@ class Caregiver extends CI_Controller
     {
         $data = array();
         $userData = array();
-        $data['page_title'] = 'Register new caregiver | GraceAge';
+        $data['page_title'] = 'Register | GraceAge';
         $cond = array();
 
         $cond["table"] = "a18ux02.NursingHome";
@@ -261,11 +261,12 @@ class Caregiver extends CI_Controller
 
     public function landingPage()
     {
+        $data['page_title'] = 'Home | GraceAge';
+
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
 
-        $data = array();
         if ($this->caregivers->getNotes($_SESSION['idCaregiver']) != false) {
             $data['notes'] = $this->caregivers->getNotes($_SESSION['idCaregiver']);
         }
@@ -286,7 +287,7 @@ class Caregiver extends CI_Controller
         }
 
         $data = array();
-        $data['page_title'] = "Search page";
+        $data['page_title'] = "Search Resident";
         $this->load->database('default');
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
         $this->parser->parse('templates/header', $data);
@@ -308,7 +309,7 @@ class Caregiver extends CI_Controller
         $data = array();
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('newResident');
         $dataResident = array();
-        $data['page_title'] = 'Register resident';
+        $data['page_title'] = 'Add resident';
         $this->parser->parse('templates/header', $data);
 
         $cond = array();
@@ -413,6 +414,7 @@ class Caregiver extends CI_Controller
     public function notificationView()
     {
         $data = array();
+        $data['page_title'] = "Notifications";
         $data['floorNotifications'] = $this->caregivers->getNotifications();
         $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
 //		print_r($data["floorNotifications"]);
@@ -434,6 +436,7 @@ class Caregiver extends CI_Controller
             redirect('index.php');
         }
         $data = array();
+        $data['page_title'] = "Selection Floor";
         $this->load->database('default');
         $result = $this->caregivers->getResidents();
         $data['listCar'] = $result;
@@ -446,6 +449,7 @@ class Caregiver extends CI_Controller
             redirect('index.php');
         }
         $data = array();
+        $data['page_title'] = "Selection Resident";
         $cond['where'] = array('floor' => $_GET['id']);
         $_SESSION['floorSelected'] = $_GET['id'];
         $cond['table'] = 'a18ux02.Resident';
@@ -476,7 +480,7 @@ class Caregiver extends CI_Controller
         $name = $row[0]['firstname'];
         $name .= " ";
         $name .= $row[0]['lastname'];
-        $data['page_title'] = "Resident overview | $name";
+        $data['page_title'] = "Overview | $name";
 
         if ($this->residents->getNotes($_GET['id']) != false) {
             $data['notes'] = $this->residents->getNotes($_GET['id']);
@@ -572,7 +576,7 @@ class Caregiver extends CI_Controller
     public function floorCompare()
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
-
+        $data['page_title'] = 'Data Floor';
         $query = "select sectionType from a18ux02.Section";
         if ($row = $this->caregivers->executeQuery($query)) {
             $result = json_decode(json_encode($row->result()), true);

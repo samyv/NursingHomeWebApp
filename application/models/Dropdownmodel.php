@@ -19,8 +19,8 @@ class dropdownmodel extends CI_Model
                 array('name' => 'Overview Resident', 'link' => 'residents', 'className' => 'dropdown-item active'),
                 array('name' => 'Overview Questions', 'link' => 'newQuestion', 'className' => 'dropdown-item inactive'),
                 array('name' => 'Selection Floor', 'link' => 'floorSelect', 'className' => 'dropdown-item inactive'),
-                array('name' => 'Comparison Floor', 'link' => 'floorCompare', 'className' => 'dropdown-item inactive'),
-                array('name' => 'Add resident', 'link' => 'newResident', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Data Floor', 'link' => 'floorCompare', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Add Resident', 'link' => 'newResident', 'className' => 'dropdown-item inactive'),
                 array('name' => 'Delete Resident', 'link' => 'deleteResident', 'className' => 'dropdown-item inactive'),
                 array('name' => 'Delete Caregiver', 'link' => 'deleteCaregiver', 'className' => 'dropdown-item inactive'),
             );
@@ -30,7 +30,7 @@ class dropdownmodel extends CI_Model
                 array('name' => 'Overview Resident', 'link' => 'residents', 'className' => 'dropdown-item active'),
                 array('name' => 'Overview Questions', 'link' => 'newQuestion', 'className' => 'dropdown-item inactive'),
                 array('name' => 'Selection Floor', 'link' => 'floorSelect', 'className' => 'dropdown-item inactive'),
-                array('name' => 'Comparison Floor', 'link' => 'floorCompare', 'className' => 'dropdown-item inactive'),
+                array('name' => 'Data Floor', 'link' => 'floorCompare', 'className' => 'dropdown-item inactive'),
                 array('name' => 'Add resident', 'link' => 'newResident', 'className' => 'dropdown-item inactive'),
             );
         }

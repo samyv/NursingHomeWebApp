@@ -6,8 +6,8 @@
 <html>
 <head>
     <title>{page_title}</title>
-    <link href="<?=base_url()?>assets/css/activated.css" rel="stylesheet" type="text/css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
+    <link href="<?=base_url()?>assets/css/activated.css" rel="stylesheet" type="text/css">
     <script src="<?php echo base_url();?>assets/js/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet" href="<?=base_url();?>assets/css/bootstrap.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

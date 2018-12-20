@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
-	<title>Database Searching</title>
-	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <title>{page_title}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/searchForResident.css">
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

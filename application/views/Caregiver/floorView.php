@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Resident selection</title>
+    <title>{page_title}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link rel="stylesheet" href="<?=base_url();?>assets/css/floorView.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

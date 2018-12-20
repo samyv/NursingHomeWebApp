@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>{page_title}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link rel="stylesheet" href="<?php echo base_url() ?>assets/css/transitions.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
     <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>

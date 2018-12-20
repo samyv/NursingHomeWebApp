@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <title>{page_title}</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link href="<?php echo base_url(); ?>assets/css/landingPage.css" rel='stylesheet' type='text/css'/>
-    <link rel="shortcut icon" type="image/x-icon" href="<?= base_url() ?>assets/images/logo.png">
     <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
     <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/notes.css">
-    <title>Home | GraceAge</title>
     <script src="<?php echo base_url(); ?>assets/js/jquery-3.3.1.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/transitions.css">
     <script src="<?php echo base_url();?>assets/js/notes.js"></script>
-
 </head>
 <body>
 <div class="grid-container fade-in">
@@ -214,7 +213,5 @@
         });
     }
 </script>
-
-
 </body>
 </html>
