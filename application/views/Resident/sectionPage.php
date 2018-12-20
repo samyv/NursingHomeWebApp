@@ -8,12 +8,14 @@
 </head>
 <body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://code.responsivevoice.org/1.4/responsivevoice.js"></script>
+<script src="http://code.responsivevoice.org/1.5.7/responsivevoice.js"></script>
 <div class="grid-container">
     <div id="header">
-        <div id="title">GraceAge</div>
         <div id="logout">
             <button id="logoutbtn" type="submit" onclick="location.href='<?=base_url();?>Resident'">Log out</button>
+        </div>
+        <div id="music">
+            <button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
         </div>
     </div>
 
@@ -46,9 +48,7 @@
 </div>
 <script>
 	$(document).ready(function () {
-
-		// responsiveVoice.speak(question);
-		var string = '<?php echo $string.$sectionDescription;?>'
+		let string = '<?php echo $string.$sectionDescription;?>';
 		responsiveVoice.speak(string, "Dutch Female");
 	});
 
