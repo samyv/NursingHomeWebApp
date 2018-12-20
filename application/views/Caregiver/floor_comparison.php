@@ -4,8 +4,7 @@
 	<title>Floor comparison</title>
 	<link rel="stylesheet" href="<?=base_url();?>assets/css/floor_comparison.css">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-		  rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 	<script src="https://d3js.org/d3.v4.js"></script>
 	<link rel="stylesheet" href="assets/css/transitions.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

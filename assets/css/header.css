@@ -17,18 +17,6 @@ nav {
     background-color: #66a5ad !important;
 }
 
-.fa-language{
-    margin-top: -4px;
-}
-
-#notification{
-    margin-top: 2px;
-    font-size: 1.3em;
-}
-.fa-home, .fa-cog{
-    font-size: 1.3em;
-}
-
 .badge-warning{
     font-size: 60%!important;
 }

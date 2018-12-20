@@ -21,7 +21,7 @@
     </div>
 
     <div class = "search">
-        <input type="text" id="myInput" onkeyup="search()" title="Type in a name"
+        <input type="text" id="myInput" class= "form-control" onkeyup="search()" title="Type in a name"
                placeholder=<?php echo ($this->lang->line('search'));?> >
     </div>
 
