@@ -34,7 +34,7 @@
             <input id="1" type="button" class = "btn" onclick="location.href='residents'"
                    value="<?php echo ($this->lang->line('search resident'))?>">
             <input id="2" type="button" class = "btn" onclick="location.href='floorCompare'"
-                   value="<?php echo ($this->lang->line('compare floor'))?>">
+                   value="<?php echo ($this->lang->line('Data floors'))?>">
             <input id="3" type="button" class = "btn" onclick="location.href='floorSelect'"
                    value="<?php echo ($this->lang->line('select floor'))?>">
 

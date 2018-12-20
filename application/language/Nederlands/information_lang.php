@@ -38,11 +38,12 @@ $lang['add resident'] = 'Voeg bewoner toe';
 $lang['add question'] = 'Voeg vraag toe';
 $lang['dutch'] = 'Nederlands';
 $lang['english'] = 'English';
+$lang['TESTTT'] = 'testing';
 
 //landing page
 $lang['welcome_message'] = 'Welkom ';
 $lang['search resident'] = 'Zoek bewoner';
-$lang['compare floor'] = 'Vergelijk verdieping';
+$lang['Data floors'] = 'Resultaten verdieping';
 $lang['select floor'] = 'Zoek verdieping';
 $lang['notes'] = 'Notities';
 $lang['calendar'] = 'Kalender';

@@ -13,7 +13,6 @@ class dropdownmodel extends CI_Model
     public function __construct()
     {
         parent::__construct();
-        // <a href="link" title="title" class="className">name</a>
         if($this->session->userdata('supervisor')) {
             $this->dropdown_menu_items = array(
                 array('name' => 'Resident overview', 'link' => 'residents', 'className' => 'dropdown-item active'),

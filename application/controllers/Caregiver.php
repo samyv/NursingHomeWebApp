@@ -271,8 +271,7 @@ class Caregiver extends CI_Controller
         }
 
         $dataHeader['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
-
-        //$cond = array();
+		//$cond = array();
         //$dataHeader['CountNotifications'] = $this->caregivers->getRows($cond);
         $this->parser->parse('templates/header', $dataHeader);
         $this->load->view('Caregiver/landingPage', $data);

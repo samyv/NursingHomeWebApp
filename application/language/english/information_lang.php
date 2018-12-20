@@ -39,11 +39,12 @@ $lang['add resident'] = 'Add new resident';
 $lang['add question'] = 'Add new question';
 $lang['dutch'] = 'Nederlands';
 $lang['english'] = 'English';
+$lang['TESTTT'] = 'test';
 
 //landing page
 $lang['welcome_message'] = 'Welcome ';
 $lang['search resident'] = 'Search resident';
-$lang['compare floor'] = 'Compare floor';
+$lang['Data floors'] = 'Data floors';
 $lang['select floor'] = 'Select floor';
 $lang['notes'] = 'Notes';
 $lang['calendar'] = 'Calendar';
