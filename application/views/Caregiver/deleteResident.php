@@ -3,7 +3,7 @@
 <head>
     <title>{page_title}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/deleteCaregiver.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/deleteResident.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.css">
     <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -125,7 +125,7 @@
             col3.innerHTML = element.room;
             row.appendChild(col3)
             var col4 = document.createElement('td');
-            col4.innerHTML = "<button><a href='#'class='delete' id='CIModal' >DELETE</a></button>\n";
+            col4.innerHTML = "<button><a href='#'class='delete' >DELETE</a></button>\n";
             let childs = col4.children
             let aa = childs[0].children[0]
             aa.setAttribute('value',element.id)

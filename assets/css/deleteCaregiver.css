@@ -58,28 +58,7 @@ footer {
     text-align: center;
 }
 
-.modal{
-    display: none;
-    position: absolute;
-}
 
-.modal-header {
-    display: block !important;
-    align-items: center !important;
-}
-
-.modal-footer {
-    display: block !important;
-    align-items: center !important;
-}
-
-.modal-footer .btn{
-    background-color: #66a5ad;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
 
 
 .close {
