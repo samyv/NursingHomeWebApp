@@ -264,7 +264,6 @@
 
 			}
 
-
 			var valueline = d3.line()
 				.x(function (d) {
 					return x(d.timestamp);
@@ -295,7 +294,6 @@
 
 			const sectionsNames = ["Privacy", "Eten en maaltijden", "Veiligheid", "Zich prettig voelen", "Autonomie", "Respect", "Reageren door medewerkers op vragen", "Een band voelen met wie hier werkt", "Keuze aan activiteiten", "Persoonlijke omgang", " Informatie vanuit het woonzorgcentrum"];
 
-
 			for (let f = 0; f < floorAmount; f++) {
 
 				svg.append("path")
@@ -311,27 +309,19 @@
 					svg.select(".floor"+(f+1)).attr("display", "none");
 				}
 
-				svg.append("svg:rect")
-					.attr("x", width - 100)
-					.attr("y", margin.top + f*50)
-					.attr("stroke", colorArray[f])
-					.attr("fill",colorArray[f])
-					.attr("height", 2)
-					.attr("stroke-width", "5px")
-					.attr("width", 40)
-					.attr("opacity",0.3);
+                legend = svg.append("g")
+                    .attr("class","legend")
+                    .attr("transform","translate(50,30)")
+                    .style("font-size","12px")
+                    .call(d3.legend)
 
-				svg.append("svg:text")
-					.attr("x", width-100+50)
-					.attr("y", margin.top + 5 + f*50)
-					.text("Floor "+ (f+1));
-
-			}
+            }
 
 			// Add the X Axis
 			svg.append("g")
 				.attr("transform", "translate(0," + height + ")")
-				.call(d3.axisBottom(x));
+				.call(d3.axisBottom(x))
+
 
 			// Add the Y Axis
 			svg.append("g")
