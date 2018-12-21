@@ -29,7 +29,7 @@
 					<div class="form-group">
 						<div class="input-group">
 							<div class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></div>
-							<input name="email" id="email" type="email" class="form-control input-lg" placeholder=" <?php echo ($this->lang->line('ph email'))?>">
+							<input name="email" required="" id="email" type="email" class="form-control input-lg" placeholder=" <?php echo ($this->lang->line('ph email'))?>">
 						</div>
 					</div>
 
@@ -90,21 +90,22 @@
 
 	});
 
-	function submitEmail(event){
+	function submitEmail(event) {
+        $email = $('#email').val();
 
-		$email = $('#email').val();
-
-		console.log($email);
-		$.ajax({
-			url: '<?php echo base_url();?>Caregiver/createPasswordMail',
-			method: 'post',
-			dataType: 'json',
-			data:{
-				'email' : $email
-			},
-			success: showmsg(event)
-		});
-	}
+        if ($email != "") {
+            console.log($email);
+            $.ajax({
+                url: '<?php echo base_url();?>Caregiver/createPasswordMail',
+                method: 'post',
+                dataType: 'json',
+                data: {
+                    'email': $email
+                },
+                success: showmsg(event)
+            });
+        }
+    }
 
 	function showmsg(event) {
 		$button = $(event.target).parent();
