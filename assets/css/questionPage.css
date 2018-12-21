@@ -24,7 +24,7 @@ body{
             ". progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar progress_bar ."
             ". question question question question question question question question question question ."
             ". . . answers answers answers answers answers answers . . ."
-            ". previous previous previous . . . . . . . ."
+            "previous previous previous . . . . . . . . ."
             ". . footer footer footer footer footer footer footer footer . .";
     width: 100vw;
     height: 100vh;
@@ -32,6 +32,7 @@ body{
 }
 
 #header{
+    height:100px;
     grid-area: header;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
@@ -71,7 +72,7 @@ body{
 
 #questionType{
     grid-area: questiontype;
-    font-size: 3.5em;
+    font-size: 2.5em;
 }
 
 #progressbar{
@@ -114,12 +115,11 @@ body{
 
 #answers label {
     display: inline-block;
-    margin-bottom: 0.1em;
-    width: 7em;
-    height: 1.5em;
-    background-color: #e4e4e4;
+    margin-bottom: 0.2em;
+    width: 4em;
+    background-color: #B1D4BE;
     color: rgba(0, 0, 0, 0.6);
-    font-size: 4.2em;
+    font-size: 3.2em;
     font-weight: normal;
     text-align: center;
     text-shadow: none;
@@ -142,33 +142,17 @@ body{
     box-shadow: none;
 }
 #previous{
-    margin-top: 0.2em;
-    margin-bottom: 0.2em;
     grid-area: previous;
+    text-align: center;
 }
 
 
 #previousbtn{
-    display: inline-block;
-    margin-bottom: 0.5em;
-    width: 4.5em;
-    height: 2em;
-    background-color: #e4e4e4;
+    background-color: #B1D4BE;
     color: rgba(0, 0, 0, 0.6);
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight: normal;
-    text-align: center;
-    text-shadow: none;
     border: 1px solid rgba(0, 0, 0, 0.2);
     -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
-    -webkit-transition: all 0.1s ease-in-out;
-    -moz-transition:    all 0.1s ease-in-out;
-    -o-transition:      all 0.1s ease-in-out;
-    transition:         all 0.1s ease-in-out;
-}
-
-#previousbtn:hover{
-    background-color: #9eaea3;
-    cursor: pointer;
 }

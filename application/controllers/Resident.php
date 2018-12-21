@@ -87,7 +87,6 @@ class Resident extends CI_Controller
         $nextQuestion = $this->QuestionModel->nextQuestion($index);
         if($nextQuestion != -1) {
             $nextType = $this->QuestionModel->getQuestionType($index + 1);
-
         } else {
             $nextType = $currentType;
         }
@@ -104,7 +103,7 @@ class Resident extends CI_Controller
         }
         $answer = $this->QuestionModel->getAnswer($questionnaireId,$index);
         $pos = $this->QuestionModel->getQuestionPosition($index);
-        $currentNum = $pos;
+        $currentNum = $pos-1;
         $data['currentNum'] = $currentNum;
         $data['percentage'] = sprintf("%01.0f", ($currentNum/$totalNum)*100).'%';
         $this->parser->parse('Resident/questionPage', $data);

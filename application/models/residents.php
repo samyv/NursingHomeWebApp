@@ -104,7 +104,8 @@ class Residents extends CI_Model
 
 	function sendNotification(){
 		$text = $_SESSION['Resident']['residentID']." filled in a Questionnairy!";
-		$sql = "INSERT INTO Notifications (text,FK_ResidentID,date) VALUES ($text,".$_SESSION['Resident']['residentID'].",CURRENT_TIMESTAMP);";
+		$id = $_SESSION['Resident']['residentID'];
+		$sql = "INSERT INTO a18ux02.Notifications (text,FK_ResidentID,date) VALUES ('$text',$id,CURRENT_TIMESTAMP);";
 		$this->db->query($sql);
 	}
 

@@ -79,8 +79,6 @@
 		audio = !audio;
 	}
 
-
-
 </script>
 <script src="<?=base_url();?>assets/js/questionpage.js"></script>
 
