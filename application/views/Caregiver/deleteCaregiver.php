@@ -49,6 +49,7 @@
 </div>
 
 
+
 <script>
     $(function() {
         populate();
@@ -66,7 +67,10 @@
             // console.log(list[i])
             if(list[i] != undefined) {
                 name = list[i].getElementsByTagName("td")[1].innerHTML;
-                if (name.toUpperCase().indexOf(filter) > -1) {
+                floor = list[i].getElementsByTagName("td")[2].innerHTML;
+
+
+                if (name.toUpperCase().indexOf(filter) > -1 || floor.indexOf(filter) > -1) {
                     list[i].style.display = "";
                 } else {
                     list[i].style.display = "none";

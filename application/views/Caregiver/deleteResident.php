@@ -3,7 +3,7 @@
 <head>
     <title>{page_title}</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/deleteCaregiver.css">
+    <link rel="stylesheet" href="<?php echo base_url()?>assets/css/deleteResident.css">
     <link rel="stylesheet" href="<?php echo base_url()?>assets/css/bootstrap.css">
     <link href="<?php echo base_url(); ?>assets/css/alert_message.css" rel='stylesheet' type='text/css'/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -54,7 +54,7 @@
         populate();
         //init();
     });
-    var list,name;
+    var list,name, floor, room;
 
     function search() {
         var input, filter, table, i;
@@ -62,11 +62,15 @@
         filter = input.value.toUpperCase();
         table = document.getElementById("myTable");
         list = document.getElementsByTagName('tr');
+
         for (i = 1; i <= list.length; i++) {
             // console.log(list[i])
             if(list[i] != undefined) {
                 name = list[i].getElementsByTagName("td")[1].innerHTML;
-                if (name.toUpperCase().indexOf(filter) > -1) {
+                floor = list[i].getElementsByTagName("td")[2].innerHTML;
+                room = list[i].getElementsByTagName("td")[3].innerHTML;
+
+                if (name.toUpperCase().indexOf(filter) > -1 || floor.indexOf(filter) > -1 || room.indexOf(filter) > -1) {
                     list[i].style.display = "";
                 } else {
                     list[i].style.display = "none";
@@ -93,8 +97,11 @@
         col2.innerHTML = "<?php echo ($this->lang->line('floor'));?>";
         row.appendChild(col2)
         var col3 = document.createElement('th');
-        col3.innerHTML = ""; //or nothing
+        col3.innerHTML = "room"; //or nothing
         row.appendChild(col3)
+        var col4 = document.createElement('th');
+        col4.innerHTML = ""; //or nothing
+        row.appendChild(col4)
         tbody.appendChild(row)
         var elements = [];
         for (var i = 0 ; i < database.length ; i++)
@@ -115,11 +122,14 @@
             col2.innerHTML = element.floor;
             row.appendChild(col2)
             var col3 = document.createElement('td');
-            col3.innerHTML = "<button><a href='#'class='delete' id='CIModal' >DELETE</a></button>\n";
-            let childs = col3.children
+            col3.innerHTML = element.room;
+            row.appendChild(col3)
+            var col4 = document.createElement('td');
+            col4.innerHTML = "<a href='#'class='delete' ><img src='assets/images/delete_icon.jpg' style='width:20px;height:20px;'></a>\n";
+            let childs = col4.children
             let aa = childs[0].children[0]
             aa.setAttribute('value',element.id)
-            row.appendChild(col3)
+            row.appendChild(col4)
             tbody.appendChild(row);
         }
         table.appendChild(tbody)
@@ -130,6 +140,7 @@
         element.id = db_element['residentID'];
         element.name = db_element['firstname'] +" " + db_element['lastname'];
         element.floor = db_element['floor'];
+        element.room = db_element['room'];
         return element;
     }
 
@@ -172,7 +183,7 @@
 
                     }
                 });
-                $note.parent().remove();
+                //$note.parent().remove();
             });
         });
 
