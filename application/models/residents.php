@@ -110,11 +110,20 @@ class Residents extends CI_Model
         $phonenumber = $data['phonenumber'];
         $idCaregiver = $data['id'];
 
-        $sql = "UPDATE a18ux02.ContactPerson 
+        $sql = "SELECT idContactInformation FROM a18ux02.ContactPerson WHERE idContactInformation = $idCaregiver";
+        $result = $this->db->query($sql);
+
+        if($result->num_rows == 0){
+            $sql1 = "INSERT INTO a18ux02.ContactPerson(idContactInformation, firstname, lastname, email, phonenumber) VALUES('$idCaregiver', '$firstname', '$lastname', '$email', '$phonenumber')";
+        }
+        else{
+            $sql1 = "UPDATE a18ux02.ContactPerson 
                     SET firstname = '$firstname', lastname= '$lastname', email = '$email', phonenumber ='$phonenumber'
                     WHERE idContactInformation = '$idCaregiver'";
+        }
 
-        $this->db->query($sql);
+
+        $this->db->query($sql1);
 
     }
 
