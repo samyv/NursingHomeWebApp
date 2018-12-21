@@ -46,10 +46,10 @@
 
 		$('#addQuestion').on('click',function () {
 			var table = document.getElementById("qTable");
-			var tbody = table.children[1];
-			let amountOfQuestions = tbody.children.length;
+				var tbody = table.children[1];
+			let amountQuestions = tbody.children.length;
 // Create an empty <tr> element and add it to the 1st position of the table:
-			var row = table.insertRow(amountOfQuestions+1);
+			var row = table.insertRow(amountQuestions+1);
 
 // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
 			var cell1 = row.insertCell(0);
@@ -57,86 +57,45 @@
 			var cell3 = row.insertCell(2);
 
 // Add some text to the new cells:
-			cell1.innerHTML = amountOfQuestions+1;
+			cell1.innerHTML = amountQuestions+1;
 			cell2.innerHTML = "New Question";
 			cell2.setAttribute("contenteditable",'true');
-			let saveQBut = $('<button/>',
+			let saveSBut = $('<button/>',
 				{
 					text: 'save',
 					id: "saveQuestion",
-					click: function () {
-						if(this.innerHTML == "save") {
-							//FIND VALUES FOR NEW QUESTION
-							var lastQuestionTotal = questionsDB.slice(-1)[0];
-							console.log(lastQuestionTotal)
-							var lastID = parseInt(lastQuestionTotal.idQuestion);
-							//PK
-							let newQID = lastID + 1;
-							//FIND PosNum AND nextQuestion with lastQuestion of the same section
-							var lastQuestionSection = questionsDB.filter(e => e.questionType == lastSectionClicked).slice(-1)[0]
-							let newPosNum = parseInt(lastQuestionSection.positionNum) + 1;
-							let firstQOfNextSID = lastQuestionSection.nextQuestionId;
-							var newQuestion = {
-								idQuestion: newQID.toString(),
-								questionText: this.parentElement.parentElement.children[1].innerText,
-								nextQuestionId: firstQOfNextSID.toString(),
-								previousQuestionId: lastQuestionSection.idQuestion.toString(),
-								positionNum: newPosNum.toString(),
-								questionType: lastSectionClicked.toString()
-							}
-							lastQuestionSection.nextQuestionId = (lastID + 1).toString();
-
-							var firstQOfNextS = questionsDB.filter(e => e.idQuestion == firstQOfNextSID).slice(-1)[0]
-							firstQOfNextS.previousQuestionId = (lastID + 1).toString();
-							questionsDB.push(newQuestion)
-							this.innerHTML = "delete";
-						} else {
-							var questionToErase = questionsDB.filter(e => e.questionType == lastSectionClicked && e.positionNum == this.parentElement.parentElement.children[0].innerText).slice(-1)[0]
-							var nextQuestionID = questionToErase.nextQuestionId;
-							var prevQuestionID = questionToErase.previousQuestionId;
-							var prevQuestion = questionsDB.filter(e => e.idQuestion == prevQuestionID).slice(-1)[0]
-							var nextQuestion = questionsDB.filter(e => e.idQuestion == nextQuestionID).slice(-1)[0]
-							prevQuestion.nextQuestionId = nextQuestionID.toString();
-							nextQuestion.previousQuestionId = prevQuestionID.toString();
-							var key = null;
-							for (var prop in questionsDB)
-							{
-								if (questionsDB.hasOwnProperty(prop))
-								{
-									if (questionsDB[prop] === questionToErase)
-									{
-										key = prop;
-									}
-								}
-							}
-							delete questionsDB.key
-							clean(questionsDB)
-							console.log(questionsDB)
-							let tbody = this.parentElement.parentElement.parentElement;
-							let amountOfQuestions = tbody.children.length;
-							this.parentElement.parentElement.parentElement.parentElement.deleteRow(amountOfQuestions)
-						}
-					}
-				});
-			saveQBut.appendTo(cell3)
+					click: saveQuestion
+				}
+			);
+			saveSBut.appendTo(cell3)
 		})
+
 		$('#addSection').on('click',function () {
 			var table = document.getElementById("sTable");
 			var tbody = table.children[1];
-			let amountOfQuestions = tbody.children.length;
+			let amountSections = tbody.children.length;
 // Create an empty <tr> element and add it to the 1st position of the table:
-			var row = table.insertRow(amountOfQuestions+1);
+			var row = table.insertRow(amountSections+1);
 
 // Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
 			var cell1 = row.insertCell(0);
 			var cell2 = row.insertCell(1);
+			var cell3 = row.insertCell(2);
 
 // Add some text to the new cells:
-			cell1.innerHTML = amountOfQuestions+1;
+			cell1.innerHTML = amountSections+1;
 			cell2.innerHTML = "New Section";
-			cell2.setAttribute("colspan",2);
 			cell2.setAttribute("contenteditable",'true');
+
+			let saveSBut = $('<button/>',
+				{
+					text: 'save',
+					id: "saveSection",
+					click: saveSection
+				});
+			saveSBut.appendTo(cell3)
 		})
+
 		$('#save').on('click',function () {
 			$.ajax({
 				url: window.origin+'/a18ux02/Caregiver/updateQuestionnairie',
@@ -155,6 +114,121 @@
 
 	var sections = "";
 	var questionsDB = "";
+		function saveQuestion() {
+			if(this.innerHTML == "save") {
+				//FIND VALUES FOR NEW Section
+				var lastQuestionTotal = questionsDB.slice(-1)[0];
+				console.log(lastQuestionTotal)
+				var lastID = parseInt(lastQuestionTotal.idQuestion);
+				//PK
+				let newQID = lastID + 1;
+				//FIND PosNum AND nextQuestion with lastQuestion of the same section
+				var lastQuestion = questionsDB.filter(e => e.questionType == lastSectionClicked).slice(-1)[0]
+				console.log(lastQuestion)
+				let newPosNum = undefined;
+				let prevID = undefined;
+				let newNextQuestionID = undefined;
+
+				//EXISTING SECTION
+				if(lastQuestion) {
+					newPosNum = parseInt(lastQuestion.positionNum)+1;
+					newNextQuestionID = lastQuestion.nextQuestionId;
+					prevID = lastQuestion.idQuestion;
+					lastQuestion.nextQuestionId = (newQID).toString();
+					let nextQuestion = questionsDB.filter(q => q.idQuestion == newNextQuestionID).slice(-1)[0]
+					console.log(nextQuestion)
+					nextQuestion.previousQuestionId = newQID.toString();
+
+					//NEW SECTION
+				} else{
+					newPosNum = 1;
+					let lastSectionID = parseInt(sections.slice(-1)[0].sectionId)-1
+					console.log(lastSectionID)
+					let questionslastS = questionsDB.filter(q => q.questionType == lastSectionID).slice(-1)[0]
+					console.log(questionslastS);
+					newNextQuestionID = "NULL";
+					prevID = questionslastS.idQuestion;
+					questionslastS.nextQuestionId = newQID.toString();
+				}
+
+				var newQuestion = {
+					idQuestion: newQID.toString(),
+					questionText: this.parentElement.parentElement.children[1].innerText,
+					nextQuestionId: newNextQuestionID.toString(),
+					previousQuestionId: prevID.toString(),
+					positionNum: newPosNum.toString(),
+					questionType: lastSectionClicked.toString()
+				}
+				questionsDB.push(newQuestion)
+				this.innerHTML = "delete";
+			}
+			//DELETE NOT WORKING YET
+			else {
+				var questionToErase = questionsDB.filter(e => e.questionType == lastSectionClicked && e.positionNum == this.parentElement.parentElement.children[0].innerText).slice(-1)[0]
+				console.log(questionToErase)
+				var nextQuestionID = questionToErase.nextQuestionId;
+				var prevQuestionID = questionToErase.previousQuestionId;
+				var prevQuestion = questionsDB.filter(e => e.idQuestion == prevQuestionID).slice(-1)[0]
+				var nextQuestion = questionsDB.filter(e => e.idQuestion == nextQuestionID).slice(-1)[0]
+				prevQuestion.nextQuestionId = nextQuestionID.toString();
+				if(nextQuestion){
+					nextQuestion.previousQuestionId = prevQuestionID.toString();
+				}
+				var key = null;
+				for (var prop in questionsDB)
+				{
+					if (questionsDB.hasOwnProperty(prop))
+					{
+						if (questionsDB[prop] === questionToErase)
+						{
+							key = prop;
+						}
+					}
+				}
+				delete questionsDB.key
+				clean(questionsDB)
+				console.log(questionsDB)
+				let tbody = this.parentElement.parentElement.parentElement;
+				let amountOfQuestions = tbody.children.length;
+				this.parentElement.parentElement.parentElement.parentElement.deleteRow(amountOfQuestions)
+			}
+		}
+		function saveSection(){
+			if(this.innerHTML == "save") {
+				//FIND VALUES FOR NEW Section
+				var lastSection = sections.slice(-1)[0];
+				var lastID = parseInt(lastSection.sectionId);
+				//PK
+				let newQID = lastID + 1;
+				var newSection = {
+					sectionId: newQID.toString(),
+					sectionText: "volgend onderwerp is: "+this.parentElement.parentElement.children[1].innerText,
+					sectionTyp: this.parentElement.parentElement.children[1].innerText
+				}
+				sections.push(newSection);
+				this.innerHTML = "delete";
+			} else {
+				var sectionToErase = sections.filter(e =>  e.sectionId == this.parentElement.parentElement.children[0].innerText).slice(-1)[0]
+				var key = null;
+				for (var prop in sections)
+				{
+					if (sections.hasOwnProperty(prop))
+					{
+						if (sections[prop] === sectionToErase)
+						{
+							key = prop;
+						}
+					}
+				}
+				delete sections.key
+				clean(sections)
+
+				let tbody = this.parentElement.parentElement.parentElement;
+				let amountOfSections = tbody.children.length;
+				this.parentElement.parentElement.parentElement.parentElement.deleteRow(amountOfSections)
+			}
+
+	};
 	function clean(obj) {
 		for (var propName in obj) {
 			if (obj[propName] === null || obj[propName] === undefined) {
