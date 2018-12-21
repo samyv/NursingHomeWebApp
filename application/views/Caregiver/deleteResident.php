@@ -125,7 +125,7 @@
             col3.innerHTML = element.room;
             row.appendChild(col3)
             var col4 = document.createElement('td');
-            col4.innerHTML = "<button><a href='#'class='delete' >DELETE</a></button>\n";
+            col4.innerHTML = "<a href='#'class='delete' ><img src='assets/images/delete_icon.jpg' style='width:20px;height:20px;'></a>\n";
             let childs = col4.children
             let aa = childs[0].children[0]
             aa.setAttribute('value',element.id)
