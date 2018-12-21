@@ -484,10 +484,9 @@ class Caregiver extends CI_Controller
 
         $cond['table'] = "a18ux02.ContactPerson";
         $cond['where'] = array('idContactInformation' => $row[0]['FK_ContactPerson']);
-        $row = $this->caregivers->getRows($cond);
-        $result = json_decode(json_encode($row), true);
+        $row2 = $this->caregivers->getRows($cond);
+        $result = json_decode(json_encode($row2), true);
         $data['contactperson'] = $result['result_object'][0];
-        //print_r($data['contactperson']);
 
         /*
          * change contact info
