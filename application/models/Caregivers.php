@@ -282,7 +282,7 @@ Class Caregivers extends CI_Model
 		}
 
 		if($sendFlag){
-			$this->caregivers->sendWeekly();
+			//$this->caregivers->sendWeekly();
 		}
 
 	}
@@ -352,7 +352,7 @@ Class Caregivers extends CI_Model
 		}
 
 		if($sendFlag){
-			$this->caregivers->sendMonthly();
+			//$this->caregivers->sendMonthly();
 		}
 
 	}
