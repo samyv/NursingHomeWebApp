@@ -102,7 +102,6 @@ class Residents extends CI_Model
 		return 0;
     }
 
-    //test
 	function sendNotification(){
 		$text = $_SESSION['Resident']['residentID']." filled in a Questionnairy!";
 		$id = $_SESSION['Resident']['residentID'];
