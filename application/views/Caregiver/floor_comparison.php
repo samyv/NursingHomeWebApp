@@ -49,7 +49,7 @@
 
 <script>
 
-
+//hallo
 	window.addEventListener("resize", redraw);
 
 	function openTab(evt, category) {

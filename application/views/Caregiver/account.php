@@ -10,6 +10,7 @@
 </head>
 <body>
 <form class="fade-in" action="" method="post">
+
 	<?php
 	if(!empty($success_msg)){
 		echo '<p class="statusMsg">'.$success_msg.'</p>';
