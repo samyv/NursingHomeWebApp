@@ -42,7 +42,7 @@ class Residents extends CI_Model
         $blob = fopen($data['filepath'], 'rb');
 
 
-        // insert contact person in DB
+//         insert contact person in DB
 
 
         $sql = "INSERT INTO a18ux02.Pictures (pictureMime, picture) VALUES ('$mime', :data)";
@@ -57,7 +57,7 @@ class Residents extends CI_Model
 
 
         //insert resident in resident table
-        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender,FK_ContactPerson, pictureId) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender','$idcp','$pictureid')";
+        $sql = "INSERT INTO a18ux02.Resident(residentID, firstname, lastname, birthdate, floor, room, gender,FK_ContactPerson,pictureId) VALUES (NULL, '$firstname','$lastname', '$birthdate', '$floor','$room','$gender','$idcp','$pictureid')";
         $insert = $this->db->query($sql);
         $id = $this->db->insert_id();
         $qrstring = $this->generateRandomString();
@@ -101,6 +101,13 @@ class Residents extends CI_Model
 		}
 		return 0;
     }
+
+	function sendNotification(){
+		$text = $_SESSION['Resident']['residentID']." filled in a Questionnairy!";
+		$id = $_SESSION['Resident']['residentID'];
+		$sql = "INSERT INTO a18ux02.Notifications (text,FK_ResidentID,date) VALUES ('$text',$id,CURRENT_TIMESTAMP);";
+		$this->db->query($sql);
+	}
 
     public function updateContactPerson($data = array())
     {

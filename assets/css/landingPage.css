@@ -105,15 +105,16 @@ body {
     grid-area: 3;
 }
 
-
+.btn:hover{
+    background-color: #107383;
+    opacity: 0.8 !important;
+}
 
 .footer {
     align-self: end;
     grid-area: footer;
     text-align: center;
 }
-
-
 
 @media screen and (max-width: 1000px){
 

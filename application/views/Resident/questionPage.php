@@ -2,20 +2,25 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
     <title>Question</title>
     <link href="<?= base_url() ?>assets/css/questionPage.css" type="text/css" rel="stylesheet">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<script src="http://code.responsivevoice.org/responsivevoice.js"></script>
+	<script src="https://code.responsivevoice.org/1.5.7/responsivevoice.js"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
 
 <div class="grid-container">
     <div id="header">
-        <div id="title">GraceAge</div>
         <div id="logout">
-            <button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
+			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
+        </div>
+        <div id="music">
+            <button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
         </div>
     </div>
 
@@ -57,15 +62,24 @@
     <div id="previous">
         <button id="previousbtn">Vorige</button>
     </div>
-    <div id="footer">
-        <footer>
-            <p>Copyright © 2018 UXWD. KU Leuven Campus GroupT All Rights Reserved.
-            </p>
-        </footer>
     </div>
 </div>
 
+<script>
+    let audio = true;
 
+	$(document).ready(function () {
+        if(audio){
+            let string = '{question}';
+            responsiveVoice.speak(string, "Dutch Female")
+        }
+	});
+	function toggleAudio()
+	{
+		audio = !audio;
+	}
+
+</script>
 <script src="<?=base_url();?>assets/js/questionpage.js"></script>
 
 </body>

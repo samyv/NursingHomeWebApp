@@ -97,11 +97,9 @@
 		</div>
         <div class="buttons">
             <input type="submit" name="saveSettings"
-                   value=<?php
-                   echo ($this->lang->line('save'));?> />
-            <input type="button" onclick="location.href='account'"
-                   value=<?php
-                   echo ($this->lang->line('cancel'));?> />
+                   value=<?php echo ($this->lang->line('save'));?> />
+            <input type="button" onclick="location.href='landingpage'"
+                   value=<?php echo ($this->lang->line('cancel'));?> />
         </div>
 	</div>
 

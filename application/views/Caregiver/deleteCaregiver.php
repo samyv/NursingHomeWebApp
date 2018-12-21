@@ -21,7 +21,8 @@
     </div>
 
     <div class = "search">
-        <input type="text" id="myInput" onkeyup="search()" placeholder="Search.." title="Type in a name">
+        <input type="text" id="myInput" class= "form-control" onkeyup="search()" title="Type in a name"
+               placeholder=<?php echo ($this->lang->line('search'));?> >
     </div>
 
     <div class="table">
@@ -32,16 +33,16 @@
 <div class='dialog-ovelay' role="alert">
     <div class='dialog'>
         <header>
-            <h3>Delete note?</h3>
+            <h3><?php echo ($this->lang->line('title delete caregiver'));?></h3>
             <i class='fa fa-close'></i>
         </header>
         <div class='dialog-msg'>
-            <p>Are you sure you want to delete this caregiver?</p>
+            <p><?php echo ($this->lang->line('text delete caregiver'));?></p>
         </div>
         <footer>
             <div class='controls'>
-                <button class='button button-danger doAction'>Yes</button>
-                <button class='button button-default cancelAction'>Cancel</button>
+                <button class='button button-danger doAction'><?php echo ($this->lang->line('yes'));?></button>
+                <button class='button button-default cancelAction'><?php echo ($this->lang->line('cancel'));?></button>
             </div>
         </footer>
     </div>
@@ -86,10 +87,10 @@
         row.appendChild(id);
 
         var col1 = document.createElement('th');
-        col1.innerHTML = "Name";
+        col1.innerHTML = "<?php echo ($this->lang->line('name'));?>";
         row.appendChild(col1)
         var col2 = document.createElement('th');
-        col2.innerHTML = "Floor";
+        col2.innerHTML = "<?php echo ($this->lang->line('floor'));?>";
         row.appendChild(col2)
         var col3 = document.createElement('th');
         col3.innerHTML = ""; //or nothing

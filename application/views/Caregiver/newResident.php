@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
     <link href="<?php echo base_url(); ?>assets/css/newResident.css" rel='stylesheet' type='text/css' />
-    <link rel="stylesheet" href="assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-	<link rel="stylesheet" href="assets/css/transitions.css">
+	<link rel="stylesheet" href="<?=base_url()?>assets/css/transitions.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <title>{page_title}</title>
 </head>
@@ -17,12 +17,12 @@
 		<button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		<h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo ($this->lang->line('title contact information'))?></h4>
 	</div>
-	<div class="info-contact">
-		<div class = "search">
-			<input type="text" id="myInput" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'))?>" title="Type in a name">
-		</div>
+    <div class = "search">
+        <input type="text" id="myInput" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'))?>">
+    </div>
+    <div class = "modal-body">
 		<div class="table">
-			<table id="myTable"></table>
+			<table id="myTable"> </table>
 		</div>
 	</div>
 </div>
@@ -108,13 +108,13 @@
                    value="<?php echo (isset($_POST['room']) ? $_POST['room'] : ''); ?>">
 
         </div>
-        <div class="picture_input">
-            <div class="form-group">
-                <b>Upload resident picture</b>
-                <label class="file-upload"> choose a file
-                </label>
-                <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
-            </div>
+        <div class="picture">
+            <b> <?php echo ($this->lang->line('title picture'))?></b>
+        </div>
+        <div class="form-group">
+            <label class="file-upload"><?php echo ($this->lang->line('choose file'))?>
+            </label>
+            <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
         </div>
 
         <div class = "extra">
@@ -131,6 +131,7 @@
                    value="<?php echo (isset($_POST['cp_first_name']) ? $_POST['cp_first_name'] : ''); ?>">
             <br>
         </div>
+
         <div class="contact_last_name">
             <b><?php echo ($this->lang->line('lastname'))?></b>
         </div>
@@ -159,10 +160,8 @@
 		</div>
         <div>
             <input type="checkbox" name="cp_existing" id="existingCP" class="form-control"
-                   value="<?php echo (isset($_POST['cp_existing']) ? $_POST['cp_existing'] : ''); ?>">
+                   value="1" checked="<?php echo ((isset($_POST['cp_existing']) && $_POST['cp_existing'] == 1) ? true : false); ?>">
         </div>
-
-
         <div class="buttons">
             <input type="submit" value="<?php echo ($this->lang->line('add'))?>" name="saveSettings"/>
             <input type="button" value="<?php echo ($this->lang->line('cancel'))?>" onclick="location.href='landingPage'"/>
@@ -178,18 +177,6 @@
 		init();
 
 	});
-
-    function getFile(){
-        document.getElementById("upfile").click();
-    }
-
-    function checkChoice(val){
-        var element=document.getElementById('relation');
-        if(val=='Choose your relation'||val=='other')
-            element.style.display='block';
-        else
-            element.style.display='none';
-    }
 
 	function search() {
 		var input, filter, table, i;
@@ -262,6 +249,7 @@
 
 	function init() {
 		$('#myTable tbody').on('click', 'tr', function() {
+		    if (this.firstChild.innerHTML != "ID") {
 			var id_td = this.firstChild;
 			var test = id_td.innerHTML;
 			var contact = database.filter(e => e.idContactInformation == test)[0];
@@ -271,7 +259,7 @@
 			document.getElementById("emailInputCP").value=contact.email;
 			document.getElementById("phoneInputCP").value=contact.phonenumber;
 			document.getElementById("existingCP").checked=true;
-		})
+		}})
 
 		$('.xbut').on('click',function () {
 			$('#CIModal').show();
@@ -283,13 +271,6 @@
 		})
 	}
 
-    function sub(obj){
-        var file = obj.value;
-        var fileName = file.split("\\");
-        document.getElementById("yourBtn").innerHTML = fileName[fileName.length-1];
-        document.myForm.submit();
-        event.preventDefault();
-    }
 	$(document).ready(function () {
 		$('#CIModal').click(function(){
 			$('#information-contactperson-modal-content').fadeIn('fast');
