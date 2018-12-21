@@ -487,27 +487,33 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond);
         $result = json_decode(json_encode($row), true);
         $data['contactperson'] = $result['result_object'][0];
+        //print_r($data['contactperson']);
 
         /*
          * change contact info
          */
+
         $dataContactperson = array();
         if ($this->input->post('saveInfo')) {
             $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
-            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean|callback_cp_check');
-            $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|callback_regex_check|trim|xss_clean');
-
+            $this->form_validation->set_rules('email', 'Contact Email', 'valid_email|required|trim|xss_clean');
+            $this->form_validation->set_rules('phonenumber', 'Contact phone', 'required|trim|xss_clean');
             if ($this->form_validation->run() == true) {
+
                 $dataContactperson = array(
                     'firstname' => strip_tags($this->input->post('firstname')),
                     'lastname' => strip_tags($this->input->post('lastname')),
                     'email' => strip_tags($this->input->post('email')),
                     'phonenumber' => strip_tags($this->input->post('phonenumber')),
+                    'id' => $row[0]['FK_ContactPerson'],
                 );
+
+                $this->residents->updateContactPerson($dataContactperson);
+                header("Refresh:0");
+
             }
-            //print_r($dataContactperson);
-            $this->residents->updateContactPerson($dataContactperson);
+
         }
 
 
@@ -725,6 +731,8 @@ class Caregiver extends CI_Controller
     public function cp_check($str)
     {
         $checkEmail = $this->residents->lookUpEmail($str);
+        print_r($checkEmail);
+
         if ($checkEmail > 0) {
             $this->form_validation->set_message('cp_check', 'There is already a contact person with that email, please select it from the list.');
             return FALSE;
