@@ -14,7 +14,7 @@ body {
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 8em 4em 2em 10em 10em;
+    grid-template-rows: min-content 8em 4em 2em 10em 10em;
     grid-template-areas:                    ". . title title title title title title title title . ."
                                                 ". . quote quote quote quote quote quote quote quote . ."
                                         ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
@@ -60,7 +60,7 @@ body {
 }
 
 .title{
-    padding-top: 3em;
+    padding-top: 100px;
     grid-area: title;
 }
 
