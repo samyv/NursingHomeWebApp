@@ -119,7 +119,7 @@
             col2.innerHTML = element.floor;
             row.appendChild(col2)
             var col3 = document.createElement('td');
-            col3.innerHTML = "<button><a href='#'class='delete' id='CIModal' >DELETE</a></button>\n";
+            col3.innerHTML = "<a href='#'class='delete' ><img src='assets/images/delete_icon.jpg' style='width:20px;height:20px;'></a>\n";
             let childs = col3.children
             let aa = childs[0].children[0]
             aa.setAttribute('value',element.id)
