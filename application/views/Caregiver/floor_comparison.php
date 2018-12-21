@@ -309,12 +309,20 @@
 					svg.select(".floor"+(f+1)).attr("display", "none");
 				}
 
-                legend = svg.append("g")
-                    .attr("class","legend")
-                    .attr("transform","translate(50,30)")
-                    .style("font-size","12px")
-                    .call(d3.legend)
+                svg.append("svg:rect")
+                    .attr("x", width - 100)
+                    .attr("y", margin.top + f*50)
+                    .attr("stroke", colorArray[f])
+                    .attr("fill",colorArray[f])
+                    .attr("height", 2)
+                    .attr("stroke-width", "5px")
+                    .attr("width", 40)
+                    .attr("opacity",0.3);
 
+                svg.append("svg:text")
+                    .attr("x", width-100+50)
+                    .attr("y", margin.top + 5 + f*50)
+                    .text("Floor "+ (f+1));
             }
 
 			// Add the X Axis
