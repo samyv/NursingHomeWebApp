@@ -414,6 +414,7 @@ class Caregiver extends CI_Controller
     {
         $data = array();
         $data['floorNotifications'] = $this->caregivers->getNotifications();
+		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems();
         $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
 //		print_r($data["floorNotifications"]);
 //		print_r(json_encode($data['floorNotifications']));
@@ -624,9 +625,9 @@ class Caregiver extends CI_Controller
         $result = $this->db->affected_rows();
 
         if ($result > 0) {
-            $this->load->view('caregiver/activated');
+            $this->load->view('Caregiver/activated');
         } else {
-            $this->load->view('caregiver/not_activated');
+            $this->load->view('Caregiver/not_activated');
         }
     }
 
