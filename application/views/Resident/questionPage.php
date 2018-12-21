@@ -29,7 +29,6 @@
     <div class="progress" id="progressbar">
         <div class="progress-bar progress-bar-striped active" role="progressbar"
              aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:{percentage}">
-            {percentage}
         </div>
     </div>
 
