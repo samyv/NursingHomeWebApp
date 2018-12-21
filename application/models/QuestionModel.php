@@ -16,7 +16,6 @@ class QuestionModel extends CI_Model
 
     }
 
-
     function getQuestion($questionID){
         $query = $this->db->get_where('a18ux02.Question', array('idQuestion'=>$questionID));
 
@@ -328,5 +327,4 @@ class QuestionModel extends CI_Model
 
         return $completed;
     }
-
 }

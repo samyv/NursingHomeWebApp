@@ -13,11 +13,12 @@ html,body {
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: min-content min-content min-content 10em;
+	grid-template-rows: min-content min-content min-content min-content 10em;
 	grid-template-areas:
     ". picture picture picture	. visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation ."
-	". . . . . noteheader noteheader . . . print ."
+	". . . . . visualisation visualisation visualisation visualisation visualisation visualisation ."
+	". info info info . noteheader noteheader . . . print ."
 	". info info info . hint hint hint . . . ."
 }
 
@@ -41,6 +42,12 @@ html,body {
 
 .total_score{
 	grid-area: total;
+}
+
+.tooltip{
+	background-color: #66a5ad;
+	color: white;
+	padding: 1em
 }
 
 .scores_per_category{
@@ -75,10 +82,25 @@ html,body {
 	box-shadow:  0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.2), 0 1px 5px 0 rgba(0,0,0,.12);
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 3em 3em auto ;
-	grid-template-areas: "select select select . . ."
+	grid-template-rows: 3em 3em auto 200px ;
+	grid-template-areas: "select select select select select select"
 					     "total total total total . ."
-							"graph graph graph graph . cat"
+							"graph graph graph graph graph graph"
+						"time time time time time time"
+}
+
+.overlay {
+	fill: none;
+	pointer-events: all;
+}
+
+.focus circle {
+	fill: none;
+	stroke: steelblue;
+}
+
+.timeChart{
+	grid-area: time;
 }
 
 #chart{
@@ -87,10 +109,6 @@ html,body {
 
 .print {
 	grid-area: print;
-}
-
-.score_per_category{
-	margin: 0;
 }
 
 .chart {
@@ -218,11 +236,18 @@ button[type=submit]{
 		display: inline;
 		min-width: 400px;
 		left: 20%;
-		top: 60%
+		top: 72%
 	}
 
 	.fa-print{
 		display: none;
+	}
+
+	#qr-modal-content{
+		display: inline;
+		position: absolute;
+		left: 20%;
+		min-width: 400px;
 	}
 }
 
@@ -249,5 +274,44 @@ button[type=submit]{
         transform: translate(-50%, -50%);
         width: 40%;
     }
+}
+
+
+@media screen and (max-width: 420px){
+	.sectionLabel{
+		display: none;
+	}
+
+	#heatmap{
+		transform: translateX(-300px);
+	}
+
+	#select_questionnaire{
+		display: none;
+	}
+
+	.mono{
+		transform: translateX(60px);
+	}
+
+	#information-contactperson-modal-content{
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 80%;
+		z-index: 99;
+	}
+
+	#qr-modal-content{
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		width: 80%;
+	}
+
 }
 

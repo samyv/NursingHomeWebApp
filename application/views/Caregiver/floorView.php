@@ -11,9 +11,7 @@
 <body>
 <div class ="grid-container fade-in">
 	<div class = "title">
-		<p>
-            <?php echo($this->lang->line('title floor view'));?>
-        </p>
+		<p><?php echo($this->lang->line('title floor view'));?></p>
 	</div>
 </div>
 </body>
@@ -33,6 +31,7 @@
 
 			let room = rooms[i-1]
 			var found = residents.filter(e => e.room == room);
+
 			//BIG CHILD
 			let child = $("<div></div>");
 			let z = room.split("");
@@ -46,7 +45,8 @@
 			let h = $("<h2></h2>").text(room);
 			number.append(h);
 			child.append(number);
-			//images
+
+			//IMAGES
 			for (let j = 1; j <=found.length; j++) {
 				let imagediv = $("<div></div>");
 				imagediv.addClass("image" + j);
@@ -61,10 +61,13 @@
 					location.href='resDash/?id='+room['residentID'];
 
 				})
-				let name = $("<h3></h3>").text(found[j-1]['firstname']);
-				imagediv.append(name);
+				let firstname = $("<h3></h3>").text(found[j-1]['firstname'])
+				imagediv.append(firstname);
+                let lastname = $("<h3></h3>").text(found[j-1]['lastname'])
+                imagediv.append(lastname);
 
-				$.ajax({
+
+                $.ajax({
                     url: '<?=base_url()?>/caregiver/getResidentImage/?id=' + room['residentID'],
                     dataType: 'text',
                     success: function ($image) {

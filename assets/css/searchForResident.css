@@ -9,7 +9,7 @@ html, body {
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 22em 1fr;
+    grid-template-rows: 8em 250em 1fr;
     grid-template-areas:
             ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
@@ -32,7 +32,9 @@ html, body {
 .table {
     overflow-y: scroll;
     grid-area: table;
+	cursor: pointer;
 }
+
 
 #myTable {
     border-collapse: collapse;
@@ -63,7 +65,7 @@ footer {
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 8em 22em 1fr;
+        grid-template-rows: 8em 250em 1fr;
         grid-template-areas:
                 ". Header Header Header Header Header Header Header Header Header Header ."
                 ". search search table table table table table table table table ."

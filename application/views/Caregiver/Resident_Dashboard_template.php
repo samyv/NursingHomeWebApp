@@ -15,9 +15,11 @@
     <link href="<?php echo base_url(); ?>assets/css/resident_dashboard.css" rel='stylesheet' type='text/css'/>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="http://d3js.org/d3.v4.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/notes.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/timeGraphResident.js"></script>
     <script src="../javascript/qrcode.min.js"></script>
+
 </head>
 <body>
 
@@ -122,13 +124,14 @@
         <div class="total_score">
             <label id="total_score_label"></label>
             <div class="progress">
-            <div class="progress-bar" role="progressbar" id="total_score_bar" aria-valuemax="265" aria-valuenow="0" aria-valuemin="0" style="display: none"></div>
+            <div class="progress-bar" role="progressbar" id="total_score_bar" aria-valuenow="0" aria-valuemin="0" style="display: none"></div>
             </div>
         </div>
 
         <div id="chart" name="chart">
         </div>
-        <div class="scores_per_category">
+
+        <div class="timeChart">
 
         </div>
 
@@ -159,7 +162,7 @@
         } ?>
     </div>
     <div class="print">
-        <button type="submit">
+        <button id="printbtn" type="submit" onclick="window.print()">
             <i class="fa fa-print"></i>
         </button>
     </div>
@@ -219,7 +222,16 @@
 
         $('#changeInfo').click(changeInfo)
         $('#saveInfo').click(saveInfo)
-
+        
+        $.ajax({
+            url: '<?php echo base_url();?>caregiver/getTotalScoreTime/?idResident=' + idResident,
+            dataType: 'json',
+            success: function (totalScoreTime) {
+                drawTimeResident(totalScoreTime);
+            }
+        })
+        
+        
     });
 
 
@@ -247,6 +259,7 @@
                 success: function (totalscore) {
                     $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
                     $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
+                        .attr("aria-valuemax", totalscore[0].nr*5)
                         .css("display", "inline")
                         .css("width", (totalscore[0].total_score/265*100)+"%");
                     switch (Math.floor(totalscore[0].total_score/265*100/20)) {
@@ -307,9 +320,9 @@
         dataType: 'json',
         success: function (totalscore) {
 
-            console.log(totalscore);
             $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
             $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
+                .attr("aria-valuemax", totalscore[0].nrOfQuestions*5)
                 .css("width", (totalscore[0].total_score/265*100)+"%")
                 .css("display", "inline");
 

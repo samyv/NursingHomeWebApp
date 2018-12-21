@@ -59,7 +59,7 @@ body {
     text-align: center;
     background-color: #003b46;
     color: white !important;
-    width: 100%;
+    width: 150%;
 }
 
 .image {
@@ -70,7 +70,6 @@ body {
 #remyImg{
     width: 100%;
 }
-
 
 .login-form {
     grid-area: log;
@@ -85,10 +84,12 @@ body {
 
 input[type=submit]{
     grid-area: submit;
+    width: 150px;
 }
 
 input[type=button]{
     grid-area: register;
+    width: 150px;
 }
 
 input[type=email], input[type=password] {
@@ -103,7 +104,7 @@ input[type=email], input[type=password] {
 input[type=submit], input[type=button]{
     background-color: #66a5ad;
     color: white;
-    padding: 14px 50px;
+    padding: 10px;
     border: none;
     cursor: pointer;
     margin-top: 10px;
@@ -155,9 +156,6 @@ span.psw {
         margin: 8px 0 0 0;
     }
 
-    #submitButtons{
-        width: 100%;
-    }
 
     .image{
         display: none;

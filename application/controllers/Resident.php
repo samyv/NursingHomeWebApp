@@ -87,7 +87,6 @@ class Resident extends CI_Controller
         $nextQuestion = $this->QuestionModel->nextQuestion($index);
         if($nextQuestion != -1) {
             $nextType = $this->QuestionModel->getQuestionType($index + 1);
-
         } else {
             $nextType = $currentType;
         }
@@ -104,8 +103,7 @@ class Resident extends CI_Controller
         }
         $answer = $this->QuestionModel->getAnswer($questionnaireId,$index);
         $pos = $this->QuestionModel->getQuestionPosition($index);
-        if($answer == 0) $currentNum = $pos-1;
-        else $currentNum = $pos;
+        $currentNum = $pos-1;
         $data['currentNum'] = $currentNum;
         $data['percentage'] = sprintf("%01.0f", ($currentNum/$totalNum)*100).'%';
         $this->parser->parse('Resident/questionPage', $data);
@@ -223,6 +221,7 @@ class Resident extends CI_Controller
         $idResident = $_SESSION['Resident']['residentID'];
         $questionnaireId = $this->QuestionModel->getQuestionnaireID($idResident);
         $this->QuestionModel->setQuestionnaireCompleted($questionnaireId);
+        $this->residents->sendNotification();
         $index = $this->QuestionModel->getLastQuestion();
         $data['resident'] = $_SESSION['Resident']['firstname'];
         $data['index'] = $index;
@@ -268,8 +267,7 @@ class Resident extends CI_Controller
         $data['previousQuestion'] = $this->QuestionModel->previousQuestion($index);
         $data['nextQuestion'] = $this->QuestionModel->nextQuestion($index);
         if($data['nextQuestion'] != -1) {
-            $data['nextType'] = $this->QuestionModel->getQuestionType($index + 1);
-
+            $data['nextType'] = $this->QuestionModel->getQuestionType($data['nextQuestion']);
         } else {
             $data['nextType'] = $data['currentType'];
         }
