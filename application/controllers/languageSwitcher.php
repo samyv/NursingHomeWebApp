@@ -1,4 +1,4 @@
-<?php if ( ! defined('BASEPATH')) exit('Direct access allowed');
+<?php
 
 class languageSwitcher extends CI_Controller
 {

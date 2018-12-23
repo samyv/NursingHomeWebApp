@@ -46,6 +46,24 @@ body {
     grid-area: register;
 }
 
+nav {
+    background-color: #003B46;
+    width: 100%;
+}
+
+.navbar-text{
+    color: white !important;
+}
+
+.nav-link{
+    color: white !important;
+}
+
+.header-title{
+    margin: 0;
+    justify-content: center;
+}
+
 input[type=email],input[type=text], input[type=password] {
     padding: 12px 20px;
     margin: 8px 0;
