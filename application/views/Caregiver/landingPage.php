@@ -58,7 +58,7 @@
                 <form name="submitNotes" class="existing form" action="">
                     <input type="number" name="id" id="idinput" class="idinput form-group" style="display:none;"
                            value="<?php echo $note['noteid']; ?>">
-                    <a class="btn deleteNote" name="close">
+                    <a class="deleteNote" data-toggle="modal" data-target="#deleteNoteModal" name="close">
                         <i id="<?php echo $note['noteid']; ?>"
                            class="fa fa-trash-alt"></i></a>
                     <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes"
@@ -80,10 +80,10 @@
 </div>
 
 
-<div class='dialog-ovelay' role="alert">
+<div class='dialog-ovelay modal' role="alert">
     <div class='dialog'>
-        <header>
-            <h3>Delete note?</h3>
+        <header class="modal-header">
+            <h3 class="modal-title">Delete note?</h3>
             <i class='fa fa-close'></i>
         </header>
         <div class='dialog-msg'>

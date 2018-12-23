@@ -142,3 +142,5 @@ $lang['Comparison Floor'] ='Comparison Floor';
 $lang['Add Resident'] ='Add Resident';
 $lang['Delete Resident'] ='Delete Resident';
 $lang['Delete Caregiver'] ='Delete Caregiver';
+
+
