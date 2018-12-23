@@ -32,9 +32,9 @@
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo ($this->lang->line('goto'))?></a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    {dropdown_menu_items}
-                    <a href="<?=base_url();?>{link}" class="{className}">{name}</a>
-                    {/dropdown_menu_items}
+                    <?php foreach ($dropdown_menu_items as $item){ ?>
+                    <a href="<?php echo base_url(),$item['link'];?>" class="<?php echo $item['className'];?>" > <?php echo $this->lang->line($item['name'])?></a>
+                    <?php } ?>
                 </div>
             </li>
 

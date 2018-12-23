@@ -134,10 +134,11 @@ $lang['title modal delete'] ='Delete';
 $lang['title delete caregiver'] ='Delete caregiver';
 $lang['text delete caregiver'] ='Are you sure you want to delete this caregiver?';
 
-
-
-
-
-
-
-
+//dropdownmodel
+$lang['Overview Resident'] = 'Search Resident';
+$lang['Overview Questions'] ='Overview Questions';
+$lang['Selection Floor'] ='Selection Floor';
+$lang['Comparison Floor'] ='Comparison Floor';
+$lang['Add Resident'] ='Add Resident';
+$lang['Delete Resident'] ='Delete Resident';
+$lang['Delete Caregiver'] ='Delete Caregiver';

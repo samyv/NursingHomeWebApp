@@ -138,7 +138,14 @@ $lang['title delete caregiver'] ='Verwijder verzorger';
 $lang['text delete caregiver'] ='Bent u zeker dat u deze verzorger wilt verwijderen?';
 
 
-
+//dropdownmodel
+$lang['Overview Resident'] = 'Zoek bewoner';
+$lang['Overview Questions'] ='Overzicht vragen';
+$lang['Selection Floor'] ='Zoek verdieping';
+$lang['Comparison Floor'] ='Vergelijk verdieping';
+$lang['Add Resident'] ='Voeg bewoner toe';
+$lang['Delete Resident'] ='Verwijder bewoner';
+$lang['Delete Caregiver'] ='Verwijder verzorger';
 
 
 
