@@ -114,7 +114,7 @@
         <div class="form-group">
             <label class="file-upload"><?php echo ($this->lang->line('choose file'))?>
             </label>
-            <input id="file_upload" type="file" name="imageURL" size="20" class="form-control"/>
+            <input id="file_upload" type="file" name="imageURL" size="20" class="form-control" value="<?php echo ($this->lang->line('choose file'))?>"/>
         </div>
 
         <div class = "extra">

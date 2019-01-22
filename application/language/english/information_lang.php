@@ -46,7 +46,7 @@ $lang['search resident'] = 'Search resident';
 $lang['compare floor'] = 'Compare floor';
 $lang['select floor'] = 'Select floor';
 $lang['notes'] = 'Notes';
-$lang['calendar'] = 'Calendar';
+$lang['calendar'] = 'Wheater';
 $lang['saved'] = 'Saved';
 
 //acount page

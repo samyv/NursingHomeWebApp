@@ -45,7 +45,7 @@ $lang['search resident'] = 'Zoek bewoner';
 $lang['compare floor'] = 'Vergelijk verdieping';
 $lang['select floor'] = 'Zoek verdieping';
 $lang['notes'] = 'Notities';
-$lang['calendar'] = 'Kalender';
+$lang['calendar'] = 'Weerbericht';
 $lang['saved'] = 'Opgeslagen';
 
 
