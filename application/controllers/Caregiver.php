@@ -418,6 +418,10 @@ class Caregiver extends CI_Controller
 //		print_r($data["floorNotifications"]);
 //		print_r(json_encode($data['floorNotifications']));
 //		print_r($data['floorNotifications']);
+
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
+
+
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/notificationView', $data);
 

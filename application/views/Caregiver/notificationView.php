@@ -12,7 +12,10 @@
 <body>
 <div class = "grid-container fade-in">
     <div class = "title">
-        <p>Notifications</p>
+        <p>
+            <?php
+            echo ($this->lang->line('title notifications'));?>
+        </p>
     </div>
 		<!-- Tab links -->
 	<div class="tab-container">

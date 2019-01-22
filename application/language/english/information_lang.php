@@ -46,7 +46,7 @@ $lang['search resident'] = 'Search resident';
 $lang['compare floor'] = 'Compare floor';
 $lang['select floor'] = 'Select floor';
 $lang['notes'] = 'Notes';
-$lang['calendar'] = 'Wheater';
+$lang['calendar'] = 'Weather';
 $lang['saved'] = 'Saved';
 
 //acount page
@@ -143,4 +143,5 @@ $lang['Add Resident'] ='Add Resident';
 $lang['Delete Resident'] ='Delete Resident';
 $lang['Delete Caregiver'] ='Delete Caregiver';
 
-
+//notifications
+$lang['title notifications'] = 'Notifications';

@@ -11,13 +11,19 @@ html,body{
 	background-color: #F5FAFA;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 75px 0.2fr 0.2fr;
-	grid-template-areas: "title title title title title title title title title title title title"
-						 ". . . . tab tab tab tab tab tab tab tab"
-						 ". nots nots nots nots nots nots nots nots nots nots ."
+	grid-template-rows: 0.5fr 0.2fr 0.2fr;
+	grid-template-areas: ". . . title title title title title title . . ."
+						 ". . . tab tab tab tab tab tab . . ."
+						 ". . . nots nots nots nots nots nots . . ."
 }
 
-.title { grid-area: title; }
+.title {
+    grid-area: title;
+    color: #003b46;
+    margin-top: 20px;
+    font-size: 32px;
+    background-color: #F5FAFA;
+}
 
 .notification{
     display: grid;
@@ -39,8 +45,9 @@ html,body{
 	text-decoration: none!important;
 }
 
+.tab-container {grid-area: tab; }
+
 .tab {
-	grid-area: tab;
 	color: white;
 	overflow: auto;
 	display: flex;
@@ -57,9 +64,10 @@ html,body{
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-	min-width: 10em;
-	background-color: inherit;
-	float: left;
+	min-width: 50%;
+    background-color: #66a5ad;
+    color: white;
+    float: left;
 	border: none;
 	outline: none;
 	cursor: pointer;
@@ -69,12 +77,12 @@ html,body{
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-	background-color: #ddd;
+    background-color: #107383;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-	background-color: #ccc;
+    background-color: #0c5460;
 }
 
 /* Style the tab content */
@@ -91,7 +99,7 @@ html,body{
 }
 
 .notification:hover{
-    background-color: #83b6bc;
+    background-color: #107383;
     transform: scale(1.05);
     display: grid;
 }
