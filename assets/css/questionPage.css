@@ -38,33 +38,33 @@ body{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-areas: "music music music music . . . . . logout logout logout";
     width: 100vw;
-    background-color: #9eaea3;
+    background-color: #94b7a0;
     /*padding-right: 1em;*/
 }
 
 #logout{
     padding-top: 1.8em;
-    background-color: #9eaea3;
+    background-color: #94b7a0;
     grid-area: logout;
     text-align: center;
 }
 #music{
     padding-top: 1.8em;
-    background-color: #9eaea3;
+    background-color: #94b7a0;
     grid-area: music;
     text-align: center;
 }
 #logoutbtn{
     height:45px;
     color: white;
-    background-color: #D8998F;
+    background-color: #7c3129;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     font-size: 30px;
 }
 #musicbtn{
     height:45px;
     color: white;
-    background-color: #D8998F;
+    background-color: #7c3129;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
     font-size: 30px
 }
@@ -117,7 +117,7 @@ body{
     display: inline-block;
     margin-bottom: 0.2em;
     width: 4em;
-    background-color: #B1D4BE;
+    background-color: #c5e9d1;
     color: rgba(0, 0, 0, 0.6);
     font-size: 3.2em;
     font-weight: normal;
@@ -148,8 +148,8 @@ body{
 
 
 #previousbtn{
-    background-color: #9eaea3;
-    color: rgba(0, 0, 0, 0.6);
+    background-color: #94b7a0;
+    color: black;
     font-size: 2.5em;
     font-weight: normal;
     border: 1px solid rgba(0, 0, 0, 0.2);
