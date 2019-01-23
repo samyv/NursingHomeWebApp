@@ -19,7 +19,7 @@ html,body{
     grid-template-rows: 6em 8em 3em 4fr 4fr 1fr;
     grid-template-areas:
             ". title title title title title title title title title title ."
-            ". list list  . tab tab tab tab tab tab tab ."". list list  .  date date date . . . . ."
+            ". list list  . tab tab tab tab tab tab tab ."". list list  .  date date date date date . . ."
             ". list list  . graph graph graph graph graph graph graph ."
             ". . . . graph graph graph graph graph graph graph ."
             "footer footer footer footer footer footer footer footer footer footer footer footer";
@@ -146,6 +146,9 @@ html,body{
 .line:hover{
     stroke-opacity: 1;
     stroke-width: 10px;
+}
+#legend{
+    background-color: red;
 }
 
 @media screen and (max-width: 1000px){

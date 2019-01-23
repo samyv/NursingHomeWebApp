@@ -131,7 +131,7 @@
 			success: function (data) {
 				floordata = data[0];
 				amountOfCategories = parseInt(data[1]);
-				draw("year")
+				draw("year");
 				document.getElementsByClassName("tablinks")[0].click();
 			}
 		});
@@ -141,7 +141,7 @@
 			dataType: 'json',
 			success: function (data) {
 				floordata = data[0];
-				draw("week")
+				draw("week");
 				amountOfCategories = parseInt(data[1]);
 			}
 		});
@@ -151,7 +151,7 @@
 			dataType: 'json',
 			success: function (data) {
 				floordata = data[0];
-				draw("month")
+				draw("month");
 				amountOfCategories = parseInt(data[1]);
 			}
 		});
@@ -179,8 +179,10 @@
 		var x = event.target;
 		if (x.style.display == "inline-grid") {
 			x.style.display = "none";
+            hideLinesIcon(event);
 		} else {
 			x.style.display = "inline-grid";
+            showLinesIcon(event);
 		}
 	}
 
@@ -193,6 +195,19 @@
 
 	function hideLines(event) {
 		$x = '.floor'+$(event.target).attr("id");
+		$lines = $($x);
+		console.log($lines);
+		$lines.attr("display","none");
+	}
+
+	function showLinesIcon(event) {
+		$x = '.floor'+$(event.target).parent().attr("id");
+		$lines = $($x);
+		$lines.attr("display","inline");
+	}
+
+	function hideLinesIcon(event) {
+		$x = '.floor'+$(event.target).parent().attr("id");
 		$lines = $($x);
 		console.log($lines);
 		$lines.attr("display","none");
@@ -238,7 +253,6 @@
 				.append("g")
 				.attr("transform",
 					"translate(" + margin.left + "," + margin.top + ")");
-
 
 			floordata.forEach(function (d) {
 				d.timestamp = new Date(d.timestamp);
@@ -312,19 +326,20 @@
 				}
 
 				svg.append("svg:rect")
-					.attr("x", width - 100)
-					.attr("y", margin.top + f*50)
+					.attr("x", width/2+(f-2)*120)
+					.attr("y", margin.top-5)
 					.attr("stroke", colorArray[f])
 					.attr("fill",colorArray[f])
 					.attr("height", 2)
 					.attr("stroke-width", "5px")
-					.attr("width", 40)
+					.attr("width", 20)
 					.attr("opacity",0.3);
 
 				svg.append("svg:text")
-					.attr("x", width-100+50)
-					.attr("y", margin.top + 5 + f*50)
-					.text("Floor "+ (f+1));
+					.attr("x", width/2+(f-2)*120+30)
+					.attr("y", margin.top)
+					.text("Floor "+ (f+1))
+                    .attr("fill", "black")
 
 			}
 
