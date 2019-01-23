@@ -150,7 +150,7 @@
 
 
     //Create global variable
-    $IDtoDelete = "global";
+    $IDtoDelete = "";
 
     //On click of yes delete the caregiver with global ID
     //update table??
@@ -159,10 +159,10 @@
     $(document).ready(function () {
         $('.delete').click(function(event){
             //$('#information-modal-content').fadeIn('fast');
-            $tr = $(event.target).parent().parent().parent();
+            $tr = $(event.target).parents("tr");
             $td = $(event.target).parent().parent().prev().prev().prev().prev();
             $IDtoDelete = $td.attr("id");
-            Confirm($IDtoDelete);
+            Confirm($IDtoDelete,$tr);
 
             //not correct! but get the id of the delete button and change the global variable
 
@@ -171,7 +171,7 @@
 
     });
 
-    function Confirm($IDtoDelete) { /*change*/
+    function Confirm($IDtoDelete, $tr) { /*change*/
         $('.dialog-ovelay').css("display","block");
         $('.doAction').click(function () {
             $(this).parents('.dialog-ovelay').fadeOut(500, function () {
@@ -187,6 +187,7 @@
 
                     }
                 });
+                $tr.remove();
                 //$note.parent().remove();
             });
         });
