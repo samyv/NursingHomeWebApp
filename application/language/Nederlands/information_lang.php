@@ -52,7 +52,7 @@ $lang['saved'] = 'Opgeslagen';
 
 
 //account page
-$lang['title account'] = 'Verander gebruikersinstellingen';
+$lang['title account'] = 'Wijzig je instellingen';
 $lang['firstname'] = 'Voornaam';
 $lang['lastname'] = 'Achternaam';
 $lang['old password'] = 'Oud wachtwoord';
@@ -63,6 +63,8 @@ $lang['ph new password'] = 'Vul nieuw wachtwoord in';
 $lang['ph confirm password'] = 'Herhaal nieuw wachtwoord';
 $lang['header delete note'] = 'Verwijder notitie?';
 $lang['text delete note'] = 'Bent u zeker dat u deze notitie wilt verwijderen?';
+$lang['saved'] = 'Je wijzigingen zijn opgeslagen.';
+
 
 //building view
 $lang['title buidlingView'] = 'Kies de gewenste verdieping';
@@ -95,11 +97,12 @@ $lang['ph lastname'] = 'Vul achternaam in';
 $lang['ph floornr'] = 'Vul verdieping in';
 $lang['ph roomnr'] = 'Vul kamer nummer in';
 $lang['ph email'] = 'voorbeeld@voorbeeld.com';
+$lang['phone format']= 'ongeldig formaat.';
 
 //new question
 $lang['title section'] = 'Kies een sectie of maak een nieuwe';
 $lang['title question'] = 'Vraag';
-$lang['section'] = 'Section';
+$lang['section'] = 'Sectie';
 $lang['new section'] = 'Nieuwe sectie';
 $lang['ph section'] = 'Vul nieuwe sectie in';
 $lang['ph newquestion'] = 'Vul nieuwe vraag in';
@@ -109,14 +112,19 @@ $lang['subtitle header'] = 'Zorgt voor betere zorg';
 
 //login
 $lang['forgot password'] = 'Wachtwoord vergeten?';
-$lang['register'] = 'Registreer';
-$lang['login'] = 'Meld aan';
+$lang['register'] = 'Registreren';
+$lang['login'] = 'Aanmelden';
+$lang['wrong email password'] = 'Je email of wachtwoord is niet correct, probeer het opnieuw.';
+$lang['activate account'] = 'Je account is nog niet geactiveerd, controleer je email en spam folder.';
 
 //forgot password
 $lang['title forgot pass'] = 'Wachtwoord vergeten?';
 $lang['text forgot pass'] = 'Vul uw email in zodat we jou een link kunnen sturen om het wachtwoord opnieuw in te stellen.';
 $lang['send'] = 'Verstuur email';
 $lang['link'] = 'Een link om jouw wachtwoord opnieuw in te stellen is verzonder naar ';
+$lang['pw reset'] = 'Je wachtwoord is opnieuw ingesteld.';
+$lang['cp exists'] = 'Er bestaal al een contactpersoon met dit email adres, selecteer deze uit de lijst.';
+$lang['room check']='Er zitten al 2 bewoners in deze kamer.';
 
 
 //register
@@ -125,13 +133,20 @@ $lang['key'] = 'Sleutel';
 $lang['ph key'] = 'Vul sleutel in';
 $lang['ph password'] = 'Vul wachtwoord in';
 $lang['ph conf password'] = 'Herhaal wachtwoord';
+$lang['something wrong'] = 'Er ging iets fout, probeer het later opnieuw';
+$lang['email exists'] = 'Het opgegeven mailadres heeft al een account.';
+$lang['key incorrect'] = 'De opgegeven sleutel is niet juist.';
+$lang['pw incorrect'] = 'Het opgegeven wachtwoord is niet juist.';
+$lang['resident register success'] = 'De nieuwe bewoner is toegevoegd.';
+$lang['date format'] = 'Vul een datum in als dd/mm/jjjj.';
+
 
 //resident dashboard
 $lang['select questionnaire'] ='Kies een vragenlijst';
 
 //delete resident
 $lang['title delete resident'] ='Verwijder bewoner';
-$lang['text delete resident'] ='Bent u zeker dat u deze bewonder wil verwijderen?';
+$lang['text delete resident'] ='Bent u zeker dat u deze bewoner wil verwijderen?';
 $lang['delete'] ='VERWIJDER';
 $lang['title modal delete'] ='Verwijderen';
 

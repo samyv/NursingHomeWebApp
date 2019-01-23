@@ -80,10 +80,10 @@ class Caregiver extends CI_Controller
 
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
-                    $this->session->set_userdata('success_msg', 'Your new settings have been saved');
+                    $this->session->set_userdata('success_msg', $this->lang->line('saved'));
                     redirect('account');
                 } else {
-                    $this->session->set_userdata('error_msg', 'Something went wrong...');
+                    $this->session->set_userdata('error_msg', $this->lang->line('wrong email password'));
                     redirect('account');
                 }
             }
@@ -123,9 +123,9 @@ class Caregiver extends CI_Controller
                 );
                 $checkLogin = $this->caregivers->lookUp($con);
                 if ($checkLogin == 3) {
-                    $data['error_msg'] = "Please make sure you have activated your account, check your email and spam folder.";
+                    $data['error_msg'] = $this->lang->line('activate account');
                 } elseif ($checkLogin == 2) {
-                    $data['error_msg'] = 'Wrong email or password, please try again.';
+                    $data['error_msg'] = $this->lang->line('wrong email password');
                 } elseif ($checkLogin) {
                     if (password_verify(trim($this->input->post('password')), $checkLogin['0']->password)) {
                         $this->session->set_userdata('isUserLoggedIn', TRUE);
@@ -137,7 +137,7 @@ class Caregiver extends CI_Controller
                         if ($checkLogin['0']->supervisor == 1) $this->session->set_userdata('supervisor', $checkLogin['0']->supervisor);
                         redirect('landingPage');
                     } else {
-                        $data['error_msg'] = 'Wrong email or password, please try again.';
+                        $data['error_msg'] = $this->lang->line('wrong email password');
                     }
                 }
             }
@@ -184,7 +184,7 @@ class Caregiver extends CI_Controller
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
                     redirect('index.php');
                 } else {
-                    $data['error_msg'] = 'Some problems occured, please try again.';
+                    $data['error_msg'] = $this->lang->line('something wrong');
                 }
             }
 
@@ -216,7 +216,7 @@ class Caregiver extends CI_Controller
     {
         $checkEmail = $this->caregivers->lookUpEmail($str);
         if ($checkEmail > 0) {
-            $this->form_validation->set_message('email_check', 'The given email already exists.');
+            $this->form_validation->set_message('email_check', $this->lang->line('email exists'));
             return FALSE;
         } else {
             return TRUE;
@@ -231,8 +231,7 @@ class Caregiver extends CI_Controller
         } else if ($this->caregivers->checkSupervisorKey($nursingHomeID, $key)) {
             $flag = TRUE;
         } else {
-            $this->form_validation->set_message('key_check', 'Key is incorrect.');
-        }
+            $this->form_validation->set_message('key_check', $this->lang->line('key incorrect'));        }
         return $flag;
     }
 
@@ -252,7 +251,7 @@ class Caregiver extends CI_Controller
             'id' => $id);
         $checkPassword = $this->caregivers->lookUpPassword($con);
         if ($checkPassword) {
-            $this->form_validation->set_message('password_check', 'password is incorrect');
+            $this->form_validation->set_message('password_check', $this->lang->line('pw incorrect'));
             return FALSE;
         } else {
             return TRUE;
@@ -362,10 +361,10 @@ class Caregiver extends CI_Controller
                     $dataResident['mime'] = $data['file_type'];
                     if ($this->residents->insert($dataResident)) {
                         unlink($data['full_path']);
-                        $this->session->set_userdata('success_msg', 'The new resident is registered successful.');
+                        $this->session->set_userdata('success_msg', $this->lang->line('resident register success'));
                         redirect('residentAdded');
                     } else {
-                        $data['error_msg'] = "Something went wrong, please try again.";
+                        $data['error_msg'] = $this->lang->line('something wrong');
                     }
                 }
             }
@@ -402,7 +401,7 @@ class Caregiver extends CI_Controller
         $parts = explode("/", $date);
         if (count($parts) == 3) {
             if (checkdate($parts[1], $parts[0], $parts[2]) == false) {
-                $this->form_validation->set_message('date_valid', 'The Date field must be mm/dd/yyyy');
+                $this->form_validation->set_message('date_valid', $this->lang->line('date format'));
                 return FALSE;
             }
         } else {
@@ -681,7 +680,7 @@ class Caregiver extends CI_Controller
             $result = $this->caregivers->updatePassword($data);
 
             if ($result) {
-                $this->session->set_userdata('success_msg', 'Your password has been reset.');
+                $this->session->set_userdata('success_msg', $this->lang->line['pw reset']);
                 redirect('index.php');
             }
         }
@@ -726,7 +725,7 @@ class Caregiver extends CI_Controller
         if (preg_match('/^((\+|00)32\s?|0)4(60|[789]\d)((\s?\d{2}){3})|((\s?\d{3}){2})/', trim($str)) || preg_match('/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/', trim($str))) {
             return TRUE;
         } else {
-            $this->form_validation->set_message('regex_check', 'The %s field is not in the right format');
+            $this->form_validation->set_message('regex_check', $this->lang->line('phone format'));
             return FALSE;
         }
     }
@@ -737,7 +736,7 @@ class Caregiver extends CI_Controller
         print_r($checkEmail);
 
         if ($checkEmail > 0) {
-            $this->form_validation->set_message('cp_check', 'There is already a contact person with that email, please select it from the list.');
+            $this->form_validation->set_message('cp_check', $this->lang->line('cp exists'));
             return FALSE;
         } else {
             return TRUE;
@@ -749,7 +748,7 @@ class Caregiver extends CI_Controller
 
         $checkEmail = $this->residents->lookUp($str);
         if (count($checkEmail) > 1) {
-            $this->form_validation->set_message('room_check', 'There are already 2 residents in that room.');
+            $this->form_validation->set_message('room_check', $this->lang->line('room check'));
             return FALSE;
         } else {
             return TRUE;
