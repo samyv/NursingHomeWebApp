@@ -11,17 +11,24 @@ html,body{
 	background-color: #F5FAFA;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 75px 0.2fr 0.2fr;
-	grid-template-areas: "title title title title title title title title title title title title"
-						 ". . . . tab tab tab tab tab tab tab tab"
-						 ". nots nots nots nots nots nots nots nots nots nots ."
+	grid-template-rows: 0.5fr min-content 0.2fr;
+	grid-template-areas: ". . . title title title title title title . . ."
+						 ". . . tab tab tab tab tab tab . . ."
+						 ". . . nots nots nots nots nots nots . . ."
 }
 
-.title { grid-area: title; }
+.title {
+    grid-area: title;
+    color: #002532!important;
+    margin-top: 20px;
+    font-size: 32px;
+    background-color: #F5FAFA;
+    padding: 0!important;
+}
 
 .notification{
     display: grid;
-    grid-template-columns: 0.05fr 0.3fr 500px 0.1fr ;
+    grid-template-columns: 0.05fr 0.3fr 1fr 0.1fr ;
     grid-template-rows: 0.5fr;
     grid-template-areas:
             "icon date content read";
@@ -39,8 +46,9 @@ html,body{
 	text-decoration: none!important;
 }
 
+.tab-container {grid-area: tab; }
+
 .tab {
-	grid-area: tab;
 	color: white;
 	overflow: auto;
 	display: flex;
@@ -57,9 +65,10 @@ html,body{
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-	min-width: 10em;
-	background-color: inherit;
-	float: left;
+	min-width: 50%;
+    background-color: #66a5ad;
+    color: white;
+    float: left;
 	border: none;
 	outline: none;
 	cursor: pointer;
@@ -69,12 +78,12 @@ html,body{
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-	background-color: #ddd;
+    background-color: #107383;
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-	background-color: #ccc;
+    background-color: #0c5460;
 }
 
 /* Style the tab content */
@@ -91,7 +100,7 @@ html,body{
 }
 
 .notification:hover{
-    background-color: #83b6bc;
+    background-color: #107383;
     transform: scale(1.05);
     display: grid;
 }
@@ -157,6 +166,9 @@ html,body{
     transition: all .2s ease-in-out;
 }
 
+.seen-button:hover{
+    cursor: pointer;
+}
 
 .material-icons.unread { color: #ffc107; }
 
