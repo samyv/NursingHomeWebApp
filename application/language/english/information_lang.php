@@ -116,6 +116,8 @@ $lang['register'] = 'Register';
 $lang['login'] = 'Login';
 $lang['wrong email password'] = 'You have entered a wrong email or password, please try again.';
 $lang['activate account'] = 'Please make sure you have activated your account, check your email and spam folder.';
+$lang['wrong room'] = 'Wrong room number, please try again.';
+
 
 //forgot password
 $lang['title forgot pass'] = 'Forgot your password?';

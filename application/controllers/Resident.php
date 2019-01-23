@@ -45,7 +45,7 @@ class Resident extends CI_Controller
                     }
                     $data['residentNames'] = $residentArray;
                 }else{
-                    $data['error_msg'] = 'Wrong room number, please try again';
+                    $data['error_msg'] = $this->lang->line('wrong room');
                 }
             }
             else {

@@ -116,6 +116,7 @@ $lang['register'] = 'Registreren';
 $lang['login'] = 'Aanmelden';
 $lang['wrong email password'] = 'Je email of wachtwoord is niet correct, probeer het opnieuw.';
 $lang['activate account'] = 'Je account is nog niet geactiveerd, controleer je email en spam folder.';
+$lang['wrong room'] = 'Foute kamernummer, probeer het opnieuw.';
 
 //forgot password
 $lang['title forgot pass'] = 'Wachtwoord vergeten?';
