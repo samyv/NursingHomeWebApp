@@ -20,6 +20,8 @@ html, body {
 .h1 {
     padding-top: 20px;
     grid-area: Header;
+    color: #002532!important;
+
 
 }
 

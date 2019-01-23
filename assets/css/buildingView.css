@@ -13,15 +13,15 @@ html,body{
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 0.5fr min-content min-content 0.5fr;
     grid-template-areas:
-            ". .  . title title title title title title . . ."
-            ". .  . list list list list list list . . ."
+            ". . . title title title title title title . . ."
+            ". . . list list list list list list . . ."
             ". . . . . . . . . . . . "
             "footer footer footer footer footer footer footer footer footer footer footer footer";
 
 }
 .title{
     grid-area: title;
-    color: #003b46;
+    color: #002532;
     margin-top: 20px;
     font-size: 32px;
     background-color: #F5FAFA;
@@ -31,6 +31,8 @@ html,body{
     opacity: 0.8;
     transform: scale(1.05);
     border-color: #F5FAFA;
+    background-color: #107383;
+
 }
 
 .listRow1,.listRow2,.listRow3,.listRow4,.listRow5{

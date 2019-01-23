@@ -107,6 +107,8 @@ input[type=submit],input[type=button], .file-upload{
 
 input[type=submit]:hover,input[type=button]:hover, .file-upload:hover {
     opacity: 0.8;
+    background-color: #107383;
+
 }
 
 input[type=file]{
