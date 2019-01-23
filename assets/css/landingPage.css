@@ -131,7 +131,13 @@ body {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         grid-template-rows: 6em min-content 2em auto 2em auto 1fr;
-        grid-template-areas: ". title title title title title title title title title title ." ". quote quote quote quote quote quote quote quote quote quote ." ". noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader ." ". notes notes notes notes notes notes notes notes notes notes ." ". clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr ." ". clndr clndr clndr clndr clndr clndr clndr clndr clndr clndr ." "footer footer footer footer footer footer footer footer footer footer footer footer";
+        grid-template-areas: ". title title title title title title title title title title ."
+        ". quote quote quote quote quote quote quote quote quote quote ."
+        ". noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader ."
+        ". notes notes notes notes notes notes notes notes notes notes ."
+        ". clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr ."
+        ". clndr clndr clndr clndr clndr clndr clndr clndr clndr clndr ."
+        "footer footer footer footer footer footer footer footer footer footer footer footer";
         grid-gap: 1em;
     }
 
