@@ -104,16 +104,14 @@
 		time = times[0].id;
 		draw(time);
 	}
-	let notificationid = 0;
 	let amountOfCategories;
-
 	var floordata=[];
 	var list = $(".list");
 	var floorAmount = 0+<?php echo $maxFloors;?>;
 	for(var i = floorAmount; i >= 1;i--){
 		let a = document.createElement('div');
 		a.className = "floorbtn container";
-		a.innerHTML = "<?php echo($this->lang->line('floor'));?>" + " " +i+" <i class=\"fas fa-check\"></i>";
+		a.innerHTML = "<?php echo($this->lang->line('floor'));?>" + " " +i+" <i class=\"fas fa-check\" style=\"display: inline-grid\"></i>";
 		a.id = i;
 		list.append(a);
 	};
@@ -261,8 +259,6 @@
 				d.answers = +d.answers;
 			});
 
-
-			let valuelines = [];
 			let newData = [];
 			for (let f = 0; f < floorAmount; f++) {
 				newData[f + q * floorAmount] = [];
