@@ -21,14 +21,12 @@
             echo $_SESSION['firstname']; ?>!</h1>
     </div>
 
-    <div class="quote">
-        <h5 id="quote">
+    <div class="quote" id="quote">
             <?php
             $number = rand(1, 1000);
             $this->load->model('caregivers');
             echo $this->caregivers->getQuote($number);
             ?>
-        </h5>
     </div>
         <div class="btn-group">
             <input id="1" type="button" class = "btn" onclick="location.href='residents'"

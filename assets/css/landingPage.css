@@ -64,11 +64,9 @@ body {
 .quote {
     grid-area: quote;
     font-style: italic;
-}
-
-.quote h5 {
     color: #66a5ad;
     opacity: 0.7;
+    font-size: 11pt;
 }
 
 .btn-group {
