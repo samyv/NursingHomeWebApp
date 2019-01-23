@@ -17,7 +17,6 @@ function saveNote(event) {
     $note = $(event.target).prev().val();
 
     if(typeof(idResident) != "undefined" && idResident !== null){
-        console.log(idResident);
         $.ajax({
             url: window.origin+'/a18ux02/Caregiver/saveNote',
             method: 'post',
@@ -29,7 +28,6 @@ function saveNote(event) {
             },
             success: function(idNote) {
                 $(event.target).attr("id",idNote[0]['LAST_INSERT_ID()']);
-                console.log($(event.target).siblings(".deleteNote"))
                 $(event.target).siblings(".deleteNote").attr("id",idNote[0]['LAST_INSERT_ID()'])
             }
         });
@@ -44,16 +42,10 @@ function saveNote(event) {
             },
             success: function(idNote) {
                 $(event.target).attr("id",idNote[0]['LAST_INSERT_ID()']);
-                console.log($(event.target).siblings(".deleteNote"))
                 $(event.target).siblings(".deleteNote").attr("id",idNote[0]['LAST_INSERT_ID()'])
             }
         });
     }
-
-
-
-
-
 
     $(event.target).before("<i class=\"fa fa-check\"></i>");
     $(event.target).prev().css({
@@ -73,28 +65,31 @@ function saveNote(event) {
 }
 
 function deleteNote(event) {
-    $note = $(event.target).parent();
+    $note = $(event.target).parent().parent();
     $noteid = $(event.target).attr("id");
     Confirm( $noteid, $note);
 };
 
 function Confirm($noteid, $note) { /*change*/
     $('.dialog-ovelay').css("display","block");
+
     $('.doAction').click(function () {
         $(this).parents('.dialog-ovelay').fadeOut(500, function () {
             $(this).parents('.dialog-ovelay').css("display","none");
-            $.ajax({
-                url: window.origin+'/a18ux02/Caregiver/deleteNote',
-                method: 'post',
-                dataType: 'json',
-                data: {
-                    'idNote': $noteid
-                },
-                success() {
+            if($noteid !== '') {
+                $.ajax({
+                    url: window.origin + '/a18ux02/Caregiver/deleteNote',
+                    method: 'post',
+                    dataType: 'json',
+                    data: {
+                        'idNote': $noteid
+                    },
+                    success() {
 
-                }
-            });
-            $note.parent().remove();
+                    }
+                });
+            }
+            $note.remove();
         });
     });
 
@@ -108,10 +103,6 @@ function Confirm($noteid, $note) { /*change*/
 
 $(document).ready(function () {
     $('.deleteNote').click(deleteNote);
-});
-
-
-$(document).ready(function () {
     $('.savebtn').click(saveNote);
 });
 
