@@ -80,7 +80,6 @@ const heatmapChart = function(p_data, sections){
 		.range(colors);
 	const cards = svg.selectAll(".section")
 		.data(p_data);
-	cards.append("title");
 	cards.enter().append("rect")
 		.attr("x",(d,i) => (d.positionNum*gridSize-gridSize))
 		.attr("y",(d,i) => ((d.questionType-1)*gridSize))
@@ -90,7 +89,7 @@ const heatmapChart = function(p_data, sections){
 		.attr("width", 0)
 		.attr("height", gridSize)
 		.style("fill", colors[0])
-		.attr("id",(d,i) => (d.questionText))
+		.attr("id",(d) => (d.questionText))
 		.merge(cards)
 		.transition()
 		.duration(1250  )
@@ -98,23 +97,22 @@ const heatmapChart = function(p_data, sections){
 		.attr("rx", 4)
 		.attr("ry", 4)
 		.attr("width", gridSize)
-		.ease(d3.easeCircleOut)
+		.ease(d3.easeCircleOut);
+
+	var tip = d3.tip()
+		.attr('class', 'd3-tip')
+		.style("visibility", "visible")
+		.offset([-20,0])
+		.html(function(d) {
+			return d.questionText + ": " + Math.round(d.answer);
+		});
+	svg.call(tip);
+
+	tip(svg.append("g"));
 
 	rectangles=svg.selectAll('rect');
-
-	rectangles.on("mouseover", function(d,i) {
-        div.transition()
-            .duration(200)
-            .style("opacity", .9);
-        div	.html(d.questionText + ": "+ d.answer)
-            .style("left", (d3.event.pageX) + "px")
-            .style("top", (d3.event.pageY - 28) + "px");
-    	})
-        .on("mouseout", function(d) {
-            div.transition()
-                .duration(500)
-                .style("opacity", 0);
-        });
+	rectangles.on("mouseover", tip.show)
+        .on("mouseout",tip.hide);
 
 
     var legend = svg.selectAll(".legend")

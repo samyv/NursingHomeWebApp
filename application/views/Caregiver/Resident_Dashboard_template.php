@@ -19,6 +19,7 @@
     <script src="<?php echo base_url(); ?>assets/js/notes.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/timeGraphResident.js"></script>
     <script src="../javascript/qrcode.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/d3-tip.js"></script>
 
 </head>
 <body>

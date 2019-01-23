@@ -27,6 +27,16 @@ html,body {
 	margin-top: 10px;
 }
 
+.d3-tip {
+	line-height: 1;
+	padding: 6px;
+	background: #66a5ad;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 12px;
+}
+
+
 .picture img{
 	width: 100%;
 }
