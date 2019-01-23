@@ -108,7 +108,7 @@
         </form>
         <div class="links">
             <span class="psw">
-                    <a href="register.php"><?php echo($this->lang->line('register')) ?></a><br>
+                    <a href="register"><?php echo($this->lang->line('register')) ?></a><br>
                     <a id="toRes" href="resident"><?php echo($this->lang->line('toResident')) ?></a>
             </span>
         </div>
