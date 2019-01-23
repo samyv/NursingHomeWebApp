@@ -151,7 +151,6 @@
             //$('#information-modal-content').fadeIn('fast');
             $tr = $(event.target).parent().parent().parent();
             $td = $(event.target).parent().parent().prev().prev().prev();
-            console.log($tr);
             $IDtoDelete = $td.attr("id");
                 //this.getAttribute('value');
 
@@ -165,7 +164,6 @@
     });
 
     function Confirm($IDtoDelete, $trToRemove) { /*change*/
-        console.log($IDtoDelete);
         $('.dialog-ovelay').css("display","block");
         $('.doAction').click(function () {
             $(this).parents('.dialog-ovelay').fadeOut(500, function () {

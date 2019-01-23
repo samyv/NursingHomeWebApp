@@ -113,6 +113,7 @@
 
             var id = document.createElement('td');
             id.innerHTML = element.id;
+            id.id = element.id;
             // id.style.display = "block"
             row.appendChild(id);
             var col1 = document.createElement('td');
@@ -154,10 +155,11 @@
 
 
     $(document).ready(function () {
-        $('.delete').click(function(){
+        $('.delete').click(function(event){
             //$('#information-modal-content').fadeIn('fast');
-            $IDtoDelete = this.getAttribute('value');
-
+            $tr = $(event.target).parent().parent().parent();
+            $td = $(event.target).parent().parent().prev().prev().prev().prev();
+            $IDtoDelete = $td.attr("id");
             Confirm($IDtoDelete);
 
             //not correct! but get the id of the delete button and change the global variable
