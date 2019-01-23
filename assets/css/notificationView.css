@@ -173,3 +173,29 @@ html,body{
 .material-icons.unread { color: #ffc107; }
 
 .material-icons.read { color: #ffffff; }
+
+@media screen and (max-width: 1000px){
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 0.5fr min-content 0.2fr;
+        grid-template-areas: ". . title title title title title title title title . ."
+        ". . tab tab tab tab tab tab tab tab . ."
+        ". . nots nots nots nots nots nots nots nots . ."
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 0.5fr min-content 0.2fr;
+        grid-template-areas: ". title title title title title title title title title title ."
+        ". tab tab tab tab tab tab tab tab tab tab ."
+        ". nots nots nots nots nots nots nots nots nots nots ."
+    }
+
+}
