@@ -10,7 +10,7 @@ html, body {
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 250em 1fr;
+    grid-template-rows: 8em 30em 1fr;
     grid-template-areas:
             ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
@@ -32,7 +32,7 @@ html, body {
     grid-area: search;
 }
 
-.table {
+.table-container {
     overflow-y: scroll;
     grid-area: table;
 }
@@ -52,6 +52,8 @@ html, body {
     background-color: #66a5ad;
     color: white;
     pointer-events: none;
+    position: sticky;
+    top:0;
 }
 
 footer {

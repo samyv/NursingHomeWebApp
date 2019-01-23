@@ -10,7 +10,7 @@ html, body {
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 8em 250em 1fr;
+    grid-template-rows: 8em 30em 1fr;
     grid-template-areas:
             ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
@@ -21,8 +21,6 @@ html, body {
     padding-top: 20px;
     grid-area: Header;
     color: #002532!important;
-
-
 }
 
 .search {
@@ -32,14 +30,15 @@ html, body {
     grid-area: search;
 }
 
-.table {
-    overflow-y: scroll;
+.table-container {
     grid-area: table;
+    overflow: auto;
 }
 
-#myTable {
+#myTable{
     border-collapse: collapse;
     width: 100%;
+
 }
 
 .table tr:nth-child(even){background-color: #f2f2f2;}
@@ -48,20 +47,23 @@ html, body {
     background-color: #ddd;
 }
 
+
 .table th {
     background-color: #66a5ad;
     color: white;
     pointer-events: none;
+    position: sticky;
+    top: 0;
+}
+
+tbody{
+    overflow-y: scroll;
 }
 
 footer {
     grid-area: footer;
     align-self: end;
     text-align: center;
-}
-
-.delete{
-
 }
 
 
@@ -82,7 +84,6 @@ footer {
 
 #information-modal-content{
     display: none;
-
     position: absolute;
     top: 50%;
     left: 50%;

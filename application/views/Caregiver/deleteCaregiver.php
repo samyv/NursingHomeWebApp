@@ -25,8 +25,8 @@
                placeholder=<?php echo ($this->lang->line('search'));?> >
     </div>
 
-    <div class="table">
-        <table id="myTable"></table>
+    <div class="table-container">
+        <table class="table" id="myTable"></table>
     </div>
 </div>
 
@@ -84,6 +84,7 @@
         database = <?php echo json_encode($listCar)?>;
         var table = document.getElementById("myTable");
         var tbody = document.createElement("tbody");
+        var thead = document.createElement("thead");
         var row = document.createElement('tr');
         var id = document.createElement('th');
         // id.style.display = "block";
@@ -99,7 +100,7 @@
         var col3 = document.createElement('th');
         col3.innerHTML = ""; //or nothing
         row.appendChild(col3)
-        tbody.appendChild(row)
+        thead.appendChild(row)
         var elements = [];
         for (var i = 0 ; i < database.length ; i++)
         {
@@ -127,6 +128,7 @@
             row.appendChild(col3)
             tbody.appendChild(row);
         }
+        table.appendChild(thead)
         table.appendChild(tbody)
     }
 
