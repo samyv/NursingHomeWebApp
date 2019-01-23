@@ -27,7 +27,7 @@
 	</div>
 </div>
 <form action="" method="post" enctype=multipart/form-data>
-    <div class="grid-container">
+    <div class="grid-container fade-in">
         <div class="form-errors">
             <?php if(isset($error_msg)){ ?>
                 <span><?php echo $error_msg; ?></span>

@@ -27,12 +27,12 @@
 			<!-- Tab content -->
 			<div id="floorsTab" class="nots">
 				<h3>Floors</h3>
-				<button onclick="seeAllFloorNots()">seen all</button>
+				<button class="seen-button" onclick="seeAllFloorNots()">seen all</button>
 				<div class = Floorlist></div>
 			</div>
 			<div id="residentsTab" class="nots">
 				<h3>Residents</h3>
-				<button onclick="seeAllFloorNots()">seen all</button>
+				<button class="seen-button" onclick="seeAllFloorNots()">seen all</button>
 				<div class = Residentlist></div>
 			</div>
 		</div>

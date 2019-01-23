@@ -62,6 +62,7 @@ body {
 .title{
     padding-top: 3em;
     grid-area: title;
+    color: #002532!important;
 }
 
 .quote {

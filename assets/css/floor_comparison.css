@@ -32,7 +32,7 @@ html,body{
 .title{
     grid-area: title;
     padding-top: 20px;
-    color: #003b46;
+    color: #002532!important;
     font-size: 32px;
 }
 

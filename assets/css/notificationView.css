@@ -11,7 +11,7 @@ html,body{
 	background-color: #F5FAFA;
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 0.5fr 0.2fr 0.2fr;
+	grid-template-rows: 0.5fr min-content 0.2fr;
 	grid-template-areas: ". . . title title title title title title . . ."
 						 ". . . tab tab tab tab tab tab . . ."
 						 ". . . nots nots nots nots nots nots . . ."
@@ -19,15 +19,16 @@ html,body{
 
 .title {
     grid-area: title;
-    color: #003b46;
+    color: #002532!important;
     margin-top: 20px;
     font-size: 32px;
     background-color: #F5FAFA;
+    padding: 0!important;
 }
 
 .notification{
     display: grid;
-    grid-template-columns: 0.05fr 0.3fr 500px 0.1fr ;
+    grid-template-columns: 0.05fr 0.3fr 1fr 0.1fr ;
     grid-template-rows: 0.5fr;
     grid-template-areas:
             "icon date content read";
@@ -165,6 +166,9 @@ html,body{
     transition: all .2s ease-in-out;
 }
 
+.seen-button:hover{
+    cursor: pointer;
+}
 
 .material-icons.unread { color: #ffc107; }
 
