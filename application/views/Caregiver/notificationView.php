@@ -30,7 +30,8 @@
 			<div id="floorsTab" class="nots">
 				<h3><?php
                     echo ($this->lang->line('notification floor'));?></h3>
-				<button class="seen-button" onclick="seeAllFloorNots()">seen all</button>
+				<button class="seen-button" onclick="seeAllFloorNots()"><?php
+                    echo ($this->lang->line('notification seen'));?></button>
 				<div class = Floorlist></div>
 			</div>
 			<div id="residentsTab" class="nots">
