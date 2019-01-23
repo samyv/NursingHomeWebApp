@@ -23,6 +23,8 @@ $lang['birthday'] = 'Geboortedatum';
 $lang['phonenumber'] = 'Gsm nummer';
 $lang['password'] = 'Wachtwoord';
 $lang['title contact information'] = 'Contactpersoon informatie';
+$lang['toResident'] = 'Ga naar bewoner login';
+
 
 
 

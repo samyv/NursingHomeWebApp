@@ -87,18 +87,10 @@ nav {
 
 #submitButtons{
     width: 100%;
-    display: grid;
-    grid-template-areas: "submit register";
 }
 
 input[type=submit]{
-    grid-area: submit;
-    width: 150px;
-}
-
-input[type=button]{
-    grid-area: register;
-    width: 150px;
+    width: 100%;
 }
 
 input[type=email], input[type=password] {

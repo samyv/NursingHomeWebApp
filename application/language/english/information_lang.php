@@ -25,6 +25,7 @@ $lang['email'] = 'Email';
 $lang['ph email'] = 'example@example.com';
 $lang['password'] = 'Password';
 $lang['title contact information'] = 'Contactperson information';
+$lang['toResident'] = 'Go to resident login';
 
 
 //header
