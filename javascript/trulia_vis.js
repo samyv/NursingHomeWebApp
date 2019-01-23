@@ -5,10 +5,10 @@
 
 
 const margin = { top: 30, right: 0, bottom: 100, left: 320 }
-const width = 520 - margin.left - margin.right
-const height = 400 - margin.top - margin.bottom
-const gridSize = Math.floor(width / 7)
-const legendElementWidth = gridSize
+const width = 600 - margin.left - margin.right
+const height = 360 - margin.top - margin.bottom
+const gridSize = Math.floor(width / 11)
+const legendElementWidth = gridSize;
 const buckets = 9
 const colors = ["#ff6666","#ffb366","#ffff66","#b3ff66","#66ff66"]
 const times = [1,2,3,4,5,6,7,8,9,10,11]
@@ -83,11 +83,9 @@ const heatmapChart = function(p_data, sections){
 	cards.enter().append("rect")
 		.attr("x",(d,i) => (d.positionNum*gridSize-gridSize))
 		.attr("y",(d,i) => ((d.questionType-1)*gridSize))
-		.attr("rx", gridSize/2)
-		.attr("ry", gridSize/2)
 		.attr("class", "hour bordered")
-		.attr("width", 0)
-		.attr("height", gridSize)
+		.attr("width", gridSize-2)
+		.attr("height", gridSize-2)
 		.style("fill", colors[0])
 		.attr("id",(d) => (d.questionText))
 		.merge(cards)
@@ -96,7 +94,6 @@ const heatmapChart = function(p_data, sections){
 		.style("fill", (d) =>colorScale(d.answer))
 		.attr("rx", 4)
 		.attr("ry", 4)
-		.attr("width", gridSize)
 		.ease(d3.easeCircleOut);
 
 	var tip = d3.tip()
@@ -116,33 +113,32 @@ const heatmapChart = function(p_data, sections){
 
 
     var legend = svg.selectAll(".legend")
-        .data([0].concat(colorScale.quantiles()), function(d) { return d; });
-
-    legend.enter().append("g")
+        .data([0].concat(colorScale.quantiles()), function(d) { return d; })
+		.enter().append("g")
         .attr("class", "legendTile");
 
     var legendTile = svg.selectAll(".legendTile")
     legendTile.append("rect")
+		.attr("x", function(d, i) { return gridSize * 9; })
+		.attr("y", function(d, i) { return (i * legendElementWidth + 7); })
+		.attr("width", gridSize/2)
+		.attr("height", gridSize/2)
+		.style("fill", function(d, i) { return colors[i]; })
+		.attr("class", "hour bordered")
+
+
+	legendTile.append("text")
 		.attr("class", "mono")
-        .attr("x", function(d, i) { return (legendElementWidth * i); })
-        .attr("y", height+50)
-        .attr("width", legendElementWidth)
-        .attr("height", gridSize / 2)
-        .style("fill", function(d, i) { return colors[i]; });
+		.text(function(d) { return  Math.round(d+1); })
+		.attr("x", function(d, i) { return gridSize * 9 + 25; })
+		.attr("y", function(d, i) { return (i * legendElementWidth + 20); })
 
-    legendTile.append("text")
-        .attr("class", "mono")
-        .text(function (d,i) {
-			return i+1;
-        })
-        .attr("x", function(d, i) { return legendElementWidth * i+legendElementWidth/2; })
-        .attr("y", height + gridSize+50);
-
-    svg.append("text")
-        .attr("class", "mono")
-		.attr("x",function(d, i) { return (legendElementWidth * i)-70; })
-        .attr("y", height+64)
-		.text("Legende:")
+	var title = svg.append("text")
+		.attr("class", "mono")
+		.attr("x", gridSize * 9)
+		.attr("y", - 6)
+		.style("font-size", "14px")
+		.text("Legend");
 
 
 	cards.select("title").text(function(d) { return d.value; });
