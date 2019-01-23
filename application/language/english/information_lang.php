@@ -146,3 +146,6 @@ $lang['Delete Caregiver'] ='Delete Caregiver';
 
 //notifications
 $lang['title notifications'] = 'Notifications';
+$lang['notification floor'] = 'Floors';
+$lang['notification residents'] = 'Residents';
+$lang['notification seen'] = 'seen all';

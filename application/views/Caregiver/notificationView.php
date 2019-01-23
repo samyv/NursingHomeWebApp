@@ -20,19 +20,24 @@
 		<!-- Tab links -->
 	<div class="tab-container">
 		<div class="tab">
-				<button class="tablinks" id="defaultOpen" onclick="openNots(event, 'floorsTab')">floors</button>
-				<button class="tablinks" onclick="openNots(event, 'residentsTab')">residents</button>
+				<button class="tablinks" id="defaultOpen" onclick="openNots(event, 'floorsTab')"><?php
+                    echo ($this->lang->line('notification floor'));?></button>
+				<button class="tablinks" onclick="openNots(event, 'residentsTab')"><?php
+                    echo ($this->lang->line('notification residents'));?></button>
 		</div>
 		<div class=tab_content"">
 			<!-- Tab content -->
 			<div id="floorsTab" class="nots">
-				<h3>Floors</h3>
+				<h3><?php
+                    echo ($this->lang->line('notification floor'));?></h3>
 				<button class="seen-button" onclick="seeAllFloorNots()">seen all</button>
 				<div class = Floorlist></div>
 			</div>
 			<div id="residentsTab" class="nots">
-				<h3>Residents</h3>
-				<button class="seen-button" onclick="seeAllFloorNots()">seen all</button>
+				<h3><?php
+                    echo ($this->lang->line('notification residents'));?></h3>
+				<button class="seen-button" onclick="seeAllFloorNots()"><?php
+                    echo ($this->lang->line('notification seen'));?></button>
 				<div class = Residentlist></div>
 			</div>
 		</div>
