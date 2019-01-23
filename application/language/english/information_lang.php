@@ -51,7 +51,7 @@ $lang['calendar'] = 'Weather';
 $lang['saved'] = 'Saved';
 
 //account page
-$lang['title account '] = 'Change your settings';
+$lang['title account'] = 'Change your settings';
 $lang['old password'] = 'Old password';
 $lang['ph old password'] = 'Enter old password';
 $lang['ph new password'] = 'Enter new password';
