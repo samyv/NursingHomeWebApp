@@ -164,5 +164,9 @@ $lang['Add Resident'] ='Voeg bewoner toe';
 $lang['Delete Resident'] ='Verwijder bewoner';
 $lang['Delete Caregiver'] ='Verwijder verzorger';
 
-
+//notifications
+$lang['title notifications'] = 'Meldingen';
+$lang['notification floor'] = 'Verdiepingen';
+$lang['notification residents'] = 'Bewoners';
+$lang['notification seen'] = 'alles bekeken';
 
