@@ -1,4 +1,4 @@
-* {
+*{
     font-family: Roboto;
 }
 
@@ -17,16 +17,22 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     grid-template-rows: 8em 8em 4em 2em 10em 10em;
-    grid-template-areas: ". . title title title title title title title title . ." ". . quote quote quote quote quote quote quote quote . ." ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ." ". . noteheader noteheader noteheader noteheader clndrhdr clndrhdr clndrhdr clndrhdr . ." ". . notes notes notes . clndr clndr clndr clndr . ." ". . . . . . clndr clndr clndr clndr . .";
+    grid-template-areas:                    ". . title title title title title title title title . ."
+                                                ". . quote quote quote quote quote quote quote quote . ."
+                                        ". . btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp . ."
+                                        ". . noteheader noteheader noteheader noteheader clndrhdr clndrhdr clndrhdr clndrhdr . ."
+                                        ". . notes notes notes . clndr clndr clndr clndr . ."
+                                        ". . . . . . clndr clndr clndr clndr . .";
     grid-gap: 1em;
 }
 
 
-.clndrheader {
+
+.clndrheader{
     grid-area: clndrhdr;
 }
 
-.notes {
+.notes{
     grid-area: notes;
     display: flex;
     flex-wrap: wrap;
@@ -35,15 +41,15 @@ body {
     width: 100%;
 }
 
-.noteheader {
-    margin-top: 0 !important;
+.noteheader{
+    margin-top: 0!important;
 }
 
-.newNote i {
-    margin-top: 0 !important;
+.newNote i{
+    margin-top: 0!important;
 }
 
-.btn {
+.btn{
     width: 100%;
     background-color: #003B46;
     color: white;
@@ -51,14 +57,14 @@ body {
     margin: 0 1em 0 0;
 }
 
-.googleCalendar {
+.googleCalendar{
     grid-area: clndr;
 }
 
-.title {
+.title{
     padding-top: 3em;
     grid-area: title;
-    color: #002532 !important;
+    color: #002532!important;
 }
 
 .quote {
@@ -66,12 +72,12 @@ body {
     font-style: italic;
 }
 
-.quote h5 {
+.quote h5{
     color: #66a5ad;
     opacity: 0.7;
 }
 
-.btn-group {
+.btn-group{
     grid-area: btngrp;
     display: grid;
     grid-template-rows: auto;
@@ -81,8 +87,7 @@ body {
     height: 100%;
     max-width: 100%;
 }
-
-.btn-group .btn {
+.btn-group .btn{
     min-width: 100%;
     background-color: #0c5460;
     font-size: x-large;
@@ -91,19 +96,19 @@ body {
     margin: 0 1em 0 0;
 }
 
-.btn-group #1 {
+.btn-group #1{
     grid-area: 1;
 }
 
-.btn-group #2 {
+.btn-group #2{
     grid-area: 2;
 }
 
-.btn-group #3 {
+.btn-group #3{
     grid-area: 3;
 }
 
-.btn:hover {
+.btn:hover{
     background-color: #107383;
     opacity: 0.8 !important;
 }
@@ -114,12 +119,12 @@ body {
     text-align: center;
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1000px){
 
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 8em 8em 4em 2em auto 4em  auto 1fr;
+        grid-template-rows: 6em min-content 4em 2em auto 4em  auto 1fr 0.2fr;
         grid-template-areas: ". title title title title title title title title title title ."
         ". quote quote quote quote quote quote quote quote quote quote ."
         ". btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp btngrp ."
@@ -130,15 +135,15 @@ body {
         "footer footer footer footer footer footer footer footer footer footer footer footer";
         grid-gap: 1em;
     }
-
 }
 
 @media screen and (max-width: 700px) {
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 0.5fr 2em auto 2em auto 1fr;
-        grid-template-areas: "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
+        grid-template-rows: 6em min-content 2em auto 2em auto 1fr;
+        grid-template-areas:                    ". title title title title title title title title title title ."
+        ". quote quote quote quote quote quote quote quote quote quote ."
         ". noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader noteheader ."
         ". notes notes notes notes notes notes notes notes notes notes ."
         ". clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr clndrhdr ."
@@ -147,13 +152,14 @@ body {
         grid-gap: 1em;
     }
 
-    .btn-group {
+    .btn-group{
         display: none;
     }
 
     .quote {
         display: none;
     }
+
 
     .title {
         display: none;

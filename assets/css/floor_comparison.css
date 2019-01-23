@@ -147,9 +147,6 @@ html,body{
     stroke-opacity: 1;
     stroke-width: 10px;
 }
-#legend{
-    background-color: red;
-}
 
 @media screen and (max-width: 1000px){
 
@@ -157,14 +154,19 @@ html,body{
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 6em 6em 4fr 4fr 1fr;
+        grid-template-rows: 6em 4em min-content 2em 1fr;
         grid-template-areas:
                 ". title title title title title title title title title title ."
                 ". tab tab tab tab tab tab tab tab tab tab ."
                 ". list list  graph graph graph graph graph graph graph graph ."
-                ". list list graph graph graph graph graph graph graph graph ."
+                ". . . . date date date date date date date ."
                 "footer footer footer footer footer footer footer footer footer footer footer footer";
 
     }
 
+    .container:hover{
+    }
+
+    .tab button:hover {
+    }
 }
