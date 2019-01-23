@@ -17,9 +17,9 @@ html,body {
 	grid-template-areas:
     ". picture picture picture	. visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation ."
-	". . . . . visualisation visualisation visualisation visualisation visualisation visualisation ."
-	". info info info . noteheader noteheader . . . print ."
-	". info info info . hint hint hint . . . ."
+	". info info info . visualisation visualisation visualisation visualisation visualisation visualisation ."
+	". noteheader noteheader . . . . . . . print ."
+	". hint hint hint . . . . . . . ."
 }
 
 .picture {
@@ -261,12 +261,12 @@ button[type=submit]{
 	}
 }
 
-@media screen and (max-width: 1300px){
+@media screen and (max-width: 1200px){
 
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: min-content min-content min-content;
+        grid-template-rows: min-content min-content min-content min-content min-content;
         grid-template-areas:
                 ". picture picture picture picture picture . info info info info ."
                 ". picture picture picture picture picture . info info info info ."
@@ -287,7 +287,21 @@ button[type=submit]{
 }
 
 
-@media screen and (max-width: 420px){
+@media screen and (max-width: 700px){
+
+	.grid-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-rows: min-content min-content min-content min-content min-content;
+		grid-template-areas:
+				". picture picture picture picture picture . info info info info ."
+				". picture picture picture picture picture . info info info info ."
+				". noteheader noteheader noteheader noteheader . . . . . . ."
+				". hint hint hint hint hint hint hint hint hint hint ."
+				". visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation ."
+
+	}
+
 	.sectionLabel{
 		display: none;
 	}
@@ -323,5 +337,8 @@ button[type=submit]{
 		width: 80%;
 	}
 
+	.print {
+		display: none;
+	}
 }
 
