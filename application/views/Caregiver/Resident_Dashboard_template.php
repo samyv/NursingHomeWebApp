@@ -36,19 +36,19 @@
             <button type="button" class="close" id="closemodal" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"><span
-                        class="glyphicon glyphicon-lock"></span><?php echo($this->lang->line('title contact information')); ?>
+                        class="glyphicon glyphicon-lock"></span>
+                <?php echo($this->lang->line('title contact information')); ?>
             </h4>
-
         </div>
 
         <div id="info-contact" class="info-contact">
             <?php
             //print_r($);
-            echo "Contact person: " . $contactperson['firstname'] . ' ' . $contactperson['lastname'];
+            echo $this->lang->line('contact person') . ': ' . $contactperson['firstname'] . ' ' . $contactperson['lastname'];
             echo "<br>";
-            echo "Email: " . $contactperson['email'];
+            echo $this->lang->line('email') . ': ' . $contactperson['email'];
             echo "<br>";
-            echo "Phone number: " . $contactperson['phonenumber'];
+            echo $this->lang->line('phonenumber') . ': ' . $contactperson['phonenumber'];
             echo "<br>";
             ?>
         </div>
@@ -72,8 +72,8 @@
                 <?php echo form_error('phonenumber', '<span class="help-block">', '</span>'); ?>
             </div>
             <div class="modal-footer">
-                <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="Change info" readonly>
-                <input type="submit" id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="Save info"
+                <input id="changeInfo" name="changeInfo" class="btn btn-block btn-lg" value="<?php echo($this->lang->line('change')) ?>" readonly>
+                <input type="submit" id="saveInfo" name="saveInfo" class="btn btn-block btn-lg" value="<?php echo($this->lang->line('save')) ?>"
                        style="display: none" readonly>
             </div>
         </form>
@@ -100,23 +100,25 @@
         echo "<br>";
         echo "Kamer: " . $resident['room'];
         echo "<br>";
-        echo "<br>";
-
         ?>
         <span class="infcon">
-            <i class="fa fa-info-circle" ></i>
-            <a href="#" id="CIModal">Info contactperson</a>
+            <i class="fa fa-info-circle"></i>
+            <a href="#" id="CIModal">
+                <?php echo ($this->lang->line('title contact information'))?>
+            </a>
         </span>
         <br>
         <span class="qrcode">
-            <i class="fa fa-qrcode" ></i>
-            <a href="#" id="qrcodeModal">Generate Qr Code</a></span>
+            <i class="fa fa-qrcode"></i>
+            <a href="#" id="qrcodeModal">
+                <?php echo ($this->lang->line('qrcode'))?> </a></span>
 
     </div>
     <div class="back_start"></div>
     <div class="visualisation">
         <div class="selectQuestionnaires">
-            <label id="select_questionnaire">Select a questionnaire:</label>
+            <label id="select_questionnaire">
+                <?php echo ($this->lang->line('select questionnaire'))?></label>
             <select class="custom-select selectQuestionnaire" style="width: min-content">
                 <?php foreach ($questionnaires as $questionnaire) { ?>
                     <option value="<?php echo $questionnaire['idQuestionnaires']; ?>">
@@ -142,7 +144,9 @@
 
     </div>
     <div class="noteheader">
-        <h2 class="noteheader">Notes</h2>
+        <h2 class="noteheader">
+            <?php echo ($this->lang->line('notes'))?>
+        </h2>
         <div class="newNote" id="newNote">
             <i id="newNotebtn" class="fas fa-2x fa-plus-circle"></i>
         </div>
@@ -176,11 +180,12 @@
     <div class="modal-header">
         <button type="button" class="close" id="qrclose" data-dismiss="modal" aria-label="Close"><span
                     aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span>Qrcode</h4>
+        <h4 class="modal-title"><span class="glyphicon glyphicon-lock"></span><?php echo $this->lang->line('qrcode title')?></h4>
     </div>
     <div class="info-contact">
         <div id="qrcode"></div>
-        <button onclick="printQrcode()">Download Qrcode</button>
+        <button onclick="printQrcode()">
+            <?php echo $this->lang->line('download qrcode')?></button>
     </div>
 </div>
 <div class='dialog-ovelay modal' role="alert">
@@ -262,7 +267,7 @@
                 url: '<?php echo base_url();?>caregiver/getTotalScore/?idQuestionnaire=' + $idQuestionnaire,
                 dataType: 'json',
                 success: function (totalscore) {
-                    $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
+                    $('#total_score_label').html("<?php echo $this->lang->line("totalscore");?>" + totalscore[0].total_score + "/265");
                     $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
                         .attr("aria-valuemax", totalscore[0].nr*5)
                         .css("display", "inline")
@@ -325,7 +330,7 @@
         dataType: 'json',
         success: function (totalscore) {
 
-            $('#total_score_label').html("Total score: " + totalscore[0].total_score + "/265");
+            $('#total_score_label').html('<?php echo $this->lang->line("totalscore")?>' + totalscore[0].total_score + "/265");
             $('#total_score_bar').attr("aria-valuenow", totalscore[0].total_score)
                 .attr("aria-valuemax", totalscore[0].nrOfQuestions*5)
                 .css("width", (totalscore[0].total_score/265*100)+"%")

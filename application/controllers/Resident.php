@@ -53,6 +53,7 @@ class Resident extends CI_Controller
             }
         }
         //checks which user you pick from the 2, delete the other session variable
+        $_SESSION['isResidentLoggedIn'] = false;
         if ($this->input->post('selectResident1')) {
             $_SESSION['Resident']=$_SESSION['Resident0'];
             unset($_SESSION['Resident1']);
@@ -96,7 +97,9 @@ class Resident extends CI_Controller
 
 
 
-        $residentID = $_SESSION['Resident']['residentID'];
+        if(isset($_SESSION['Resident']['residentID']))
+            $residentID = $_SESSION['Resident']['residentID'];
+        else redirect('Resident/index');
         $questionnaireId = $this->QuestionModel->getQuestionnaireID($residentID);
         if($questionnaireId == -1) {
             return;
