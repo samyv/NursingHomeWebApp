@@ -66,8 +66,11 @@
 			console.error(e);
 		});
 
+
+    // Button to bypass the login for testing purposes.
 	function autoLogin(){
 		$.ajax({
+            // Replace this hardcoded value to choose which resident gets selected
 			url: '<?=base_url()?>Resident/loginQr/' + "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHI",
 			success: function (content,error) {
 				let x = document.getElementById('camera-stream');
