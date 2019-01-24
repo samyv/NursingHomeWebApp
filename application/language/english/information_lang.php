@@ -157,8 +157,8 @@ $lang['text delete caregiver'] ='Are you sure you want to delete this caregiver?
 //dropdownmodel
 $lang['Overview Resident'] = 'Search Resident';
 $lang['Overview Questions'] ='Overview Questions';
-$lang['Selection Floor'] ='Selection Floor';
-$lang['Comparison Floor'] ='Comparison Floor';
+$lang['Selection Floor'] ='Select Floor';
+$lang['Comparison Floor'] ='Compare Floors';
 $lang['Add Resident'] ='Add Resident';
 $lang['Delete Resident'] ='Delete Resident';
 $lang['Delete Caregiver'] ='Delete Caregiver';

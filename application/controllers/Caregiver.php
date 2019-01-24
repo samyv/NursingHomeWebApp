@@ -35,6 +35,10 @@ class Caregiver extends CI_Controller
         $data['page_title'] = 'Account overview | GraceAge';
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
 
+        /**
+         * See if there are error or success messages from previous attempts
+         */
+
         if ($this->session->userdata('success_msg')) {
             $data['success_msg'] = $this->session->userdata('success_msg');
             $this->session->unset_userdata('success_msg');
@@ -44,6 +48,9 @@ class Caregiver extends CI_Controller
             $this->session->unset_userdata('error_msg');
         }
 
+        /**
+         * look if the user is already logged in
+         */
         if ($this->session->userdata('isUserLoggedIn')) {
             $result = $this->caregivers->getInfo(array('id' => $this->session->userdata('idCaregiver')));
             $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
@@ -55,6 +62,9 @@ class Caregiver extends CI_Controller
         }
 
 
+        /**
+         * form handling for changing account settings
+         */
         if ($this->input->post('saveSettings')) {
             $idCaregiver = $_SESSION['idCaregiver'];
             $this->form_validation->set_rules('firstname', 'First name', 'required');
@@ -99,10 +109,12 @@ class Caregiver extends CI_Controller
         $this->caregivers->sendEmails();
         $data = array();
         $data['page_title'] = 'Login caregiver | GraceAge';
+        //check if you're previous session is still running
         if ($this->session->userdata('isUserLoggedIn')) {
             redirect('landingpage');
         }
 
+        //get success or error messages from previous attempts
         if ($this->session->userdata('success_msg')) {
             $data['success_msg'] = $this->session->userdata('success_msg');
             $this->session->unset_userdata('success_msg');
@@ -113,6 +125,8 @@ class Caregiver extends CI_Controller
             $this->session->unset_userdata('error_msg');
         }
 
+
+        //form handling
         if ($this->input->post('loginSubmit')) {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('password', 'password', 'required');
@@ -156,10 +170,12 @@ class Caregiver extends CI_Controller
         $data['page_title'] = 'Register new caregiver | GraceAge';
         $cond = array();
 
+        //get all the nursing homes
         $cond["table"] = "a18ux02.NursingHome";
         $result = json_decode(json_encode($this->caregivers->getRows($cond)->result(), true));
         $data['nursingHomes'] = json_decode(json_encode($result), true);
 
+        //form handling
         if ($this->input->post('regisSubmit')) {
             $key = strip_tags($this->input->post('key'));
             $nursingHomeID = strip_tags($this->input->post('nursingHome'));
@@ -223,6 +239,9 @@ class Caregiver extends CI_Controller
         }
     }
 
+    /**
+     * check the key given in the register form
+     */
     public function key_check($key, $nursingHomeID)
     {
         $flag = false;
@@ -235,15 +254,9 @@ class Caregiver extends CI_Controller
         return $flag;
     }
 
-    public function supervisor_key_check($key, $nursingHomeID)
-    {
-        if ($this->caregivers->checkSupervisorKey($nursingHomeID, $key)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
+    /**
+     * check the old password when you change it
+     */
     public function password_check($str, $id)
     {
 
@@ -258,21 +271,24 @@ class Caregiver extends CI_Controller
         }
     }
 
+    /**
+     * load the landing page
+     */
     public function landingPage()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-
         $data = array();
+        //get the notes
+
         if ($this->caregivers->getNotes($_SESSION['idCaregiver']) != false) {
             $data['notes'] = $this->caregivers->getNotes($_SESSION['idCaregiver']);
         }
 
+        //get the items in the dropdown menu
         $dataHeader['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
-
-        //$cond = array();
-        //$dataHeader['CountNotifications'] = $this->caregivers->getRows($cond);
         $this->parser->parse('templates/header', $dataHeader);
         $this->load->view('Caregiver/landingPage', $data);
 
@@ -280,6 +296,7 @@ class Caregiver extends CI_Controller
 
     public function searchForResident()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -301,6 +318,7 @@ class Caregiver extends CI_Controller
 
     public function newResident()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -377,6 +395,7 @@ class Caregiver extends CI_Controller
 
     public function residentAdded()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -409,17 +428,21 @@ class Caregiver extends CI_Controller
         }
     }
 
+    /**
+     * load the notification page
+     */
     public function notificationView()
     {
+        //check if you're logged in
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
         $data = array();
         $data['floorNotifications'] = $this->caregivers->getNotifications();
         $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
-//		print_r($data["floorNotifications"]);
-//		print_r(json_encode($data['floorNotifications']));
-//		print_r($data['floorNotifications']);
 
+        //load dropdown menu items
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
-
 
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/notificationView', $data);
@@ -433,6 +456,7 @@ class Caregiver extends CI_Controller
 
     public function buildingView()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }

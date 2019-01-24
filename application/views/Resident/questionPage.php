@@ -17,7 +17,7 @@
 <div class="grid-container">
     <div id="header">
         <div id="logout">
-			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
+			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'"> <?php $this->lang->line('logout')?></button>
         </div>
         <div id="music">
             <button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
