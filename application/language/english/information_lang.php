@@ -13,6 +13,7 @@ $lang['yes'] = 'Yes';
 $lang['add'] = 'Add';
 $lang['search'] = 'Search..';
 $lang['submit'] = 'Submit';
+$lang['change'] = 'Change';
 
 $lang['firstname'] = 'First name';
 $lang['lastname'] = 'Last name';
@@ -25,6 +26,7 @@ $lang['email'] = 'Email';
 $lang['ph email'] = 'example@example.com';
 $lang['password'] = 'Password';
 $lang['title contact information'] = 'Contactperson information';
+$lang['contact person'] = 'Contact person';
 $lang['toResident'] = 'Go to resident login';
 
 
@@ -140,10 +142,6 @@ $lang['resident register success'] = 'The new resident is added to the nursing h
 $lang['date format'] = 'The date format must be mm/dd/yyyy.';
 
 
-
-//resident dashboard
-$lang['select questionnaire'] ='Select a questionnaire';
-
 //delete resident
 $lang['title delete resident'] ='Delete resident';
 $lang['text delete resident'] ='Are you sure you want to delete this resident?';
@@ -168,3 +166,12 @@ $lang['title notifications'] = 'Notifications';
 $lang['notification floor'] = 'Floors';
 $lang['notification residents'] = 'Residents';
 $lang['notification seen'] = 'seen all';
+
+//resident dashboard
+$lang['qrcode'] = 'Generate QR code';
+$lang['qrcode title'] = 'QR code';
+$lang['download qrcode'] = 'Download QR code';
+$lang['select questionnaire'] ='Select a questionnaire';
+$lang['totalscore'] = 'Total score: ';
+
+

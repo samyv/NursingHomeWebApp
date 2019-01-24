@@ -13,6 +13,7 @@ $lang['yes'] = 'Ja';
 $lang['add'] = 'Voeg toe';
 $lang['search'] = 'Zoeken..';
 $lang['submit'] = 'Dien in';
+$lang['change'] = 'Verander';
 
 $lang['firstname'] = 'Voornaam';
 $lang['lastname'] = 'Achternaam';
@@ -23,9 +24,8 @@ $lang['birthday'] = 'Geboortedatum';
 $lang['phonenumber'] = 'Gsm nummer';
 $lang['password'] = 'Wachtwoord';
 $lang['title contact information'] = 'Contactpersoon informatie';
+$lang['contact person'] = 'Contact persoon';
 $lang['toResident'] = 'Ga naar bewoner login';
-
-
 
 
 //header
@@ -141,10 +141,6 @@ $lang['pw incorrect'] = 'Het opgegeven wachtwoord is niet juist.';
 $lang['resident register success'] = 'De nieuwe bewoner is toegevoegd.';
 $lang['date format'] = 'Vul een datum in als dd/mm/jjjj.';
 
-
-//resident dashboard
-$lang['select questionnaire'] ='Kies een vragenlijst';
-
 //delete resident
 $lang['title delete resident'] ='Verwijder bewoner';
 $lang['text delete resident'] ='Bent u zeker dat u deze bewoner wil verwijderen?';
@@ -170,4 +166,13 @@ $lang['title notifications'] = 'Meldingen';
 $lang['notification floor'] = 'Verdiepingen';
 $lang['notification residents'] = 'Bewoners';
 $lang['notification seen'] = 'alles bekeken';
+
+//resident dashboard
+$lang['qrcode'] = 'Genereer QR code';
+$lang['qrcode title'] = 'QR code';
+$lang['download qrcode'] = 'Download QR code';
+$lang['select questionnaire'] ='Kies een vragenlijst';
+$lang['totalscore'] = 'Totale score: ';
+
+
 

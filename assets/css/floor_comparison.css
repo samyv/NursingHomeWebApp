@@ -37,6 +37,8 @@ html,body{
 }
 
 .container {
+    cursor: pointer;
+
     border-style: solid;
     vertical-align: top;
     line-height:60px;
@@ -49,6 +51,7 @@ html,body{
 
 /* Style the tab */
 .tab {
+    cursor: pointer;
     color: white;
     background-color: #66a5ad;
 }
@@ -71,6 +74,7 @@ html,body{
 }
 
 .categories{
+    cursor: pointer;
     grid-area: tab;
     overflow-x: auto;
     overflow-y: hidden;
@@ -139,6 +143,7 @@ html,body{
 }
 
 .line {
+    cursor: pointer;
     fill: none;
     stroke-width: 5px;
     stroke-opacity: 0.3;
