@@ -454,6 +454,10 @@ class Caregiver extends CI_Controller
         $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
     }
 
+
+    /**
+     * load the page to select a floor
+     */
     public function buildingView()
     {
         //check if you're logged in
@@ -467,8 +471,12 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
+    /**
+     * load the page to select a resident
+     */
     public function floorView()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -488,13 +496,18 @@ class Caregiver extends CI_Controller
         $this->caregivers->updateNotifSeens($notID);
     }
 
+    /**
+     * load the resident overview page
+     */
     public function resDash()
     {
-
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
         $data = array();
+
+        //get resident data out of database
         $cond = array();
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
@@ -505,6 +518,7 @@ class Caregiver extends CI_Controller
         $name .= $row[0]['lastname'];
         $data['page_title'] = "Resident overview | $name";
 
+        //get notes
         if ($this->residents->getNotes($_GET['id']) != false) {
             $data['notes'] = $this->residents->getNotes($_GET['id']);
         }
@@ -518,8 +532,6 @@ class Caregiver extends CI_Controller
         /*
          * change contact info
          */
-
-        $dataContactperson = array();
         if ($this->input->post('saveInfo')) {
             $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
@@ -539,14 +551,11 @@ class Caregiver extends CI_Controller
                 header("Refresh:0");
 
             }
-
         }
-
 
         /*
          * get all the questionnaires from the current Resident
          */
-
         $cond['table'] = "a18ux02.Questionnaires";
         $cond['where'] = array('Resident_residentID' => $_GET['id'],
             'completed' => 1,
@@ -568,9 +577,11 @@ class Caregiver extends CI_Controller
 
     public function floorSelect()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
+        //load the number of floors from the db to create the buttons
         $maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()), true);
         $data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
 
@@ -580,27 +591,21 @@ class Caregiver extends CI_Controller
 
     }
 
+    /*
+     * load the floor overview page
+     */
     public function roomSelect()
     {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
         $data = array();
-
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-
         $this->parser->parse('templates/floorView', $data);
-
-
     }
 
-    public function residentSelect()
-    {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-
-    }
-
+    /**
+     * load the floor comparison page
+     */
     public function floorCompare()
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
@@ -618,6 +623,7 @@ class Caregiver extends CI_Controller
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/floor_comparison', $data);
     }
+
 
     public function saveNote()
     {
@@ -677,8 +683,6 @@ class Caregiver extends CI_Controller
 
     }
 
-
-    // This function used to reset the password
     function resetPassword($email, $activation_id)
     {
         $email = urldecode($email);
@@ -723,20 +727,14 @@ class Caregiver extends CI_Controller
         $data['sections'] = $result;
 
         if ($this->input->post('questionSubmit')) {
-            //$this->form_validation->set_rules('section_input', 'Section', 'required');
             $this->form_validation->set_rules('question', 'Question', 'required');
-
             if ($this->form_validation->run() == true) {
-
                 $newSection = strip_tags($this->input->post('section_input'));
                 $question = strip_tags($this->input->post('question'));
                 $sectionId = strip_tags($this->input->post('section'));
-
                 $this->caregivers->insertQuestion($question, $newSection, $sectionId);
             }
-
         }
-
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/newQuestion', $data);
     }
@@ -754,6 +752,7 @@ class Caregiver extends CI_Controller
         }
     }
 
+    //check if the contact person already exists (only on email)
     public function cp_check($str)
     {
         $checkEmail = $this->residents->lookUpEmail($str);
@@ -767,6 +766,7 @@ class Caregiver extends CI_Controller
         }
     }
 
+    //check the number of people in the room
     public function room_check($str)
     {
 
@@ -939,8 +939,7 @@ class Caregiver extends CI_Controller
     }
 
 
-    public
-    function getFloorDataLastWeek()
+    public function getFloorDataLastWeek()
     {
         $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
@@ -967,8 +966,7 @@ class Caregiver extends CI_Controller
     }
 
 
-    public
-    function getFloorSpinData()
+    public function getFloorSpinData()
     {
         $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
                     from a18ux02.Questionnaires 
@@ -993,8 +991,7 @@ class Caregiver extends CI_Controller
         }
     }
 
-    public
-    function deleteCaregiver()
+    public function deleteCaregiver()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
@@ -1015,8 +1012,7 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/deleteCaregiver', $data);
     }
 
-    public
-    function deleteResident()
+    public function deleteResident()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
@@ -1037,8 +1033,7 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/deleteResident', $data);
     }
 
-    public
-    function CaregiverDelete()
+    public function CaregiverDelete()
     {
         $id = $_POST['idCaregiver'];
         $this->caregivers->deleteCaregiverById($id);
@@ -1046,8 +1041,7 @@ class Caregiver extends CI_Controller
     }
 
 
-    public
-    function ResidentDelete()
+    public function ResidentDelete()
     {
         $id = $_POST['idResident'];
         $this->caregivers->deleteResidentById($id);

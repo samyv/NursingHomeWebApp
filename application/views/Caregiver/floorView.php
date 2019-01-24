@@ -68,7 +68,7 @@
 
 
                 $.ajax({
-                    url: '<?=base_url()?>/caregiver/getResidentImage/?id=' + room['residentID'],
+                    url: '<?=base_url()?>caregiver/getResidentImage/?id=' + room['residentID'],
                     dataType: 'text',
                     success: function ($image) {
                         image.attr("src", 'data:image/jpg;base64, ' + $image);
