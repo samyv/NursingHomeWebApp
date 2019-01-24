@@ -95,7 +95,7 @@ html,body{
 
 .buttons {grid-area: buttons;}
 
-input[type=submit],input[type=button], .file-upload{
+input[type=submit],input[type=button],.file-upload{
     float: left;
     background-color: #66a5ad;
     color: white;
@@ -105,12 +105,17 @@ input[type=submit],input[type=button], .file-upload{
     margin: 4px 2px;
 }
 
-input[type=submit]:hover,input[type=button]:hover, .file-upload:hover {
+input[type=submit]:hover,input[type=button]:hover,.file-upload:hover {
     opacity: 0.8;
+    background-color: #107383;
+
 }
 
 input[type=file]{
-    display: none;
+    position: absolute;
+    left:0;
+    top:0;
+    opacity:0;
 }
 
 .modal{

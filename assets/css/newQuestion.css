@@ -27,6 +27,8 @@ html,body{
 .section{
     grid-area: section;
     align-self: center;
+    color: #002532!important;
+
 }
 
 .section_input{ grid-area: section_input;}
@@ -34,13 +36,32 @@ html,body{
 .question{
     grid-area: question;
     align-self: center;
+    color: #002532!important;
+
 }
 
-.question_input{ grid-area: question_input;}
+.question_input{
+    grid-area: question_input;
+}
 
 .buttons{
     grid-area: buttons;
-    align-self: center;
+}
+
+input[type=submit],input[type=button], .file-upload{
+    float: left;
+    background-color: #66a5ad;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 4px 2px;
+}
+
+input[type=submit]:hover,input[type=button]:hover, .file-upload:hover {
+    opacity: 0.8;
+    background-color: #107383;
+
 }
 
 @media screen and (max-width: 700px) {

@@ -25,6 +25,7 @@ $lang['email'] = 'Email';
 $lang['ph email'] = 'example@example.com';
 $lang['password'] = 'Password';
 $lang['title contact information'] = 'Contactperson information';
+$lang['toResident'] = 'Go to resident login';
 
 
 //header
@@ -46,11 +47,11 @@ $lang['search resident'] = 'Search resident';
 $lang['compare floor'] = 'Compare floor';
 $lang['select floor'] = 'Select floor';
 $lang['notes'] = 'Notes';
-$lang['calendar'] = 'Calendar';
+$lang['calendar'] = 'Weather';
 $lang['saved'] = 'Saved';
 
-//acount page
-$lang['title account '] = 'Change account settings';
+//account page
+$lang['title account'] = 'Change your settings';
 $lang['old password'] = 'Old password';
 $lang['ph old password'] = 'Enter old password';
 $lang['ph new password'] = 'Enter new password';
@@ -59,6 +60,8 @@ $lang['new password'] = 'New password';
 $lang['confirm password'] = 'Confirm password';
 $lang['header delete note'] = 'Delete note?';
 $lang['text delete note'] = 'Are you sure you want to delete this note?';
+$lang['saved'] = 'Your new settings have been saved.';
+
 
 //building view
 $lang['title buidlingView'] = 'Please select desired floor';
@@ -70,9 +73,9 @@ $lang['age'] = 'Age';
 
 //floor comparison
 $lang['title floor compare'] = 'Select floors to compare';
-$lang['last year'] = 'last year';
-$lang['last month'] = 'last month';
-$lang['last week'] = 'last week';
+$lang['last year'] = 'previous year';
+$lang['last month'] = 'previous month';
+$lang['last week'] = 'previous 7 days';
 
 //floor view
 $lang['title floor view'] = 'Please select the desired resident';
@@ -91,6 +94,10 @@ $lang['ph firstname'] = 'Enter first name';
 $lang['ph lastname'] = 'Enter last name';
 $lang['ph floornr'] = 'Enter floor number';
 $lang['ph roomnr'] = 'Enter room number';
+$lang['phone format']= 'wrong format.';
+$lang['cp exists'] = 'There is already a contact person with that email, please select it from the list.';
+$lang['room check']='There are already 2 residents in this room.';
+
 
 //new question
 $lang['title section'] = 'Choose a section or create a new one';
@@ -107,12 +114,17 @@ $lang['subtitle header'] = 'Providing better care';
 $lang['forgot password'] = 'Forgot password?';
 $lang['register'] = 'Register';
 $lang['login'] = 'Login';
+$lang['wrong email password'] = 'You have entered a wrong email or password, please try again.';
+$lang['activate account'] = 'Please make sure you have activated your account, check your email and spam folder.';
+$lang['wrong room'] = 'Wrong room number, please try again.';
+
 
 //forgot password
 $lang['title forgot pass'] = 'Forgot your password?';
 $lang['text forgot pass'] = 'Please fill in your email so we can send you a link to reset your password.';
 $lang['send'] = 'Send mail';
 $lang['link'] = 'A link to reset your password has been sent to ';
+$lang['pw reset'] = 'Your password has been reset.';
 
 //register
 $lang['nursing home'] = 'Nursing home';
@@ -120,6 +132,14 @@ $lang['key'] = 'Key';
 $lang['ph key'] = 'Enter key';
 $lang['ph password'] = 'Enter password';
 $lang['ph conf password'] = 'Confirm password';
+$lang['something wrong'] = 'Something went wrong...';
+$lang['email exists'] = 'The given email is already linked to an account.';
+$lang['key incorrect'] = 'The given key is incorrect';
+$lang['pw incorrect'] = 'The password is incorrect.';
+$lang['resident register success'] = 'The new resident is added to the nursing home.';
+$lang['date format'] = 'The date format must be mm/dd/yyyy.';
+
+
 
 //resident dashboard
 $lang['select questionnaire'] ='Select a questionnaire';
@@ -134,10 +154,17 @@ $lang['title modal delete'] ='Delete';
 $lang['title delete caregiver'] ='Delete caregiver';
 $lang['text delete caregiver'] ='Are you sure you want to delete this caregiver?';
 
+//dropdownmodel
+$lang['Overview Resident'] = 'Search Resident';
+$lang['Overview Questions'] ='Overview Questions';
+$lang['Selection Floor'] ='Select Floor';
+$lang['Comparison Floor'] ='Compare Floors';
+$lang['Add Resident'] ='Add Resident';
+$lang['Delete Resident'] ='Delete Resident';
+$lang['Delete Caregiver'] ='Delete Caregiver';
 
-
-
-
-
-
-
+//notifications
+$lang['title notifications'] = 'Notifications';
+$lang['notification floor'] = 'Floors';
+$lang['notification residents'] = 'Residents';
+$lang['notification seen'] = 'seen all';

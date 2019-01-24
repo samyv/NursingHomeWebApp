@@ -19,7 +19,7 @@ html,body{
     grid-template-rows: 6em 8em 3em 4fr 4fr 1fr;
     grid-template-areas:
             ". title title title title title title title title title title ."
-            ". list list  . tab tab tab tab tab tab tab ."". list list  .  date date date . . . . ."
+            ". list list  . tab tab tab tab tab tab tab ."". list list  .  date date date date date . . ."
             ". list list  . graph graph graph graph graph graph graph ."
             ". . . . graph graph graph graph graph graph graph ."
             "footer footer footer footer footer footer footer footer footer footer footer footer";
@@ -32,7 +32,7 @@ html,body{
 .title{
     grid-area: title;
     padding-top: 20px;
-    color: #003b46;
+    color: #002532!important;
     font-size: 32px;
 }
 
@@ -72,7 +72,8 @@ html,body{
 
 .categories{
     grid-area: tab;
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
     display: flex;
     flex-direction: row;
     border: 1px solid #ccc;
@@ -93,12 +94,14 @@ html,body{
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-    background-color: #ddd;
+    opacity: 0.8;
+    background-color: #107383;
+
 }
 
 /* Create an active/current tablink class */
 .tab button.active {
-    background-color: #003b46;
+    background-color: #0c5460;
 }
 
 /* Style the tab content */
@@ -117,6 +120,9 @@ html,body{
 .container:hover{
     opacity: 0.8;
     transform: scale(1.05);
+    background-color: #107383;
+    cursor: pointer;
+
 }
 
 .list{
@@ -149,14 +155,19 @@ html,body{
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 6em 6em 4fr 4fr 1fr;
+        grid-template-rows: 6em min-content min-content 2em 1fr;
         grid-template-areas:
                 ". title title title title title title title title title title ."
                 ". tab tab tab tab tab tab tab tab tab tab ."
                 ". list list  graph graph graph graph graph graph graph graph ."
-                ". list list graph graph graph graph graph graph graph graph ."
+                ". . . . date date date date date date date ."
                 "footer footer footer footer footer footer footer footer footer footer footer footer";
 
     }
 
+    .container:hover{
+    }
+
+    .tab button:hover {
+    }
 }

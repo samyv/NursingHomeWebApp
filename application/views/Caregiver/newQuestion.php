@@ -4,6 +4,7 @@
     <link href="<?php echo base_url(); ?>assets/css/newQuestion.css" rel='stylesheet' type='text/css' />
     <link rel="stylesheet" href="assets/css/bootstrap.css">
     <link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/transitions.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <title>{page_title}</title>
 </head>
@@ -11,7 +12,7 @@
 <body>
 
 <form action="" method="post">
-    <div class="grid-container">
+    <div class="grid-container fade-in">
         <div class="section">
             <h3><?php echo ($this->lang->line('title section'))?> </h3>
         </div>

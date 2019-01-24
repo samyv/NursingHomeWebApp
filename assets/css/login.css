@@ -53,13 +53,22 @@ body {
     opacity: 0.8;
 }
 
-.h1 {
-    align-self: center;
-    justify-self: center;
-    text-align: center;
-    background-color: #003b46;
+nav {
+    background-color: #003B46;
+    width: 100%;
+}
+
+.navbar-text{
     color: white !important;
-    width: 150%;
+}
+
+.nav-link{
+    color: white !important;
+}
+
+.header-title{
+    margin: 0;
+    justify-content: center;
 }
 
 .image {
@@ -78,18 +87,10 @@ body {
 
 #submitButtons{
     width: 100%;
-    display: grid;
-    grid-template-areas: "submit register";
 }
 
 input[type=submit]{
-    grid-area: submit;
-    width: 150px;
-}
-
-input[type=button]{
-    grid-area: register;
-    width: 150px;
+    width: 100%;
 }
 
 input[type=email], input[type=password] {

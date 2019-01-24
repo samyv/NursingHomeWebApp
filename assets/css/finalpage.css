@@ -26,7 +26,7 @@ body{
 
 #name{
     grid-area: name;
-    background-color: #94b7a0;
+    background-color: #9eaea3;
     height: 100px;
 }
 
@@ -61,7 +61,7 @@ body{
 }
 
 #previous_btn{
-    background-color: #B1D4BE;
+    background-color: #9eaea3;
     color: rgba(0, 0, 0, 0.6);
     font-size: 2.5em;
     font-weight: normal;

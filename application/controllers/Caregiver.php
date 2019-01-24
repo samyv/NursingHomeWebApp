@@ -35,6 +35,10 @@ class Caregiver extends CI_Controller
         $data['page_title'] = 'Account overview | GraceAge';
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
 
+        /**
+         * See if there are error or success messages from previous attempts
+         */
+
         if ($this->session->userdata('success_msg')) {
             $data['success_msg'] = $this->session->userdata('success_msg');
             $this->session->unset_userdata('success_msg');
@@ -44,6 +48,9 @@ class Caregiver extends CI_Controller
             $this->session->unset_userdata('error_msg');
         }
 
+        /**
+         * look if the user is already logged in
+         */
         if ($this->session->userdata('isUserLoggedIn')) {
             $result = $this->caregivers->getInfo(array('id' => $this->session->userdata('idCaregiver')));
             $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
@@ -55,6 +62,9 @@ class Caregiver extends CI_Controller
         }
 
 
+        /**
+         * form handling for changing account settings
+         */
         if ($this->input->post('saveSettings')) {
             $idCaregiver = $_SESSION['idCaregiver'];
             $this->form_validation->set_rules('firstname', 'First name', 'required');
@@ -80,10 +90,10 @@ class Caregiver extends CI_Controller
 
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
-                    $this->session->set_userdata('success_msg', 'Your new settings have been saved');
+                    $this->session->set_userdata('success_msg', $this->lang->line('saved'));
                     redirect('account');
                 } else {
-                    $this->session->set_userdata('error_msg', 'Something went wrong...');
+                    $this->session->set_userdata('error_msg', $this->lang->line('wrong email password'));
                     redirect('account');
                 }
             }
@@ -99,10 +109,12 @@ class Caregiver extends CI_Controller
         $this->caregivers->sendEmails();
         $data = array();
         $data['page_title'] = 'Login caregiver | GraceAge';
+        //check if you're previous session is still running
         if ($this->session->userdata('isUserLoggedIn')) {
             redirect('landingpage');
         }
 
+        //get success or error messages from previous attempts
         if ($this->session->userdata('success_msg')) {
             $data['success_msg'] = $this->session->userdata('success_msg');
             $this->session->unset_userdata('success_msg');
@@ -113,6 +125,8 @@ class Caregiver extends CI_Controller
             $this->session->unset_userdata('error_msg');
         }
 
+
+        //form handling
         if ($this->input->post('loginSubmit')) {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean');
             $this->form_validation->set_rules('password', 'password', 'required');
@@ -123,9 +137,9 @@ class Caregiver extends CI_Controller
                 );
                 $checkLogin = $this->caregivers->lookUp($con);
                 if ($checkLogin == 3) {
-                    $data['error_msg'] = "Please make sure you have activated your account, check your email and spam folder.";
+                    $data['error_msg'] = $this->lang->line('activate account');
                 } elseif ($checkLogin == 2) {
-                    $data['error_msg'] = 'Wrong email or password, please try again.';
+                    $data['error_msg'] = $this->lang->line('wrong email password');
                 } elseif ($checkLogin) {
                     if (password_verify(trim($this->input->post('password')), $checkLogin['0']->password)) {
                         $this->session->set_userdata('isUserLoggedIn', TRUE);
@@ -137,7 +151,7 @@ class Caregiver extends CI_Controller
                         if ($checkLogin['0']->supervisor == 1) $this->session->set_userdata('supervisor', $checkLogin['0']->supervisor);
                         redirect('landingPage');
                     } else {
-                        $data['error_msg'] = 'Wrong email or password, please try again.';
+                        $data['error_msg'] = $this->lang->line('wrong email password');
                     }
                 }
             }
@@ -156,10 +170,12 @@ class Caregiver extends CI_Controller
         $data['page_title'] = 'Register new caregiver | GraceAge';
         $cond = array();
 
+        //get all the nursing homes
         $cond["table"] = "a18ux02.NursingHome";
         $result = json_decode(json_encode($this->caregivers->getRows($cond)->result(), true));
         $data['nursingHomes'] = json_decode(json_encode($result), true);
 
+        //form handling
         if ($this->input->post('regisSubmit')) {
             $key = strip_tags($this->input->post('key'));
             $nursingHomeID = strip_tags($this->input->post('nursingHome'));
@@ -184,7 +200,7 @@ class Caregiver extends CI_Controller
                     $this->session->set_userdata('success_msg', 'Your registration was successfully. Please check your email for the activation link.');
                     redirect('index.php');
                 } else {
-                    $data['error_msg'] = 'Some problems occured, please try again.';
+                    $data['error_msg'] = $this->lang->line('something wrong');
                 }
             }
 
@@ -216,13 +232,16 @@ class Caregiver extends CI_Controller
     {
         $checkEmail = $this->caregivers->lookUpEmail($str);
         if ($checkEmail > 0) {
-            $this->form_validation->set_message('email_check', 'The given email already exists.');
+            $this->form_validation->set_message('email_check', $this->lang->line('email exists'));
             return FALSE;
         } else {
             return TRUE;
         }
     }
 
+    /**
+     * check the key given in the register form
+     */
     public function key_check($key, $nursingHomeID)
     {
         $flag = false;
@@ -231,20 +250,13 @@ class Caregiver extends CI_Controller
         } else if ($this->caregivers->checkSupervisorKey($nursingHomeID, $key)) {
             $flag = TRUE;
         } else {
-            $this->form_validation->set_message('key_check', 'Key is incorrect.');
-        }
+            $this->form_validation->set_message('key_check', $this->lang->line('key incorrect'));        }
         return $flag;
     }
 
-    public function supervisor_key_check($key, $nursingHomeID)
-    {
-        if ($this->caregivers->checkSupervisorKey($nursingHomeID, $key)) {
-            return 1;
-        } else {
-            return 0;
-        }
-    }
-
+    /**
+     * check the old password when you change it
+     */
     public function password_check($str, $id)
     {
 
@@ -252,28 +264,31 @@ class Caregiver extends CI_Controller
             'id' => $id);
         $checkPassword = $this->caregivers->lookUpPassword($con);
         if ($checkPassword) {
-            $this->form_validation->set_message('password_check', 'password is incorrect');
+            $this->form_validation->set_message('password_check', $this->lang->line('pw incorrect'));
             return FALSE;
         } else {
             return TRUE;
         }
     }
 
+    /**
+     * load the landing page
+     */
     public function landingPage()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
-
         $data = array();
+        //get the notes
+
         if ($this->caregivers->getNotes($_SESSION['idCaregiver']) != false) {
             $data['notes'] = $this->caregivers->getNotes($_SESSION['idCaregiver']);
         }
 
+        //get the items in the dropdown menu
         $dataHeader['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('landingPage');
-
-        //$cond = array();
-        //$dataHeader['CountNotifications'] = $this->caregivers->getRows($cond);
         $this->parser->parse('templates/header', $dataHeader);
         $this->load->view('Caregiver/landingPage', $data);
 
@@ -281,6 +296,7 @@ class Caregiver extends CI_Controller
 
     public function searchForResident()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -302,6 +318,7 @@ class Caregiver extends CI_Controller
 
     public function newResident()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -362,10 +379,10 @@ class Caregiver extends CI_Controller
                     $dataResident['mime'] = $data['file_type'];
                     if ($this->residents->insert($dataResident)) {
                         unlink($data['full_path']);
-                        $this->session->set_userdata('success_msg', 'The new resident is registered successful.');
+                        $this->session->set_userdata('success_msg', $this->lang->line('resident register success'));
                         redirect('residentAdded');
                     } else {
-                        $data['error_msg'] = "Something went wrong, please try again.";
+                        $data['error_msg'] = $this->lang->line('something wrong');
                     }
                 }
             }
@@ -378,6 +395,7 @@ class Caregiver extends CI_Controller
 
     public function residentAdded()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -402,7 +420,7 @@ class Caregiver extends CI_Controller
         $parts = explode("/", $date);
         if (count($parts) == 3) {
             if (checkdate($parts[1], $parts[0], $parts[2]) == false) {
-                $this->form_validation->set_message('date_valid', 'The Date field must be mm/dd/yyyy');
+                $this->form_validation->set_message('date_valid', $this->lang->line('date format'));
                 return FALSE;
             }
         } else {
@@ -410,15 +428,23 @@ class Caregiver extends CI_Controller
         }
     }
 
+    /**
+     * load the notification page
+     */
     public function notificationView()
     {
+        //check if you're logged in
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
         $data = array();
         $data['floorNotifications'] = $this->caregivers->getNotifications();
 		$data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems();
         $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
-//		print_r($data["floorNotifications"]);
-//		print_r(json_encode($data['floorNotifications']));
-//		print_r($data['floorNotifications']);
+
+        //load dropdown menu items
+        $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('residents');
+
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/notificationView', $data);
 
@@ -429,8 +455,13 @@ class Caregiver extends CI_Controller
         $this->caregivers->deleteDuplicates("a18ux02.Caregiver_notifications");
     }
 
+
+    /**
+     * load the page to select a floor
+     */
     public function buildingView()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -441,8 +472,12 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/buildingView', $data);
     }
 
+    /**
+     * load the page to select a resident
+     */
     public function floorView()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
@@ -462,13 +497,18 @@ class Caregiver extends CI_Controller
         $this->caregivers->updateNotifSeens($notID);
     }
 
+    /**
+     * load the resident overview page
+     */
     public function resDash()
     {
-
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
         $data = array();
+
+        //get resident data out of database
         $cond = array();
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
@@ -479,6 +519,7 @@ class Caregiver extends CI_Controller
         $name .= $row[0]['lastname'];
         $data['page_title'] = "Resident overview | $name";
 
+        //get notes
         if ($this->residents->getNotes($_GET['id']) != false) {
             $data['notes'] = $this->residents->getNotes($_GET['id']);
         }
@@ -492,8 +533,6 @@ class Caregiver extends CI_Controller
         /*
          * change contact info
          */
-
-        $dataContactperson = array();
         if ($this->input->post('saveInfo')) {
             $this->form_validation->set_rules('firstname', 'Contact First Name', 'required|trim|xss_clean');
             $this->form_validation->set_rules('lastname', 'Contact Last Name', 'required|trim|xss_clean');
@@ -513,14 +552,11 @@ class Caregiver extends CI_Controller
                 header("Refresh:0");
 
             }
-
         }
-
 
         /*
          * get all the questionnaires from the current Resident
          */
-
         $cond['table'] = "a18ux02.Questionnaires";
         $cond['where'] = array('Resident_residentID' => $_GET['id'],
             'completed' => 1,
@@ -542,9 +578,11 @@ class Caregiver extends CI_Controller
 
     public function floorSelect()
     {
+        //check if you're logged in
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
         }
+        //load the number of floors from the db to create the buttons
         $maxfloors = json_decode(json_encode($this->caregivers->getNumberOfRows('floor')->result()), true);
         $data['maxFloors'] = $maxfloors[0]['MAX(floor)'];
 
@@ -554,27 +592,21 @@ class Caregiver extends CI_Controller
 
     }
 
+    /*
+     * load the floor overview page
+     */
     public function roomSelect()
     {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+            redirect('index.php');
+        }
         $data = array();
-
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-
         $this->parser->parse('templates/floorView', $data);
-
-
     }
 
-    public function residentSelect()
-    {
-        if (!$this->session->userdata('isUserLoggedIn')) {
-            redirect('index.php');
-        }
-
-    }
-
+    /**
+     * load the floor comparison page
+     */
     public function floorCompare()
     {
         $data['dropdown_menu_items'] = $this->dropdownmodel->get_menuItems('floorCompare');
@@ -592,6 +624,7 @@ class Caregiver extends CI_Controller
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/floor_comparison', $data);
     }
+
 
     public function saveNote()
     {
@@ -651,8 +684,6 @@ class Caregiver extends CI_Controller
 
     }
 
-
-    // This function used to reset the password
     function resetPassword($email, $activation_id)
     {
         $email = urldecode($email);
@@ -678,7 +709,7 @@ class Caregiver extends CI_Controller
             $result = $this->caregivers->updatePassword($data);
 
             if ($result) {
-                $this->session->set_userdata('success_msg', 'Your password has been reset.');
+                $this->session->set_userdata('success_msg', $this->lang->line['pw reset']);
                 redirect('index.php');
             }
         }
@@ -697,20 +728,14 @@ class Caregiver extends CI_Controller
         $data['sections'] = $result;
 
         if ($this->input->post('questionSubmit')) {
-            //$this->form_validation->set_rules('section_input', 'Section', 'required');
             $this->form_validation->set_rules('question', 'Question', 'required');
-
             if ($this->form_validation->run() == true) {
-
                 $newSection = strip_tags($this->input->post('section_input'));
                 $question = strip_tags($this->input->post('question'));
                 $sectionId = strip_tags($this->input->post('section'));
-
                 $this->caregivers->insertQuestion($question, $newSection, $sectionId);
             }
-
         }
-
         $this->parser->parse('templates/header', $data);
         $this->parser->parse('Caregiver/newQuestion', $data);
     }
@@ -723,30 +748,32 @@ class Caregiver extends CI_Controller
         if (preg_match('/^((\+|00)32\s?|0)4(60|[789]\d)((\s?\d{2}){3})|((\s?\d{3}){2})/', trim($str)) || preg_match('/^((\+|00)32\s?|0)(\d\s?\d{3}|\d{2}\s?\d{2})(\s?\d{2}){2}$/', trim($str))) {
             return TRUE;
         } else {
-            $this->form_validation->set_message('regex_check', 'The %s field is not in the right format');
+            $this->form_validation->set_message('regex_check', $this->lang->line('phone format'));
             return FALSE;
         }
     }
 
+    //check if the contact person already exists (only on email)
     public function cp_check($str)
     {
         $checkEmail = $this->residents->lookUpEmail($str);
         print_r($checkEmail);
 
         if ($checkEmail > 0) {
-            $this->form_validation->set_message('cp_check', 'There is already a contact person with that email, please select it from the list.');
+            $this->form_validation->set_message('cp_check', $this->lang->line('cp exists'));
             return FALSE;
         } else {
             return TRUE;
         }
     }
 
+    //check the number of people in the room
     public function room_check($str)
     {
 
         $checkEmail = $this->residents->lookUp($str);
         if (count($checkEmail) > 1) {
-            $this->form_validation->set_message('room_check', 'There are already 2 residents in that room.');
+            $this->form_validation->set_message('room_check', $this->lang->line('room check'));
             return FALSE;
         } else {
             return TRUE;
@@ -913,8 +940,7 @@ class Caregiver extends CI_Controller
     }
 
 
-    public
-    function getFloorDataLastWeek()
+    public function getFloorDataLastWeek()
     {
         $query = "SELECT a18ux02.Resident.floor, a18ux02.Question.questionType, DATE_FORMAT(a18ux02.Questionnaires.timestamp,'%Y-%m-%d') as timestamp, AVG(a18ux02.Answers.answer) as answers  
                     from a18ux02.Questionnaires 
@@ -941,8 +967,7 @@ class Caregiver extends CI_Controller
     }
 
 
-    public
-    function getFloorSpinData()
+    public function getFloorSpinData()
     {
         $query = "SELECT AVG(a18ux02.Answers.answer) as ans, a18ux02.Resident.floor , a18ux02.Question.questionType
                     from a18ux02.Questionnaires 
@@ -967,8 +992,7 @@ class Caregiver extends CI_Controller
         }
     }
 
-    public
-    function deleteCaregiver()
+    public function deleteCaregiver()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
@@ -989,8 +1013,7 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/deleteCaregiver', $data);
     }
 
-    public
-    function deleteResident()
+    public function deleteResident()
     {
         if (!$this->session->userdata('isUserLoggedIn')) {
             redirect('index.php');
@@ -1011,8 +1034,7 @@ class Caregiver extends CI_Controller
         $this->parser->parse('Caregiver/deleteResident', $data);
     }
 
-    public
-    function CaregiverDelete()
+    public function CaregiverDelete()
     {
         $id = $_POST['idCaregiver'];
         $this->caregivers->deleteCaregiverById($id);
@@ -1020,8 +1042,7 @@ class Caregiver extends CI_Controller
     }
 
 
-    public
-    function ResidentDelete()
+    public function ResidentDelete()
     {
         $id = $_POST['idResident'];
         $this->caregivers->deleteResidentById($id);

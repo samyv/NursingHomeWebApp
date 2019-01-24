@@ -24,8 +24,8 @@
         <input type="text" id="myInput"  class= "form-control" onkeyup="search()" placeholder="<?php echo ($this->lang->line('search'));?>" title="Type in a name">
     </div>
 
-    <div class="table">
-        <table id="myTable"></table>
+    <div class="table-container">
+        <table class="table" id="myTable"></table>
     </div>
 </div>
 
@@ -83,6 +83,7 @@
         var database = "";
         database = <?php echo json_encode($listCar)?>;
         var table = document.getElementById("myTable");
+        var thead = document.createElement("thead");
         var tbody = document.createElement("tbody");
         var row = document.createElement('tr');
         var id = document.createElement('th');
@@ -97,12 +98,12 @@
         col2.innerHTML = "<?php echo ($this->lang->line('floor'));?>";
         row.appendChild(col2)
         var col3 = document.createElement('th');
-        col3.innerHTML = "room"; //or nothing
+        col3.innerHTML = "<?php echo ($this->lang->line('room'));?>"; //or nothing
         row.appendChild(col3)
         var col4 = document.createElement('th');
         col4.innerHTML = ""; //or nothing
-        row.appendChild(col4)
-        tbody.appendChild(row)
+        row.appendChild(col4);
+        thead.appendChild(row);
         var elements = [];
         for (var i = 0 ; i < database.length ; i++)
         {
@@ -113,6 +114,7 @@
 
             var id = document.createElement('td');
             id.innerHTML = element.id;
+            id.id = element.id;
             // id.style.display = "block"
             row.appendChild(id);
             var col1 = document.createElement('td');
@@ -132,6 +134,7 @@
             row.appendChild(col4)
             tbody.appendChild(row);
         }
+        table.appendChild(thead)
         table.appendChild(tbody)
     }
 
@@ -147,18 +150,19 @@
 
 
     //Create global variable
-    $IDtoDelete = "global";
+    $IDtoDelete = "";
 
     //On click of yes delete the caregiver with global ID
     //update table??
 
 
     $(document).ready(function () {
-        $('.delete').click(function(){
+        $('.delete').click(function(event){
             //$('#information-modal-content').fadeIn('fast');
-            $IDtoDelete = this.getAttribute('value');
-
-            Confirm($IDtoDelete);
+            $tr = $(event.target).parents("tr");
+            $td = $(event.target).parent().parent().prev().prev().prev().prev();
+            $IDtoDelete = $td.attr("id");
+            Confirm($IDtoDelete,$tr);
 
             //not correct! but get the id of the delete button and change the global variable
 
@@ -167,7 +171,7 @@
 
     });
 
-    function Confirm($IDtoDelete) { /*change*/
+    function Confirm($IDtoDelete, $tr) { /*change*/
         $('.dialog-ovelay').css("display","block");
         $('.doAction').click(function () {
             $(this).parents('.dialog-ovelay').fadeOut(500, function () {
@@ -183,6 +187,7 @@
 
                     }
                 });
+                $tr.remove();
                 //$note.parent().remove();
             });
         });

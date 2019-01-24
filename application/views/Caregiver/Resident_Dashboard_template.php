@@ -19,6 +19,7 @@
     <script src="<?php echo base_url(); ?>assets/js/notes.js"></script>
     <script src="<?php echo base_url(); ?>assets/js/timeGraphResident.js"></script>
     <script src="../javascript/qrcode.min.js"></script>
+    <script src="<?php echo base_url(); ?>assets/js/d3-tip.js"></script>
 
 </head>
 <body>
@@ -182,19 +183,19 @@
         <button onclick="printQrcode()">Download Qrcode</button>
     </div>
 </div>
-<div class='dialog-ovelay' role="alert">
+<div class='dialog-ovelay modal' role="alert">
     <div class='dialog'>
-        <header>
-            <h3>Delete note?</h3>
+        <header class="modal-header">
+            <h3 class="modal-title"><?php echo $this->lang->line('header delete note')?></h3>
             <i class='fa fa-close'></i>
         </header>
         <div class='dialog-msg'>
-            <p>Are you sure you want to delete this note?</p>
+            <p><?php echo $this->lang->line('text delete note')?></p>
         </div>
         <footer>
             <div class='controls'>
-                <button class='button button-danger doAction'>Yes</button>
-                <button class='button button-default cancelAction'>Cancel</button>
+                <button class='button button-danger doAction'><?php echo $this->lang->line('yes')?></button>
+                <button class='button button-default cancelAction'><?php echo $this->lang->line('cancel')?></button>
             </div>
         </footer>
     </div>

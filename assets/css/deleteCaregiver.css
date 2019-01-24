@@ -10,7 +10,7 @@ html, body {
     background-color: #F5FAFA;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows:  min-content 30em 1fr;
+    grid-template-rows: 8em 30em 1fr;
     grid-template-areas:
             ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
@@ -18,8 +18,11 @@ html, body {
 }
 
 .h1 {
-    padding-top: 100px;
+    padding-top: 20px;
     grid-area: Header;
+    color: #002532!important;
+
+
 }
 
 .search {
@@ -29,7 +32,7 @@ html, body {
     grid-area: search;
 }
 
-.table {
+.table-container {
     overflow-y: scroll;
     grid-area: table;
 }
@@ -49,6 +52,8 @@ html, body {
     background-color: #66a5ad;
     color: white;
     pointer-events: none;
+    position: sticky;
+    top:0;
 }
 
 footer {
@@ -57,28 +62,7 @@ footer {
     text-align: center;
 }
 
-.modal{
-    display: none;
-    position: absolute;
-}
 
-.modal-header {
-    display: block !important;
-    align-items: center !important;
-}
-
-.modal-footer {
-    display: block !important;
-    align-items: center !important;
-}
-
-.modal-footer .btn{
-    background-color: #66a5ad;
-    color: white;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-}
 
 
 .close {
@@ -104,4 +88,33 @@ footer {
     left: 50%;
     transform: translate(-50%, -50%);
     width: 25%;
+}
+
+@media screen and (max-width: 1000px){
+
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 3em 250em 1fr;
+        grid-template-areas:
+                ". Header Header Header Header Header Header Header Header Header Header ."
+                ". search search search search search . . . . . ."
+                ". table table table table table table table table table table ."
+                "footer footer footer footer footer footer footer footer footer footer footer footer";
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .grid-container {
+        background-color: #F5FAFA;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 3em 250em 1fr;
+        grid-template-areas:
+                ". Header Header Header Header Header Header Header Header Header Header ."
+                ". search search search search search . . . . . ."
+                ". table table table table table table table table table table ."
+                "footer footer footer footer footer footer footer footer footer footer footer footer";
+    }
 }

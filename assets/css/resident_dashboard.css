@@ -18,14 +18,24 @@ html,body {
     ". picture picture picture	. visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". picture picture picture . visualisation visualisation visualisation visualisation visualisation visualisation ."
 	". info info info . visualisation visualisation visualisation visualisation visualisation visualisation ."
-	". info info info . noteheader noteheader . . . print ."
-	". info info info . hint hint hint . . . ."
+	". noteheader noteheader . . . . . . . print ."
+	". hint hint hint . . . . . . . ."
 }
 
 .picture {
 	grid-area: picture;
-	margin-top: 100px;
+	margin-top: 10px;
 }
+
+.d3-tip {
+	line-height: 1;
+	padding: 6px;
+	background: #66a5ad;
+	color: #fff;
+	border-radius: 4px;
+	font-size: 12px;
+}
+
 
 .picture img{
 	width: 100%;
@@ -38,10 +48,6 @@ html,body {
 
 .info {
 	grid-area: info;
-}
-
-#CIModal, #qrcodeModal, .fa-info-circle, .fa-qrcode  {
-	color: #0c5460;
 }
 
 .total_score{
@@ -78,7 +84,7 @@ html,body {
 
 .visualisation {
 	grid-area: visualisation;
-	margin-top: 100px;
+	margin-top: 10px;
 	border: none;
 	background-color: white;
 	padding: 1em 2em 1em 1em;
@@ -255,12 +261,12 @@ button[type=submit]{
 	}
 }
 
-@media screen and (max-width: 1300px){
+@media screen and (max-width: 1200px){
 
     .grid-container {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: min-content min-content min-content;
+        grid-template-rows: min-content min-content min-content min-content min-content;
         grid-template-areas:
                 ". picture picture picture picture picture . info info info info ."
                 ". picture picture picture picture picture . info info info info ."
@@ -281,7 +287,21 @@ button[type=submit]{
 }
 
 
-@media screen and (max-width: 420px){
+@media screen and (max-width: 700px){
+
+	.grid-container {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+		grid-template-rows: min-content min-content min-content min-content min-content;
+		grid-template-areas:
+				". picture picture picture picture picture . info info info info ."
+				". picture picture picture picture picture . info info info info ."
+				". noteheader noteheader noteheader noteheader . . . . . . ."
+				". hint hint hint hint hint hint hint hint hint hint ."
+				". visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation visualisation ."
+
+	}
+
 	.sectionLabel{
 		display: none;
 	}
@@ -317,5 +337,8 @@ button[type=submit]{
 		width: 80%;
 	}
 
+	.print {
+		display: none;
+	}
 }
 

@@ -8,8 +8,8 @@ html, body {
 .grid-container {
     background-color: #F5FAFA;
     display: grid;
-    grid-template-rows: min-content 30em 1fr;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 8em 250em 1fr;
     grid-template-areas:
             ". . Header Header Header Header Header Header Header Header . ."
             ". . search search table table table table table table . ."
@@ -17,8 +17,10 @@ html, body {
 }
 
 .h1 {
-    padding-top: 100px;
+    padding-top: 20px;
     grid-area: Header;
+    color: #002532!important;
+
 }
 
 .search {
@@ -33,6 +35,7 @@ html, body {
     grid-area: table;
 	cursor: pointer;
 }
+
 
 #myTable {
     border-collapse: collapse;
@@ -63,6 +66,7 @@ footer {
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 250em 1fr;
         grid-template-areas:
                 ". Header Header Header Header Header Header Header Header Header Header ."
                 ". search search table table table table table table table table ."
@@ -76,14 +80,11 @@ footer {
         background-color: #F5FAFA;
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 8em 4em 22em 1fr;
         grid-template-areas:
                 ". Header Header Header Header Header Header Header Header Header Header ."
                 ". search search search search search search search search search search ."
                 ". table table table table table table table table table table ."
                 "footer footer footer footer footer footer footer footer footer footer footer footer";
-    }
-
-    .h1 {
-        visibility: hidden;
     }
 }

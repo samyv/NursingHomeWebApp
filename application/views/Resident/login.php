@@ -9,7 +9,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0'>
-	<script src="../a18ux02/javascript/instascan.min.js"></script>
+	<script src="<?=base_url()?>javascript/instascan.min.js"></script>
 </head>
 <body>
 <div class="logo">
@@ -18,11 +18,10 @@
 </div>
 <video id="camera-stream" autoplay></video>
 <button onclick=autoLogin()></button>
-<img id = qrpicture class = qrpicture src= "../a18ux02/assets/images/qrcode2.png" alt="QR-code">
-<img id = qrmarker class = qrmarker src= "../a18ux02/assets/images/marker.png" alt="QR-code">
+<img id = qrpicture class = qrpicture src= '<?=base_url()?>assets/images/qrcode.png' alt="QR-code">
+<img id = qrmarker class = qrmarker src= '<?=base_url()?>assets/images/marker.png' alt="QR-code">
 <p class = explanation>Hou je QR-code in het groene vierkant</p>
 <script>
-
 
 	let scanner = new Instascan.Scanner({ video: document.getElementById('camera-stream') });
 	scanner.addListener('scan', function (content)

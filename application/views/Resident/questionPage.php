@@ -17,7 +17,7 @@
 <div class="grid-container">
     <div id="header">
         <div id="logout">
-			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'">Log out</button>
+			<button id="logoutbtn" type="submit" onclick="location.href='<?= base_url(); ?>Resident'"> <?php echo $this->lang->line('logout')?></button>
         </div>
         <div id="music">
             <button id="musicbtn" onclick=toggleAudio()>Speel geluid af</button>
@@ -29,7 +29,6 @@
     <div class="progress" id="progressbar">
         <div class="progress-bar progress-bar-striped active" role="progressbar"
              aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:{percentage}">
-            {percentage}
         </div>
     </div>
 

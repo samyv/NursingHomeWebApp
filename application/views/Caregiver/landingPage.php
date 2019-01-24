@@ -21,14 +21,12 @@
             echo $_SESSION['firstname']; ?>!</h1>
     </div>
 
-    <div class="quote">
-        <h5 id="quote">
+    <div class="quote" id="quote">
             <?php
             $number = rand(1, 1000);
             $this->load->model('caregivers');
             echo $this->caregivers->getQuote($number);
             ?>
-        </h5>
     </div>
         <div class="btn-group">
             <input id="1" type="button" class = "btn" onclick="location.href='residents'"
@@ -58,7 +56,7 @@
                 <form name="submitNotes" class="existing form" action="">
                     <input type="number" name="id" id="idinput" class="idinput form-group" style="display:none;"
                            value="<?php echo $note['noteid']; ?>">
-                    <a class="btn deleteNote" name="close">
+                    <a class="deleteNote" data-toggle="modal" data-target="#deleteNoteModal" name="close">
                         <i id="<?php echo $note['noteid']; ?>"
                            class="fa fa-trash-alt"></i></a>
                     <textarea id="notearea" class="note form-group" wrap="hard" maxlength="1000" form="submitNotes"
@@ -72,7 +70,7 @@
     </div>
 
     <div class="googleCalendar">
-		<a class="weatherwidget-io" href="https://forecast7.com/nl/50d884d70/leuven/" data-label_1="LEUVEN" data-label_2="WEATHER" data-theme="original" >LEUVEN WEATHER</a>
+		<a class="weatherwidget-io" href="https://forecast7.com/nl/50d884d70/leuven/" data-label_1="LEUVEN" data-font="Roboto" data-theme="original" data-basecolor="#003b46">LEUVEN WEATHER</a>
 		<script>
 			!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
 		</script>
@@ -80,19 +78,19 @@
 </div>
 
 
-<div class='dialog-ovelay' role="alert">
+<div class='dialog-ovelay modal' role="alert">
     <div class='dialog'>
-        <header>
-            <h3>Delete note?</h3>
+        <header class="modal-header">
+            <h3 class="modal-title"><?php echo $this->lang->line('header delete note')?></h3>
             <i class='fa fa-close'></i>
         </header>
         <div class='dialog-msg'>
-             <p>Are you sure you want to delete this note?</p>
+             <p><?php echo $this->lang->line('text delete note')?></p>
         </div>
         <footer>
             <div class='controls'>
-                <button class='button button-danger doAction'>Yes</button>
-                <button class='button button-default cancelAction'>Cancel</button>
+                <button class='button button-danger doAction'><?php echo $this->lang->line('yes')?></button>
+                <button class='button button-default cancelAction'><?php echo $this->lang->line('cancel')?></button>
             </div>
         </footer>
     </div>
