@@ -112,9 +112,11 @@
             <b> <?php echo ($this->lang->line('title picture'))?></b>
         </div>
         <div class="form-group">
-            <label class="file-upload"><?php echo ($this->lang->line('choose file'))?>
-            </label>
-            <input id="file_upload" type="file" name="imageURL" size="20" class="form-control" value="<?php echo ($this->lang->line('choose file'))?>"/>
+            <div class="file-upload-wrapper">
+                <label for="file_upload" class="file-upload"><?php echo ($this->lang->line('choose file'))?></label>
+                <input id="file_upload" type="file" name="imageURL" size="20" class="form-control" value="<?php echo ($this->lang->line('choose file'))?>"/>
+                <span id="filename"></span>
+            </div>
         </div>
 
         <div class = "extra">
@@ -280,16 +282,18 @@
 			$('#information-contactperson-modal-content').fadeOut('fast');
 		})
 
-        $('.file-upload').click(function () {
-            $('#file_upload').click();
-        })
-
         $(".contact").on("change", function () {
-            console.log("hurray");
             document.getElementById("existingCP").checked=false;
         })
 
-	});
+        $("#file_upload").change(function() {
+            filename = this.files[0].name;
+            console.log(filename);
+            $("#filename").html(filename);
+
+        });
+
+    });
 
 </script>
 
