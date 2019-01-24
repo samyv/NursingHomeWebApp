@@ -167,6 +167,7 @@ $lang['notification floor'] = 'Verdiepingen';
 $lang['notification residents'] = 'Bewoners';
 $lang['notification seen'] = 'alles bekeken';
 
+
 //resident dashboard
 $lang['qrcode'] = 'Genereer QR code';
 $lang['qrcode title'] = 'QR code';
