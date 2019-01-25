@@ -102,7 +102,6 @@ class Caregiver extends CI_Controller
                     $userData['new_password'] = password_hash(trim($this->input->post('new_password')), PASSWORD_BCRYPT, array("cost" => 13));
                 }
 
-                print_r($userData);
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', $this->lang->line('saved'));
@@ -653,7 +652,6 @@ class Caregiver extends CI_Controller
         );
         if (isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
-        print_r(json_encode($idNote->result()));
         return json_encode($idNote->result());
     }
 
@@ -791,7 +789,6 @@ class Caregiver extends CI_Controller
     public function cp_check($str)
     {
         $checkEmail = $this->residents->lookUpEmail($str);
-        print_r($checkEmail);
 
         if ($checkEmail > 0) {
             $this->form_validation->set_message('cp_check', $this->lang->line('cp exists'));
@@ -822,7 +819,6 @@ class Caregiver extends CI_Controller
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
-        print_r(base64_encode($row[0]['picture']));
         return base64_encode($row[0]['picture']);
     }
 
@@ -837,7 +833,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -853,7 +848,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -873,7 +867,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->executeQuery($query)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -891,7 +884,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -917,7 +909,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                print_r($result);
             }
         }
     }
@@ -942,7 +933,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->executeQuery($query)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
         }
     }
 
@@ -968,7 +958,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                print_r($result);
             }
         }
     }
@@ -995,7 +984,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                print_r($result);
             }
         }
     }
@@ -1021,7 +1009,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                //print_r($result);
             }
         }
     }
