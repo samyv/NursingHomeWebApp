@@ -51,15 +51,16 @@ class Caregiver extends CI_Controller
         /**
          * look if the user is already logged in
          */
-        if ($this->session->userdata('isUserLoggedIn')) {
-            $result = $this->caregivers->getInfo(array('id' => $this->session->userdata('idCaregiver')));
-            $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
-            //load the view
-            $this->parser->parse('templates/header', $data);
-            $this->parser->parse('Caregiver/account', $data);
-        } else {
+        if (!$this->session->userdata('isUserLoggedIn')) {
+
             redirect('index.php');
         }
+
+        $result = $this->caregivers->getInfo(array('id' => $this->session->userdata('idCaregiver')));
+        $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
+        //load the view
+        $this->parser->parse('templates/header', $data);
+        //$this->parser->parse('Caregiver/account', $data);
 
 
         /**
@@ -72,7 +73,8 @@ class Caregiver extends CI_Controller
             $this->form_validation->set_rules('floor', 'Floor number', 'required|is_natural_no_zero');
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|xss_clean|trim');
             $this->form_validation->set_rules('old_password', 'old password', 'required|trim|callback_password_check[' . $idCaregiver . ']');
-            if (isset($_POST['new_password'])) {
+
+            if (isset($_POST['new_password'])&&$_POST['new_password']!=="") {
                 $this->form_validation->set_rules('new_password', 'new password', 'required|trim');
                 $this->form_validation->set_rules('conf_password', 'confirm password', 'required|matches[new_password]|trim');
             }
@@ -83,23 +85,28 @@ class Caregiver extends CI_Controller
                 $userData['email'] = strip_tags($this->input->post('email'));
                 $userData['floor'] = strip_tags($this->input->post('floor'));
                 $userData['idCaregiver'] = $idCaregiver;
-                $userData['old_password'] = password_hash(trim($this->input->post('old_password')), PASSWORD_BCRYPT, array("cost" => 13));
-                if (!empty($_POST['new_password'])) {
+                //$userData['old_password'] = password_hash(trim($this->input->post('old_password')), PASSWORD_BCRYPT, array("cost" => 13));
+                if (!empty($_POST['new_password'])&&$_POST['new_password']!=="") {
                     $userData['new_password'] = password_hash(trim($this->input->post('new_password')), PASSWORD_BCRYPT, array("cost" => 13));
                 }
 
+                print_r($userData);
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', $this->lang->line('saved'));
-                    redirect('account');
+
+                    //redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', $this->lang->line('wrong email password'));
                     redirect('account');
                 }
             }
         }
+        $this->parser->parse('Caregiver/account', $data);
         $data['caregiver'] = $userData;
+        //$this->parser->parse('Caregiver/account', $data);
     }
+
 
     /**
      * User login
@@ -262,6 +269,7 @@ class Caregiver extends CI_Controller
     {
         $con['conditions'] = array('password' => hash('sha256', $str),
             'id' => $id);
+
         $checkPassword = $this->caregivers->lookUpPassword($con);
         if ($checkPassword) {
             $this->form_validation->set_message('password_check', $this->lang->line('pw incorrect'));

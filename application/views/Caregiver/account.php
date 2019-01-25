@@ -18,6 +18,7 @@
 	}elseif(!empty($error_msg)){
 		echo '<p class="statusMsg">'.$error_msg.'</p>';
 	}
+
 	?>
 	<div class="grid-container">
 		<div class="header">

@@ -66,7 +66,7 @@ Class Caregivers extends CI_Model
 			$id = $params['conditions']["id"];
 			$sql = "SELECT password FROM a18ux02.Caregiver WHERE idCaregiver = '$id'";
 			$result = $this->db->query($sql)->result();
-			if ($password != $result['0']->password) {
+			if (password_verify($password, $result['0']->password)) {
 				return true;
 			} else {
 				return false;
@@ -128,22 +128,22 @@ Class Caregivers extends CI_Model
 		$floor = $data['floor'];
 		$lastname = $data['lastname'];
 		$email = $data['email'];
-		$oldPassword = $data['old_password'];
+		//$oldPassword = $data['old_password'];
 
 		if (!empty($data['new_password'])) {
 			$newPassword = $data['new_password'];
 			$sql = "UPDATE a18ux02.Caregiver 
                 SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', password ='$newPassword', modified = CURRENT_TIME
                 WHERE idCaregiver = '$idCaregiver'";
-			$insert = $this->db->query($sql);
+			$insert = $this->db->query($sql)->result();
 		} else {
 			$sql = "UPDATE a18ux02.Caregiver 
                 SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', modified = CURRENT_TIME
-                WHERE idCaregiver = '$idCaregiver'  AND password = '$oldPassword'";
+                WHERE idCaregiver = '$idCaregiver'";
 			$insert = $this->db->query($sql);
 		}
 		//Update user data to users table
-
+        print_r($insert);
 		//return the status
 		if ($insert) {
 			return $insert;
