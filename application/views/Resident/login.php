@@ -17,7 +17,6 @@
 	<div id="subtitle">Providing better care</div>
 </div>
 <video id="camera-stream" autoplay></video>
-<button onclick=autoLogin()></button>
 <img id = qrpicture class = qrpicture src= '<?=base_url()?>assets/images/qrcode.png' alt="QR-code">
 <img id = qrmarker class = qrmarker src= '<?=base_url()?>assets/images/marker.png' alt="QR-code">
 <p class = explanation>Hou je QR-code in het groene vierkant</p>

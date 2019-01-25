@@ -63,6 +63,7 @@ $lang['confirm password'] = 'Confirm password';
 $lang['header delete note'] = 'Delete note?';
 $lang['text delete note'] = 'Are you sure you want to delete this note?';
 $lang['saved'] = 'Your new settings have been saved.';
+$lang['fk pref'] = "Floor preferences";
 
 
 //building view

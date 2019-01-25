@@ -135,15 +135,27 @@ Class Caregivers extends CI_Model
 			$sql = "UPDATE a18ux02.Caregiver 
                 SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', password ='$newPassword', modified = CURRENT_TIME
                 WHERE idCaregiver = '$idCaregiver'";
-			$insert = $this->db->query($sql)->result();
+			$insert = $this->db->query($sql);
 		} else {
 			$sql = "UPDATE a18ux02.Caregiver 
                 SET firstname = '$firstname', lastname ='$lastname', email='$email', floor='$floor', modified = CURRENT_TIME
                 WHERE idCaregiver = '$idCaregiver'";
 			$insert = $this->db->query($sql);
 		}
+
+		$result = $this->getInfo(array('id' => $this->session->userdata('idCaregiver')));
+		$array = json_decode(json_encode($result['0']), True);
+
+		$fknp = $array['FK_NotificationPref'];
+
+		$sql = "SELECT FK_Floorselect FROM a18ux02.NotificationPreferences WHERE NotificationPreferencesID = '$fknp';";
+		$result = json_decode(json_encode($this->db->query($sql)->row()),true);
+		$fk_Fs = $result['FK_Floorselect'];
+
+
+		$sql3 = "UPDATE a18ux02.FloorNotification SET Floor1 = ".$data['f1']." , Floor2 = ".$data['f2']."  , Floor3 = ".$data['f3']." , Floor4 = ".$data['f4']." , Floor5 = ".$data['f5']." WHERE FloorNotificationID = '$fk_Fs';";
+		$this->db->query($sql3);
 		//Update user data to users table
-        print_r($insert);
 		//return the status
 		if ($insert) {
 			return $insert;
@@ -320,7 +332,7 @@ Class Caregivers extends CI_Model
 
 			//UPDATE timestamp
 			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendWeekly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
-//			$this->db->query($sql);
+			$this->db->query($sql);
 		}
 
 	}
@@ -390,9 +402,19 @@ Class Caregivers extends CI_Model
 
 			//UPDATE timestamp
 			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendMonthly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
-//			$this->db->query($sql);
+			$this->db->query($sql);
 		}
 
+	}
+	public function getFloors($fk){
+		$sql = "SELECT FK_Floorselect FROM a18ux02.NotificationPreferences WHERE NotificationPreferencesID = '$fk';";
+		$result = json_decode(json_encode($this->db->query($sql)->row()),true);
+		$fk_Fs = $result['FK_Floorselect'];
+
+		$sql2 = "SELECT * FROM a18ux02.FloorNotification WHERE FloorNotificationID = '$fk_Fs';";
+		$result2 = json_decode(json_encode($this->db->query($sql2)->row()),true);
+		array_shift($result2);
+		return $result2;
 	}
 
 	public function sendWeeklyNots(){

@@ -6,6 +6,7 @@
 	<link rel="shortcut icon" type="image/x-icon" href="<?=base_url()?>assets/images/logo.png">
 	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 	<link rel="stylesheet" href="assets/css/transitions.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<title>{page_title}</title>
 </head>
 <body>
@@ -97,6 +98,13 @@
                    placeholder="<?php echo ($this->lang->line('ph confirm password'));?>">
 			<?php echo form_error('conf_password','<span class="help-block">','</span>'); ?>
 		</div>
+		<div class="fk_pref">
+			<b><?php
+				echo ($this->lang->line('fk pref'));?>
+			</b>
+		</div>
+		<div id = "checkboxFloors" class="fk_pref_input">
+		</div>
         <div class="buttons">
             <input type="submit" name="saveSettings"
                    value=<?php echo ($this->lang->line('save'));?> />
@@ -106,5 +114,29 @@
 	</div>
 
 </form>
+<script>
+	$(function () {
+		var floors = [<?php echo '"'.implode('","', $floors).'"' ?>];
+		i = 0;
+		floors.forEach(function (e) {
+			var floorFK = floors[i]
+			console.log(floorFK)
+			i++;
+			namee = "f"+i
+			$('#checkboxFloors').append(" "+i+": ");
+			var child1 = undefined;
+			if(floorFK == 1) {
+				child = $("<input type='checkbox' name=" + namee+" checked>");
+			} else {
+				child = $("<input type='checkbox' name=" + namee+" >");
+			}
+
+			$('#checkboxFloors').append(child);
+
+
+		})
+	})
+
+</script>
 </body>
 </html>

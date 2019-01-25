@@ -4,7 +4,7 @@
 .grid-container {
 	display: grid;
 	grid-template-columns: 1fr 1fr 1fr 1fr 1fr [firstn] 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-	grid-template-rows: 5em 5em 3em 3em 3em 3em 1fr;
+	grid-template-rows: 5em 5em 3em 3em 3em 3em 3em 1fr;
 	grid-template-areas:
 			"headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
 			". . title title title title title title title title . ."
@@ -12,6 +12,7 @@
 			". . lastname lastname_input lastname_input  . old_pass old_pass old_pass_input old_pass_input . ."
 			". . floor floor_input floor_input  . new_pass new_pass new_pass_input new_pass_input . ."
 			". . . . . . conf_pass conf_pass conf_pass_input conf_pass_input . ."
+			". . . . . . fk_pref fk_pref fk_pref_input fk_pref_input . ."
 			". . button button button . . . . . . ."
 }
 div label{
@@ -31,6 +32,9 @@ div label{
 
 .conf_pass { grid-area: conf_pass; }
 
+.fk_pref { grid-area: fk_pref; }
+
+.fk_pref_input { grid-area: fk_pref_input; }
 
 .header {
 	grid-area: headerr;

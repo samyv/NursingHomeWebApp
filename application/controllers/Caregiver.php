@@ -58,7 +58,10 @@ class Caregiver extends CI_Controller
 
         $result = $this->caregivers->getInfo(array('id' => $this->session->userdata('idCaregiver')));
         $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
-        //load the view
+
+        $fknp = $data['caregiver']['FK_NotificationPref'];
+        $floors = $this->caregivers->getFloors($fknp);
+        $data['floors'] = $floors;
         $this->parser->parse('templates/header', $data);
         //$this->parser->parse('Caregiver/account', $data);
 
@@ -80,6 +83,14 @@ class Caregiver extends CI_Controller
             }
 
             if ($this->form_validation->run() == true) {
+				for($i = 1; $i <=5 ; $i++){
+					$f = "f".$i;
+					if($this->input->post($f) == "on"){
+						$userData[$f] = 1;
+					} else {
+						$userData[$f] = 0;
+					}
+				}
                 $userData['firstname'] = strip_tags($this->input->post('firstname'));
                 $userData['lastname'] = strip_tags($this->input->post('lastname'));
                 $userData['email'] = strip_tags($this->input->post('email'));
@@ -90,12 +101,10 @@ class Caregiver extends CI_Controller
                     $userData['new_password'] = password_hash(trim($this->input->post('new_password')), PASSWORD_BCRYPT, array("cost" => 13));
                 }
 
-                print_r($userData);
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', $this->lang->line('saved'));
-
-                    //redirect('account');
+                    redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', $this->lang->line('wrong email password'));
                     redirect('account');
@@ -104,9 +113,7 @@ class Caregiver extends CI_Controller
         }
         $this->parser->parse('Caregiver/account', $data);
         $data['caregiver'] = $userData;
-        //$this->parser->parse('Caregiver/account', $data);
     }
-
 
     /**
      * User login
@@ -269,7 +276,6 @@ class Caregiver extends CI_Controller
     {
         $con['conditions'] = array('password' => hash('sha256', $str),
             'id' => $id);
-
         $checkPassword = $this->caregivers->lookUpPassword($con);
         if ($checkPassword) {
             $this->form_validation->set_message('password_check', $this->lang->line('pw incorrect'));
