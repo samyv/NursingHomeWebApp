@@ -30,6 +30,7 @@ class Caregiver extends CI_Controller
      */
     public function account()
     {
+
         $data = array();
         $userData = array();
         $data['page_title'] = 'Account overview | GraceAge';
@@ -53,8 +54,11 @@ class Caregiver extends CI_Controller
          */
         if ($this->session->userdata('isUserLoggedIn')) {
             $result = $this->caregivers->getInfo(array('id' => $this->session->userdata('idCaregiver')));
-            $data['caregiver'] = $array = json_decode(json_encode($result['0']), True);
+            $data['caregiver'] = json_decode(json_encode($result['0']), True);
             //load the view
+			$fknp = $data['caregiver']['FK_NotificationPref'];
+			$floors = $this->caregivers->getFloors($fknp);
+			$data['floors'] = $floors;
             $this->parser->parse('templates/header', $data);
             $this->parser->parse('Caregiver/account', $data);
         } else {
@@ -66,6 +70,7 @@ class Caregiver extends CI_Controller
          * form handling for changing account settings
          */
         if ($this->input->post('saveSettings')) {
+
             $idCaregiver = $_SESSION['idCaregiver'];
             $this->form_validation->set_rules('firstname', 'First name', 'required');
             $this->form_validation->set_rules('lastname', 'Last name', 'required');
@@ -78,12 +83,21 @@ class Caregiver extends CI_Controller
             }
 
             if ($this->form_validation->run() == true) {
+				for($i = 1; $i <=5 ; $i++){
+					$f = "f".$i;
+					if($this->input->post($f) == "on"){
+						$userData[$f] = 1;
+					} else {
+						$userData[$f] = 0;
+					}
+				}
                 $userData['firstname'] = strip_tags($this->input->post('firstname'));
                 $userData['lastname'] = strip_tags($this->input->post('lastname'));
                 $userData['email'] = strip_tags($this->input->post('email'));
                 $userData['floor'] = strip_tags($this->input->post('floor'));
                 $userData['idCaregiver'] = $idCaregiver;
                 $userData['old_password'] = password_hash(trim($this->input->post('old_password')), PASSWORD_BCRYPT, array("cost" => 13));
+
                 if (!empty($_POST['new_password'])) {
                     $userData['new_password'] = password_hash(trim($this->input->post('new_password')), PASSWORD_BCRYPT, array("cost" => 13));
                 }
@@ -91,12 +105,15 @@ class Caregiver extends CI_Controller
                 $insert = $this->caregivers->modify($userData);
                 if ($insert) {
                     $this->session->set_userdata('success_msg', $this->lang->line('saved'));
-                    redirect('account');
+                    echo "here";
+//                    redirect('account');
                 } else {
                     $this->session->set_userdata('error_msg', $this->lang->line('wrong email password'));
                     redirect('account');
                 }
-            }
+            } else {
+
+			}
         }
         $data['caregiver'] = $userData;
     }
@@ -635,7 +652,6 @@ class Caregiver extends CI_Controller
         );
         if (isset($_POST['idResident'])) $note['idResident'] = $_POST['idResident'];
         $idNote = $this->caregivers->updateNote($note);
-        print_r(json_encode($idNote->result()));
         return json_encode($idNote->result());
     }
 
@@ -773,7 +789,6 @@ class Caregiver extends CI_Controller
     public function cp_check($str)
     {
         $checkEmail = $this->residents->lookUpEmail($str);
-        print_r($checkEmail);
 
         if ($checkEmail > 0) {
             $this->form_validation->set_message('cp_check', $this->lang->line('cp exists'));
@@ -804,7 +819,6 @@ class Caregiver extends CI_Controller
         $cond['table'] = "a18ux02.Resident LEFT JOIN a18ux02.Pictures ON a18ux02.Resident.pictureId = a18ux02.Pictures.pictureID";
         $cond['where'] = array('Resident.residentID' => $_GET['id']);
         $row = $this->caregivers->getResidentDashboardInfo($cond);
-        print_r(base64_encode($row[0]['picture']));
         return base64_encode($row[0]['picture']);
     }
 
@@ -819,7 +833,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -835,7 +848,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -855,7 +867,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->executeQuery($query)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -873,7 +884,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->getRows($condit)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
             return $result;
         }
     }
@@ -899,7 +909,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                print_r($result);
             }
         }
     }
@@ -924,7 +933,6 @@ class Caregiver extends CI_Controller
         if ($row = $this->caregivers->executeQuery($query)) {
             $result = $row->result();
             $result = json_encode($result);
-            print_r($result);
         }
     }
 
@@ -950,7 +958,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                print_r($result);
             }
         }
     }
@@ -977,7 +984,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                print_r($result);
             }
         }
     }
@@ -1003,7 +1009,6 @@ class Caregiver extends CI_Controller
                 $result2 = json_decode(json_encode($row2->result()), true);
                 $max = $result2[0]['max'];
                 $result = json_encode(array($result, $max));
-                //print_r($result);
             }
         }
     }
