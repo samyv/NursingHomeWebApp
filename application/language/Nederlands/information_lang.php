@@ -64,6 +64,8 @@ $lang['ph confirm password'] = 'Herhaal nieuw wachtwoord';
 $lang['header delete note'] = 'Verwijder notitie?';
 $lang['text delete note'] = 'Bent u zeker dat u deze notitie wilt verwijderen?';
 $lang['saved'] = 'Je wijzigingen zijn opgeslagen.';
+$lang['fk pref'] = "Verdieping voorkeuren";
+
 
 
 //building view
