@@ -320,7 +320,7 @@ Class Caregivers extends CI_Model
 
 			//UPDATE timestamp
 			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendWeekly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
-//			$this->db->query($sql);
+			$this->db->query($sql);
 		}
 
 	}
@@ -390,7 +390,7 @@ Class Caregivers extends CI_Model
 
 			//UPDATE timestamp
 			$sql = "UPDATE a18ux02.GLOBAL SET lastEmailSendMonthly = ".'CURRENT_TIMESTAMP'." WHERE FK_NURSINGHOME = 1;";
-//			$this->db->query($sql);
+			$this->db->query($sql);
 		}
 
 	}
