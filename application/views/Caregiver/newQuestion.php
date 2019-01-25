@@ -35,15 +35,14 @@
 		</div>
 		<div class="save">
 			<button id="save">SAVE</button>
+			<button id="reset">RESET</button>
 		</div>
 	</div>
 <script type="text/javascript">
-
 	let lastSectionClicked = 1;
 	var sections = "";
 	var questionsDB = "";
 	var backupQuestions;
-
 
 	//JQUERY FUNCTION THAT IS CALLED WHEN PAGE IS LOADING
 	$(function () {
@@ -120,20 +119,35 @@
 
 		//SAVE THE QUESTIONNARRIE AND SEND IT TO THE DATABASE
 		$('#save').on('click',function () {
-			$.ajax({
+			let request = $.ajax({
 				url: window.origin+'/a18ux02/Caregiver/updateQuestionnairie',
 				method: 'post',
 				dataType: 'json',
 				data: {
-					//DATA
+					'questions' : questionsDB
 				},
-				success: function(idNote) {
-					//NOTI CG
-				}
 			});
+			request.done(function (response,textStatus,jqXHR) {
+				alert("Questions are saved!")
+			})
+		})
+
+		$('#reset').on('click',function () {
+			let request = $.ajax({
+				url: window.origin+'/a18ux02/Caregiver/updateQuestionnairie',
+				method: 'post',
+				dataType: 'json',
+				data: {
+					'questions' : backupQuestions
+				},
+			});
+			request.done(function (response,textStatus,jqXHR) {
+				alert("Questions are restored!")
+				populateSections();
+				lastSectionClicked = 1;
+			})
 		})
 	})
-
 	//FUNCTION THAT INSERTS THE NEW QUESTION INTO QUESTIONDB AND UPDATES THE PREV AND NEXT SECTIONS
 	let glob_but;
 	function saveQuestion() {
@@ -236,7 +250,7 @@
 			//DELETE NOT WORKING YET
 			else {
 				var questionToErase = questionsDB.filter(e => e.questionType == lastSectionClicked && e.positionNum == this.parentElement.parentElement.children[0].innerText)[0]
-				console.log(questionToErase)
+				console.log(this.parentElement.parentElement.children[0].innerText)
 				var nextQuestionID = questionToErase.nextQuestionId;
 				var prevQuestionID = questionToErase.previousQuestionId;
 				var prevQuestion = questionsDB.filter(e => e.idQuestion == prevQuestionID).slice(-1)[0]
