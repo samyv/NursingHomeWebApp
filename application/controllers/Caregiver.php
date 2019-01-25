@@ -715,6 +715,18 @@ class Caregiver extends CI_Controller
         }
     }
 
+    public function updateQuestionnairie(){
+		$questions = isset($_POST['questions']) ? $_POST['questions'] : null;
+
+		//drop questionstable
+		$this->caregivers->dropQuestionTable();
+		//insert for every question a new row
+		foreach($questions as $question){
+			$this->caregivers->insertQuestion($question['questionText'],$question['questionType'],$question['positionNum'],$question['nextQuestionId'],$question['idQuestion']);
+		}
+		return;
+	}
+
     public function newQuestion()
     {
         $data = array();
@@ -726,6 +738,10 @@ class Caregiver extends CI_Controller
         $row = $this->caregivers->getRows($cond)->result();
         $result = json_decode(json_encode($row), true);
         $data['sections'] = $result;
+		$cond['table'] = "a18ux02.Question";
+		$row = $this->caregivers->getRows($cond)->result();
+		$result = json_decode(json_encode($row), true);
+		$data['questions'] = $result;
 
         if ($this->input->post('questionSubmit')) {
             $this->form_validation->set_rules('question', 'Question', 'required');

@@ -5,78 +5,42 @@
 html,body{
     background-color: #F5FAFA;
 }
-
-
 .grid-container {
-    background-color: #F5FAFA;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    grid-template-rows: 5em 5em 1.2fr 5em 1.2fr 1.2fr;
-    grid-template-areas:
-            "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-            ". . section section section section section section section section . ."
-            ". . section_input section_input section_input section_input section_input section_input section_input section_input . ."
-            ". . question question question question question question question question . ."
-            ". . question_input question_input question_input question_input question_input question_input question_input question_input . ."
-            ". . buttons buttons . . . . . . . ."
-
+	display: grid;
+	grid-template-columns: 0.5fr 1fr 1fr 1fr 1fr 0.5fr 1fr 1fr 1fr 1fr 1fr 0.5fr;
+	grid-template-rows: 0.25fr 1fr 1fr 0.1fr 0.25fr 0.25fr;
+	grid-template-areas:
+			". . . . . . . . . . . ."
+			". sectionTable sectionTable sectionTable sectionTable . questionTable questionTable questionTable questionTable questionTable ."
+			". sectionTable sectionTable sectionTable sectionTable . questionTable questionTable questionTable questionTable questionTable ."
+			". . . . . . . . . . . ." ". . . . . . . . . save save ."
+			". . . . . . . . . . . .";
 }
 
-.header { grid-area: headerr; }
+.sectionTable { grid-area: sectionTable; }
 
-.section{
-    grid-area: section;
-    align-self: center;
-    color: #002532!important;
+.questionTable { grid-area: questionTable; }
 
+.save { grid-area: save; }
+
+.sectionTable, .questionTable {
+	cursor: pointer;
 }
 
-.section_input{ grid-area: section_input;}
 
-.question{
-    grid-area: question;
-    align-self: center;
-    color: #002532!important;
-
+#sTable,#qTable {
+	border-collapse: collapse;
+	width: 100%;
 }
 
-.question_input{
-    grid-area: question_input;
+.sectionTable tr:nth-child(even),.questionTable tr:nth-child(even){background-color: #f2f2f2;}
+
+.sectionTable tr:hover, .questionTable tr:hover{
+	background-color: #ddd;
 }
 
-.buttons{
-    grid-area: buttons;
-}
+.sectionTable th, .questionTable th {
+	background-color: #66a5ad;
+	color: white;
 
-input[type=submit],input[type=button], .file-upload{
-    float: left;
-    background-color: #66a5ad;
-    color: white;
-    padding: 8px 20px;
-    border: none;
-    cursor: pointer;
-    margin: 4px 2px;
-}
-
-input[type=submit]:hover,input[type=button]:hover, .file-upload:hover {
-    opacity: 0.8;
-    background-color: #107383;
-
-}
-
-@media screen and (max-width: 700px) {
-    .grid-container {
-        background-color: #F5FAFA;
-        display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-        grid-template-rows: 0.5fr 5em 1.2fr 5em 1.2fr 1.2fr;
-        grid-template-areas:
-                "headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr headerr"
-                ". section section section section section section section section section section ."
-                ". section_input section_input section_input section_input section_input section_input section_input section_input section_input section_input ."
-                ". question question question question question question question question question question ."
-                ". question_input question_input question_input question_input question_input question_input question_input question_input question_input question_input ."
-                ". buttons buttons buttons . . . . . . . ."
-
-    }
 }
