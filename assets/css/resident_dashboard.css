@@ -241,6 +241,10 @@ button[type=submit]{
 		display: block;
 	}
 
+	.dialog-ovelay{
+		display:none;
+	}
+
 
 	#information-contactperson-modal-content{
 		display: inline;
