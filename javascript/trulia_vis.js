@@ -129,7 +129,7 @@ const heatmapChart = function(p_data, sections){
 
 	legendTile.append("text")
 		.attr("class", "mono")
-		.text(function(d) { return  Math.round(d+1); })
+		.text(function(d,i) { return  i+1; })
 		.attr("x", function(d, i) { return gridSize * 9 + 25; })
 		.attr("y", function(d, i) { return (i * legendElementWidth + 20); })
 

@@ -21,7 +21,7 @@
 </div>
 <div class="grid-container fade-in">
 <form class="p" id="resetPassword" name="resetPassword" method="post" action="" '>
-    <table class="table table-bordered table-hover table-striped">
+    <table class="table ">
         <tbody>
         <tr>
             <td>Enter new Password: </td>
@@ -34,7 +34,7 @@
             <td>
                 <input type="password" name="conf_password" id="conf_password" style="width:250px" required>
             </td>
-            <td><input type = "submit" value="submit" name="resetPassword" class="button"></td>
+            <td><input type = "submit" value="<?php echo $this->lang->line('submit')?>" name="resetPassword" class="button"></td>
         </tr>
 
         </tbody>

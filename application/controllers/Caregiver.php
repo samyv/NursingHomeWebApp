@@ -257,9 +257,9 @@ class Caregiver extends CI_Controller
     /**
      * check the old password when you change it
      */
+
     public function password_check($str, $id)
     {
-
         $con['conditions'] = array('password' => hash('sha256', $str),
             'id' => $id);
         $checkPassword = $this->caregivers->lookUpPassword($con);
@@ -365,9 +365,9 @@ class Caregiver extends CI_Controller
                 // Define file rules
                 $config['upload_path'] = './upload/';
                 $config['allowed_types'] = 'jpg|jpeg';
-                $config['max_size'] = 100;
-                $config['max_width'] = 1024;
-                $config['max_height'] = 1024;
+                $config['max_size'] = 10000;
+                $config['max_width'] = 3096;
+                $config['max_height'] = 3096;
                 $config['encrypt_name'] = TRUE;
                 $this->load->library('upload', $config);
                 $imagename = 'no-img.jpg';
@@ -691,9 +691,9 @@ class Caregiver extends CI_Controller
         $is_correct = $this->caregivers->checkActivationDetails($email, $activation_id);
         $data['email'] = $email;
         $data['activation_code'] = $activation_id;
+        $data['page_title']= "Password reset";
 
         if ($is_correct == 1) {
-
             $this->load->view('Caregiver/newPassword', $data);
         } else {
             redirect('index.php');

@@ -42,4 +42,32 @@ p, .p {
     width: 100%;
 }
 
+input[type=submit]{
+    float: left;
+    background-color: #66a5ad;
+    color: white;
+    padding: 8px 20px;
+    border: none;
+    cursor: pointer;
+    margin: 4px 2px;
+}
+
+input[type=submit]{
+    opacity: 0.8;
+    background-color: #107383;
+
+}
+
+.table td{
+    border-top:none !important;
+}
+
+td{
+    background-color:#F5FAFA;
+}
+
+tr:hover{
+    background-color: #F5FAFA;
+}
+
 
